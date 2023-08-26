@@ -230,4 +230,10 @@ sudo DEBIAN_FRONTEND=noninteractive dpkg --configure -a
 sleep 1
 sudo DEBIAN_FRONTEND=noninteractive apt upgrade -y
 
+# Clean up
+wget https://github.com/davidfoerster/aptsources-cleanup/releases/download/v0.1.7.5.2/aptsources-cleanup.pyz
+chmod +x aptsources-cleanup.pyz
+sudo ./aptsources-cleanup.pyz --yes
+rm ./aptsources-cleanup.pyz
+
 echo "Deploy Finished! Please log out and log in again to take effect."
