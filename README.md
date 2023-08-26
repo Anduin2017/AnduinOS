@@ -114,5 +114,7 @@ AnduinOS 使用的默认壁纸是来自于 [Fluent-gtk-theme](https://github.com
 * 微信的体验并不是很良好，包括无法从剪贴板粘贴图片、无法截图、无法使用系统通知等。
 * VSCode 在 Wayland 下，如果开启了 Fractional Scaling，可能会出现字体模糊的问题。
   * 如果遇到这个问题，可以选择使用 X11 来代替 Wayland。
+  * 也可以选择启动 VSCode 时增加参数： `code --enable-features=UseOzonePlatform --ozone-platform=wayland` 来缓解此问题。
 * Chrome 在 Wayland 下，如果开启了 Fractional Scaling，可能会出现无法输入中文的问题。
   * 如果遇到这个问题，可以选择使用 Firefox 。
+  * 也可以选择启动 Chrome 时增加参数： `GTK_IM_MODULE=ibus google-chrome --enable-features=UseOzonePlatform --ozone-platform=wayland --gtk-version=4` 来缓解此问题。
