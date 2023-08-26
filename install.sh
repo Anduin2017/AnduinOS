@@ -199,17 +199,17 @@ gsettings set org.gnome.desktop.background picture-options "zoom"
 
 echo "Configuring gnome extensions..."
 pip3 install --upgrade gnome-extensions-cli --break-system-packages
-gext -F arcmenu@arcmenu.com
-gext -F backslide@codeisland.org
-gext -F blur-my-shell@aunetx
-gext -F customize-ibus@hollowman.ml
-gext -F dash-to-panel@jderose9.github.com
-gext -F drive-menu@gnome-shell-extensions.gcampax.github.com
-gext -F network-stats@gnome.noroadsleft.xyz
-gext -F no-overview@fthx
-gext -F openweather-extension@jenslody.de
-gext -F stocks@infinicode.de
-gext -F user-theme@gnome-shell-extensions.gcampax.github.com
+~/.local/bin/gext -F arcmenu@arcmenu.com
+~/.local/bin/gext -F backslide@codeisland.org
+~/.local/bin/gext -F blur-my-shell@aunetx
+~/.local/bin/gext -F customize-ibus@hollowman.ml
+~/.local/bin/gext -F dash-to-panel@jderose9.github.com
+~/.local/bin/gext -F drive-menu@gnome-shell-extensions.gcampax.github.com
+~/.local/bin/gext -F network-stats@gnome.noroadsleft.xyz
+~/.local/bin/gext -F no-overview@fthx
+~/.local/bin/gext -F openweather-extension@jenslody.de
+~/.local/bin/gext -F stocks@infinicode.de
+~/.local/bin/gext -F user-theme@gnome-shell-extensions.gcampax.github.com
 dconf load /org/gnome/ < <(curl https://gitlab.aiursoft.cn/anduin/anduinos/-/raw/master/Config/gnome-settings.txt)
 
 # Fix
