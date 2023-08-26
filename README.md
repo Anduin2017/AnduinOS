@@ -62,6 +62,8 @@ AnduinOS 会安装下列软件：
 
 这些软件几乎涵盖了日常使用的所有场景。
 
+AnduinOS 使用 ibus 作为输入法的后端，使用 Rime 作为输入法的前端。运行的默认输入法配置来自 [雾凇拼音](https://github.com/iDvel/rime-ice)。
+
 AnduinOS 会配置下列开发环境：
 
 * NodeJS, NPM & Yarn
