@@ -1,0 +1,213 @@
+[desktop/background]
+color-shading-type='solid'
+picture-options='zoom'
+primary-color='#000000000000'
+secondary-color='#000000000000'
+
+[desktop/input-sources]
+mru-sources=[('xkb', 'us'), ('ibus', 'rime')]
+sources=[('xkb', 'us'), ('ibus', 'rime')]
+xkb-options=@as []
+
+[desktop/interface]
+color-scheme='prefer-dark'
+cursor-theme='DMZ-White'
+font-hinting='slight'
+gtk-theme='Fluent-round-Dark'
+icon-theme='Fluent-dark'
+
+[desktop/peripherals/keyboard]
+numlock-state=true
+
+[desktop/peripherals/mouse]
+accel-profile='flat'
+speed=0.0
+
+[desktop/peripherals/touchpad]
+two-finger-scrolling-enabled=true
+
+[desktop/screensaver]
+color-shading-type='solid'
+picture-options='zoom'
+primary-color='#000000000000'
+secondary-color='#000000000000'
+
+[desktop/search-providers]
+sort-order=['org.gnome.Contacts.desktop', 'org.gnome.Documents.desktop', 'org.gnome.Nautilus.desktop']
+
+[desktop/wm/preferences]
+button-layout=':minimize,maximize,close'
+
+[evince/default]
+window-ratio=(0.98039215686274506, 0.75757575757575757)
+
+[evolution-data-server]
+migrated=true
+
+[gedit/state/window]
+bottom-panel-size=140
+side-panel-active-page='GeditWindowDocumentsPanel'
+side-panel-size=200
+size=(900, 700)
+state=87168
+
+[gnome-system-monitor]
+cpu-colors=[(uint32 0, '#e6194B'), (1, '#f58231'), (2, '#ffe119'), (3, '#bfef45'), (4, '#3cb44b'), (5, '#42d4f4'), (6, '#4363d8'), (7, '#911eb4'), (8, '#f032e6'), (9, '#fabebe'), (10, '#ffd8b1'), (11, '#fffac8'), (12, '#aaffc3'), (13, '#469990'), (14, '#000075'), (15, '#e6beff'), (16, '#d43cf3327999'), (17, '#eeac7999f332'), (18, '#7999f332cb30'), (19, '#f332a7b57999'), (20, '#843a7999f332'), (21, '#9273f3327999'), (22, '#f3327999b5ee'), (23, '#7999d96af332'), (24, '#f332e97e7999'), (25, '#c6037999f332'), (26, '#7999f332a288'), (27, '#f3327f0c7999'), (28, '#799997a0f332'), (29, '#bb1cf3327999'), (30, '#f3327999de97'), (31, '#7999f332e451')]
+current-tab='processes'
+maximized=false
+network-total-in-bits=false
+show-dependencies=false
+show-whose-processes='user'
+
+[mutter]
+experimental-features=['x11-randr-fractional-scaling', 'scale-monitor-framebuffer']
+overlay-key='Super_L'
+
+[nautilus/compression]
+default-compression-format='zip'
+
+[nautilus/icon-view]
+default-zoom-level='large'
+
+[nautilus/list-view]
+default-zoom-level='medium'
+
+[nautilus/preferences]
+default-folder-viewer='list-view'
+migrated-gtk-settings=true
+search-filter-time-type='last_modified'
+search-view='list-view'
+
+[settings-daemon/plugins/color]
+night-light-enabled=false
+
+[shell]
+disable-user-extensions=false
+enabled-extensions=['user-theme@gnome-shell-extensions.gcampax.github.com', 'arcmenu@arcmenu.com', 'openweather-extension@jenslody.de', 'network-stats@gnome.noroadsleft.xyz', 'customize-ibus@hollowman.ml', 'drive-menu@gnome-shell-extensions.gcampax.github.com', 'blur-my-shell@aunetx', 'ding@rastersoft.com', 'ubuntu-dock@ubuntu.com', 'stocks@infinicode.de', 'dash-to-panel@jderose9.github.com', 'backslide@codeisland.org', 'system-monitor-next@paradoxxx.zero.gmail.com', 'extension-list@tu.berry', 'no-overview@fthx']
+favorite-apps=['firefox.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Terminal.desktop', 'code.desktop']
+last-selected-power-profile='performance'
+welcome-dialog-last-shown-version='44.0'
+
+[shell/extensions/arcmenu]
+arc-menu-icon=71
+custom-menu-button-icon-size=38.0
+dash-to-panel-standalone=true
+distro-icon=5
+enable-menu-hotkey=true
+force-menu-location='BottomCentered'
+left-panel-width=375
+menu-background-color='rgba(28,28,28,0.9)'
+menu-border-color='rgb(63,62,64)'
+menu-button-appearance='Icon'
+menu-button-icon='Menu_Icon'
+menu-foreground-color='rgb(211,218,227)'
+menu-height=650
+menu-item-active-bg-color='rgba(228,228,226,0.15)'
+menu-item-active-fg-color='rgb(255,255,255)'
+menu-item-hover-bg-color='rgba(238,238,236,0.08)'
+menu-item-hover-fg-color='rgb(255,255,255)'
+menu-layout='Eleven'
+menu-separator-color='rgb(63,62,64)'
+multi-monitor=true
+override-menu-theme=true
+pinned-app-list=['Firefox Web Browser', '', 'firefox.desktop', 'Files', '', 'org.gnome.Nautilus.desktop', 'Terminal', '', 'org.gnome.Terminal.desktop', 'Text Editor', '', 'org.gnome.TextEditor.desktop', 'Google Chrome', '', 'google-chrome.desktop', 'Visual Studio Code', '', 'code.desktop', 'Docker Desktop', '', 'docker-desktop.desktop', 'Blender', '', 'blender.desktop', 'Nextcloud Desktop', '', 'com.nextcloud.desktopclient.nextcloud.desktop', 'Pinta Image Editor', '', 'pinta.desktop', 'Remmina Remote Desktop Client', '', 'org.remmina.Remmina.desktop', 'Settings', '', 'org.gnome.Settings.desktop', 'Spotify', '', 'spotify.desktop', 'Extensions', '', 'org.gnome.Extensions.desktop', 'Tweaks', '', 'org.gnome.tweaks.desktop', 'JetBrains Rider', '', 'jetbrains-rider.desktop', 'Disk Usage Analyzer', '', 'org.gnome.baobab.desktop', 'WeChat', '', 'com.qq.weixin.deepin.desktop']
+prefs-visible-page=0
+recently-installed-apps=['wps-office-pdf.desktop', 'wps-office-wps.desktop', 'docker-desktop.desktop', 'chrome-kefjledonklijopmnomlcbpllchaibag-Default.desktop', 'chrome-fhihpiojkbmbpdjeoajapmgkhlnakfjf-Default.desktop', 'chrome-fmgjjmmmlfnkbppncabfkddbjimcfncm-Default.desktop', 'chrome-aghbiahbpaijignceidepookljebhfak-Default.desktop']
+right-panel-width=200
+search-entry-border-radius=(true, 25)
+
+[shell/extensions/backslide]
+delay=11
+elapsed-time=0
+random=true
+
+[shell/extensions/blur-my-shell]
+brightness=0.80000000000000000
+hacks-level=0
+noise-amount=0.0
+noise-lightness=0.0
+sigma=20
+
+[shell/extensions/blur-my-shell/applications]
+blur=false
+
+[shell/extensions/blur-my-shell/panel]
+blur=true
+brightness=0.75
+customize=false
+sigma=0
+static-blur=true
+unblur-in-overview=false
+
+[shell/extensions/customize-ibus]
+candidate-orientation=uint32 1
+enable-custom-theme-dark=false
+enable-orientation=true
+indicator-opacity=uint32 229
+input-indicator-animation=uint32 1
+input-indicator-only-on-toggle=true
+input-mode-list={'null': true, '': true, 'gjs': true, 'gnome-extensions-app': true, 'org.gnome.shell.extensions': true, 'apport-gtk': true, 'google-chrome': true, 'org.gnome.nautilus': true, 'gnome-terminal': true, 'gnome-tweaks': true, 'gnome-control-center': true, 'org.remmina.remmina': true, 'update-manager': true, 'nextcloud': true, 'gnome-system-monitor': true, 'code': true, 'gnome-text-editor': true, 'xdg-desktop-portal-gnome': true, 'weixin': true, 'dconf-editor': true, 'wpsoffice': true, 'evince': true, 'gnome-terminal-server': true, 'org.gnome.calculator': true, 'org.gnome.settings': true, 'jetbrains-rider': true}
+menu-ibus-preference=true
+menu-ibus-restart=true
+menu-ibus-version=true
+use-input-indicator=false
+
+[shell/extensions/dash-to-panel]
+animate-appicon-hover-animation-extent={'RIPPLE': 4, 'PLANK': 4, 'SIMPLE': 1}
+appicon-margin=0
+appicon-padding=8
+available-monitors=[0]
+dot-position='BOTTOM'
+dot-style-focused='DASHES'
+dot-style-unfocused='DASHES'
+hotkeys-overlay-combo='TEMPORARILY'
+leftbox-padding=-1
+leftbox-size=16
+panel-anchors='{"0":"MIDDLE"}'
+panel-element-positions='{"0":[{"element":"showAppsButton","visible":false,"position":"stackedTL"},{"element":"centerBox","visible":true,"position":"stackedTL"},{"element":"leftBox","visible":true,"position":"stackedBR"},{"element":"activitiesButton","visible":false,"position":"stackedBR"},{"element":"taskbar","visible":true,"position":"centerMonitor"},{"element":"rightBox","visible":true,"position":"stackedBR"},{"element":"systemMenu","visible":true,"position":"stackedBR"},{"element":"dateMenu","visible":true,"position":"stackedBR"},{"element":"desktopButton","visible":true,"position":"stackedBR"}]}'
+panel-lengths='{"0":100}'
+panel-sizes='{"0":48}'
+primary-monitor=0
+status-icon-padding=-1
+stockgs-keep-dash=false
+stockgs-keep-top-panel=false
+taskbar-locked=false
+trans-gradient-bottom-opacity=0.84999999999999998
+trans-gradient-top-opacity=0.80000000000000004
+trans-panel-opacity=0.29999999999999999
+trans-use-custom-bg=false
+trans-use-custom-gradient=false
+trans-use-custom-opacity=true
+trans-use-dynamic-opacity=false
+tray-padding=3
+tray-size=16
+window-preview-title-position='TOP'
+
+[shell/extensions/ding]
+check-x11wayland=true
+show-trash=true
+
+[shell/extensions/extension-list]
+button-icon=uint32 1
+toggle-unpin=false
+
+[shell/extensions/network-stats]
+devices-info='{"eno2":{"totalUpload":0,"totalDownload":0,"resetedAt":"Sat Aug 05 2023 18:28:11 GMT+0000 (Coordinated Universal Time)"},"wlo1":{"totalUpload":7269858,"totalDownload":35760038,"resetedAt":"Sat Aug 05 2023 18:28:11 GMT+0000 (Coordinated Universal Time)"},"docker0":{"totalUpload":0,"totalDownload":0,"resetedAt":"Sat Aug 26 2023 08:19:58 GMT+0000 (Coordinated Universal Time)"},"wlp0s20f3":{"totalUpload":11893498,"totalDownload":364784085,"resetedAt":"Sat Aug 26 2023 08:19:58 GMT+0000 (Coordinated Universal Time)"}}'
+display-mode='total_speed'
+
+[shell/extensions/openweather]
+city='31.3016935,120.5810725>苏州市, 江苏省, 中国>0'
+
+[shell/extensions/stocks]
+portfolios='W3siaWQiOiI5MjNlYzEyZDE4YTliN2FlZDlmOTg0M2I2NGNjZjcwZCIsIm5hbWUiOiJXYXRjaCBsaXN0Iiwic3ltYm9scyI6W3siaWQiOiIxMGUzMmNhNmUwM2IwMGQ4OTU0YzI2MzE2NGNjZjc1MCIsIm5hbWUiOiJBcHBsZSIsInN5bWJvbCI6IkFBUEwiLCJwcm92aWRlciI6InlhaG9vIiwic2hvd0luVGlja2VyIjpmYWxzZX0seyJpZCI6IjAxZTU5NzQ1M2E0Y2M5OWVkODk5NTcwMTY0Y2NmNzE0IiwibmFtZSI6Ik1pY3Jvc29mdCIsInN5bWJvbCI6Ik1TRlQiLCJwcm92aWRlciI6InlhaG9vIiwic2hvd0luVGlja2VyIjpmYWxzZX0seyJpZCI6ImNhN2RjMzMyYjViZjBmMWFlZDAyNzYxNjY0Y2U5NThlIiwibmFtZSI6Ikdvb2dsZSIsInN5bWJvbCI6IkdPT0ciLCJwcm92aWRlciI6InlhaG9vIiwic2hvd0luVGlja2VyIjpmYWxzZX0seyJpZCI6ImFkMzhjZTEzYWRiMDlhMjcxMzk1YzMwYzY0Y2NmNzY4IiwibmFtZSI6Ik52aWRpYSIsInN5bWJvbCI6Ik5WREEiLCJwcm92aWRlciI6InlhaG9vIiwic2hvd0luVGlja2VyIjpmYWxzZX0seyJpZCI6IjczMmI3ZTlmNzliMmQ4NzE2NDVmYTIwNTY0Y2U5NWUxIiwibmFtZSI6IlRlc2xhIiwic3ltYm9sIjoiVFNMQSIsInByb3ZpZGVyIjoieWFob28iLCJzaG93SW5UaWNrZXIiOmZhbHNlfSx7ImlkIjoiNTAyMTEzYzljOGMwZjA0MTAyYTdlY2I3NjRjZTk1YTkiLCJuYW1lIjoiTWV0YSIsInN5bWJvbCI6Ik1FVEEiLCJwcm92aWRlciI6InlhaG9vIiwic2hvd0luVGlja2VyIjpmYWxzZX0seyJpZCI6IjVmMDY2NDZkYTQ0ZmY1ZTBkNjljNDdkMTY0Y2U5NWY4IiwibmFtZSI6IkFtYXpvbiIsInN5bWJvbCI6IkFNWk4iLCJwcm92aWRlciI6InlhaG9vIiwic2hvd0luVGlja2VyIjpmYWxzZX1dfV0='
+selected-portfolio='923ec12d18a9b7aed9f9843b64ccf70d'
+ticker-display-variation='compact'
+
+[shell/extensions/system-monitor]
+icon-display=true
+
+[shell/extensions/user-theme]
+name='Fluent-round-Dark'
+
+[system/location]
+enabled=true
