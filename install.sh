@@ -1,3 +1,8 @@
+echo "The command you are running is deploying AnduinOS..."
+echo "This may introduce non-open-source software to your system."
+echo "Please press ENTER to continue, or press CTRL+C to cancel."
+read
+
 export DEBIAN_FRONTEND=noninteractive
 
 # Allow run sudo without password.
@@ -8,11 +13,11 @@ if ! sudo grep -q "$USER ALL=(ALL) NOPASSWD:ALL" /etc/sudoers.d/$USER; then
   echo "$USER ALL=(ALL) NOPASSWD:ALL" | sudo tee -a /etc/sudoers.d/$USER
 fi
 
-sudo rm /var/lib/ubuntu-advantage/messages/*
+sudo rm /var/lib/ubuntu-advantage/messages/* > /dev/null 2>&1
 
 echo "Preinstall..."
 sudo add-apt-repository -y multiverse
-sudo apt-get install wget gpg curl apt-transport-https software-properties-common
+sudo apt install -y wget gpg curl apt-transport-https software-properties-common
 
 # Snap
 echo "Removing snap..."
@@ -68,7 +73,7 @@ echo "Setting wechat..."
 wget -O- https://deepin-wine.i-m.dev/setup.sh | sh
 
 echo "Installing node, google, firefox, ibus-rime, apt-transport-https, code, vim, remmina, remmina-plugin-rdp, w3m, git, vim, sl, zip, unzip, wget, curl, neofetch, jq, net-tools, libglib2.0-dev-bin, httping, ffmpeg, nano, gnome-tweaks, gnome-shell-extension-prefs, spotify-client, vlc, golang-go, aria2, adb, ffmpeg, nextcloud-desktop, ruby, openjdk-17-jdk, default-jre, dotnet6, ca-certificates, gnupg, lsb-release, docker-ce, docker-ce-cli, pinta, aisleriot, containerd.io, jq, htop, iotop, iftop, ntp, ntpdate, ntpstat, docker-compose, tree, smartmontools..."
-sudo apt install nodejs google-chrome-stable firefox ibus-rime nautilus-nextcloud\
+sudo apt install -y nodejs google-chrome-stable firefox ibus-rime nautilus-nextcloud\
   apt-transport-https code vim remmina remmina-plugin-rdp cifs-utils\
   w3m git sl zip unzip wget curl neofetch jq com.qq.weixin.deepin\
   net-tools libglib2.0-dev-bin httping ffmpeg nano iperf3 usb-creator-gtk\
