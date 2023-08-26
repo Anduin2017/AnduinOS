@@ -1,6 +1,6 @@
 # AnduinOS
 
-AnduinOS 是一个 Ubuntu 自定义设置包。旨在方便用户快速从 Windows 迁移到 Linux。
+AnduinOS 是一个 Ubuntu 自定义设置、应用、主题的整合包。旨在方便用户快速从 Windows 迁移到 Linux。
 
 ![Screenshot](./Screenshot/desktop.png)
 
