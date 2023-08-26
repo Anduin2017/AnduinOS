@@ -1,6 +1,6 @@
 echo "The command you are running is deploying AnduinOS..."
 echo "This may introduce non-open-source software to your system."
-echo "Please press ENTER to continue, or press CTRL+C to cancel."
+echo "Please press [ENTER] to continue, or press CTRL+C to cancel."
 read
 
 export DEBIAN_FRONTEND=noninteractive
