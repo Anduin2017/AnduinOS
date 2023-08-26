@@ -14,7 +14,7 @@ color-scheme='prefer-dark'
 cursor-theme='DMZ-White'
 font-hinting='slight'
 gtk-theme='Fluent-round-Dark'
-icon-theme='Fluent-dark'
+icon-theme='Fluent'
 
 [desktop/peripherals/keyboard]
 numlock-state=true
