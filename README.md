@@ -95,7 +95,7 @@ AnduinOS 使用了一些第三方主题来修改桌面体验，包括但不限�
 * [Fluent-gtk-theme](https://github.com/vinceliuice/Fluent-gtk-theme)
 * [Fluent-icon-theme](https://github.com/vinceliuice/Fluent-icon-theme)
 
-AnduinOS 使用了一些 Gnome 插件：
+AnduinOS 使用了一些 Gnome 插件（并会自动初始化这些插件）：
 
 * ArcMenu 用于提供类似 Windows 11 的开始菜单
 * Blur My Shell 用于提供类似 Windows 11 的模糊效果
@@ -108,3 +108,12 @@ AnduinOS 使用了一些 Gnome 插件：
 * BackSlide 用于提供壁纸切换
 
 AnduinOS 使用的默认壁纸是来自于 [Fluent-gtk-theme](https://github.com/vinceliuice/Fluent-gtk-theme/tree/Wallpaper) 的壁纸。
+
+## 已知的问题
+
+* 微信的体验并不是很良好，包括无法从剪贴板粘贴图片、无法截图、无法使用系统通知等。
+* VSCode 在 Wayland 下，如果开启了 Fractional Scaling，可能会出现字体模糊的问题。
+  * 如果遇到这个问题，可以选择使用 X11 来代替 Wayland。
+* Chrome 在 Wayland 下，如果开启了 Fractional Scaling，可能会出现无法输入中文的问题。
+  * 如果遇到这个问题，可以选择使用 Firefox 。
+* 

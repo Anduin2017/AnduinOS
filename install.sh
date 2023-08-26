@@ -223,3 +223,5 @@ sleep 1
 sudo DEBIAN_FRONTEND=noninteractive dpkg --configure -a
 sleep 1
 sudo DEBIAN_FRONTEND=noninteractive apt upgrade -y
+
+echo "Deploy Finished! Please log out and log in again to take effect."
