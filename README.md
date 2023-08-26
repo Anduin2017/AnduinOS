@@ -116,4 +116,3 @@ AnduinOS 使用的默认壁纸是来自于 [Fluent-gtk-theme](https://github.com
   * 如果遇到这个问题，可以选择使用 X11 来代替 Wayland。
 * Chrome 在 Wayland 下，如果开启了 Fractional Scaling，可能会出现无法输入中文的问题。
   * 如果遇到这个问题，可以选择使用 Firefox 。
-* 
