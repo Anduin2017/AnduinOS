@@ -21,6 +21,7 @@ sudo apt install -y wget gpg curl apt-transport-https software-properties-common
 
 # Snap
 echo "Removing snap..."
+sudo killall -9 firefox
 sudo snap remove firefox
 sudo snap remove snap-store
 sudo snap remove gtk-common-themes
