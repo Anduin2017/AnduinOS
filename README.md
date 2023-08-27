@@ -124,4 +124,4 @@ AnduinOS 使用的默认壁纸是来自于 [Fluent-gtk-theme](https://github.com
 
 如果遇到微信显示太小：
 
-* 可以修改 Wine 的设置调整微信的 DPI：`env WINEPREFIX=/home/<your home>/.deepinwine/Deepin-WeChat deepin-wine6-stable winecfg`，在Graphics设置中，将 DPI 调整到一个更高的值，例如 192。可能需要重启来生效。
+* 可以修改 Wine 的设置调整微信的 DPI：`env WINEPREFIX=~/.deepinwine/Deepin-WeChat deepin-wine6-stable winecfg`，在Graphics设置中，将 DPI 调整到一个更高的值，例如 192。可能需要重启来生效。
