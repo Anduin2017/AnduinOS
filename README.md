@@ -125,3 +125,9 @@ AnduinOS 使用的默认壁纸是来自于 [Fluent-gtk-theme](https://github.com
 如果遇到微信显示太小：
 
 * 可以修改 Wine 的设置调整微信的 DPI：`env WINEPREFIX=~/.deepinwine/Deepin-WeChat deepin-wine6-stable winecfg`，在Graphics设置中，将 DPI 调整到一个更高的值，例如 192。可能需要重启来生效。
+
+## 为什么选择 Ubuntu 作为魔改的来源
+
+Ubuntu 对于 Linux 初学者来说非常流行，它有着还算不错的生态，并且默认就很好看。这使得它成为了最好的魔改来源。
+
+无论是专业的开发人员，或是普通的用户，适应 Ubuntu 都不算太难。
