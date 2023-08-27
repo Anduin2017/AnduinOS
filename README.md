@@ -23,7 +23,7 @@ AnduinOS 测试了这些软件和UI的整合体验，因此在使用时一般不
 
 在这里下载 Ubuntu ： [Ubuntu Desktop Download](https://ubuntu.com/download/desktop)
 
-安装用户喜欢的方式部署 Ubuntu 即可。不需要特别的设置。
+按照用户喜欢的方式部署 Ubuntu 即可。不需要特别的设置。
 
 在第一次登录 Ubuntu 后，打开终端（Ctrl + Alt + T），然后运行：
 
