@@ -121,3 +121,7 @@ AnduinOS 使用的默认壁纸是来自于 [Fluent-gtk-theme](https://github.com
 * 可以选择使用 Firefox 来代替 Chrome。
 * 为了缓解字体模糊问题，可以在启动这些 Chromium 应用时增加参数：`--enable-features=UseOzonePlatform --ozone-platform=wayland`。
 * 为了缓解中文输入问题，可以在启动这些 Chromium 应用时增加环境变量：`GTK_IM_MODULE=ibus`，并增加参数：`google-chrome  --gtk-version=4`。
+
+如果遇到微信显示太小：
+
+* 可以修改 Wine 的设置调整微信的 DPI：`env WINEPREFIX=/home/<your home>/.deepinwine/Deepin-WeChat deepin-wine6-stable winecfg`，在Graphics设置中，将 DPI 调整到一个更高的值，例如 192。可能需要重启来生效。
