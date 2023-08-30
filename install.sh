@@ -78,7 +78,7 @@ sudo apt install -y nodejs google-chrome-stable firefox ibus-rime nautilus-nextc
   apt-transport-https code vim remmina remmina-plugin-rdp cifs-utils\
   w3m git sl zip unzip wget curl neofetch jq com.qq.weixin.deepin python3-apt\
   net-tools libglib2.0-dev-bin httping ffmpeg nano iperf3 usb-creator-gtk\
-  gnome-tweaks gnome-shell-extension-prefs spotify-client shotwell\
+  gnome-tweaks gnome-shell-extension-prefs spotify-client shotwell pip3\
   vlc golang-go aria2 adb ffmpeg nextcloud-desktop python3-pip google-earth-pro-stable\
   ruby openjdk-17-jdk default-jre dotnet6 ca-certificates python-is-python3\
   gnupg lsb-release  docker-ce docker-ce-cli pinta aisleriot stellarium\
