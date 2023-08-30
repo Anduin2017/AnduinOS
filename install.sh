@@ -1,3 +1,7 @@
+#!/bin/bash
+export LC_ALL=C.UTF-8
+export LANG=C.UTF-8
+
 echo "The command you are running is deploying AnduinOS..."
 echo "This may introduce non-open-source software to your system."
 echo "Please press [ENTER] to continue, or press CTRL+C to cancel."
