@@ -68,7 +68,7 @@ AnduinOS 会配置下列开发环境：
 
 * NodeJS, NPM & Yarn
 * Golang
-* .NET
+* .NET 6 & 7 (And Entity Framework)
 * Java
 * Ruby
 * Python
@@ -89,6 +89,17 @@ AnduinOS 会安装下列 CLI 工具：
 * Tree
 * Htop
 * W3m
+
+AnduinOS 会安装一些pip全局工具：
+
+* Youtube-dl
+* Spotdl
+* Gnome-extensions-cli
+
+AnduinOS 会安装一些.NET全局工具：
+
+* EntityFrameworkCore
+* Aiursoft.Static
 
 AnduinOS 使用了一些第三方主题来修改桌面体验，包括但不限于：
 

@@ -84,7 +84,7 @@ sudo apt install -y nodejs google-chrome-stable firefox ibus-rime nautilus-nextc
   net-tools libglib2.0-dev-bin httping ffmpeg nano iperf3 usb-creator-gtk\
   gnome-tweaks gnome-shell-extension-prefs spotify-client shotwell\
   vlc golang-go aria2 adb ffmpeg nextcloud-desktop python3-pip google-earth-pro-stable\
-  ruby openjdk-17-jdk default-jre dotnet6 ca-certificates python-is-python3\
+  ruby openjdk-17-jdk default-jre dotnet6 dotnet7 ca-certificates python-is-python3\
   gnupg lsb-release  docker-ce docker-ce-cli pinta aisleriot stellarium\
   containerd.io jq htop iotop iftop ntp ntpdate ntpstat clinfo shotcut\
   docker-compose tree smartmontools blender hugo baobab gedit steam\
@@ -190,6 +190,16 @@ function TryInstallDotnetTool {
 }
 
 TryInstallDotnetTool "dotnet-ef"
+TryInstallDotnetTool "Aiursoft.Static"
+
+# Python Tools
+
+echo "Installing youtube-dl..."
+sudo curl -L https://yt-dl.org/downloads/latest/youtube-dl -o /usr/local/bin/youtube-dl
+sudo chmod a+rx /usr/local/bin/youtube-dl
+
+echo "Installing spotdl..."
+/usr/bin/pip3 install --upgrade spotdl --break-system-packages
 
 # Theme
 echo "Configuring theme..."
@@ -207,7 +217,7 @@ gsettings set org.gnome.desktop.background picture-uri-dark "file:///home/$USER/
 gsettings set org.gnome.desktop.background picture-options "zoom"
 
 echo "Configuring gnome extensions..."
-pip3 install --upgrade gnome-extensions-cli --break-system-packages
+/usr/bin/pip3 install --upgrade gnome-extensions-cli --break-system-packages
 ~/.local/bin/gext -F install arcmenu@arcmenu.com
 ~/.local/bin/gext -F install backslide@codeisland.org
 ~/.local/bin/gext -F install blur-my-shell@aunetx
