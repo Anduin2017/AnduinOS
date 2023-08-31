@@ -21,7 +21,8 @@ sudo rm /var/lib/ubuntu-advantage/messages/* > /dev/null 2>&1
 
 echo "Preinstall..."
 sudo add-apt-repository -y multiverse
-sudo apt install -y wget gpg curl apt-transport-https software-properties-common
+sudo apt update
+sudo apt install -y wget gpg curl apt-transport-https software-properties-common gnupg
 
 # Snap
 echo "Removing snap..."
@@ -71,13 +72,17 @@ echo -e '\nPackage: *\nPin: release o=LP-PPA-mozillateam\nPin-Priority: 1002' | 
 
 # Node
 echo "Setting node..."
-curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+sudo mkdir -p /etc/apt/keyrings
+curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
+NODE_MAJOR=20
+echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list
 
 # WeChat
 echo "Setting wechat..."
 wget -O- https://deepin-wine.i-m.dev/setup.sh | sh
 
 echo "Installing softwares..."
+sudo apt update
 sudo apt install -y nodejs google-chrome-stable firefox ibus-rime nautilus-nextcloud\
   apt-transport-https code vim remmina remmina-plugin-rdp cifs-utils\
   w3m git sl zip unzip wget curl neofetch jq com.qq.weixin.deepin python3-apt\
