@@ -77,18 +77,18 @@ curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 echo "Setting wechat..."
 wget -O- https://deepin-wine.i-m.dev/setup.sh | sh
 
-echo "Installing node, google, firefox, ibus-rime, apt-transport-https, code, vim, remmina, remmina-plugin-rdp, w3m, git, vim, sl, zip, unzip, wget, curl, neofetch, jq, net-tools, libglib2.0-dev-bin, httping, ffmpeg, nano, gnome-tweaks, gnome-shell-extension-prefs, spotify-client, vlc, golang-go, aria2, adb, ffmpeg, nextcloud-desktop, ruby, openjdk-17-jdk, default-jre, dotnet6, ca-certificates, gnupg, lsb-release, docker-ce, docker-ce-cli, pinta, aisleriot, containerd.io, jq, htop, iotop, iftop, ntp, ntpdate, ntpstat, docker-compose, tree, smartmontools..."
+echo "Installing softwares..."
 sudo apt install -y nodejs google-chrome-stable firefox ibus-rime nautilus-nextcloud\
   apt-transport-https code vim remmina remmina-plugin-rdp cifs-utils\
   w3m git sl zip unzip wget curl neofetch jq com.qq.weixin.deepin python3-apt\
-  net-tools libglib2.0-dev-bin httping ffmpeg nano iperf3 usb-creator-gtk\
+  net-tools httping ffmpeg nano iperf3 usb-creator-gtk\
   gnome-tweaks gnome-shell-extension-prefs spotify-client shotwell\
   vlc golang-go aria2 adb ffmpeg nextcloud-desktop python3-pip google-earth-pro-stable\
   ruby openjdk-17-jdk default-jre dotnet6 dotnet7 ca-certificates python-is-python3\
   gnupg lsb-release  docker-ce docker-ce-cli pinta aisleriot stellarium\
   containerd.io jq htop iotop iftop ntp ntpdate ntpstat clinfo shotcut\
   docker-compose tree smartmontools blender hugo baobab gedit steam\
-  libfuse2 libapr1 libaprutil1 libxcb-cursor0 sqlitebrowser obs-studio
+  sqlitebrowser obs-studio
 
 # Add current user as docker.
 sudo gpasswd -a $USER docker
