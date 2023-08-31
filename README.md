@@ -60,7 +60,7 @@ AnduinOS 会安装下列软件：
 * Motrix 作为下载工具
 * Google Earth 作为地图软件
 * Shotcut 作为视频编辑器
-* Postman 作为API测试工具
+* Insomnia 作为API测试工具
 * DbBrowser 作为数据库管理工具
 
 这些软件几乎涵盖了日常使用的所有场景。
@@ -154,5 +154,9 @@ Ubuntu 对于 Linux 初学者来说非常流行，它有着还算不错的生态
 
 * Stellarium
 * Steam
-* Kdenlive
-* Telegram
+* Kdenlive (已经测试可以完全替代 Shotcut)
+* Telegram (已经测试可以完全替代 WeChat)
+* FreeDownloadManager (已经测试可以完全替代 Motrix)
+* Postman (已经测试可以完全替代 Insomnia)
+* DaVinci Resolve (已经测试可以完全替代 Shotcut)
+* GIMP (已经测试可以完全替代 Pinta)

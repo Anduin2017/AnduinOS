@@ -101,25 +101,12 @@ sudo gpasswd -a $USER docker
 # NPM
 sudo npm i -g yarn npm
 
-# Postman
-wget https://dl.pstmn.io/download/latest/linux_64 -O postman-linux-x64.tar.gz
-sudo rm -rf /opt/Postman/
-sudo tar xzf postman-linux-x64.tar.gz -C /opt/
-sudo ln -s /opt/Postman/Postman /usr/bin/postman
-cat > ~/.local/share/applications/postman.desktop <<EOL
-[Desktop Entry]
-Encoding=UTF-8
-Name=Postman
-X-GNOME-FullName=Postman API Client
-Exec=/usr/bin/postman
-Icon=/opt/Postman/app/resources/app/assets/icon.png
-Terminal=false
-Type=Application
-Categories=Development;
-EOL
-chmod +x ~/.local/share/applications/postman.desktop
-rm ./postman-linux-x64.tar.gz
-echo "Postman has been installed successfully!"
+# Insomnia
+echo "Installing insomnia..."
+wget https://updates.insomnia.rest/downloads/ubuntu/latest -O insomnia.deb
+sudo dpkg -i insomnia.deb
+rm ./insomnia.deb
+echo "Insomnia has been installed successfully!"
 
 # Installing wps-office
 if ! dpkg -s wps-office > /dev/null 2>&1; then
@@ -251,7 +238,14 @@ sudo DEBIAN_FRONTEND=noninteractive apt upgrade -y
 # Clean up
 wget https://github.com/davidfoerster/aptsources-cleanup/releases/download/v0.1.7.5.2/aptsources-cleanup.pyz
 chmod +x aptsources-cleanup.pyz
-sudo ./aptsources-cleanup.pyz --yes
+sudo bash -c "echo all | ./aptsources-cleanup.pyz  --yes"
 rm ./aptsources-cleanup.pyz
 
+# Clean up desktop icons
+rm ~/Desktop/*.desktop
+
 echo "Deploy Finished! Please log out and log in again to take effect."
+
+echo "Please press [ENTER] to log out."
+read
+gnome-session-quit --logout --no-prompt
