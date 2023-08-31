@@ -60,6 +60,7 @@ AnduinOS 会安装下列软件：
 * Motrix 作为下载工具
 * Google Earth 作为地图软件
 * Shotcut 作为视频编辑器
+* Postman 作为API测试工具
 * DbBrowser 作为数据库管理工具
 
 这些软件几乎涵盖了日常使用的所有场景。
