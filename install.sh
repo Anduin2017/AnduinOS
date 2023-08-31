@@ -22,7 +22,7 @@ sudo rm /var/lib/ubuntu-advantage/messages/* > /dev/null 2>&1
 echo "Preinstall..."
 sudo add-apt-repository -y multiverse
 sudo apt update
-sudo apt install -y wget gpg curl apt-transport-https software-properties-common gnupg
+sudo apt install -y wget gpg curl iperf3 apt-transport-https software-properties-common gnupg
 
 # Snap
 echo "Removing snap..."
@@ -86,7 +86,7 @@ sudo apt update
 sudo apt install -y nodejs google-chrome-stable firefox ibus-rime nautilus-nextcloud\
   apt-transport-https code vim remmina remmina-plugin-rdp cifs-utils\
   w3m git sl zip unzip wget curl neofetch jq com.qq.weixin.deepin python3-apt\
-  net-tools httping ffmpeg nano iperf3 usb-creator-gtk\
+  net-tools httping ffmpeg nano usb-creator-gtk\
   gnome-tweaks gnome-shell-extension-prefs spotify-client shotwell\
   vlc golang-go aria2 adb ffmpeg nextcloud-desktop python3-pip google-earth-pro-stable\
   ruby openjdk-17-jdk default-jre dotnet6 dotnet7 ca-certificates python-is-python3\
@@ -201,6 +201,7 @@ sudo chown $USER:$USER /opt/themes
 git clone https://git.aiursoft.cn/PublicVault/Fluent-icon-theme /opt/themes/Fluent-icon-theme
 /opt/themes/Fluent-icon-theme/install.sh 
 git clone https://git.aiursoft.cn/PublicVault/Fluent-gtk-theme /opt/themes/Fluent-gtk-theme
+sudo apt install libsass1 sassc -y
 /opt/themes/Fluent-gtk-theme/install.sh -i ubuntu --tweaks noborder round
 gsettings set org.gnome.desktop.interface gtk-theme 'Fluent-round-Dark'
 gsettings set org.gnome.desktop.interface icon-theme 'Fluent'
