@@ -202,7 +202,7 @@ git clone https://git.aiursoft.cn/PublicVault/Fluent-icon-theme /opt/themes/Flue
 /opt/themes/Fluent-icon-theme/install.sh 
 git clone https://git.aiursoft.cn/PublicVault/Fluent-gtk-theme /opt/themes/Fluent-gtk-theme
 /opt/themes/Fluent-gtk-theme/install.sh -i ubuntu --tweaks noborder round
-git clone -b Wallpaper https://github.com/vinceliuice/Fluent-gtk-theme.git /opt/themes/Fluent-gtk-theme-wallpaper
+git clone -b Wallpaper https://git.aiursoft.cn/PublicVault/Fluent-gtk-theme /opt/themes/Fluent-gtk-theme-wallpaper
 /opt/themes/Fluent-gtk-theme-wallpaper/install-wallpapers.sh
 gsettings set org.gnome.desktop.background picture-uri "file:///home/$USER/.local/share/backgrounds/Fluent-building-night.png"
 gsettings set org.gnome.desktop.background picture-uri-dark "file:///home/$USER/.local/share/backgrounds/Fluent-building-night.png"
