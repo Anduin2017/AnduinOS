@@ -144,3 +144,14 @@ AnduinOS 使用的默认壁纸是来自于 [Fluent-gtk-theme](https://github.com
 Ubuntu 对于 Linux 初学者来说非常流行，它有着还算不错的生态，并且默认就很好看。这使得它成为了最好的魔改来源。
 
 无论是专业的开发人员，或是普通的用户，适应 Ubuntu 都不算太难。
+
+## 其他推荐的软件
+
+这些软件 AnduinOS 并不会预装。但是它们不会来带引用冲突，并且体验已经测试过非常好。
+
+如果有需要可以安装：
+
+* Stellarium
+* Steam
+* Kdenlive
+* Telegram
