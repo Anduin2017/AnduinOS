@@ -202,6 +202,8 @@ git clone https://git.aiursoft.cn/PublicVault/Fluent-icon-theme /opt/themes/Flue
 /opt/themes/Fluent-icon-theme/install.sh 
 git clone https://git.aiursoft.cn/PublicVault/Fluent-gtk-theme /opt/themes/Fluent-gtk-theme
 /opt/themes/Fluent-gtk-theme/install.sh -i ubuntu --tweaks noborder round
+gsettings set org.gnome.desktop.interface gtk-theme 'Fluent-round-Dark'
+gsettings set org.gnome.desktop.interface icon-theme 'Fluent'
 git clone -b Wallpaper https://git.aiursoft.cn/PublicVault/Fluent-gtk-theme /opt/themes/Fluent-gtk-theme-wallpaper
 /opt/themes/Fluent-gtk-theme-wallpaper/install-wallpapers.sh
 gsettings set org.gnome.desktop.background picture-uri "file:///home/$USER/.local/share/backgrounds/Fluent-building-night.png"
@@ -222,7 +224,7 @@ echo "Configuring gnome extensions..."
 ~/.local/bin/gext -F install stocks@infinicode.de
 ~/.local/bin/gext -F install user-theme@gnome-shell-extensions.gcampax.github.com
 dconf load /org/gnome/ < <(curl https://gitlab.aiursoft.cn/anduin/anduinos/-/raw/master/Config/gnome-settings.txt)
-
+gsettings set org.gnome.desktop.interface gtk-theme 'Fluent-round-Dark'
 # Fix
 echo "Updating old packages..."
 sudo DEBIAN_FRONTEND=noninteractive apt --purge autoremove -y
