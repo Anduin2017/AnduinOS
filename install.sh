@@ -90,7 +90,7 @@ sudo apt install -y nodejs google-chrome-stable firefox ibus-rime nautilus-nextc
   gnome-tweaks gnome-shell-extension-prefs spotify-client shotwell\
   vlc golang-go aria2 adb ffmpeg nextcloud-desktop python3-pip google-earth-pro-stable\
   ruby openjdk-17-jdk default-jre dotnet6 dotnet7 ca-certificates python-is-python3\
-  gnupg lsb-release  docker-ce docker-ce-cli pinta aisleriot stellarium\
+  gnupg lsb-release  docker-ce docker-ce-cli pinta aisleriot\
   containerd.io jq htop iotop iftop ntp ntpdate ntpstat clinfo shotcut\
   docker-compose tree smartmontools blender hugo baobab gedit steam\
   sqlitebrowser obs-studio
