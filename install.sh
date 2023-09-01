@@ -92,7 +92,7 @@ sudo apt install -y nodejs google-chrome-stable firefox ibus-rime nautilus-nextc
   ruby openjdk-17-jdk default-jre dotnet6 dotnet7 ca-certificates python-is-python3\
   gnupg lsb-release  docker-ce docker-ce-cli pinta aisleriot\
   containerd.io jq htop iotop iftop ntp ntpdate ntpstat clinfo shotcut\
-  docker-compose tree smartmontools blender hugo baobab gedit steam\
+  docker-compose tree smartmontools blender hugo baobab steam gnome-text-editor \
   sqlitebrowser obs-studio gnome-nettool gnome-weather gnome-clocks cheese
 
 # Add current user as docker.
