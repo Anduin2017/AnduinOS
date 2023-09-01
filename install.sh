@@ -86,7 +86,7 @@ sudo apt update
 sudo apt install -y nodejs google-chrome-stable firefox ibus-rime nautilus-nextcloud\
   apt-transport-https code vim remmina remmina-plugin-rdp cifs-utils\
   w3m git sl zip unzip wget curl neofetch jq com.qq.weixin.deepin python3-apt\
-  net-tools httping ffmpeg nano usb-creator-gtk\
+  net-tools httping ffmpeg nano usb-creator-gtk gnome-boxes\
   gnome-tweaks gnome-shell-extension-prefs spotify-client shotwell\
   vlc golang-go aria2 adb ffmpeg nextcloud-desktop python3-pip google-earth-pro-stable\
   ruby openjdk-17-jdk default-jre dotnet6 dotnet7 ca-certificates python-is-python3\

@@ -70,6 +70,7 @@ AnduinOS 会安装下列软件：
 * Shotcut 作为视频编辑器
 * Insomnia 作为API测试工具
 * DbBrowser 作为数据库管理工具
+* Gnome Boxes 作为虚拟机管理工具
 
 这些软件几乎涵盖了日常使用的所有场景。
 
