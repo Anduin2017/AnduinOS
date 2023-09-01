@@ -93,7 +93,7 @@ sudo apt install -y nodejs google-chrome-stable firefox ibus-rime nautilus-nextc
   gnupg lsb-release  docker-ce docker-ce-cli pinta aisleriot\
   containerd.io jq htop iotop iftop ntp ntpdate ntpstat clinfo shotcut\
   docker-compose tree smartmontools blender hugo baobab gedit steam\
-  sqlitebrowser obs-studio gnome-nettool
+  sqlitebrowser obs-studio gnome-nettool gnome-weather
 
 # Add current user as docker.
 sudo gpasswd -a $USER docker

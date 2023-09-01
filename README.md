@@ -52,6 +52,8 @@ AnduinOS 会安装下列软件：
 * Rime 作为输入法
 * Nextcloud 作为云盘
 * Visual Studio Code 作为主要代码编辑器
+* Shotwell 作为图片管理器
+* Gnome weather 作为天气软件
 * Remmina 作为远程桌面
 * Spotify 作为音乐播放器
 * Pinta 作为图片编辑器
