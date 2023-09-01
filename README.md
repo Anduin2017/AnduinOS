@@ -39,6 +39,10 @@ bash -c "$(wget -O- https://gitlab.aiursoft.cn/anduin/anduinos/-/raw/master/inst
 
 ## AnduinOS 做了什么
 
+AnduinOS 会允许当前用户免密码使用 sudo。
+
+> 这会带来一些安全风险，但是这是为了方便用户使用。如果不喜欢这个设定，可以在运行完成后删除 /etc/sudoers.d/$USER 文件。
+
 AnduinOS 通过额外安装了大量第三方软件来提供体验。
 
 AnduinOS 会安装下列软件：
@@ -72,7 +76,7 @@ AnduinOS 会配置下列开发环境：
 * NodeJS, NPM & Yarn
 * Golang
 * .NET 6 & 7 (And Entity Framework)
-* Java
+* Java (OpenJDK)
 * Ruby
 * Python
 * Docker
