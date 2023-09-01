@@ -54,7 +54,7 @@ AnduinOS 会安装下列软件：
 * Visual Studio Code 作为主要代码编辑器
 * Shotwell 作为图片管理器
 * Gnome weather 作为天气软件
-* Gnome Cheese 作为摄像头软件
+* Cheese 作为摄像头软件
 * Gnome Clocks 作为时钟软件
 * Remmina 作为远程桌面
 * Spotify 作为音乐播放器
