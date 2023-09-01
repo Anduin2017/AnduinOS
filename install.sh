@@ -22,7 +22,7 @@ sudo rm /var/lib/ubuntu-advantage/messages/* > /dev/null 2>&1
 echo "Preinstall..."
 sudo add-apt-repository -y multiverse
 sudo apt update
-sudo apt install -y wget gpg curl iperf3 apt-transport-https software-properties-common gnupg
+sudo apt install -y wget gpg curl apt-transport-https software-properties-common gnupg
 
 # Snap
 echo "Removing snap..."
@@ -190,9 +190,6 @@ echo "Installing youtube-dl..."
 sudo curl -L https://yt-dl.org/downloads/latest/youtube-dl -o /usr/local/bin/youtube-dl
 sudo chmod a+rx /usr/local/bin/youtube-dl
 
-echo "Installing spotdl..."
-/usr/bin/pip3 install --upgrade spotdl --break-system-packages
-
 # Fix
 echo "Updating old packages..."
 wget https://github.com/davidfoerster/aptsources-cleanup/releases/download/v0.1.7.5.2/aptsources-cleanup.pyz
@@ -242,6 +239,8 @@ echo "Configuring gnome extensions..."
 ~/.local/bin/gext -F install openweather-extension@jenslody.de
 ~/.local/bin/gext -F install stocks@infinicode.de
 ~/.local/bin/gext -F install user-theme@gnome-shell-extensions.gcampax.github.com
+/usr/bin/pip3 uninstall gnome-extensions-cli -y --break-system-packages
+
 dconf load /org/gnome/ < <(curl https://gitlab.aiursoft.cn/anduin/anduinos/-/raw/master/Config/gnome-settings.txt)
 gsettings set org.gnome.desktop.interface gtk-theme 'Fluent-round-Dark'
 gsettings set org.gnome.desktop.interface icon-theme 'Fluent'

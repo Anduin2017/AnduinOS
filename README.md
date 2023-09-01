@@ -87,7 +87,6 @@ AnduinOS 会安装下列 CLI 工具：
 * Wget
 * Curl
 * Aria2
-* Iperf3
 * FFmpeg
 * Tree
 * Htop
@@ -96,7 +95,6 @@ AnduinOS 会安装下列 CLI 工具：
 AnduinOS 会安装一些pip全局工具：
 
 * Youtube-dl
-* Spotdl
 * Gnome-extensions-cli
 
 AnduinOS 会安装一些.NET全局工具：
