@@ -152,6 +152,7 @@ Ubuntu 对于 Linux 初学者来说非常流行，它有着还算不错的生态
 
 * Stellarium
 * Steam
+* Dropbox (已经测试可以完全替代 Nextcloud)
 * Kdenlive (已经测试可以完全替代 Shotcut)
 * Telegram (已经测试可以完全替代 WeChat)
 * FreeDownloadManager (已经测试可以完全替代 Motrix)
