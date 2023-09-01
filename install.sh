@@ -141,6 +141,7 @@ if ! dpkg -s docker-desktop > /dev/null 2>&1; then
     wget https://desktop.docker.com/linux/main/amd64/docker-desktop-4.22.0-amd64.deb
     # Install the package
     sudo dpkg -i docker-desktop-4.22.0-amd64.deb
+    sudo apt install --fix-broken -y
     # Remove the package file
     rm docker-desktop-4.22.0-amd64.deb
 else
@@ -185,13 +186,29 @@ TryInstallDotnetTool "dotnet-ef"
 TryInstallDotnetTool "Aiursoft.Static"
 
 # Python Tools
-
 echo "Installing youtube-dl..."
 sudo curl -L https://yt-dl.org/downloads/latest/youtube-dl -o /usr/local/bin/youtube-dl
 sudo chmod a+rx /usr/local/bin/youtube-dl
 
 echo "Installing spotdl..."
 /usr/bin/pip3 install --upgrade spotdl --break-system-packages
+
+# Fix
+echo "Updating old packages..."
+wget https://github.com/davidfoerster/aptsources-cleanup/releases/download/v0.1.7.5.2/aptsources-cleanup.pyz
+chmod +x aptsources-cleanup.pyz
+sudo bash -c "echo all | ./aptsources-cleanup.pyz  --yes"
+rm ./aptsources-cleanup.pyz
+sudo apt update
+sudo DEBIAN_FRONTEND=noninteractive apt --purge autoremove -y
+sleep 1
+sudo DEBIAN_FRONTEND=noninteractive apt install --fix-broken  -y
+sleep 1
+sudo DEBIAN_FRONTEND=noninteractive apt install --fix-missing  -y
+sleep 1
+sudo DEBIAN_FRONTEND=noninteractive dpkg --configure -a
+sleep 1
+sudo DEBIAN_FRONTEND=noninteractive apt upgrade -y
 
 # Theme
 echo "Configuring theme..."
@@ -211,6 +228,7 @@ gsettings set org.gnome.desktop.background picture-uri "file:///home/$USER/.loca
 gsettings set org.gnome.desktop.background picture-uri-dark "file:///home/$USER/.local/share/backgrounds/Fluent-building-night.png"
 gsettings set org.gnome.desktop.background picture-options "zoom"
 
+# Gnome extensions
 echo "Configuring gnome extensions..."
 /usr/bin/pip3 install --upgrade gnome-extensions-cli --break-system-packages
 ~/.local/bin/gext -F install arcmenu@arcmenu.com
@@ -226,23 +244,8 @@ echo "Configuring gnome extensions..."
 ~/.local/bin/gext -F install user-theme@gnome-shell-extensions.gcampax.github.com
 dconf load /org/gnome/ < <(curl https://gitlab.aiursoft.cn/anduin/anduinos/-/raw/master/Config/gnome-settings.txt)
 gsettings set org.gnome.desktop.interface gtk-theme 'Fluent-round-Dark'
-# Fix
-echo "Updating old packages..."
-sudo DEBIAN_FRONTEND=noninteractive apt --purge autoremove -y
-sleep 1
-sudo DEBIAN_FRONTEND=noninteractive apt install --fix-broken  -y
-sleep 1
-sudo DEBIAN_FRONTEND=noninteractive apt install --fix-missing  -y
-sleep 1
-sudo DEBIAN_FRONTEND=noninteractive dpkg --configure -a
-sleep 1
-sudo DEBIAN_FRONTEND=noninteractive apt upgrade -y
-
-# Clean up
-wget https://github.com/davidfoerster/aptsources-cleanup/releases/download/v0.1.7.5.2/aptsources-cleanup.pyz
-chmod +x aptsources-cleanup.pyz
-sudo bash -c "echo all | ./aptsources-cleanup.pyz  --yes"
-rm ./aptsources-cleanup.pyz
+gsettings set org.gnome.desktop.interface icon-theme 'Fluent'
+gsettings set org.gnome.desktop.interface cursor-theme 'DMZ-White'
 
 # Clean up desktop icons
 rm ~/Desktop/*.desktop
