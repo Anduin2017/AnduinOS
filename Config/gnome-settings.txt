@@ -83,7 +83,7 @@ night-light-enabled=false
 
 [shell]
 disable-user-extensions=false
-enabled-extensions=['user-theme@gnome-shell-extensions.gcampax.github.com', 'arcmenu@arcmenu.com', 'openweather-extension@jenslody.de', 'network-stats@gnome.noroadsleft.xyz', 'customize-ibus@hollowman.ml', 'drive-menu@gnome-shell-extensions.gcampax.github.com', 'blur-my-shell@aunetx', 'ding@rastersoft.com', 'ubuntu-dock@ubuntu.com', 'stocks@infinicode.de', 'dash-to-panel@jderose9.github.com', 'backslide@codeisland.org', 'system-monitor-next@paradoxxx.zero.gmail.com', 'extension-list@tu.berry', 'no-overview@fthx']
+enabled-extensions=['user-theme@gnome-shell-extensions.gcampax.github.com', 'arcmenu@arcmenu.com', 'openweather-extension@jenslody.de', 'network-stats@gnome.noroadsleft.xyz', 'customize-ibus@hollowman.ml', 'drive-menu@gnome-shell-extensions.gcampax.github.com', 'blur-my-shell@aunetx', 'ding@rastersoft.com', 'ubuntu-dock@ubuntu.com', 'stocks@infinicode.de', 'dash-to-panel@jderose9.github.com', 'system-monitor-next@paradoxxx.zero.gmail.com', 'extension-list@tu.berry', 'no-overview@fthx']
 favorite-apps=['firefox.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Terminal.desktop', 'code.desktop']
 last-selected-power-profile='performance'
 welcome-dialog-last-shown-version='44.0'
@@ -115,11 +115,6 @@ prefs-visible-page=0
 recently-installed-apps=['wps-office-pdf.desktop', 'wps-office-wps.desktop', 'docker-desktop.desktop', 'chrome-kefjledonklijopmnomlcbpllchaibag-Default.desktop', 'chrome-fhihpiojkbmbpdjeoajapmgkhlnakfjf-Default.desktop', 'chrome-fmgjjmmmlfnkbppncabfkddbjimcfncm-Default.desktop', 'chrome-aghbiahbpaijignceidepookljebhfak-Default.desktop']
 right-panel-width=200
 search-entry-border-radius=(true, 25)
-
-[shell/extensions/backslide]
-delay=11
-elapsed-time=0
-random=true
 
 [shell/extensions/blur-my-shell]
 brightness=0.80000000000000000

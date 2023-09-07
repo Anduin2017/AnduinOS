@@ -229,7 +229,6 @@ gsettings set org.gnome.desktop.background picture-options "zoom"
 echo "Configuring gnome extensions..."
 /usr/bin/pip3 install --upgrade gnome-extensions-cli --break-system-packages
 ~/.local/bin/gext -F install arcmenu@arcmenu.com
-~/.local/bin/gext -F install backslide@codeisland.org
 ~/.local/bin/gext -F install blur-my-shell@aunetx
 ~/.local/bin/gext -F install customize-ibus@hollowman.ml
 ~/.local/bin/gext -F install dash-to-panel@jderose9.github.com
