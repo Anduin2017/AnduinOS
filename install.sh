@@ -251,6 +251,10 @@ rm ~/Desktop/*.desktop
 
 echo "Deploy Finished! Please log out and log in again to take effect."
 
-echo "Please press [ENTER] to log out."
-read
-gnome-session-quit --logout --no-prompt
+echo "Please press [y] to log out, or press [c] to continue."
+# When user press 'y', run: gnome-session-quit --logout --no-prompt
+# When user press 'c', run: echo "You pressed 'c'"
+read -n 1 -s -r -p "" key
+if [ "$key" = "y" ]; then
+    gnome-session-quit --logout --no-prompt
+fi
