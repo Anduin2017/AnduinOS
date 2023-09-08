@@ -45,7 +45,7 @@ AnduinOS 会允许当前用户免密码使用 sudo。
 
 AnduinOS 通过额外安装了大量第三方软件来提供体验。
 
-AnduinOS 会安装下列软件：
+AnduinOS 会安装下列第三方软件：
 
 * Firefox 作为主浏览器
 * Google Chrome 作为备用浏览器
@@ -53,10 +53,6 @@ AnduinOS 会安装下列软件：
 * Nextcloud 作为云盘
 * Visual Studio Code 作为主要代码编辑器
 * Shotwell 作为图片管理器
-* Gnome weather 作为天气软件
-* Gnome text editor 作为文本编辑器
-* Cheese 作为摄像头软件
-* Gnome Clocks 作为时钟软件
 * Remmina 作为远程桌面
 * Spotify 作为音乐播放器
 * Pinta 作为图片编辑器
@@ -64,6 +60,7 @@ AnduinOS 会安装下列软件：
 * WPS Office 作为办公软件
 * OBS Studio 作为录屏软件
 * Docker Desktop 作为容器软件
+* Gnome Box 作为虚拟机管理软件
 * WeChat 作为聊天软件
 * Blender 作为3D建模软件
 * Motrix 作为下载工具
