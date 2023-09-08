@@ -83,17 +83,59 @@ wget -O- https://deepin-wine.i-m.dev/setup.sh | sh
 
 echo "Installing softwares..."
 sudo apt update
-sudo apt install -y nodejs google-chrome-stable firefox ibus-rime nautilus-nextcloud\
-  apt-transport-https code vim remmina remmina-plugin-rdp cifs-utils\
-  w3m git sl zip unzip wget curl neofetch jq com.qq.weixin.deepin python3-apt\
-  net-tools httping ffmpeg nano usb-creator-gtk gnome-boxes\
-  gnome-tweaks gnome-shell-extension-prefs spotify-client shotwell\
-  vlc golang-go aria2 adb ffmpeg nextcloud-desktop python3-pip google-earth-pro-stable\
-  ruby openjdk-17-jdk default-jre dotnet6 dotnet7 ca-certificates python-is-python3\
-  gnupg lsb-release  docker-ce docker-ce-cli pinta aisleriot\
-  containerd.io jq htop iotop iftop ntp ntpdate ntpstat clinfo shotcut\
-  docker-compose tree smartmontools blender hugo baobab steam gnome-text-editor \
-  sqlitebrowser obs-studio gnome-nettool gnome-weather gnome-clocks cheese
+sudo apt install -y \
+  nautilus usb-creator-gtk cheese baobab file-roller\
+  gnome-calculator gnome-system-monitor gnome-disk-utility\
+  gnome-tweaks gnome-shell-extension-prefs\
+  gnome-clocks\
+  gnome-weather\
+  gnome-text-editor\
+  gnome-nettool\
+  firefox\
+  google-chrome-stable\
+  ibus-rime\
+  nextcloud-desktop nautilus-nextcloud\
+  code\
+  shotwell\
+  remmina remmina-plugin-rdp\
+  spotify-client\
+  pinta\
+  vlc\
+  obs-studio\
+  gnome-boxes\
+  com.qq.weixin.deepin\
+  blender\
+  google-earth-pro-stable\
+  shotcut\
+  sqlitebrowser\
+  nodejs\
+  golang-go\
+  dotnet6 dotnet7\
+  openjdk-17-jdk default-jre\
+  ruby\
+  python3-apt python3-pip python-is-python3\
+  docker-ce docker-ce-cli containerd.io docker-compose\
+  hugo\
+  adb\
+  git\
+  neofetch lsb-release\
+  gnupg\
+  vim nano\
+  wget curl aria2 httping\
+  ffmpeg\
+  tree htop iotop iftop smartmontools net-tools clinfo\
+  zip unzip jq\
+  ntp ntpdate ntpstat\
+  w3m\
+  apt-transport-https ca-certificates \
+  cifs-utils\
+  aisleriot
+
+sudo apt autoremove -y gnome-maps > /dev/null 2>&1
+sudo apt autoremove -y gnome-photos > /dev/null 2>&1
+sudo apt autoremove -y totem totem-plugins > /dev/null 2>&1
+sudo apt autoremove -y rhythmbox > /dev/null 2>&1
+sudo apt autoremove -y gnome-contacts > /dev/null 2>&1
 
 # Add current user as docker.
 sudo gpasswd -a $USER docker

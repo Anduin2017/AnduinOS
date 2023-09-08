@@ -49,7 +49,7 @@ AnduinOS 会安装下列第三方软件：
 
 * Firefox 作为主浏览器
 * Google Chrome 作为备用浏览器
-* Rime 作为输入法
+* IBus Rime 作为输入法
 * Nextcloud 作为云盘
 * Visual Studio Code 作为主要代码编辑器
 * Shotwell 作为图片管理器
@@ -60,7 +60,7 @@ AnduinOS 会安装下列第三方软件：
 * WPS Office 作为办公软件
 * OBS Studio 作为录屏软件
 * Docker Desktop 作为容器软件
-* Gnome Box 作为虚拟机管理软件
+* Gnome Boxes 作为虚拟机管理软件
 * WeChat 作为聊天软件
 * Blender 作为3D建模软件
 * Motrix 作为下载工具
@@ -68,7 +68,6 @@ AnduinOS 会安装下列第三方软件：
 * Shotcut 作为视频编辑器
 * Insomnia 作为API测试工具
 * DbBrowser 作为数据库管理工具
-* Gnome Boxes 作为虚拟机管理工具
 
 这些软件几乎涵盖了日常使用的所有场景。
 
@@ -82,22 +81,37 @@ AnduinOS 会配置下列开发环境：
 * Java (OpenJDK)
 * Ruby
 * Python
-* Docker
-* Docker Compose
+* Docker & Docker Compose
 * Hugo
+* Android Debug Bridge (adb)
 
 AnduinOS 会安装下列 CLI 工具：
 
-* Vim
 * Git
-* Neofetch
-* Wget
-* Curl
-* Aria2
+* Neofetch & lsb-release
+* gnupg
+* Vim
+* Nano
+* Wget & Curl & Aria2 & httping
 * FFmpeg
-* Tree
-* Htop
+* Tree & htop & iotop & iftop & smartmontools & net-tools & clinfo
+* zip & unzip & jq
+* ntp & ntpdate & ntpstat
 * W3m
+
+AnduinOS 还会额外安装一些软件包：
+
+* apt-transport-https
+* ca-certificates 
+* cifs-utils
+
+AnduinOS 会移除掉一些已经被替代或几乎不会被用到的软件：
+
+* Gnome-maps
+* Gnome-photos
+* Totem
+* Rhythmbox
+* Gnome-contacts
 
 AnduinOS 会安装一些pip全局工具：
 
