@@ -107,10 +107,11 @@ AnduinOS 还会额外安装一些软件包：
 
 AnduinOS 会移除掉一些已经被替代或几乎不会被用到的软件：
 
-* Gnome-maps
-* Gnome-photos
-* Totem
-* Rhythmbox
+* Gnome-maps （使用 Google Earth 替代）
+* Gnome-photos （使用 Shotwell 替代）
+* eog （使用 Shotwell viewer 替代）
+* Totem （使用 VLC 替代）
+* Rhythmbox （使用 Spotify 替代）
 * Gnome-contacts
 
 AnduinOS 会安装一些pip全局工具：

@@ -26,13 +26,13 @@ sudo apt install -y wget gpg curl apt-transport-https software-properties-common
 
 # Snap
 echo "Removing snap..."
-sudo killall -9 firefox
-sudo snap remove firefox
-sudo snap remove snap-store
-sudo snap remove gtk-common-themes
-sudo snap remove snapd-desktop-integration
-sudo snap remove bare
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/BryanDollery/remove-snap/main/remove-snap.sh)"
+sudo killall -9 firefox > /dev/null 2>&1
+sudo snap remove firefox > /dev/null 2>&1
+sudo snap remove snap-store > /dev/null 2>&1
+sudo snap remove gtk-common-themes > /dev/null 2>&1
+sudo snap remove snapd-desktop-integration > /dev/null 2>&1
+sudo snap remove bare > /dev/null 2>&1
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/BryanDollery/remove-snap/main/remove-snap.sh)" > /dev/null 2>&1
 
 # Docker source
 echo "Setting docker..."
@@ -133,6 +133,7 @@ sudo apt install -y \
 
 sudo apt autoremove -y gnome-maps > /dev/null 2>&1
 sudo apt autoremove -y gnome-photos > /dev/null 2>&1
+sudo apt autoremove -y eog > /dev/null 2>&1
 sudo apt autoremove -y totem totem-plugins > /dev/null 2>&1
 sudo apt autoremove -y rhythmbox > /dev/null 2>&1
 sudo apt autoremove -y gnome-contacts > /dev/null 2>&1
