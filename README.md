@@ -119,6 +119,14 @@ AnduinOS 会安装一些pip全局工具：
 * Youtube-dl
 * Gnome-extensions-cli
 
+AnduinOS 会安装一些npm全局工具：
+
+* npx
+* yarn
+* marked
+* typescript
+* ts-node
+
 AnduinOS 会安装一些.NET全局工具：
 
 * EntityFrameworkCore

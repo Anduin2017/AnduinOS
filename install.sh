@@ -142,7 +142,7 @@ sudo apt autoremove -y gnome-contacts > /dev/null 2>&1
 sudo gpasswd -a $USER docker
 
 # NPM
-sudo npm i -g yarn npm
+sudo npm i -g yarn npm npx typescript ts-node marked
 
 # Insomnia
 echo "Installing insomnia..."
