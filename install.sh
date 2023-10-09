@@ -250,6 +250,13 @@ sudo DEBIAN_FRONTEND=noninteractive dpkg --configure -a
 sleep 1
 sudo DEBIAN_FRONTEND=noninteractive apt upgrade -y
 
+# Fix CJK
+sudo wget https://gitlab.aiursoft.cn/anduin/anduinos/-/raw/master/Config/fonts.conf -O /etc/fonts/local.conf
+wget https://aimerneige.aiur.site/fonts/ubuntu-setup-fonts.zip
+sudo unzip ubuntu-setup-fonts.zip -d /usr/share/fonts/
+rm -f ubuntu-setup-fonts.zip
+sudo fc-cache -fv
+
 # Theme
 echo "Configuring theme..."
 rm /opt/themes -rvf > /dev/null 2>&1
