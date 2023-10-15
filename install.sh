@@ -252,9 +252,9 @@ sudo DEBIAN_FRONTEND=noninteractive apt upgrade -y
 
 # Fix CJK
 sudo wget https://gitlab.aiursoft.cn/anduin/anduinos/-/raw/master/Config/fonts.conf -O /etc/fonts/local.conf
-wget https://gitlab.aiursoft.cn/anduin/anduinos/-/raw/master/Assets/fonts.zip
-sudo unzip fonts.zip -d /usr/share/fonts/
-rm -f fonts.zip
+wget -P /tmp https://gitlab.aiursoft.cn/anduin/anduinos/-/raw/master/Assets/fonts.zip
+sudo unzip -o /tmp/fonts.zip -d /usr/share/fonts/
+rm -f /tmp/fonts.zip
 sudo fc-cache -fv
 
 # Theme
