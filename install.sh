@@ -233,24 +233,26 @@ echo "Installing youtube-dl..."
 sudo curl -L https://yt-dl.org/downloads/latest/youtube-dl -o /usr/local/bin/youtube-dl
 sudo chmod a+rx /usr/local/bin/youtube-dl
 
-# Fix
-echo "Updating old packages..."
+# Clean up obsolete apt sources.
+echo "Cleaning up obsolete apt sources...."
 wget https://github.com/davidfoerster/aptsources-cleanup/releases/download/v0.1.7.5.2/aptsources-cleanup.pyz
 chmod +x aptsources-cleanup.pyz
 sudo bash -c "echo all | ./aptsources-cleanup.pyz  --yes"
 rm ./aptsources-cleanup.pyz
+
+echo "Upgrading packages..."
 sudo apt update
 sudo DEBIAN_FRONTEND=noninteractive apt --purge autoremove -y
-sleep 1
+sleep 2
 sudo DEBIAN_FRONTEND=noninteractive apt install --fix-broken  -y
-sleep 1
+sleep 2
 sudo DEBIAN_FRONTEND=noninteractive apt install --fix-missing  -y
-sleep 1
+sleep 2
 sudo DEBIAN_FRONTEND=noninteractive dpkg --configure -a
-sleep 1
+sleep 2
 sudo DEBIAN_FRONTEND=noninteractive apt upgrade -y
 
-# Fix CJK
+# Fix CJK fonts
 sudo wget https://gitlab.aiursoft.cn/anduin/anduinos/-/raw/master/Config/fonts.conf -O /etc/fonts/local.conf
 wget -P /tmp https://gitlab.aiursoft.cn/anduin/anduinos/-/raw/master/Assets/fonts.zip
 sudo unzip -o /tmp/fonts.zip -d /usr/share/fonts/

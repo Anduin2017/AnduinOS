@@ -151,20 +151,18 @@ AnduinOS 使用了一些 Gnome 插件（并会自动初始化这些插件）：
 
 AnduinOS 使用的默认壁纸是来自于 [Fluent-gtk-theme](https://github.com/vinceliuice/Fluent-gtk-theme/tree/Wallpaper) 的壁纸。
 
+AnduinOS 会替换 `/etc/gdm3/custom.conf` 文件以强制使用 Wayland 作为 Display Server。
+
+AnduinOS 会替换 `/usr/share/applications/google-chrome.desktop` 文件以强制 Google Chrome 使用 Wayland。
+
 ## 已知的问题
 
 * 微信的体验并不是很良好，包括无法从剪贴板粘贴图片、无法截图、无法使用系统通知等。
-* Chrome\VSCode 等在 Wayland 下可能会出现无法输入中文、文字和菜单模糊等问题。
+* Chrome 可能无法使用 GPU 进行硬件加速。
 
-对于 Chromium 相关的问题：
+对于 Chrome GPU 相关的问题：
 
-* 可以选择使用 X11 来代替 Wayland。
 * 可以选择使用 Firefox 来代替 Chrome。
-* 为了缓解字体模糊和中文输入法等问题，可以在启动这些 Chromium 应用时增加参数：
-
-```bash
-GTK_IM_MODULE=ibus google-chrome --enable-features=UseOzonePlatform --ozone-platform=wayland --gtk-version=4  --disable-features=WaylandFractionalScaleV1
-```
 
 如果遇到微信显示太小：
 
