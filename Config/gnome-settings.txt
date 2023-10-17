@@ -38,26 +38,8 @@ sort-order=['org.gnome.Contacts.desktop', 'org.gnome.Documents.desktop', 'org.gn
 [desktop/wm/preferences]
 button-layout=':minimize,maximize,close'
 
-[evince/default]
-window-ratio=(0.98039215686274506, 0.75757575757575757)
-
 [evolution-data-server]
 migrated=true
-
-[gedit/state/window]
-bottom-panel-size=140
-side-panel-active-page='GeditWindowDocumentsPanel'
-side-panel-size=200
-size=(900, 700)
-state=87168
-
-[gnome-system-monitor]
-cpu-colors=[(uint32 0, '#e6194B'), (1, '#f58231'), (2, '#ffe119'), (3, '#bfef45'), (4, '#3cb44b'), (5, '#42d4f4'), (6, '#4363d8'), (7, '#911eb4'), (8, '#f032e6'), (9, '#fabebe'), (10, '#ffd8b1'), (11, '#fffac8'), (12, '#aaffc3'), (13, '#469990'), (14, '#000075'), (15, '#e6beff'), (16, '#d43cf3327999'), (17, '#eeac7999f332'), (18, '#7999f332cb30'), (19, '#f332a7b57999'), (20, '#843a7999f332'), (21, '#9273f3327999'), (22, '#f3327999b5ee'), (23, '#7999d96af332'), (24, '#f332e97e7999'), (25, '#c6037999f332'), (26, '#7999f332a288'), (27, '#f3327f0c7999'), (28, '#799997a0f332'), (29, '#bb1cf3327999'), (30, '#f3327999de97'), (31, '#7999f332e451')]
-current-tab='processes'
-maximized=false
-network-total-in-bits=false
-show-dependencies=false
-show-whose-processes='user'
 
 [mutter]
 overlay-key='Super_L'
@@ -65,27 +47,16 @@ overlay-key='Super_L'
 [nautilus/compression]
 default-compression-format='zip'
 
-[nautilus/icon-view]
-default-zoom-level='large'
-
-[nautilus/list-view]
-default-zoom-level='medium'
-
 [nautilus/preferences]
 default-folder-viewer='list-view'
-migrated-gtk-settings=true
 search-filter-time-type='last_modified'
 search-view='list-view'
-
-[settings-daemon/plugins/color]
-night-light-enabled=false
 
 [shell]
 disable-user-extensions=false
 enabled-extensions=['user-theme@gnome-shell-extensions.gcampax.github.com', 'arcmenu@arcmenu.com', 'openweather-extension@jenslody.de', 'network-stats@gnome.noroadsleft.xyz', 'customize-ibus@hollowman.ml', 'drive-menu@gnome-shell-extensions.gcampax.github.com', 'blur-my-shell@aunetx', 'ding@rastersoft.com', 'ubuntu-dock@ubuntu.com', 'stocks@infinicode.de', 'dash-to-panel@jderose9.github.com', 'system-monitor-next@paradoxxx.zero.gmail.com', 'extension-list@tu.berry', 'no-overview@fthx']
 favorite-apps=['firefox.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Terminal.desktop', 'code.desktop']
 last-selected-power-profile='performance'
-welcome-dialog-last-shown-version='44.0'
 
 [shell/extensions/arcmenu]
 arc-menu-icon=71
