@@ -60,7 +60,6 @@ show-dependencies=false
 show-whose-processes='user'
 
 [mutter]
-experimental-features=['x11-randr-fractional-scaling', 'scale-monitor-framebuffer']
 overlay-key='Super_L'
 
 [nautilus/compression]
