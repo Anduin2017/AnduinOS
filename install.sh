@@ -263,7 +263,7 @@ sudo fc-cache -fv
 echo -e "[daemon]\nWaylandEnable=true\n\n[security]\n\n[xdmcp]\n\n[chooser]\n\n[debug]\n\n" | sudo tee /etc/gdm3/custom.conf > /dev/null
 
 # Patch chrome to use gtk4 and wayland
-sudo sed -i 's/^Exec=.*/Exec=env GTK_IM_MODULE=ibus google-chrome --ozone-platform-hint=auto --gtk-version=4/g' /usr/share/applications/google-chrome.desktop
+sudo sed -i 's/^Exec=.*/Exec=env GTK_IM_MODULE=ibus google-chrome --enable-features=UseOzonePlatform --ozone-platform=wayland --gtk-version=4 --disable-features=WaylandFractionalScaleV1/g' /usr/share/applications/google-chrome.desktop
 
 # Theme
 echo "Configuring theme..."
