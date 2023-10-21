@@ -151,10 +151,6 @@ AnduinOS 使用了一些 Gnome 插件（并会自动初始化这些插件）：
 
 AnduinOS 使用的默认壁纸是来自于 [Fluent-gtk-theme](https://github.com/vinceliuice/Fluent-gtk-theme/tree/Wallpaper) 的壁纸。
 
-AnduinOS 会替换 `/etc/gdm3/custom.conf` 文件以强制使用 Wayland 作为 Display Server。
-
-AnduinOS 会替换 `/usr/share/applications/google-chrome.desktop` 文件以强制 Google Chrome 使用 Wayland。
-
 ## 已知的问题
 
 * 微信的体验并不是很良好，包括无法从剪贴板粘贴图片、无法截图、无法使用系统通知等。

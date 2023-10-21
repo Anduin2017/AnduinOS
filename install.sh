@@ -259,12 +259,6 @@ sudo unzip -o /tmp/fonts.zip -d /usr/share/fonts/
 rm -f /tmp/fonts.zip
 sudo fc-cache -fv
 
-# Use Wayland by default because it is the future.
-echo -e "[daemon]\nWaylandEnable=true\n\n[security]\n\n[xdmcp]\n\n[chooser]\n\n[debug]\n\n" | sudo tee /etc/gdm3/custom.conf > /dev/null
-
-# Patch chrome to use gtk4 and wayland
-sudo sed -i 's/^Exec=.*/Exec=env GTK_IM_MODULE=ibus google-chrome --enable-features=UseOzonePlatform --ozone-platform=wayland --gtk-version=4 --disable-features=WaylandFractionalScaleV1/g' /usr/share/applications/google-chrome.desktop
-
 # Theme
 echo "Configuring theme..."
 rm /opt/themes -rvf > /dev/null 2>&1
