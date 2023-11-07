@@ -21,7 +21,7 @@ AnduinOS 测试了这些软件和UI的整合体验，因此在使用时一般不
 
 显然，AnduinOS 并不是独立的操作系统。因此必须先安装 Ubuntu 。
 
-在这里下载 Ubuntu 23.04： [Ubuntu Desktop Download](https://ubuntu.com/download/desktop)
+在这里下载 Ubuntu 23.04： [Ubuntu Desktop Download](https://releases.ubuntu.com/lunar/ubuntu-23.04-desktop-amd64.iso)
 
 按照用户喜欢的方式部署 Ubuntu 即可。不需要特别的设置。
 
@@ -35,7 +35,9 @@ bash -c "$(wget -O- https://gitlab.aiursoft.cn/anduin/anduinos/-/raw/master/inst
 
 当然，在部署完成后，你可以继续像使用 Ubuntu 那样为它安装软件。
 
-> 注意：我们只测试了 Ubuntu 23.04 中的部署效果并且没有任何包冲突。22.04 可能会遇到包版本冲突。其他 Linux 发行版不保证可以运行。
+> 注意：我们只测试了 Ubuntu 23.04 中的部署效果并且没有任何包冲突。22.04，23.10 会遇到包版本冲突！
+
+点击 [这里](https://releases.ubuntu.com/lunar/ubuntu-23.04-desktop-amd64.iso) 下载 Ubuntu 23.04。
 
 ## AnduinOS 做了什么
 
