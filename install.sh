@@ -98,8 +98,8 @@ sudo apt install -y \
   code\
   shotwell\
   remmina remmina-plugin-rdp\
-  #spotify-client\
-  #pinta\
+  spotify-client\
+  pinta\
   vlc\
   obs-studio\
   gnome-boxes\
