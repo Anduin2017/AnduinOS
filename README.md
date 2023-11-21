@@ -100,6 +100,7 @@ AnduinOS 会安装下列 CLI 工具：
 * zip & unzip & jq
 * ntp & ntpdate & ntpstat
 * W3m
+* Sysbench
 
 AnduinOS 还会额外安装一些软件包：
 

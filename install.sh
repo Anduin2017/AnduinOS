@@ -127,6 +127,7 @@ sudo apt install -y \
   zip unzip jq\
   ntp ntpdate ntpstat\
   w3m\
+  sysbench\
   apt-transport-https ca-certificates \
   cifs-utils\
   aisleriot
