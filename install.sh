@@ -110,7 +110,7 @@ sudo apt install -y \
   sqlitebrowser\
   nodejs\
   golang-go\
-  dotnet6 dotnet7\
+  dotnet6 dotnet8\
   openjdk-17-jdk default-jre\
   ruby\
   python3-apt python3-pip python-is-python3\
