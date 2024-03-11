@@ -79,7 +79,7 @@ sudo sh -c 'echo "deb https://mirror-ppa.aiursoft.cn/nextcloud-devs/client/ubunt
 
 # Firefox
 echo "Setting firefox..."
-sudo sh -c 'echo "deb http://mirror-ppa.aiursoft.cn/mozillateam/ppa/ubuntu/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/mozilla.list'
+sudo sh -c 'echo "deb https://mirror-ppa.aiursoft.cn/mozillateam/ppa/ubuntu/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/mozilla.list'
 echo -e '\nPackage: *\nPin: release o=LP-PPA-mozillateam\nPin-Priority: 1002' | sudo tee /etc/apt/preferences.d/mozilla-firefox
 
 # Node
