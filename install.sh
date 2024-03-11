@@ -1,16 +1,22 @@
 #!/bin/bash
 export LC_ALL=C.UTF-8
 export LANG=C.UTF-8
+Green="\033[32m"
+Red="\033[31m"
+Yellow="\033[33m"
 Blue="\033[36m"
 Font="\033[0m"
-cd ~
-
+GreenBG="\033[42;37m"
+RedBG="\033[41;37m"
+OK="${Green}[OK]${Font}"
+ERROR="${Red}[ERROR]${Font}"
 function print_ok() {
   echo -e "${OK} ${Blue} $1 ${Font}"
 }
 
-
-echo "The command you are running is deploying AnduinOS to Ubuntu $(lsb_release -sc)."
+clear
+cd ~
+echo "The command you are running is deploying AnduinOS on Ubuntu $(lsb_release -sc)."
 echo "This may introduce non-open-source software to your system."
 print_ok "Please press [ENTER] to continue, or press CTRL+C to cancel."
 read
