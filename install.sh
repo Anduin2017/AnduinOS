@@ -174,6 +174,7 @@ print_ok "Removing i386 architecture..."
 sudo dpkg --remove-architecture i386
 
 print_ok "Removing obsolete gnome apps..."
+sudo apt autoremove -y gnome-initial-setup > /dev/null 2>&1
 sudo apt autoremove -y gnome-maps > /dev/null 2>&1
 sudo apt autoremove -y gnome-photos > /dev/null 2>&1
 sudo apt autoremove -y eog > /dev/null 2>&1
