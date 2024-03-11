@@ -39,7 +39,7 @@ bash -c "$(wget -O- https://gitlab.aiursoft.cn/anduin/anduinos/-/raw/master/inst
 
 > 注意：我们只测试了 Ubuntu 22.04 中的部署效果并且没有任何包冲突。其它版本可能会遇到包版本冲突！
 
-点击 [这里](https://releases.ubuntu.com/lunar/ubuntu-22.04-desktop-amd64.iso) 下载 Ubuntu 22.04。
+点击 [这里](https://releases.ubuntu.com/22.04.4/ubuntu-22.04.4-desktop-amd64.iso) 下载 Ubuntu 22.04。
 
 ## AnduinOS 做了什么
 
