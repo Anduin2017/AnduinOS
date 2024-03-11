@@ -24,6 +24,13 @@ sudo add-apt-repository -y multiverse
 sudo apt update
 sudo apt install -y ca-certificates wget gpg curl apt-transport-https software-properties-common gnupg
 
+# Test if the user can access Google.
+echo "Testing network..."
+if ! curl -s --head  --request GET http://www.google.com/generate_204 | grep "204" > /dev/null; then
+  echo "You are not able to access Internet. Please check your network and try again."
+  exit 1
+fi
+
 # Snap
 echo "Removing snap..."
 sudo killall -9 firefox > /dev/null 2>&1
