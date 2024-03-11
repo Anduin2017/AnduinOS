@@ -61,7 +61,7 @@ echo "Setting google earth pro..."
 sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/earth/deb/ stable main" > /etc/apt/sources.list.d/google.list'
 
 # Code
-echo "Setting ms..."
+echo "Setting Microsoft repository..."
 wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
 sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
 sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
@@ -240,6 +240,7 @@ function TryInstallDotnetTool {
 
 TryInstallDotnetTool "dotnet-ef"
 TryInstallDotnetTool "Aiursoft.Static"
+TryInstallDotnetTool "Aiursoft.Httping"
 
 # Python Tools
 echo "Installing youtube-dl..."
