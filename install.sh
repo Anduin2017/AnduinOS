@@ -89,10 +89,6 @@ curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg 
 NODE_MAJOR=20
 echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list
 
-# WeChat
-echo "Setting wechat..."
-wget -O- https://deepin-wine.i-m.dev/setup.sh | sh
-
 echo "Installing softwares..."
 sudo apt update
 
@@ -115,7 +111,6 @@ sudo apt install -y \
   vlc\
   obs-studio\
   gnome-boxes\
-  com.qq.weixin.deepin\
   blender\
   google-earth-pro-stable\
   shotcut\
@@ -144,6 +139,15 @@ sudo apt install -y \
   sysbench\
   cifs-utils\
   aisleriot
+
+# WeChat
+echo "Setting wechat..."
+wget -O- https://deepin-wine.i-m.dev/setup.sh | sh
+
+sudo apt install -y com.qq.weixin.deepin
+
+echo "Removing i386 architecture..."
+sudo dpkg --remove-architecture i386
 
 sudo apt autoremove -y gnome-maps > /dev/null 2>&1
 sudo apt autoremove -y gnome-photos > /dev/null 2>&1
