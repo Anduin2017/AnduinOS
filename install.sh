@@ -57,9 +57,9 @@ sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packag
 rm -f packages.microsoft.gpg
 
 # Spotify
-echo "Setting spotify..."
-curl -sS https://download.spotify.com/debian/pubkey_7A3A762FAFD4A51F.gpg | sudo gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/spotify.gpg
-echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
+# echo "Setting spotify..."
+# curl -sS https://download.spotify.com/debian/pubkey_7A3A762FAFD4A51F.gpg | sudo gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/spotify.gpg
+# echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
 
 # Nextcloud
 echo "Setting nextcloud..."
@@ -83,6 +83,10 @@ wget -O- https://deepin-wine.i-m.dev/setup.sh | sh
 
 echo "Installing softwares..."
 sudo apt update
+
+# Deprecated packages:
+#spotify-client\
+
 sudo apt install -y \
   nautilus usb-creator-gtk cheese baobab file-roller\
   gnome-calculator gnome-system-monitor gnome-disk-utility\
@@ -98,7 +102,6 @@ sudo apt install -y \
   code\
   shotwell\
   remmina remmina-plugin-rdp\
-  spotify-client\
   pinta\
   vlc\
   obs-studio\
