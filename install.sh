@@ -1,9 +1,8 @@
 #!/bin/bash
 export LC_ALL=C.UTF-8
 export LANG=C.UTF-8
-ubuntu_code=$(lsb_release -sc)
 
-echo "The command you are running is deploying AnduinOS..."
+echo "The command you are running is deploying AnduinOS to Ubuntu $(lsb_release -sc)."
 echo "This may introduce non-open-source software to your system."
 echo "Please press [ENTER] to continue, or press CTRL+C to cancel."
 read
@@ -62,7 +61,7 @@ echo "Setting google earth pro..."
 sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/earth/deb/ stable main" > /etc/apt/sources.list.d/google.list'
 
 # Code
-echo "Setting Microsoft repository..."
+echo "Setting VSCode..."
 wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
 sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
 sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
@@ -75,11 +74,11 @@ echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sou
 
 # Nextcloud
 echo "Setting nextcloud..."
-sudo sh -c 'echo "deb https://mirror-ppa.aiursoft.cn/nextcloud-devs/client/ubuntu/ $ubuntu_code main" > /etc/apt/sources.list.d/nextcloud-client.list'
+sudo sh -c 'echo "deb https://mirror-ppa.aiursoft.cn/nextcloud-devs/client/ubuntu/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/nextcloud-client.list'
 
 # Firefox
 echo "Setting firefox..."
-sudo sh -c 'echo "deb http://mirror-ppa.aiursoft.cn/mozillateam/ppa/ubuntu/ $ubuntu_code main" > /etc/apt/sources.list.d/mozilla.list'
+sudo sh -c 'echo "deb http://mirror-ppa.aiursoft.cn/mozillateam/ppa/ubuntu/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/mozilla.list'
 echo -e '\nPackage: *\nPin: release o=LP-PPA-mozillateam\nPin-Priority: 1002' | sudo tee /etc/apt/preferences.d/mozilla-firefox
 
 # Node
