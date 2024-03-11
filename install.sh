@@ -40,7 +40,16 @@ sudo snap remove snap-store > /dev/null 2>&1
 sudo snap remove gtk-common-themes > /dev/null 2>&1
 sudo snap remove snapd-desktop-integration > /dev/null 2>&1
 sudo snap remove bare > /dev/null 2>&1
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/BryanDollery/remove-snap/main/remove-snap.sh)" > /dev/null 2>&1
+sudo systemctl disable --now snapd
+sudo apt purge -y snapd
+sudo rm -rf /snap /var/snap /var/lib/snapd /var/cache/snapd /usr/lib/snapd ~/snap
+cat << EOF | sudo tee -a /etc/apt/preferences.d/no-snap.pref
+Package: snapd
+Pin: release a=*
+Pin-Priority: -10
+EOF
+sudo chown root:root /etc/apt/preferences.d/no-snap.pref
+echo "Snap removed"
 
 # Docker source
 echo "Setting docker..."
