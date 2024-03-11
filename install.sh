@@ -1,6 +1,7 @@
 #!/bin/bash
 export LC_ALL=C.UTF-8
 export LANG=C.UTF-8
+cd ~
 
 echo "The command you are running is deploying AnduinOS to Ubuntu $(lsb_release -sc)."
 echo "This may introduce non-open-source software to your system."
