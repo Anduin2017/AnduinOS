@@ -54,7 +54,7 @@ search-view='list-view'
 
 [shell]
 disable-user-extensions=false
-enabled-extensions=['user-theme@gnome-shell-extensions.gcampax.github.com', 'arcmenu@arcmenu.com', 'openweather-extension@jenslody.de', 'network-stats@gnome.noroadsleft.xyz', 'customize-ibus@hollowman.ml', 'drive-menu@gnome-shell-extensions.gcampax.github.com', 'blur-my-shell@aunetx', 'ding@rastersoft.com', 'ubuntu-dock@ubuntu.com', 'stocks@infinicode.de', 'dash-to-panel@jderose9.github.com', 'system-monitor-next@paradoxxx.zero.gmail.com', 'extension-list@tu.berry', 'no-overview@fthx']
+enabled-extensions=['user-theme@gnome-shell-extensions.gcampax.github.com', 'arcmenu@arcmenu.com', 'openweather-extension@jenslody.de', 'network-stats@gnome.noroadsleft.xyz', 'customize-ibus@hollowman.ml', 'drive-menu@gnome-shell-extensions.gcampax.github.com', 'blur-my-shell@aunetx', 'ding@rastersoft.com', 'ubuntu-dock@ubuntu.com', 'dash-to-panel@jderose9.github.com', 'system-monitor-next@paradoxxx.zero.gmail.com', 'extension-list@tu.berry', 'no-overview@fthx']
 favorite-apps=['firefox.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Terminal.desktop', 'code.desktop']
 last-selected-power-profile='performance'
 
@@ -157,16 +157,10 @@ button-icon=uint32 1
 toggle-unpin=false
 
 [shell/extensions/network-stats]
-devices-info='{"eno2":{"totalUpload":0,"totalDownload":0,"resetedAt":"Sat Aug 05 2023 18:28:11 GMT+0000 (Coordinated Universal Time)"},"wlo1":{"totalUpload":7269858,"totalDownload":35760038,"resetedAt":"Sat Aug 05 2023 18:28:11 GMT+0000 (Coordinated Universal Time)"},"docker0":{"totalUpload":0,"totalDownload":0,"resetedAt":"Sat Aug 26 2023 08:19:58 GMT+0000 (Coordinated Universal Time)"},"wlp0s20f3":{"totalUpload":11893498,"totalDownload":364784085,"resetedAt":"Sat Aug 26 2023 08:19:58 GMT+0000 (Coordinated Universal Time)"}}'
 display-mode='total_speed'
 
 [shell/extensions/openweather]
 city='31.3016935,120.5810725>苏州市, 江苏省, 中国>0'
-
-[shell/extensions/stocks]
-portfolios='W3siaWQiOiI5MjNlYzEyZDE4YTliN2FlZDlmOTg0M2I2NGNjZjcwZCIsIm5hbWUiOiJXYXRjaCBsaXN0Iiwic3ltYm9scyI6W3siaWQiOiIxMGUzMmNhNmUwM2IwMGQ4OTU0YzI2MzE2NGNjZjc1MCIsIm5hbWUiOiJBcHBsZSIsInN5bWJvbCI6IkFBUEwiLCJwcm92aWRlciI6InlhaG9vIiwic2hvd0luVGlja2VyIjpmYWxzZX0seyJpZCI6IjAxZTU5NzQ1M2E0Y2M5OWVkODk5NTcwMTY0Y2NmNzE0IiwibmFtZSI6Ik1pY3Jvc29mdCIsInN5bWJvbCI6Ik1TRlQiLCJwcm92aWRlciI6InlhaG9vIiwic2hvd0luVGlja2VyIjpmYWxzZX0seyJpZCI6ImNhN2RjMzMyYjViZjBmMWFlZDAyNzYxNjY0Y2U5NThlIiwibmFtZSI6Ikdvb2dsZSIsInN5bWJvbCI6IkdPT0ciLCJwcm92aWRlciI6InlhaG9vIiwic2hvd0luVGlja2VyIjpmYWxzZX0seyJpZCI6ImFkMzhjZTEzYWRiMDlhMjcxMzk1YzMwYzY0Y2NmNzY4IiwibmFtZSI6Ik52aWRpYSIsInN5bWJvbCI6Ik5WREEiLCJwcm92aWRlciI6InlhaG9vIiwic2hvd0luVGlja2VyIjpmYWxzZX0seyJpZCI6IjczMmI3ZTlmNzliMmQ4NzE2NDVmYTIwNTY0Y2U5NWUxIiwibmFtZSI6IlRlc2xhIiwic3ltYm9sIjoiVFNMQSIsInByb3ZpZGVyIjoieWFob28iLCJzaG93SW5UaWNrZXIiOmZhbHNlfSx7ImlkIjoiNTAyMTEzYzljOGMwZjA0MTAyYTdlY2I3NjRjZTk1YTkiLCJuYW1lIjoiTWV0YSIsInN5bWJvbCI6Ik1FVEEiLCJwcm92aWRlciI6InlhaG9vIiwic2hvd0luVGlja2VyIjpmYWxzZX0seyJpZCI6IjVmMDY2NDZkYTQ0ZmY1ZTBkNjljNDdkMTY0Y2U5NWY4IiwibmFtZSI6IkFtYXpvbiIsInN5bWJvbCI6IkFNWk4iLCJwcm92aWRlciI6InlhaG9vIiwic2hvd0luVGlja2VyIjpmYWxzZX1dfV0='
-selected-portfolio='923ec12d18a9b7aed9f9843b64ccf70d'
-ticker-display-variation='compact'
 
 [shell/extensions/system-monitor]
 icon-display=true

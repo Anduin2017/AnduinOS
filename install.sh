@@ -305,7 +305,6 @@ echo "Configuring gnome extensions..."
 ~/.local/bin/gext -F install network-stats@gnome.noroadsleft.xyz
 ~/.local/bin/gext -F install no-overview@fthx
 ~/.local/bin/gext -F install openweather-extension@jenslody.de
-~/.local/bin/gext -F install stocks@infinicode.de
 ~/.local/bin/gext -F install user-theme@gnome-shell-extensions.gcampax.github.com
 /usr/bin/pip3 uninstall gnome-extensions-cli -y
 
