@@ -76,8 +76,9 @@ echo \
 
 # Google Chrome Source
 print_ok "Setting google chrome..."
-sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list' 
-wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+wget https://dl-ssl.google.com/linux/linux_signing_key.pub -O /tmp/google.pub
+gpg --no-default-keyring --keyring /etc/apt/keyrings/google-chrome.gpg --import /tmp/google.pub
+echo 'deb [arch=amd64 signed-by=/etc/apt/keyrings/google-chrome.gpg] http://dl.google.com/linux/chrome/deb/ stable main' | sudo tee /etc/apt/sources.list.d/google-chrome.list
 
 # Google Earth Pro
 print_ok "Setting google earth pro..."
