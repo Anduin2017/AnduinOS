@@ -1,6 +1,7 @@
 #!/bin/bash
 export LC_ALL=C.UTF-8
 export LANG=C.UTF-8
+ubuntu_code=$(lsb_release -sc)
 
 echo "The command you are running is deploying AnduinOS..."
 echo "This may introduce non-open-source software to your system."
@@ -74,11 +75,11 @@ echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sou
 
 # Nextcloud
 echo "Setting nextcloud..."
-sudo add-apt-repository ppa:nextcloud-devs/client --yes
+sudo sh -c 'echo "deb https://mirror-ppa.aiursoft.cn/nextcloud-devs/client/ubuntu/ $ubuntu_code main" > /etc/apt/sources.list.d/nextcloud-client.list'
 
 # Firefox
 echo "Setting firefox..."
-sudo add-apt-repository ppa:mozillateam/ppa --yes
+sudo sh -c 'echo "deb http://mirror-ppa.aiursoft.cn/mozillateam/ppa/ubuntu/ $ubuntu_code main" > /etc/apt/sources.list.d/mozilla.list'
 echo -e '\nPackage: *\nPin: release o=LP-PPA-mozillateam\nPin-Priority: 1002' | sudo tee /etc/apt/preferences.d/mozilla-firefox
 
 # Node
