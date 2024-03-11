@@ -28,7 +28,7 @@ sudo apt install -y ca-certificates wget gpg curl apt-transport-https software-p
 # Test if the user can access Google.
 echo "Testing network..."
 if ! curl -s --head  --request GET http://dl.google.com/ | grep "Content-Type" > /dev/null; then
-  echo "You are not able to access Internet. Please check your network and try again."
+  echo "You are not able to access Internet. Please check your network and try again!"
   exit 1
 fi
 
@@ -194,8 +194,10 @@ fi
 # Installing docker-desktop
 if ! dpkg -s docker-desktop > /dev/null 2>&1; then
     echo "docker-desktop is not installed, downloading and installing..."
+
+    dockerVersion=$(docker --version)
     # Download the deb package
-    wget https://desktop.docker.com/linux/main/amd64/docker-desktop-4.22.0-amd64.deb
+    wget https://desktop.docker.com/linux/main/amd64/docker-desktop-4.28.0-amd64.deb
     # Install the package
     sudo dpkg -i docker-desktop-4.22.0-amd64.deb
     sudo apt install --fix-broken -y
@@ -294,7 +296,7 @@ gsettings set org.gnome.desktop.background picture-options "zoom"
 
 # Gnome extensions
 echo "Configuring gnome extensions..."
-/usr/bin/pip3 install --upgrade gnome-extensions-cli --break-system-packages
+/usr/bin/pip3 install --upgrade gnome-extensions-cli
 ~/.local/bin/gext -F install arcmenu@arcmenu.com
 ~/.local/bin/gext -F install blur-my-shell@aunetx
 ~/.local/bin/gext -F install customize-ibus@hollowman.ml
@@ -305,7 +307,7 @@ echo "Configuring gnome extensions..."
 ~/.local/bin/gext -F install openweather-extension@jenslody.de
 ~/.local/bin/gext -F install stocks@infinicode.de
 ~/.local/bin/gext -F install user-theme@gnome-shell-extensions.gcampax.github.com
-/usr/bin/pip3 uninstall gnome-extensions-cli -y --break-system-packages
+/usr/bin/pip3 uninstall gnome-extensions-cli -y
 
 dconf load /org/gnome/ < <(curl https://gitlab.aiursoft.cn/anduin/anduinos/-/raw/master/Config/gnome-settings.txt)
 gsettings set org.gnome.desktop.interface gtk-theme 'Fluent-round-Dark'
