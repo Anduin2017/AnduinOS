@@ -81,7 +81,7 @@ AnduinOS 会配置下列开发环境：
 
 * NodeJS, NPM & Yarn
 * Golang
-* .NET 6 & 7 (And Entity Framework)
+* .NET 8 (And Entity Framework)
 * Java (OpenJDK)
 * Ruby
 * Python
@@ -99,6 +99,7 @@ AnduinOS 会安装下列 CLI 工具：
 * Wget & Curl & Aria2 & httping
 * FFmpeg
 * Tree & htop & iotop & iftop & smartmontools & net-tools & clinfo
+* net-tools & tracepath & dnsutils & iperf3
 * zip & unzip & jq
 * ntp & ntpdate & ntpstat
 * W3m
@@ -107,7 +108,7 @@ AnduinOS 会安装下列 CLI 工具：
 AnduinOS 还会额外安装一些软件包：
 
 * apt-transport-https
-* ca-certificates 
+* ca-certificates
 * cifs-utils
 
 AnduinOS 会移除掉一些已经被替代或几乎不会被用到的软件：

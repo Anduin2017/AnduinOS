@@ -114,7 +114,7 @@ sudo apt install -y \
   sqlitebrowser\
   nodejs\
   golang-go\
-  dotnet6 dotnet8\
+  dotnet8\
   openjdk-17-jdk default-jre\
   ruby\
   python3-apt python3-pip python-is-python3\
@@ -128,6 +128,7 @@ sudo apt install -y \
   vim nano\
   wget curl aria2 httping\
   ffmpeg\
+  traceroute dnsutils iperf3\
   tree htop iotop iftop smartmontools net-tools clinfo\
   zip unzip jq\
   ntp ntpdate ntpstat\
