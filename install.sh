@@ -241,10 +241,10 @@ fi
 
 # Chinese input
 print_ok "Setting up Chinese input..."
-wget https://github.com/iDvel/rime-ice/archive/refs/heads/main.zip
+wget https://git.aiursoft.cn/PublicVault/rime-ice/archive/main.zip
 unzip main.zip -d rime-ice-main
 mkdir -p ~/.config/ibus/rime
-mv rime-ice-main/*/* ~/.config/ibus/rime/
+mv rime-ice-main/*/* ~/.config/ibus/rime/ -f
 rm -rf rime-ice-main
 rm main.zip
 echo "Rime configured!"
@@ -280,7 +280,8 @@ TryInstallDotnetTool "Aiursoft.Httping"
 
 # Python Tools
 print_ok "Installing youtube-dl..."
-sudo curl -L https://yt-dl.org/downloads/latest/youtube-dl -o /usr/local/bin/youtube-dl
+pip install 'git+https://git.aiursoft.cn/PublicVault/youtube-dl.git@master#egg=youtube_dl'
+sudo cp ~/.local/bin/youtube-dl /usr/local/bin/youtube-dl
 sudo chmod a+rx /usr/local/bin/youtube-dl
 
 # Clean up obsolete apt sources.
