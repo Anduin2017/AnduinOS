@@ -1,18 +1,25 @@
 #!/bin/bash
 export LC_ALL=C.UTF-8
 export LANG=C.UTF-8
+Blue="\033[36m"
+Font="\033[0m"
 cd ~
+
+function print_ok() {
+  echo -e "${OK} ${Blue} $1 ${Font}"
+}
+
 
 echo "The command you are running is deploying AnduinOS to Ubuntu $(lsb_release -sc)."
 echo "This may introduce non-open-source software to your system."
-echo "Please press [ENTER] to continue, or press CTRL+C to cancel."
+print_ok "Please press [ENTER] to continue, or press CTRL+C to cancel."
 read
 
 export DEBIAN_FRONTEND=noninteractive
 
 # Allow run sudo without password.
 if ! sudo grep -q "$USER ALL=(ALL) NOPASSWD:ALL" /etc/sudoers.d/$USER; then
-  echo "Adding $USER to sudoers..."
+  print_ok "Adding $USER to sudoers..."
   sudo mkdir -p /etc/sudoers.d
   sudo touch /etc/sudoers.d/$USER
   echo "$USER ALL=(ALL) NOPASSWD:ALL" | sudo tee -a /etc/sudoers.d/$USER
@@ -20,20 +27,20 @@ fi
 
 sudo rm /var/lib/ubuntu-advantage/messages/* > /dev/null 2>&1
 
-echo "Preinstall..."
+print_ok "Install basic packages..."
 sudo add-apt-repository -y multiverse
 sudo apt update
 sudo apt install -y ca-certificates wget gpg curl apt-transport-https software-properties-common gnupg
 
 # Test if the user can access Google.
-echo "Testing network..."
+print_ok "Testing network..."
 if ! curl -s --head  --request GET http://dl.google.com/ | grep "Content-Type" > /dev/null; then
   echo "You are not able to access Internet. Please check your network and try again!"
   exit 1
 fi
 
 # Snap
-echo "Removing snap..."
+print_ok "Removing snap..."
 sudo killall -9 firefox > /dev/null 2>&1
 sudo snap remove firefox > /dev/null 2>&1
 sudo snap remove snap-store > /dev/null 2>&1
@@ -52,7 +59,7 @@ sudo chown root:root /etc/apt/preferences.d/no-snap.pref
 echo "Snap removed"
 
 # Docker source
-echo "Setting docker..."
+print_ok "Setting docker..."
 sudo install -m 0755 -d /etc/apt/keyrings
 sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
 sudo chmod a+r /etc/apt/keyrings/docker.asc
@@ -62,45 +69,45 @@ echo \
   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
 # Google Chrome Source
-echo "Setting google..."
+print_ok "Setting google chrome..."
 sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list' 
 wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 
 # Google Earth Pro
-echo "Setting google earth pro..."
+print_ok "Setting google earth pro..."
 sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/earth/deb/ stable main" > /etc/apt/sources.list.d/google.list'
 
 # Code
-echo "Setting VSCode..."
+print_ok "Setting VSCode..."
 wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
 sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
 sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
 rm -f packages.microsoft.gpg
 
 # Spotify
-echo "Setting spotify..."
+print_ok "Setting spotify..."
 curl -sS https://download.spotify.com/debian/pubkey_6224F9941A8AA6D1.gpg | sudo gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/spotify.gpg
 echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
 
 # Nextcloud
-echo "Setting nextcloud..."
+print_ok "Setting nextcloud..."
 sudo add-apt-repository -y ppa:nextcloud-devs/client
 sudo sh -c 'echo "deb https://mirror-ppa.aiursoft.cn/nextcloud-devs/client/ubuntu/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/nextcloud-devs-client-$(lsb_release -sc).list'
 
 # Firefox
-echo "Setting firefox..."
+print_ok "Setting firefox..."
 sudo add-apt-repository -y ppa:mozillateam/ppa
 sudo sh -c 'echo "deb https://mirror-ppa.aiursoft.cn/mozillateam/ppa/ubuntu/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/mozillateam-ubuntu-ppa-$(lsb_release -sc).list'
 echo -e '\nPackage: *\nPin: release o=LP-PPA-mozillateam\nPin-Priority: 1002' | sudo tee /etc/apt/preferences.d/mozilla-firefox
 
 # Node
-echo "Setting node..."
+print_ok "Setting node..."
 sudo mkdir -p /etc/apt/keyrings
 curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg --yes
 NODE_MAJOR=20
 echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list
 
-echo "Installing softwares..."
+print_ok "Installing softwares..."
 sudo apt update
 
 sudo apt install -y \
@@ -152,14 +159,15 @@ sudo apt install -y \
   aisleriot
 
 # WeChat
-echo "Setting wechat..."
+print_ok "Setting wechat..."
 wget -O- https://deepin-wine.i-m.dev/setup.sh | sh
 
 sudo apt install -y com.qq.weixin.deepin
 
-echo "Removing i386 architecture..."
+print_ok "Removing i386 architecture..."
 sudo dpkg --remove-architecture i386
 
+print_ok "Removing obsolete gnome apps..."
 sudo apt autoremove -y gnome-maps > /dev/null 2>&1
 sudo apt autoremove -y gnome-photos > /dev/null 2>&1
 sudo apt autoremove -y eog > /dev/null 2>&1
@@ -168,13 +176,15 @@ sudo apt autoremove -y rhythmbox > /dev/null 2>&1
 sudo apt autoremove -y gnome-contacts > /dev/null 2>&1
 
 # Add current user as docker.
+print_ok "Adding $USER to docker group..."
 sudo gpasswd -a $USER docker
 
 # NPM
+print_ok "Installing npm global packages..."
 sudo npm i -g yarn npm npx typescript ts-node marked
 
 # Insomnia
-echo "Installing insomnia..."
+print_ok "Installing Insomnia..."
 wget https://updates.insomnia.rest/downloads/ubuntu/latest -O insomnia.deb
 sudo dpkg -i insomnia.deb
 rm ./insomnia.deb
@@ -182,7 +192,7 @@ echo "Insomnia has been installed successfully!"
 
 # Installing wps-office
 if ! dpkg -s wps-office > /dev/null 2>&1; then
-    echo "wps-office is not installed, downloading and installing..."
+    print_ok "wps-office is not installed, downloading and installing..."
     # Download the deb package
     wget https://wdl1.pcfg.cache.wpscdn.com/wpsdl/wpsoffice/download/linux/11698/wps-office_11.1.0.11698.XA_amd64.deb
     # Install the package
@@ -190,12 +200,12 @@ if ! dpkg -s wps-office > /dev/null 2>&1; then
     # Remove the package file
     rm wps-office_11.1.0.11698.XA_amd64.deb
 else
-    echo "wps-office is already installed"
+    print_ok "wps-office is already installed"
 fi
 
 # Install Motrix from: https://dl.motrix.app/release/Motrix_1.8.19_amd64.deb
 if ! dpkg -s motrix > /dev/null 2>&1; then
-    echo "Motrix is not installed, downloading and installing..."
+    print_ok "Motrix is not installed, downloading and installing..."
     # Download the deb package
     wget https://dl.motrix.app/release/Motrix_1.8.19_amd64.deb
     # Install the package
@@ -203,12 +213,12 @@ if ! dpkg -s motrix > /dev/null 2>&1; then
     # Remove the package file
     rm Motrix_1.8.19_amd64.deb
 else
-    echo "Motrix is already installed"
+    print_ok "Motrix is already installed"
 fi
 
 # Installing docker-desktop
 if ! dpkg -s docker-desktop > /dev/null 2>&1; then
-    echo "docker-desktop is not installed, downloading and installing..."
+    print_ok "docker-desktop is not installed, downloading and installing..."
 
     dockerVersion=$(docker --version)
     # Download the deb package
@@ -219,11 +229,11 @@ if ! dpkg -s docker-desktop > /dev/null 2>&1; then
     # Remove the package file
     rm docker-desktop-4.22.0-amd64.deb
 else
-    echo "docker-desktop is already installed"
+    print_ok "docker-desktop is already installed"
 fi
 
 # Chinese input
-echo "Setting Chinese input..."
+print_ok "Setting up Chinese input..."
 wget https://github.com/iDvel/rime-ice/archive/refs/heads/main.zip
 unzip main.zip -d rime-ice-main
 mkdir -p ~/.config/ibus/rime
@@ -256,23 +266,24 @@ function TryInstallDotnetTool {
   fi
 }
 
+print_ok "Installing dotnet tools..."
 TryInstallDotnetTool "dotnet-ef"
 TryInstallDotnetTool "Aiursoft.Static"
 TryInstallDotnetTool "Aiursoft.Httping"
 
 # Python Tools
-echo "Installing youtube-dl..."
+print_ok "Installing youtube-dl..."
 sudo curl -L https://yt-dl.org/downloads/latest/youtube-dl -o /usr/local/bin/youtube-dl
 sudo chmod a+rx /usr/local/bin/youtube-dl
 
 # Clean up obsolete apt sources.
-echo "Cleaning up obsolete apt sources...."
+print_ok "Cleaning up obsolete apt sources...."
 wget https://github.com/davidfoerster/aptsources-cleanup/releases/download/v0.1.7.5.2/aptsources-cleanup.pyz
 chmod +x aptsources-cleanup.pyz
 sudo bash -c "echo all | ./aptsources-cleanup.pyz  --yes"
 rm ./aptsources-cleanup.pyz
 
-echo "Upgrading packages..."
+print_ok "Upgrading packages..."
 sudo apt update
 sudo DEBIAN_FRONTEND=noninteractive apt --purge autoremove -y
 sleep 2
@@ -285,6 +296,7 @@ sleep 2
 sudo DEBIAN_FRONTEND=noninteractive apt upgrade -y
 
 # Fix CJK fonts
+print_ok "Fixing CJK fonts..."
 sudo wget https://gitlab.aiursoft.cn/anduin/anduinos/-/raw/master/Config/fonts.conf -O /etc/fonts/local.conf
 wget -P /tmp https://gitlab.aiursoft.cn/anduin/anduinos/-/raw/master/Assets/fonts.zip
 sudo unzip -o /tmp/fonts.zip -d /usr/share/fonts/
@@ -292,7 +304,7 @@ rm -f /tmp/fonts.zip
 sudo fc-cache -fv
 
 # Theme
-echo "Configuring theme..."
+print_ok "Configuring theme..."
 rm /opt/themes -rvf > /dev/null 2>&1
 sudo mkdir /opt/themes > /dev/null 2>&1
 sudo chown $USER:$USER /opt/themes
@@ -310,7 +322,7 @@ gsettings set org.gnome.desktop.background picture-uri-dark "file:///home/$USER/
 gsettings set org.gnome.desktop.background picture-options "zoom"
 
 # Gnome extensions
-echo "Configuring gnome extensions..."
+print_ok "Configuring gnome extensions..."
 /usr/bin/pip3 install --upgrade gnome-extensions-cli
 ~/.local/bin/gext -F install arcmenu@arcmenu.com
 ~/.local/bin/gext -F install blur-my-shell@aunetx
@@ -323,15 +335,17 @@ echo "Configuring gnome extensions..."
 ~/.local/bin/gext -F install user-theme@gnome-shell-extensions.gcampax.github.com
 /usr/bin/pip3 uninstall gnome-extensions-cli -y
 
+print_ok "Configuring gnome settings..."
 dconf load /org/gnome/ < <(curl https://gitlab.aiursoft.cn/anduin/anduinos/-/raw/master/Config/gnome-settings.txt)
 gsettings set org.gnome.desktop.interface gtk-theme 'Fluent-round-Dark'
 gsettings set org.gnome.desktop.interface icon-theme 'Fluent'
 gsettings set org.gnome.desktop.interface cursor-theme 'DMZ-White'
 
 # Clean up desktop icons
+print_ok "Cleaning up desktop icons..."
 rm ~/Desktop/*.desktop
 
-echo "Deploy Finished! Please log out and log in again to take effect."
+print_ok "Deploy Finished! Please log out and log in again to take effect."
 
 echo "Please press [y] to log out, or press [c] to continue."
 # When user press 'y', run: gnome-session-quit --logout --no-prompt
