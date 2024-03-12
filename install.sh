@@ -120,7 +120,7 @@ judge "Setting VSCode"
 # Spotify
 print_ok "Setting spotify..."
 curl -sS https://download.spotify.com/debian/pubkey_6224F9941A8AA6D1.gpg | sudo gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/spotify.gpg
-echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
+echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list > /dev/null
 judge "Setting spotify"
 
 # Nextcloud
@@ -402,7 +402,7 @@ judge "Configure gnome settings"
 # Clean up desktop icons
 print_ok "Cleaning up desktop icons..."
 rm ~/Desktop/*.desktop
-judge "Clean up desktop icons"
+print_ok "Clean up desktop icons"
 
 print_ok "Deploy Finished! Please log out and log in again to take effect."
 
