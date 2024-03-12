@@ -44,6 +44,10 @@ if ! curl -s --head  --request GET http://dl.google.com/ | grep "Content-Type" >
   echo "You are not able to access Internet. Please check your network and try again!"
   exit 1
 fi
+if ! curl -s --head  --request GET http://www.google.com/generate_204 | grep "204" > /dev/null; then
+  echo "You are not able to access Internet. Please check your network and try again!"
+  exit 1
+fi
 
 # Snap
 print_ok "Removing snap..."
