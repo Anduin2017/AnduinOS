@@ -8,7 +8,7 @@ Blue="\033[36m"
 Font="\033[0m"
 GreenBG="\033[42;37m"
 RedBG="\033[41;37m"
-OK="${Green}[OK]${Font}"
+OK="${Green}[ O K ]${Font}"
 ERROR="${Red}[ERROR]${Font}"
 function print_ok() {
   echo -e "${OK} ${Blue} $1 ${Font}"
@@ -46,7 +46,7 @@ fi
 
 print_ok "Removing ubuntu-advantage advertisement..."
 sudo rm /var/lib/ubuntu-advantage/messages/* > /dev/null 2>&1
-judge "Remove ubuntu-advantage advertisement"
+print_ok "Remove ubuntu-advantage advertisement"
 
 print_ok "Installing basic packages..."
 sudo add-apt-repository -y multiverse
