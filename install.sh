@@ -13,6 +13,18 @@ ERROR="${Red}[ERROR]${Font}"
 function print_ok() {
   echo -e "${OK} ${Blue} $1 ${Font}"
 }
+function print_error() {
+  echo -e "${ERROR} ${Red} $1 ${Font}"
+}
+judge() {
+  if [[ 0 -eq $? ]]; then
+    print_ok "$1 succeeded"
+    sleep 1
+  else
+    print_error "$1 failed"
+    exit 1
+  fi
+}
 
 clear
 cd ~
@@ -29,25 +41,30 @@ if ! sudo grep -q "$USER ALL=(ALL) NOPASSWD:ALL" /etc/sudoers.d/$USER; then
   sudo mkdir -p /etc/sudoers.d
   sudo touch /etc/sudoers.d/$USER
   echo "$USER ALL=(ALL) NOPASSWD:ALL" | sudo tee -a /etc/sudoers.d/$USER
+  judge "Add $USER to sudoers"
 fi
 
+print_ok "Removing ubuntu-advantage advertisement..."
 sudo rm /var/lib/ubuntu-advantage/messages/* > /dev/null 2>&1
+judge "Remove ubuntu-advantage advertisement"
 
 print_ok "Installing basic packages..."
 sudo add-apt-repository -y multiverse
 sudo apt update
 sudo apt install -y ca-certificates wget gpg curl apt-transport-https software-properties-common gnupg
+judge "Install wget,gpg,curl,apt-transport-https,software-properties-common,gnupg"
 
 # Test if the user can access Google.
 print_ok "Testing network..."
 if ! curl -s --head  --request GET http://dl.google.com/ | grep "Content-Type" > /dev/null; then
-  echo "You are not able to access Internet. Please check your network and try again!"
+  print_error "You are not able to access Internet. Please check your network and try again!"
   exit 1
 fi
 if ! curl -s --head  --request GET http://www.google.com/generate_204 | grep "204" > /dev/null; then
-  echo "You are not able to access Internet. Please check your network and try again!"
+  print_error "You are not able to access Internet. Please check your network and try again!"
   exit 1
 fi
+judge "Test network"
 
 # Snap
 print_ok "Removing snap..."
@@ -66,7 +83,7 @@ Pin: release a=*
 Pin-Priority: -10
 EOF
 sudo chown root:root /etc/apt/preferences.d/no-snap.pref
-echo "Snap removed"
+judge "Remove snap"
 
 # Docker source
 print_ok "Setting docker..."
@@ -77,17 +94,20 @@ echo \
   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
   $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+judge "Setting docker"
 
 # Google Chrome Source
 print_ok "Setting google chrome..."
 wget https://dl-ssl.google.com/linux/linux_signing_key.pub -O /tmp/google.pub
 sudo gpg --no-default-keyring --keyring /etc/apt/keyrings/google-chrome.gpg --import /tmp/google.pub
 echo 'deb [arch=amd64 signed-by=/etc/apt/keyrings/google-chrome.gpg] http://dl.google.com/linux/chrome/deb/ stable main' | sudo tee /etc/apt/sources.list.d/google-chrome.list
+judge "Setting google chrome"
 
 # Google Earth Pro
 print_ok "Setting google earth pro..."
 wget -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/earth.gpg > /dev/null 2>&1
 sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/earth/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+judge "Setting google earth pro"
 
 # Code
 print_ok "Setting VSCode..."
@@ -95,32 +115,38 @@ wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > pa
 sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
 sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
 rm -f packages.microsoft.gpg
+judge "Setting VSCode"
 
 # Spotify
 print_ok "Setting spotify..."
 curl -sS https://download.spotify.com/debian/pubkey_6224F9941A8AA6D1.gpg | sudo gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/spotify.gpg
 echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
+judge "Setting spotify"
 
 # Nextcloud
 print_ok "Setting nextcloud..."
 sudo add-apt-repository -y ppa:nextcloud-devs/client > /dev/null 2>&1
 sudo sh -c 'echo "deb https://mirror-ppa.aiursoft.cn/nextcloud-devs/client/ubuntu/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/nextcloud-devs-client-$(lsb_release -sc).list'
+judge "Setting nextcloud"
 
 # Firefox
 print_ok "Setting firefox..."
 sudo add-apt-repository -y ppa:mozillateam/ppa > /dev/null 2>&1
 sudo sh -c 'echo "deb https://mirror-ppa.aiursoft.cn/mozillateam/ppa/ubuntu/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/mozillateam-ubuntu-ppa-$(lsb_release -sc).list'
 echo -e '\nPackage: *\nPin: release o=LP-PPA-mozillateam\nPin-Priority: 1002' | sudo tee /etc/apt/preferences.d/mozilla-firefox
+judge "Setting firefox"
 
 # Node
-print_ok "Setting node..."
+print_ok "Setting node 20..."
 sudo mkdir -p /etc/apt/keyrings
 curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg --yes
 NODE_MAJOR=20
 echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list
+judge "Setting node 20"
 
-print_ok "Installing softwares..."
+print_ok "Installing apt softwares..."
 sudo apt update
+judge "Update apt sources"
 
 sudo apt install -y \
   nautilus usb-creator-gtk cheese baobab file-roller\
@@ -169,15 +195,19 @@ sudo apt install -y \
   sysbench\
   cifs-utils\
   aisleriot
+judge "Install apt softwares"
 
 # WeChat
 print_ok "Setting wechat..."
 wget -O- https://deepin-wine.i-m.dev/setup.sh | sh
+judge "Setting wechat source"
 
 sudo apt install -y com.qq.weixin.deepin
+judge "Install wechat"
 
 print_ok "Removing i386 architecture..."
 sudo dpkg --remove-architecture i386
+judge "Remove i386 architecture"
 
 print_ok "Removing obsolete gnome apps..."
 sudo apt autoremove -y gnome-initial-setup > /dev/null 2>&1
@@ -187,21 +217,24 @@ sudo apt autoremove -y eog > /dev/null 2>&1
 sudo apt autoremove -y totem totem-plugins > /dev/null 2>&1
 sudo apt autoremove -y rhythmbox > /dev/null 2>&1
 sudo apt autoremove -y gnome-contacts > /dev/null 2>&1
+judge "Remove obsolete gnome apps"
 
 # Add current user as docker.
 print_ok "Adding $USER to docker group..."
 sudo gpasswd -a $USER docker
+judge "Add $USER to docker group"
 
 # NPM
 print_ok "Installing npm global packages..."
 sudo npm i -g yarn npm npx typescript ts-node marked
+judge "Install yarn, npm, npx, typescript, ts-node, marked"
 
 # Insomnia
 print_ok "Installing Insomnia..."
 wget https://updates.insomnia.rest/downloads/ubuntu/latest -O insomnia.deb
 sudo dpkg -i insomnia.deb
+judge "Install Insomnia"
 rm ./insomnia.deb
-echo "Insomnia has been installed successfully!"
 
 # Installing wps-office
 if ! dpkg -s wps-office > /dev/null 2>&1; then
@@ -210,6 +243,7 @@ if ! dpkg -s wps-office > /dev/null 2>&1; then
     wget https://wdl1.pcfg.cache.wpscdn.com/wpsdl/wpsoffice/download/linux/11698/wps-office_11.1.0.11698.XA_amd64.deb
     # Install the package
     sudo dpkg -i wps-office_11.1.0.11698.XA_amd64.deb
+    judge "Install wps-office"
     # Remove the package file
     rm wps-office_11.1.0.11698.XA_amd64.deb
 else
@@ -223,6 +257,7 @@ if ! dpkg -s motrix > /dev/null 2>&1; then
     wget https://dl.motrix.app/release/Motrix_1.8.19_amd64.deb
     # Install the package
     sudo dpkg -i Motrix_1.8.19_amd64.deb
+    judge "Install Motrix"
     # Remove the package file
     rm Motrix_1.8.19_amd64.deb
 else
@@ -237,6 +272,7 @@ if ! dpkg -s docker-desktop > /dev/null 2>&1; then
     # Install the package
     sudo dpkg -i docker-desktop-4.28.0-amd64.deb
     sudo apt install --fix-broken -y
+    judge "Install docker-desktop"
     # Remove the package file
     rm docker-desktop-4.28.0-amd64.deb
 else
@@ -248,17 +284,19 @@ print_ok "Setting up Chinese input..."
 wget https://git.aiursoft.cn/PublicVault/rime-ice/archive/main.zip
 unzip main.zip -d rime-ice-main
 mkdir -p ~/.config/ibus/rime
-mv rime-ice-main/*/* ~/.config/ibus/rime/ -f
+mv rime-ice-main/*/* ~/.config/ibus/rime/ -f > /dev/null 2>&1
 rm -rf rime-ice-main
 rm main.zip
-echo "Rime configured!"
+judge "Set up Chinese input (rime)"
 
 # Bash RC
+print_ok "Setting up bashrc..."
 cp /etc/skel/.bashrc ~/
 echo '# generated by anduinos
 alias qget="aria2c -c -s 16 -x 16 -k 1M -j 16"
 ' >> ~/.bashrc
 source ~/.bashrc
+judge "Set up bashrc (qget)"
 
 # Dotnet tools
 function TryInstallDotnetTool {
@@ -281,18 +319,21 @@ print_ok "Installing dotnet tools..."
 TryInstallDotnetTool "dotnet-ef"
 TryInstallDotnetTool "Aiursoft.Static"
 TryInstallDotnetTool "Aiursoft.Httping"
+judge "Install dotnet tools (dotnet-ef, static, httping)"
 
 # Python Tools
 print_ok "Installing youtube-dl..."
 pip install 'git+https://git.aiursoft.cn/PublicVault/youtube-dl.git@master#egg=youtube_dl'
 sudo cp ~/.local/bin/youtube-dl /usr/local/bin/youtube-dl
 sudo chmod a+rx /usr/local/bin/youtube-dl
+judge "Install youtube-dl"
 
 # Clean up obsolete apt sources.
 print_ok "Cleaning up obsolete apt sources...."
 wget https://github.com/davidfoerster/aptsources-cleanup/releases/download/v0.1.7.5.2/aptsources-cleanup.pyz
 chmod +x aptsources-cleanup.pyz
 sudo bash -c "echo all | ./aptsources-cleanup.pyz  --yes"
+judge "Clean up obsolete apt sources"
 rm ./aptsources-cleanup.pyz
 
 print_ok "Upgrading packages..."
@@ -306,6 +347,7 @@ sleep 2
 sudo DEBIAN_FRONTEND=noninteractive dpkg --configure -a
 sleep 2
 sudo DEBIAN_FRONTEND=noninteractive apt upgrade -y
+judge "Upgrade packages"
 
 # Fix CJK fonts
 print_ok "Fixing CJK fonts..."
@@ -314,6 +356,7 @@ wget -P /tmp https://gitlab.aiursoft.cn/anduin/anduinos/-/raw/master/Assets/font
 sudo unzip -o /tmp/fonts.zip -d /usr/share/fonts/
 rm -f /tmp/fonts.zip
 sudo fc-cache -fv
+judge "Fix CJK fonts"
 
 # Theme
 print_ok "Configuring theme..."
@@ -332,6 +375,7 @@ git clone -b Wallpaper https://git.aiursoft.cn/PublicVault/Fluent-gtk-theme /opt
 gsettings set org.gnome.desktop.background picture-uri "file:///home/$USER/.local/share/backgrounds/Fluent-building-night.png"
 gsettings set org.gnome.desktop.background picture-uri-dark "file:///home/$USER/.local/share/backgrounds/Fluent-building-night.png"
 gsettings set org.gnome.desktop.background picture-options "zoom"
+judge "Configure theme"
 
 # Gnome extensions
 print_ok "Configuring gnome extensions..."
@@ -346,16 +390,19 @@ print_ok "Configuring gnome extensions..."
 ~/.local/bin/gext -F install openweather-extension@jenslody.de
 ~/.local/bin/gext -F install user-theme@gnome-shell-extensions.gcampax.github.com
 /usr/bin/pip3 uninstall gnome-extensions-cli -y
+judge "Configure gnome extensions"
 
 print_ok "Configuring gnome settings..."
 dconf load /org/gnome/ < <(curl https://gitlab.aiursoft.cn/anduin/anduinos/-/raw/master/Config/gnome-settings.txt)
 gsettings set org.gnome.desktop.interface gtk-theme 'Fluent-round-Dark'
 gsettings set org.gnome.desktop.interface icon-theme 'Fluent'
 gsettings set org.gnome.desktop.interface cursor-theme 'DMZ-White'
+judge "Configure gnome settings"
 
 # Clean up desktop icons
 print_ok "Cleaning up desktop icons..."
 rm ~/Desktop/*.desktop
+judge "Clean up desktop icons"
 
 print_ok "Deploy Finished! Please log out and log in again to take effect."
 
