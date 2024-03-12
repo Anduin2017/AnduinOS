@@ -8,8 +8,8 @@ Blue="\033[36m"
 Font="\033[0m"
 GreenBG="\033[42;37m"
 RedBG="\033[41;37m"
-OK="${Green}[ O K ]${Font}"
-ERROR="${Red}[ERROR]${Font}"
+OK="${Green}[  OK  ]${Font}"
+ERROR="${Red}[FAILED]${Font}"
 function print_ok() {
   echo -e "${OK} ${Blue} $1 ${Font}"
 }
