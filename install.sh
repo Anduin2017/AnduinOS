@@ -61,10 +61,6 @@ judge "Add multiverse, universe, restricted"
 
 # Test if the user can access Google.
 print_ok "Testing network..."
-if ! curl -s --head  --request GET http://dl.google.com/ | grep "Content-Type" > /dev/null; then
-  print_error "You are not able to access Internet. Please check your network and try again!"
-  exit 1
-fi
 if ! curl -s --head  --request GET http://www.google.com/generate_204 | grep "204" > /dev/null; then
   print_error "You are not able to access Internet. Please check your network and try again!"
   exit 1
