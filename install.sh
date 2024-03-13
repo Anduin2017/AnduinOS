@@ -196,7 +196,9 @@ sudo apt install -y \
   w3m\
   sysbench\
   cifs-utils\
-  aisleriot
+  aisleriot\
+  qtwayland5
+  
 judge "Install apt softwares"
 
 # WeChat
