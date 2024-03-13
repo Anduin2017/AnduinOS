@@ -188,6 +188,7 @@ sudo apt install -y \
   wget curl aria2 httping\
   ffmpeg\
   traceroute dnsutils iperf3\
+  iputils-ping iproute2\
   tree htop iotop iftop smartmontools net-tools clinfo\
   zip unzip jq\
   ntp ntpdate ntpstat\
