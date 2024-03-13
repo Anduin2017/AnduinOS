@@ -54,9 +54,9 @@ sudo apt install -y ca-certificates wget gpg curl apt-transport-https software-p
 judge "Install wget,gpg,curl,apt-transport-https,software-properties-common,gnupg"
 
 print_ok "Setting apt sources..."
-sudo add-apt-repository -y multiverse
-sudo add-apt-repository -y universe
-sudo add-apt-repository -y restricted
+sudo add-apt-repository -y multiverse -n
+sudo add-apt-repository -y universe -n
+sudo add-apt-repository -y restricted -n
 judge "Add multiverse, universe, restricted"
 
 # Test if the user can access Google.
@@ -126,13 +126,13 @@ judge "Setting spotify"
 
 # Nextcloud
 print_ok "Setting nextcloud..."
-sudo add-apt-repository -y ppa:nextcloud-devs/client > /dev/null 2>&1
+sudo add-apt-repository -y ppa:nextcloud-devs/client -n > /dev/null 2>&1
 sudo sh -c 'echo "deb https://mirror-ppa.aiursoft.cn/nextcloud-devs/client/ubuntu/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/nextcloud-devs-client-$(lsb_release -sc).list'
 judge "Setting nextcloud"
 
 # Firefox
 print_ok "Setting firefox..."
-sudo add-apt-repository -y ppa:mozillateam/ppa > /dev/null 2>&1
+sudo add-apt-repository -y ppa:mozillateam/ppa -n > /dev/null 2>&1
 sudo sh -c 'echo "deb https://mirror-ppa.aiursoft.cn/mozillateam/ppa/ubuntu/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/mozillateam-ubuntu-ppa-$(lsb_release -sc).list'
 echo -e '\nPackage: *\nPin: release o=LP-PPA-mozillateam\nPin-Priority: 1002' | sudo tee /etc/apt/preferences.d/mozilla-firefox
 judge "Setting firefox"
