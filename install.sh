@@ -49,9 +49,9 @@ sudo rm /var/lib/ubuntu-advantage/messages/* > /dev/null 2>&1
 print_ok "Remove ubuntu-advantage advertisement"
 
 print_ok "Installing basic packages..."
-sudo add-apt-repository -y multiverse
 sudo apt update
 sudo apt install -y ca-certificates wget gpg curl apt-transport-https software-properties-common gnupg
+sudo add-apt-repository -y multiverse
 judge "Install wget,gpg,curl,apt-transport-https,software-properties-common,gnupg"
 
 # Test if the user can access Google.
