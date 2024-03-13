@@ -51,8 +51,13 @@ print_ok "Remove ubuntu-advantage advertisement"
 print_ok "Installing basic packages..."
 sudo apt update
 sudo apt install -y ca-certificates wget gpg curl apt-transport-https software-properties-common gnupg
-sudo add-apt-repository -y multiverse
 judge "Install wget,gpg,curl,apt-transport-https,software-properties-common,gnupg"
+
+print_ok "Setting apt sources..."
+sudo add-apt-repository -y multiverse
+sudo add-apt-repository -y universe
+sudo add-apt-repository -y restricted
+judge "Add multiverse, universe, restricted"
 
 # Test if the user can access Google.
 print_ok "Testing network..."
