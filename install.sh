@@ -48,6 +48,15 @@ print_ok "Removing ubuntu-advantage advertisement..."
 sudo rm /var/lib/ubuntu-advantage/messages/* > /dev/null 2>&1
 print_ok "Remove ubuntu-advantage advertisement"
 
+echo "Using Aiursoft APT mirror..."
+echo "
+deb http://mirror.aiursoft.cn/ubuntu/ jammy main restricted universe multiverse
+deb http://mirror.aiursoft.cn/ubuntu/ jammy-updates main restricted universe multiverse
+deb http://mirror.aiursoft.cn/ubuntu/ jammy-backports main restricted universe multiverse
+deb http://mirror.aiursoft.cn/ubuntu/ jammy-security main restricted universe multiverse
+" | sudo tee /etc/apt/sources.list
+judge "Using Aiursoft APT mirror"
+
 print_ok "Installing basic packages..."
 sudo apt update
 sudo apt install -y ca-certificates wget gpg curl apt-transport-https software-properties-common gnupg
