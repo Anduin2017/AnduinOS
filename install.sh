@@ -57,6 +57,10 @@ deb http://mirror.aiursoft.cn/ubuntu/ jammy-security main restricted universe mu
 " | sudo tee /etc/apt/sources.list
 judge "Using Aiursoft APT mirror"
 
+print_ok "Removing i386 architecture..."
+sudo dpkg --remove-architecture i386
+judge "Remove i386 architecture"
+
 print_ok "Installing basic packages..."
 sudo apt update
 sudo apt install -y ca-certificates wget gpg curl apt-transport-https software-properties-common gnupg
