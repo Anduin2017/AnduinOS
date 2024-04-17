@@ -245,6 +245,7 @@ sudo apt install -y com.qq.weixin.deepin
 judge "Install wechat"
 
 use_mirror_source
+sudo apt update
 judge "Using Aiursoft APT mirror"
 
 print_ok "Removing i386 architecture..."
