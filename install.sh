@@ -300,7 +300,7 @@ fi
 
 # Chinese input
 print_ok "Setting up Chinese input..."
-wget https://git.aiursoft.cn/PublicVault/rime-ice/archive/main.zip
+wget https://github.com/iDvel/rime-ice/archive/refs/heads/main.zip
 unzip main.zip -d rime-ice-main
 mkdir -p ~/.config/ibus/rime
 mv rime-ice-main/*/* ~/.config/ibus/rime/ -f > /dev/null 2>&1
