@@ -365,7 +365,7 @@ sudo DEBIAN_FRONTEND=noninteractive apt install --fix-missing  -y
 sleep 2
 sudo DEBIAN_FRONTEND=noninteractive dpkg --configure -a
 sleep 2
-sudo DEBIAN_FRONTEND=noninteractive apt upgrade -y
+sudo DEBIAN_FRONTEND=noninteractive apt upgrade -y --allow-downgrades
 judge "Upgrade packages"
 
 # Fix CJK fonts
