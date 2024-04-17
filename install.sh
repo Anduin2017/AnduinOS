@@ -217,12 +217,12 @@ sudo apt install -y \
 judge "Install apt softwares"
 
 # WeChat
-print_ok "Setting wechat..."
-wget -O- https://deepin-wine.i-m.dev/setup.sh | sh
-judge "Setting wechat source"
+#print_ok "Setting wechat..."
+#wget -O- https://deepin-wine.i-m.dev/setup.sh | sh
+#judge "Setting wechat source"
 
-sudo apt install -y com.qq.weixin.deepin
-judge "Install wechat"
+#sudo apt install -y com.qq.weixin.deepin
+#judge "Install wechat"
 
 print_ok "Removing i386 architecture..."
 sudo dpkg --remove-architecture i386
