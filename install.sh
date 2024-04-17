@@ -252,13 +252,13 @@ sudo dpkg --remove-architecture i386
 judge "Remove i386 architecture"
 
 print_ok "Removing obsolete gnome apps..."
-sudo apt autoremove -y gnome-initial-setup > /dev/null 2>&1
-sudo apt autoremove -y gnome-maps > /dev/null 2>&1
-sudo apt autoremove -y gnome-photos > /dev/null 2>&1
-sudo apt autoremove -y eog > /dev/null 2>&1
-sudo apt autoremove -y totem totem-plugins > /dev/null 2>&1
-sudo apt autoremove -y rhythmbox > /dev/null 2>&1
-sudo apt autoremove -y gnome-contacts > /dev/null 2>&1
+sudo apt autoremove -y gnome-initial-setup > /dev/null 2>&1 || true
+sudo apt autoremove -y gnome-maps > /dev/null 2>&1 || true
+sudo apt autoremove -y gnome-photos > /dev/null 2>&1 || true
+sudo apt autoremove -y eog > /dev/null 2>&1 || true
+sudo apt autoremove -y totem totem-plugins > /dev/null 2>&1 || true
+sudo apt autoremove -y rhythmbox > /dev/null 2>&1 || true
+sudo apt autoremove -y gnome-contacts > /dev/null 2>&1 || true
 judge "Remove obsolete gnome apps"
 
 # Add current user as docker.
