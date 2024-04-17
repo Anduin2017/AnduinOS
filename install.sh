@@ -13,6 +13,29 @@ ERROR="${Red}[FAILED]${Font}"
 function print_ok() {
   echo -e "${OK} ${Blue} $1 ${Font}"
 }
+
+function use_default_source() {
+    echo "Using Ubuntu official APT mirror..."
+    echo "
+    deb http://archive.ubuntu.com/ubuntu/ $(lsb_release -sc) main restricted universe multiverse
+    deb http://archive.ubuntu.com/ubuntu/ $(lsb_release -sc)-updates main restricted universe multiverse
+    deb http://archive.ubuntu.com/ubuntu/ $(lsb_release -sc)-backports main restricted universe multiverse
+    deb http://archive.ubuntu.com/ubuntu/ $(lsb_release -sc)-security main restricted universe multiverse
+    " | sudo tee /etc/apt/sources.list
+    judge "Using Ubuntu official APT mirror"
+}
+
+function use_mirror_source() {
+  echo "Using Aiursoft APT mirror..."
+  echo "
+  deb http://mirror.aiursoft.cn/ubuntu/ jammy main restricted universe multiverse
+  deb http://mirror.aiursoft.cn/ubuntu/ jammy-updates main restricted universe multiverse
+  deb http://mirror.aiursoft.cn/ubuntu/ jammy-backports main restricted universe multiverse
+  deb http://mirror.aiursoft.cn/ubuntu/ jammy-security main restricted universe multiverse
+  " | sudo tee /etc/apt/sources.list
+  judge "Using Aiursoft APT mirror"
+}
+
 function print_error() {
   echo -e "${ERROR} ${Red} $1 ${Font}"
 }
@@ -49,12 +72,7 @@ sudo rm /var/lib/ubuntu-advantage/messages/* > /dev/null 2>&1
 print_ok "Remove ubuntu-advantage advertisement"
 
 echo "Using Aiursoft APT mirror..."
-echo "
-deb http://mirror.aiursoft.cn/ubuntu/ jammy main restricted universe multiverse
-deb http://mirror.aiursoft.cn/ubuntu/ jammy-updates main restricted universe multiverse
-deb http://mirror.aiursoft.cn/ubuntu/ jammy-backports main restricted universe multiverse
-deb http://mirror.aiursoft.cn/ubuntu/ jammy-security main restricted universe multiverse
-" | sudo tee /etc/apt/sources.list
+use_mirror_source
 judge "Using Aiursoft APT mirror"
 
 print_ok "Removing i386 architecture..."
@@ -217,12 +235,17 @@ sudo apt install -y \
 judge "Install apt softwares"
 
 # WeChat
-#print_ok "Setting wechat..."
-#wget -O- https://deepin-wine.i-m.dev/setup.sh | sh
-#judge "Setting wechat source"
+print_ok "Setting wechat..."
+use_default_source
+sudo apt update
+wget -O- https://deepin-wine.i-m.dev/setup.sh | sh
+judge "Setting wechat source"
 
-#sudo apt install -y com.qq.weixin.deepin
-#judge "Install wechat"
+sudo apt install -y com.qq.weixin.deepin
+judge "Install wechat"
+
+use_mirror_source
+judge "Using Aiursoft APT mirror"
 
 print_ok "Removing i386 architecture..."
 sudo dpkg --remove-architecture i386
