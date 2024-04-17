@@ -164,7 +164,7 @@ sudo apt update
 judge "Update apt sources"
 
 sudo apt install -y \
-  linux-generic-hwe-22.04
+  linux-generic-hwe-22.04 \
   nautilus usb-creator-gtk cheese baobab file-roller\
   gnome-calculator gnome-system-monitor gnome-disk-utility\
   gnome-tweaks gnome-shell-extension-prefs\
