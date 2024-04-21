@@ -14,28 +14,6 @@ function print_ok() {
   echo -e "${OK} ${Blue} $1 ${Font}"
 }
 
-function use_default_source() {
-    echo "Using Ubuntu official APT mirror..."
-    echo "
-    deb http://archive.ubuntu.com/ubuntu/ $(lsb_release -sc) main restricted universe multiverse
-    deb http://archive.ubuntu.com/ubuntu/ $(lsb_release -sc)-updates main restricted universe multiverse
-    deb http://archive.ubuntu.com/ubuntu/ $(lsb_release -sc)-backports main restricted universe multiverse
-    deb http://archive.ubuntu.com/ubuntu/ $(lsb_release -sc)-security main restricted universe multiverse
-    " | sudo tee /etc/apt/sources.list
-    judge "Using Ubuntu official APT mirror"
-}
-
-function use_mirror_source() {
-  echo "Using Aiursoft APT mirror..."
-  echo "
-  deb http://mirror.aiursoft.cn/ubuntu/ jammy main restricted universe multiverse
-  deb http://mirror.aiursoft.cn/ubuntu/ jammy-updates main restricted universe multiverse
-  deb http://mirror.aiursoft.cn/ubuntu/ jammy-backports main restricted universe multiverse
-  deb http://mirror.aiursoft.cn/ubuntu/ jammy-security main restricted universe multiverse
-  " | sudo tee /etc/apt/sources.list
-  judge "Using Aiursoft APT mirror"
-}
-
 function print_error() {
   echo -e "${ERROR} ${Red} $1 ${Font}"
 }
@@ -72,7 +50,12 @@ sudo rm /var/lib/ubuntu-advantage/messages/* > /dev/null 2>&1
 print_ok "Remove ubuntu-advantage advertisement"
 
 echo "Using Aiursoft APT mirror..."
-use_mirror_source
+echo "
+deb http://mirror.aiursoft.cn/ubuntu/ jammy main restricted universe multiverse
+deb http://mirror.aiursoft.cn/ubuntu/ jammy-updates main restricted universe multiverse
+deb http://mirror.aiursoft.cn/ubuntu/ jammy-backports main restricted universe multiverse
+deb http://mirror.aiursoft.cn/ubuntu/ jammy-security main restricted universe multiverse
+" | sudo tee /etc/apt/sources.list
 judge "Using Aiursoft APT mirror"
 
 print_ok "Removing i386 architecture..."
@@ -231,25 +214,10 @@ sudo apt install -y \
   cifs-utils\
   aisleriot\
   qtwayland5
-  
 judge "Install apt softwares"
 
-# WeChat
-print_ok "Setting wechat..."
-use_default_source
-sudo apt update
-wget -O- https://deepin-wine.i-m.dev/setup.sh | sh
-judge "Setting wechat source"
-
-sudo apt install -y com.qq.weixin.deepin
-judge "Install wechat"
-
-use_mirror_source
-sudo apt update
-judge "Using Aiursoft APT mirror"
-
 print_ok "Removing i386 architecture..."
-sudo dpkg --remove-architecture i386
+sudo dpkg --remove-architecture i386 > /dev/null 2>&1
 judge "Remove i386 architecture"
 
 print_ok "Removing obsolete gnome apps..."
@@ -271,6 +239,13 @@ judge "Add $USER to docker group"
 print_ok "Installing npm global packages..."
 sudo npm i -g yarn npm npx typescript ts-node marked
 judge "Install yarn, npm, npx, typescript, ts-node, marked"
+
+# WeChat
+print_ok "Installing WeChat..."
+wget http://archive.ubuntukylin.com/software/pool/partner/weixin_2.1.1_amd64.deb
+sudo dpkg -i weixin_2.1.1_amd64.deb
+judge "Install WeChat"
+rm ./weixin_2.1.1_amd64.deb
 
 # Insomnia
 print_ok "Installing Insomnia..."
