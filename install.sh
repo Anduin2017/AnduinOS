@@ -58,11 +58,12 @@ deb http://mirror.aiursoft.cn/ubuntu/ jammy-security main restricted universe mu
 " | sudo tee /etc/apt/sources.list
 judge "Using Aiursoft APT mirror"
 
-print_ok "Removing i386 architecture..."
-sudo dpkg --remove-architecture i386
-judge "Remove i386 architecture"
+# print_ok "Removing i386 architecture..."
+# sudo dpkg --remove-architecture i386 || true
+# judge "Remove i386 architecture"
 
 print_ok "Installing basic packages..."
+sudo systemctl daemon-reload
 sudo apt update
 sudo apt install -y ca-certificates wget gpg curl apt-transport-https software-properties-common gnupg
 judge "Install wget,gpg,curl,apt-transport-https,software-properties-common,gnupg"
@@ -72,6 +73,13 @@ sudo add-apt-repository -y multiverse -n
 sudo add-apt-repository -y universe -n
 sudo add-apt-repository -y restricted -n
 judge "Add multiverse, universe, restricted"
+
+print_ok "Ensure you are Ubuntu 22.04..."
+if ! lsb_release -a | grep "Ubuntu 22.04" > /dev/null; then
+  print_error "You are not using Ubuntu 22.04. Please upgrade your system to 22.04 and try again."
+  exit 1
+fi
+judge "Ensure you are Ubuntu 22.04"
 
 # Test if the user can access Google.
 print_ok "Testing network..."
@@ -216,9 +224,9 @@ sudo apt install -y \
   qtwayland5
 judge "Install apt softwares"
 
-print_ok "Removing i386 architecture..."
-sudo dpkg --remove-architecture i386 > /dev/null 2>&1
-judge "Remove i386 architecture"
+# print_ok "Removing i386 architecture..."
+# sudo dpkg --remove-architecture i386 > /dev/null 2>&1
+# judge "Remove i386 architecture"
 
 print_ok "Removing obsolete gnome apps..."
 sudo apt autoremove -y gnome-initial-setup > /dev/null 2>&1 || true
