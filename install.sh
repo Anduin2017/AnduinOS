@@ -224,6 +224,14 @@ sudo apt install -y \
   qtwayland5
 judge "Install apt softwares"
 
+# WeChat
+print_ok "Setting wechat..."
+wget -O- https://deepin-wine.i-m.dev/setup.sh | sh
+judge "Setting wechat source"
+
+sudo apt install -y com.qq.weixin.deepin
+judge "Install wechat"
+
 # print_ok "Removing i386 architecture..."
 # sudo dpkg --remove-architecture i386 > /dev/null 2>&1
 # judge "Remove i386 architecture"
@@ -247,13 +255,6 @@ judge "Add $USER to docker group"
 print_ok "Installing npm global packages..."
 sudo npm i -g yarn npm npx typescript ts-node marked
 judge "Install yarn, npm, npx, typescript, ts-node, marked"
-
-# WeChat
-print_ok "Installing WeChat..."
-wget http://archive.ubuntukylin.com/software/pool/partner/weixin_2.1.1_amd64.deb
-sudo dpkg -i weixin_2.1.1_amd64.deb
-judge "Install WeChat"
-rm ./weixin_2.1.1_amd64.deb
 
 # Insomnia
 print_ok "Installing Insomnia..."
