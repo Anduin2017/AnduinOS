@@ -36,6 +36,13 @@ read
 
 export DEBIAN_FRONTEND=noninteractive
 
+print_ok "Ensure you are Ubuntu 22.04..."
+if ! lsb_release -a | grep "Ubuntu 22.04" > /dev/null; then
+  print_error "You are not using Ubuntu 22.04. Please upgrade your system to 22.04 and try again."
+  exit 1
+fi
+judge "Ensure you are Ubuntu 22.04"
+
 # Allow run sudo without password.
 if ! sudo grep -q "$USER ALL=(ALL) NOPASSWD:ALL" /etc/sudoers.d/$USER; then
   print_ok "Adding $USER to sudoers..."
@@ -73,13 +80,6 @@ sudo add-apt-repository -y multiverse -n
 sudo add-apt-repository -y universe -n
 sudo add-apt-repository -y restricted -n
 judge "Add multiverse, universe, restricted"
-
-print_ok "Ensure you are Ubuntu 22.04..."
-if ! lsb_release -a | grep "Ubuntu 22.04" > /dev/null; then
-  print_error "You are not using Ubuntu 22.04. Please upgrade your system to 22.04 and try again."
-  exit 1
-fi
-judge "Ensure you are Ubuntu 22.04"
 
 # Test if the user can access Google.
 print_ok "Testing network..."
