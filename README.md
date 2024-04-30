@@ -65,6 +65,7 @@ AnduinOS 会安装下列第三方软件：
 * OBS Studio 作为录屏软件
 * Docker Desktop 作为容器软件
 * Gnome Boxes 作为虚拟机管理软件
+* Gnome Console 作为终端软件
 * WeChat 作为聊天软件
 * Blender 作为3D建模软件
 * Motrix 作为下载工具
@@ -115,6 +116,7 @@ AnduinOS 会移除掉一些已经被替代或几乎不会被用到的软件：
 
 * Gnome-maps （使用 Google Earth 替代）
 * Gnome-photos （使用 Shotwell 替代）
+* Gnome-terminal （使用 Gnome Console 替代）
 * eog （使用 Shotwell viewer 替代）
 * Totem （使用 VLC 替代）
 * Rhythmbox （使用 Spotify 替代）
