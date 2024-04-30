@@ -52,6 +52,15 @@ default-folder-viewer='list-view'
 search-filter-time-type='last_modified'
 search-view='list-view'
 
+[settings-daemon/plugins/media-keys]
+custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/']
+terminal=['<Primary><Alt>y']
+
+[settings-daemon/plugins/media-keys/custom-keybindings/custom0]
+binding='<Primary><Alt>t'
+command='kgx'
+name='Terminal'
+
 [shell]
 disable-user-extensions=false
 enabled-extensions=['user-theme@gnome-shell-extensions.gcampax.github.com', 'arcmenu@arcmenu.com', 'openweather-extension@jenslody.de', 'network-stats@gnome.noroadsleft.xyz', 'customize-ibus@hollowman.ml', 'drive-menu@gnome-shell-extensions.gcampax.github.com', 'blur-my-shell@aunetx', 'ding@rastersoft.com', 'ubuntu-dock@ubuntu.com', 'dash-to-panel@jderose9.github.com', 'system-monitor-next@paradoxxx.zero.gmail.com', 'extension-list@tu.berry', 'no-overview@fthx']
