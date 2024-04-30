@@ -64,7 +64,7 @@ name='Terminal'
 [shell]
 disable-user-extensions=false
 enabled-extensions=['user-theme@gnome-shell-extensions.gcampax.github.com', 'arcmenu@arcmenu.com', 'openweather-extension@jenslody.de', 'network-stats@gnome.noroadsleft.xyz', 'customize-ibus@hollowman.ml', 'drive-menu@gnome-shell-extensions.gcampax.github.com', 'blur-my-shell@aunetx', 'ding@rastersoft.com', 'ubuntu-dock@ubuntu.com', 'dash-to-panel@jderose9.github.com', 'system-monitor-next@paradoxxx.zero.gmail.com', 'extension-list@tu.berry', 'no-overview@fthx']
-favorite-apps=['firefox.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Terminal.desktop', 'code.desktop']
+favorite-apps=['google-chrome.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Terminal.desktop', 'code.desktop']
 last-selected-power-profile='performance'
 
 [shell/extensions/arcmenu]
