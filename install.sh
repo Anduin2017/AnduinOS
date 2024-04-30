@@ -192,6 +192,7 @@ sudo apt install -y \
   vlc\
   obs-studio\
   gnome-boxes\
+  gnome-console\
   blender\
   google-earth-pro-stable\
   shotcut\
@@ -244,6 +245,7 @@ sudo apt autoremove -y eog > /dev/null 2>&1 || true
 sudo apt autoremove -y totem totem-plugins > /dev/null 2>&1 || true
 sudo apt autoremove -y rhythmbox > /dev/null 2>&1 || true
 sudo apt autoremove -y gnome-contacts > /dev/null 2>&1 || true
+sudo apt autoremove -y gnome-terminal > /dev/null 2>&1 || true
 judge "Remove obsolete gnome apps"
 
 # Add current user as docker.
