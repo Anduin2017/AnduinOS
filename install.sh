@@ -305,13 +305,13 @@ if [ "$IN_CONTAINER" != "TRUE" ]; then
   if ! dpkg -s docker-desktop > /dev/null 2>&1; then
       print_ok "docker-desktop is not installed, downloading and installing..."
       # Download the deb package
-      wget https://desktop.docker.com/linux/main/amd64/docker-desktop-4.28.0-amd64.deb
+      wget https://desktop.docker.com/linux/main/amd64/docker-desktop-4.30.0-amd64.deb
       # Install the package
-      sudo dpkg -i docker-desktop-4.28.0-amd64.deb
+      sudo dpkg -i docker-desktop-4.30.0-amd64.deb
       sudo apt install --fix-broken -y
       judge "Install docker-desktop"
       # Remove the package file
-      rm docker-desktop-4.28.0-amd64.deb
+      rm docker-desktop-4.30.0-amd64.deb
   else
       print_ok "docker-desktop is already installed"
   fi
