@@ -31,8 +31,6 @@ clear
 cd ~
 echo "The command you are running is deploying AnduinOS on Ubuntu $(lsb_release -sc)."
 echo "This may introduce non-open-source software to your system."
-print_ok "Please press [ENTER] to continue, or press CTRL+C to cancel."
-read
 
 export DEBIAN_FRONTEND=noninteractive
 
@@ -434,11 +432,3 @@ rm ~/Desktop/*.desktop
 print_ok "Clean up desktop icons"
 
 print_ok "Deploy Finished! Please log out and log in again to take effect."
-
-echo "Please press [y] to log out, or press [c] to continue."
-# When user press 'y', run: gnome-session-quit --logout --no-prompt
-# When user press 'c', run: echo "You pressed 'c'"
-read -n 1 -s -r -p "" key
-if [ "$key" = "y" ]; then
-    gnome-session-quit --logout --no-prompt
-fi
