@@ -116,18 +116,16 @@ sudo chown root:root /etc/apt/preferences.d/no-snap.pref
 judge "Remove snap"
 
 # Docker source
-if [ "$IN_CONTAINER" != "TRUE" ]; then
-  print_ok "Setting docker..."
-  sudo install -m 0755 -d /etc/apt/keyrings
-  sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
-  sudo chmod a+r /etc/apt/keyrings/docker.asc
-  judge "Trust docker gpg"
-  echo \
-    "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
-    $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
-    sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-  judge "Setting docker"
-fi
+print_ok "Setting docker..."
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+judge "Trust docker gpg"
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+judge "Setting docker"
 
 # Google Chrome Source
 print_ok "Setting google chrome..."
@@ -200,6 +198,7 @@ sudo apt install -y \
   pinta\
   vlc\
   obs-studio\
+  docker-ce docker-ce-cli containerd.io docker-compose\
   gnome-boxes\
   gnome-console\
   blender\
@@ -233,12 +232,6 @@ sudo apt install -y \
   qtwayland5
 judge "Install apt softwares"
 
-if [ "$IN_CONTAINER" != "TRUE" ]; then
-  print_ok "Installing docker..."
-  sudo apt install -y docker-ce docker-ce-cli containerd.io docker-compose\
-  judge "Install docker"
-fi
-
 # WeChat
 print_ok "Setting wechat..."
 wget -O- https://deepin-wine.i-m.dev/setup.sh | sh
@@ -263,11 +256,9 @@ sudo apt autoremove -y gnome-terminal > /dev/null 2>&1 || true
 judge "Remove obsolete gnome apps"
 
 # Add current user as docker.
-if [ "$IN_CONTAINER" != "TRUE" ]; then
-  print_ok "Adding $USER to docker group..."
-  sudo gpasswd -a $USER docker
-  judge "Add $USER to docker group"
-fi
+print_ok "Adding $USER to docker group..."
+sudo gpasswd -a $USER docker
+judge "Add $USER to docker group"
 
 # NPM
 print_ok "Installing npm global packages..."
@@ -310,20 +301,18 @@ else
 fi
 
 # Installing docker-desktop
-if [ "$IN_CONTAINER" != "TRUE" ]; then
-  if ! dpkg -s docker-desktop > /dev/null 2>&1; then
-      print_ok "docker-desktop is not installed, downloading and installing..."
-      # Download the deb package
-      wget https://desktop.docker.com/linux/main/amd64/docker-desktop-4.30.0-amd64.deb
-      # Install the package
-      sudo dpkg -i docker-desktop-4.30.0-amd64.deb
-      sudo apt install --fix-broken -y
-      judge "Install docker-desktop"
-      # Remove the package file
-      rm docker-desktop-4.30.0-amd64.deb
-  else
-      print_ok "docker-desktop is already installed"
-  fi
+if ! dpkg -s docker-desktop > /dev/null 2>&1; then
+    print_ok "docker-desktop is not installed, downloading and installing..."
+    # Download the deb package
+    wget https://desktop.docker.com/linux/main/amd64/docker-desktop-4.30.0-amd64.deb
+    # Install the package
+    sudo dpkg -i docker-desktop-4.30.0-amd64.deb
+    sudo apt install --fix-broken -y
+    judge "Install docker-desktop"
+    # Remove the package file
+    rm docker-desktop-4.30.0-amd64.deb
+else
+    print_ok "docker-desktop is already installed"
 fi
 
 # Chinese input
