@@ -429,6 +429,8 @@ print_ok "Configuring gnome extensions..."
 /usr/bin/pip3 uninstall gnome-extensions-cli -y
 judge "Configure gnome extensions"
 
+#'/opt/themes/distributor-logo-ubuntu.svg'
+
 print_ok "Configuring gnome settings..."
 dconf load /org/gnome/ < <(curl https://gitlab.aiursoft.cn/anduin/anduinos/-/raw/master/Config/gnome-settings.txt)
 gsettings set org.gnome.desktop.interface gtk-theme 'Fluent-round-Dark'
