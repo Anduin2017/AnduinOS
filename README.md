@@ -158,13 +158,15 @@ AnduinOS 使用了一些 Gnome 插件（并会自动初始化这些插件）：
 
 AnduinOS 使用的默认壁纸是来自于 [Fluent-gtk-theme](https://github.com/vinceliuice/Fluent-gtk-theme/tree/Wallpaper) 的壁纸。
 
-AnduinOS 修改了一些系统快捷键:
+AnduinOS 修改了一些系统快捷键：
 
 * Ctrl + Alt + T 打开的将会是 Gnome Console 而不是 Gnome Terminal
 * Super + S 的功能改变为了搜索
 * Super + A 的功能改变为了聚焦通知中心
 * Super + I 的功能改变为了打开设置
 * Super + Tab 的功能改变为了预览\切换窗口
+* Ctrl + Super + ← 的功能改变为切换到左边的工作区
+* Ctrl + Super + → 的功能改变为切换到右边的工作区
 
 ## 已知的问题
 

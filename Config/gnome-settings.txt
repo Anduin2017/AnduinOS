@@ -55,6 +55,8 @@ search-view='list-view'
 [desktop/wm/keybindings]
 switch-applications=@as []
 switch-applications-backward=@as []
+switch-to-workspace-left=['<Primary><Super>Left']
+switch-to-workspace-right=['<Primary><Super>Right']
 
 [shell/keybindings]
 toggle-application-view=@as []
