@@ -429,7 +429,9 @@ print_ok "Configuring gnome extensions..."
 /usr/bin/pip3 uninstall gnome-extensions-cli -y
 judge "Configure gnome extensions"
 
-#'/opt/themes/distributor-logo-ubuntu.svg'
+print_ok "Setting distributor logo..."
+wget -O /opt/themes/distributor-logo-ubuntu.svg https://gitlab.aiursoft.cn/anduin/anduinos/-/raw/master/Assets/distributor-logo-ubuntu.svg
+judge "Set distributor logo"
 
 print_ok "Configuring gnome settings..."
 dconf load /org/gnome/ < <(curl https://gitlab.aiursoft.cn/anduin/anduinos/-/raw/master/Config/gnome-settings.txt)
