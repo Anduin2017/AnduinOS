@@ -253,6 +253,7 @@ sudo apt autoremove -y totem totem-plugins > /dev/null 2>&1 || true
 sudo apt autoremove -y rhythmbox > /dev/null 2>&1 || true
 sudo apt autoremove -y gnome-contacts > /dev/null 2>&1 || true
 sudo apt autoremove -y gnome-terminal > /dev/null 2>&1 || true
+sudo apt autoremove -y gedit > /dev/null 2>&1 || true # gedit is replaced by gnome-text-editor
 judge "Remove obsolete gnome apps"
 
 # Add current user as docker.
@@ -422,7 +423,7 @@ print_ok "Configuring gnome extensions..."
 ~/.local/bin/gext -F install dash-to-panel@jderose9.github.com
 ~/.local/bin/gext -F install drive-menu@gnome-shell-extensions.gcampax.github.com
 ~/.local/bin/gext -F install network-stats@gnome.noroadsleft.xyz
-~/.local/bin/gext -F install no-overview@fthx
+#~/.local/bin/gext -F install no-overview@fthx
 ~/.local/bin/gext -F install openweather-extension@jenslody.de
 ~/.local/bin/gext -F install user-theme@gnome-shell-extensions.gcampax.github.com
 /usr/bin/pip3 uninstall gnome-extensions-cli -y

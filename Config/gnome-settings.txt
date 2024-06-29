@@ -52,9 +52,20 @@ default-folder-viewer='list-view'
 search-filter-time-type='last_modified'
 search-view='list-view'
 
+[desktop/wm/keybindings]
+switch-applications=@as []
+switch-applications-backward=@as []
+
+[shell/keybindings]
+toggle-application-view=@as []
+toggle-message-tray=['<Super>a']
+toggle-overview=['<Super>Tab']
+
 [settings-daemon/plugins/media-keys]
 custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/']
 terminal=['<Primary><Alt>y']
+search=['<Super>s']
+control-center=['<Super>i']
 
 [settings-daemon/plugins/media-keys/custom-keybindings/custom0]
 binding='<Primary><Alt>t'

@@ -121,6 +121,7 @@ AnduinOS 会移除掉一些已经被替代或几乎不会被用到的软件：
 * Totem （使用 VLC 替代）
 * Rhythmbox （使用 Spotify 替代）
 * Gnome-contacts
+* gedit （使用 Visual Studio Code 或 Gnome-Text-Editor 替代）
 
 AnduinOS 会安装一些pip全局工具：
 
@@ -153,11 +154,17 @@ AnduinOS 使用了一些 Gnome 插件（并会自动初始化这些插件）：
 * Network Stats 用于提供网络状态查看
 * OpenWeather 用于提供任务栏左下角的天气查看
 * Removable Drive Menu 用于提供任务栏右下角的设备查看
-* Stocks Menu 用于提供任务栏左下角的股票查看
 * User Themes 用于提供主题切换
-* BackSlide 用于提供壁纸切换
 
 AnduinOS 使用的默认壁纸是来自于 [Fluent-gtk-theme](https://github.com/vinceliuice/Fluent-gtk-theme/tree/Wallpaper) 的壁纸。
+
+AnduinOS 修改了一些系统快捷键:
+
+* Ctrl + Alt + T 打开的将会是 Gnome Console 而不是 Gnome Terminal
+* Super + S 的功能改变为了搜索
+* Super + A 的功能改变为了聚焦通知中心
+* Super + I 的功能改变为了打开设置
+* Super + Tab 的功能改变为了预览\切换窗口
 
 ## 已知的问题
 
