@@ -201,7 +201,7 @@ sudo apt install -y \
   obs-studio\
   docker-ce docker-ce-cli containerd.io docker-compose\
   gnome-boxes\
-  gnome-console nautilus-extension-gnome-terminal\
+  gnome-console nautilus-extension-gnome-console\
   blender\
   google-earth-pro-stable\
   shotcut\
