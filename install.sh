@@ -188,6 +188,7 @@ sudo apt install -y \
   gnome-weather\
   gnome-text-editor\
   gnome-nettool\
+  seahorse\
   firefox\
   google-chrome-stable\
   ibus-rime\
@@ -214,19 +215,16 @@ sudo apt install -y \
   hugo\
   spotify-client\
   adb\
-  git\
-  neofetch lsb-release\
-  gnupg\
-  vim nano\
-  wget curl aria2 httping\
+  git neofetch lsb-release clinfo\
+  gnupg vim nano\
+  wget curl aria2\
+  httping nethogs net-tools iftop traceroute dnsutils iperf3\
+  smartmontools\
+  htop iotop iftop\
   ffmpeg\
-  traceroute dnsutils iperf3\
-  iputils-ping iproute2\
-  tree htop iotop iftop smartmontools net-tools clinfo\
+  tree ntp ntpdate ntpstat\
+  w3m sysbench\
   zip unzip jq\
-  ntp ntpdate ntpstat\
-  w3m\
-  sysbench\
   cifs-utils\
   aisleriot\
   qtwayland5

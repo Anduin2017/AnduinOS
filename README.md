@@ -51,11 +51,13 @@ AnduinOS 通过额外安装了大量第三方软件来提供体验。
 
 AnduinOS 会安装下列第三方软件：
 
+* Seahorse 作为密钥管理工具
 * Firefox 作为主浏览器
 * Google Chrome 作为备用浏览器
 * IBus Rime 作为输入法
 * Nextcloud 作为云盘
 * Visual Studio Code 作为主要代码编辑器
+* Gnome Text Editor 作为备用代码编辑器
 * Shotwell 作为图片管理器
 * Remmina 作为远程桌面
 * Spotify 作为音乐播放器
@@ -73,6 +75,7 @@ AnduinOS 会安装下列第三方软件：
 * Shotcut 作为视频编辑器
 * Insomnia 作为API测试工具
 * DbBrowser 作为数据库管理工具
+* AisleRiot 作为纸牌游戏
 
 这些软件几乎涵盖了日常使用的所有场景。
 
@@ -92,25 +95,28 @@ AnduinOS 会配置下列开发环境：
 
 AnduinOS 会安装下列 CLI 工具：
 
-* Git
-* Neofetch & lsb-release
-* gnupg
-* Vim
-* Nano
-* Wget & Curl & Aria2 & httping
-* FFmpeg
-* Tree & htop & iotop & iftop & smartmontools & net-tools & clinfo
-* net-tools & tracepath & dnsutils & iperf3
-* zip & unzip & jq
-* ntp & ntpdate & ntpstat
-* W3m
-* Sysbench
+* 版本控制工具:     git
+* 发行信息工具:     neofetch, lsb-release, clinfo
+* 加密工具:         gnupg
+* 编辑器:           vim, nano
+* 下载工具:         wget, curl, aria2
+* 网络诊断工具:     httping, nethogs, net-tools, iftop, traceroute, dnsutils, iperf3
+* 磁盘诊断工具:     smartmontools
+* 系统监控工具:     htop, iotop, iftop
+* 视频处理工具:     ffmpeg
+* 文件树工具:       tree
+* 时间同步工具:     ntp, ntpdate, ntpstat
+* 网页浏览工具:     w3m
+* 基准测试工具:     sysbench
+* 压缩工具:         zip, unzip
+* JSON解析工具:     jq
 
 AnduinOS 还会额外安装一些软件包：
 
-* apt-transport-https
-* ca-certificates
-* cifs-utils
+* apt 仓库:      software-properties-common
+* apt 加密:     apt-transport-https
+* CA 证书:      ca-certificates
+* SMB 客户端:   cifs-utils
 
 AnduinOS 会移除掉一些已经被替代或几乎不会被用到的软件：
 
