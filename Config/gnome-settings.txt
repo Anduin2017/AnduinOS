@@ -64,10 +64,10 @@ toggle-message-tray=['<Super>a']
 toggle-overview=['<Super>Tab']
 
 [settings-daemon/plugins/media-keys]
-custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/']
-terminal=['<Primary><Alt>y']
+custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/']
+terminal=@as []
+control-center=@as []
 search=['<Super>s']
-control-center=['<Super>i']
 
 [settings-daemon/plugins/media-keys/custom-keybindings/custom0]
 binding='<Primary><Alt>t'
@@ -78,6 +78,11 @@ name='Terminal'
 binding='<Super>e'
 command='nautilus'
 name='File Explorer'
+
+[settings-daemon/plugins/media-keys/custom-keybindings/custom2]
+binding='<Super>i'
+command='gnome-control-center'
+name='Settings'
 
 [shell]
 disable-user-extensions=false
