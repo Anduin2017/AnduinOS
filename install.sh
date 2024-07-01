@@ -438,6 +438,10 @@ gsettings set org.gnome.desktop.interface icon-theme 'Fluent'
 gsettings set org.gnome.desktop.interface cursor-theme 'DMZ-White'
 judge "Configure gnome settings"
 
+print_ok "Configuring default terminal to gnome-console..."
+gsettings set org.gnome.desktop.default-applications.terminal exec kgx
+judge "Configure default terminal"
+
 # Clean up desktop icons
 print_ok "Cleaning up desktop icons..."
 rm ~/Desktop/*.desktop
