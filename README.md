@@ -58,6 +58,7 @@ AnduinOS 会安装下列第三方软件：
 * Nextcloud 作为云盘
 * Visual Studio Code 作为主要代码编辑器
 * Gnome Text Editor 作为备用代码编辑器
+* Gnome-calculator 作为计算器
 * Shotwell 作为图片管理器
 * Remmina 作为远程桌面
 * Spotify 作为音乐播放器
