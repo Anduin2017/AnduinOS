@@ -49,9 +49,12 @@ AnduinOS 会允许当前用户免密码使用 sudo。
 
 AnduinOS 通过额外安装了大量第三方软件来提供体验。
 
-AnduinOS 会安装下列第三方软件：
+AnduinOS 会安装下列 GUI 软件：
 
 * Seahorse 作为密钥管理工具
+* Baobab 作为磁盘分析工具
+* Nautilus 作为文件管理器
+* Cheese 作为摄像头工具
 * Firefox 作为主浏览器
 * Google Chrome 作为备用浏览器
 * IBus Rime 作为输入法
@@ -59,8 +62,8 @@ AnduinOS 会安装下列第三方软件：
 * Visual Studio Code 作为主要代码编辑器
 * Gnome Text Editor 作为备用代码编辑器
 * Gnome-calculator 作为计算器
-* Shotwell 作为图片管理器
-* Remmina 作为远程桌面
+* Shotwell 作为图片查看器
+* Remmina 作为远程桌面客户端
 * Spotify 作为音乐播放器
 * Pinta 作为图片编辑器
 * VLC 作为视频播放器
@@ -114,7 +117,7 @@ AnduinOS 会安装下列 CLI 工具：
 
 AnduinOS 还会额外安装一些软件包：
 
-* apt 仓库:      software-properties-common
+* apt 仓库:     software-properties-common
 * apt 加密:     apt-transport-https
 * CA 证书:      ca-certificates
 * SMB 客户端:   cifs-utils
@@ -178,16 +181,7 @@ AnduinOS 修改了一些系统快捷键：
 
 ## 已知的问题
 
-* 微信的体验并不是很良好，包括无法从剪贴板粘贴图片、无法截图、无法使用系统通知等。
-* Chrome 可能无法使用 GPU 进行硬件加速。
-
-对于 Chrome GPU 相关的问题：
-
-* 可以选择使用 Firefox 来代替 Chrome。
-
-如果遇到微信显示太小：
-
-* 可以修改 Wine 的设置调整微信的 DPI：`env WINEPREFIX=~/.deepinwine/Deepin-WeChat deepin-wine6-stable winecfg`，在Graphics设置中，将 DPI 调整到一个更高的值，例如 192。可能需要重启来生效。
+* 微信的体验并不是很良好，包括无法从剪贴板粘贴图片等。
 
 ## 为什么选择 Ubuntu 作为魔改的来源
 
