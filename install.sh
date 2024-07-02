@@ -395,9 +395,9 @@ judge "Fix CJK fonts"
 
 # Theme
 print_ok "Configuring theme..."
-rm /opt/themes -rvf > /dev/null 2>&1
+sudo rm /opt/themes -rvf > /dev/null 2>&1
 sudo mkdir /opt/themes > /dev/null 2>&1
-sudo chown $USER:$USER /opt/themes
+sudo chown $USER:$USER -R /opt/themes
 git clone https://git.aiursoft.cn/PublicVault/Fluent-icon-theme /opt/themes/Fluent-icon-theme
 /opt/themes/Fluent-icon-theme/install.sh 
 git clone https://git.aiursoft.cn/PublicVault/Fluent-gtk-theme /opt/themes/Fluent-gtk-theme
