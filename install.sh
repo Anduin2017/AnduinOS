@@ -29,6 +29,7 @@ function judge() {
 }
 
 function areYouSure() {
+  print_error "This script found some issue and failed to run. Continue may cause system unstable."
   print_error "Are you sure to continue the installation? Enter [y/N] to continue"
   read -r install
   case $install in
