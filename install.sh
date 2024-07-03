@@ -41,6 +41,20 @@ if ! lsb_release -a | grep "Ubuntu 22.04" > /dev/null; then
 fi
 judge "Ensure you are Ubuntu 22.04"
 
+print_ok "Ensure current user is a normal user instead of root..."
+if [[ $EUID -eq 0 ]]; then
+  print_error "You are running this script as root. Please run this script as a normal user. Using root user is extreamly dangerous."
+  exit 1
+fi
+judge "Ensure current user is a normal user"
+
+print_ok "Ensure current user is in sudo group..."
+if ! groups $USER | grep -q "sudo"; then
+  print_error "You are not in sudo group. Please add your user to sudo group and try again."
+  exit 1
+fi
+judge "Ensure current user is in sudo group"
+
 # Allow run sudo without password.
 if ! sudo grep -q "$USER ALL=(ALL) NOPASSWD:ALL" /etc/sudoers.d/$USER; then
   print_ok "Adding $USER to sudoers..."
