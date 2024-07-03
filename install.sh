@@ -17,7 +17,8 @@ function print_ok() {
 function print_error() {
   echo -e "${ERROR} ${Red} $1 ${Font}"
 }
-judge() {
+
+function judge() {
   if [[ 0 -eq $? ]]; then
     print_ok "$1 succeeded"
     sleep 1
@@ -25,6 +26,20 @@ judge() {
     print_error "$1 failed"
     exit 1
   fi
+}
+
+function areYouSure() {
+  print_error "Are you sure to continue the installation? Enter [y/N] to continue"
+  read -r install
+  case $install in
+  [yY][eE][sS] | [yY])
+    print_ok "Continue the installation"
+    ;;
+  *)
+    print_error "Installation terminated"
+    exit 1
+    ;;
+  esac
 }
 
 clear
@@ -37,21 +52,21 @@ export DEBIAN_FRONTEND=noninteractive
 print_ok "Ensure you are Ubuntu 22.04..."
 if ! lsb_release -a | grep "Ubuntu 22.04" > /dev/null; then
   print_error "You are not using Ubuntu 22.04. Please upgrade your system to 22.04 and try again."
-  exit 1
+  areYouSure
 fi
 judge "Ensure you are Ubuntu 22.04"
 
 print_ok "Ensure current user is a normal user instead of root..."
 if [[ $EUID -eq 0 ]]; then
   print_error "You are running this script as root. Please run this script as a normal user. Using root user is extreamly dangerous."
-  exit 1
+  areYouSure
 fi
 judge "Ensure current user is a normal user"
 
 print_ok "Ensure current user is in sudo group..."
 if ! groups $USER | grep -q "sudo"; then
   print_error "You are not in sudo group. Please add your user to sudo group and try again."
-  exit 1
+  areYouSure
 fi
 judge "Ensure current user is in sudo group"
 
@@ -105,8 +120,8 @@ judge "Disable Ubuntu Pro advertisement"
 # Test if the user can access Google.
 print_ok "Testing network..."
 if ! curl -s --head  --request GET http://www.google.com/generate_204 | grep "204" > /dev/null; then
-  print_error "You are not able to access Internet. Please check your network and try again!"
-  exit 1
+  print_error "You are not able to access Internet. Continue may cause installation failed. Please check your network and try again!"
+  areYouSure
 fi
 judge "Test network"
 
