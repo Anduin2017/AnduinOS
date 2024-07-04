@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "*.txt": "log",
+        "stdio.h": "c",
+        "functional": "cpp"
+    }
+}

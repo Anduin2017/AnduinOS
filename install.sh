@@ -468,6 +468,68 @@ gsettings set org.gnome.desktop.interface icon-theme 'Fluent'
 gsettings set org.gnome.desktop.interface cursor-theme 'DMZ-White'
 judge "Configure gnome settings"
 
+print_ok "Configuring default applications..."
+# video
+xdg-mime default vlc.desktop video/x-matroska # mkv
+xdg-mime default vlc.desktop video/mp4 # mp4
+xdg-mime default vlc.desktop video/quicktime # mov
+xdg-mime default vlc.desktop video/x-msvideo # avi
+xdg-mime default vlc.desktop video/x-ms-wmv # wmv
+xdg-mime default vlc.desktop video/x-flv # flv
+# images
+xdg-mime default shotwell-viewer.desktop image/png # png
+xdg-mime default shotwell-viewer.desktop image/jpeg # jpg
+xdg-mime default shotwell-viewer.desktop image/gif # gif
+xdg-mime default shotwell-viewer.desktop image/bmp # bmp
+xdg-mime default shotwell-viewer.desktop image/tiff # tiff
+# audio
+xdg-mime default vlc.desktop audio/mpeg # mp3
+xdg-mime default vlc.desktop audio/x-wav # wav
+xdg-mime default vlc.desktop audio/x-ms-wma # wma
+xdg-mime default vlc.desktop audio/x-flac # flac
+xdg-mime default vlc.desktop audio/x-m4a # m4a
+xdg-mime default vlc.desktop audio/x-aac # aac
+xdg-mime default vlc.desktop audio/x-vorbis+ogg # ogg
+xdg-mime default vlc.desktop audio/x-ms-asf # asf
+# code
+xdg-mime default code.desktop text/html
+xdg-mime default code.desktop text/css
+xdg-mime default code.desktop text/tsx
+xdg-mime default code.desktop text/markdown
+xdg-mime default code.desktop text/xml
+xdg-mime default code.desktop text/x-csrc
+xdg-mime default code.desktop text/x-csharp
+xdg-mime default code.desktop text/x-c++src
+xdg-mime default code.desktop text/x-c++hdr
+xdg-mime default code.desktop text/x-python
+xdg-mime default code.desktop text/x-java
+xdg-mime default code.desktop text/x-ruby
+xdg-mime default code.desktop text/x-php
+xdg-mime default code.desktop text/x-shellscript
+xdg-mime default code.desktop text/x-yaml
+xdg-mime default code.desktop text/x-sql
+xdg-mime default code.desktop text/x-dockerfile
+xdg-mime default code.desktop text/x-nginx-conf
+xdg-mime default code.desktop text/x-apacheconf
+xdg-mime default code.desktop text/x-ini
+xdg-mime default code.desktop text/x-toml
+xdg-mime default code.desktop application/json
+xdg-mime default code.desktop application/xml
+xdg-mime default code.desktop application/javascript
+xdg-mime default code.desktop application/typescript
+xdg-mime default code.desktop application/x-shellscript
+# pdf
+xdg-mime default org.gnome.Evince.desktop application/pdf
+# docx xlsx pptx
+xdg-mime default wps-office-et.desktop application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+xdg-mime default wps-office-wpp.desktop application/vnd.openxmlformats-officedocument.presentationml.presentation
+xdg-mime default wps-office-wps.desktop application/vnd.openxmlformats-officedocument.wordprocessingml.document
+# zip
+xdg-mime default org.gnome.FileRoller.desktop application/zip
+# txt
+xdg-mime default org.gnome.TextEditor.desktop text/plain
+judge "Configure default applications"
+
 print_ok "Configuring default terminal to gnome-console..."
 gsettings set org.gnome.desktop.default-applications.terminal exec kgx
 judge "Configure default terminal"
