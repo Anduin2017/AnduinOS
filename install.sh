@@ -476,12 +476,16 @@ xdg-mime default vlc.desktop video/quicktime # mov
 xdg-mime default vlc.desktop video/x-msvideo # avi
 xdg-mime default vlc.desktop video/x-ms-wmv # wmv
 xdg-mime default vlc.desktop video/x-flv # flv
+xdg-mime default vlc.desktop video/x-m4v # m4v
+xdg-mime default vlc.desktop video/webm # webm
 # images
 xdg-mime default shotwell-viewer.desktop image/png # png
 xdg-mime default shotwell-viewer.desktop image/jpeg # jpg
 xdg-mime default shotwell-viewer.desktop image/gif # gif
 xdg-mime default shotwell-viewer.desktop image/bmp # bmp
 xdg-mime default shotwell-viewer.desktop image/tiff # tiff
+xdg-mime default shotwell-viewer.desktop image/webp # webp
+xdg-mime default shotwell-viewer.desktop image/x-xcf # xcf
 # audio
 xdg-mime default vlc.desktop audio/mpeg # mp3
 xdg-mime default vlc.desktop audio/x-wav # wav
@@ -491,6 +495,7 @@ xdg-mime default vlc.desktop audio/x-m4a # m4a
 xdg-mime default vlc.desktop audio/x-aac # aac
 xdg-mime default vlc.desktop audio/x-vorbis+ogg # ogg
 xdg-mime default vlc.desktop audio/x-ms-asf # asf
+xdg-mime default vlc.desktop audio/ogg # ogg
 # code
 xdg-mime default code.desktop text/html
 xdg-mime default code.desktop text/css
@@ -518,16 +523,24 @@ xdg-mime default code.desktop application/xml
 xdg-mime default code.desktop application/javascript
 xdg-mime default code.desktop application/typescript
 xdg-mime default code.desktop application/x-shellscript
-# pdf
+xdg-mime default code.desktop application/x-yaml
+# books
 xdg-mime default org.gnome.Evince.desktop application/pdf
-# docx xlsx pptx
+xdg-mime default org.gnome.Evince.desktop application/epub+zip
+# docx, xlsx, pptx
 xdg-mime default wps-office-et.desktop application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
 xdg-mime default wps-office-wpp.desktop application/vnd.openxmlformats-officedocument.presentationml.presentation
 xdg-mime default wps-office-wps.desktop application/vnd.openxmlformats-officedocument.wordprocessingml.document
 # zip
 xdg-mime default org.gnome.FileRoller.desktop application/zip
+xdg-mime default org.gnome.FileRoller.desktop application/x-7z-compressed
+xdg-mime default org.gnome.FileRoller.desktop application/x-rar
+xdg-mime default org.gnome.FileRoller.desktop application/x-tar
+xdg-mime default org.gnome.FileRoller.desktop application/gzip
 # txt
 xdg-mime default org.gnome.TextEditor.desktop text/plain
+# torrent
+xdg-mime default motrix.desktop application/x-bittorrent
 judge "Configure default applications"
 
 print_ok "Configuring default terminal to gnome-console..."
