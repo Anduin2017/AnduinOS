@@ -97,7 +97,7 @@ last-selected-power-profile='performance'
 
 [shell/extensions/arcmenu]
 arc-menu-icon=71
-button-padding=6
+button-padding=5
 custom-menu-button-icon='/opt/themes/distributor-logo-ubuntu.svg'
 custom-menu-button-icon-size=35.0
 dash-to-panel-standalone=true
