@@ -182,6 +182,8 @@ AnduinOS 修改了一些系统快捷键：
 * Ctrl + Super + → 的功能改变为切换到右边的工作区
 * Ctrl + Shift + ECS 的功能改变为打开任务管理器
 
+![Screenshot](./Screenshot/desktop3.png)
+
 ## 已知的问题
 
 * 微信的体验并不是很良好，包括无法从剪贴板粘贴图片等。
