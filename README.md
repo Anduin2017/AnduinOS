@@ -127,6 +127,7 @@ AnduinOS 会移除掉一些已经被替代或几乎不会被用到的软件：
 * Gnome-maps （使用 Google Earth 替代）
 * Gnome-photos （使用 Shotwell 替代）
 * Gnome-terminal （使用 Gnome Console 替代）
+* Gnome Extension Ubuntu Dock （使用 Dash to Panel 替代）
 * eog （使用 Shotwell viewer 替代）
 * Totem （使用 VLC 替代）
 * Rhythmbox （使用 Spotify 替代）

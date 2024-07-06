@@ -211,9 +211,10 @@ judge "Update apt sources"
 
 sudo apt install -y \
   linux-generic-hwe-22.04 \
+  gnome-shell \
   nautilus usb-creator-gtk cheese baobab file-roller\
   gnome-calculator gnome-system-monitor gnome-disk-utility\
-  gnome-tweaks gnome-shell-extension-prefs\
+  gnome-tweaks gnome-shell-extension-prefs gnome-shell-extension-desktop-icons-ng gnome-shell-extension-appindicator\
   gnome-clocks\
   gnome-weather\
   gnome-text-editor\
@@ -282,6 +283,7 @@ sudo apt autoremove -y rhythmbox > /dev/null 2>&1 || true
 sudo apt autoremove -y gnome-contacts > /dev/null 2>&1 || true
 sudo apt autoremove -y gnome-terminal > /dev/null 2>&1 || true
 sudo apt autoremove -y gedit > /dev/null 2>&1 || true # gedit is replaced by gnome-text-editor
+sudo apt autoremove -y gnome-shell-extension-ubuntu-dock > /dev/null 2>&1 || true # Ubuntu dock is replaced by dash-to-dock
 judge "Remove obsolete gnome apps"
 
 # Add current user as docker.
