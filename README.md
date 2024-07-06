@@ -2,95 +2,97 @@
 
 [![ManHours](https://manhours.aiursoft.cn/r/gitlab.aiursoft.cn/anduin/AnduinOS.svg)](https://gitlab.aiursoft.cn/anduin/AnduinOS/-/commits/master?ref_type=heads)
 
-AnduinOS 是一个 Ubuntu 自定义设置、应用、主题的整合包。旨在方便用户从 Windows 迁移到 Linux 时可以继续熟悉的操作习惯和工作。
+[中文文档](./README.ZH.md)
+
+AnduinOS is a comprehensive package integrating custom settings, applications, and themes into Ubuntu. It aims to help users transition from Windows to Linux while retaining familiar operational habits and workflows.
 
 ![Screenshot](./Screenshot/desktop2.png)
 
-AnduinOS 是在 Ubuntu 的基础上额外提供了一些扩展，包括：
+AnduinOS enhances Ubuntu by providing additional features, including:
 
-* 提供了中文输入法
-* 提供了一个类似 Windows 11 的UI
-* 提供了一些常用软件
-* 删除了 snap
+* Chinese input methods
+* A UI similar to Windows 11
+* Various commonly used software
+* Removal of snap
 
-AnduinOS 测试了这些软件和UI的整合体验，因此在使用时一般不会遇到奇怪的问题。
+AnduinOS has been tested to ensure a seamless integration of these software and UI elements, minimizing the likelihood of encountering unusual issues during use.
 
-> 注意： AnduinOS 会引用闭源软件！
+> Note: AnduinOS includes proprietary software!
 
-> 注意： AnduinOS 会修改系统设置，尤其是 apt 的设置！
+> Note: AnduinOS modifies system settings, particularly apt configurations!
 
-## 部署 AnduinOS
+## Deploying AnduinOS
 
-显然，AnduinOS 并不是独立的操作系统。因此必须先安装 Ubuntu 。
+Clearly, AnduinOS is not an independent operating system. Therefore, Ubuntu must be installed first.
 
-在这里下载 Ubuntu 22.04： [Ubuntu Desktop Download](https://releases.ubuntu.com/22.04.4/ubuntu-22.04.4-desktop-amd64.iso)
+Download Ubuntu 22.04 here: [Ubuntu Desktop Download](https://releases.ubuntu.com/22.04.4/ubuntu-22.04.4-desktop-amd64.iso)
 
-按照用户喜欢的方式部署 Ubuntu 即可。不需要特别的设置。无论是 Desktop 还是 Server 都可以。无论是虚拟机、实体机还是容器都可以。
+Install Ubuntu in any preferred manner. No special settings are required. It works with both Desktop and Server versions, on virtual machines, physical machines, or containers.
 
-在第一次登录 Ubuntu 后，打开终端（Ctrl + Alt + T），然后运行：
+After logging into Ubuntu for the first time, open the terminal (Ctrl + Alt + T) and run:
 
 ```bash
 bash -c "$(wget -O- https://gitlab.aiursoft.cn/anduin/anduinos/-/raw/master/install.sh)"
 ```
 
-即可完成 AnduinOS 的部署。
+This will complete the deployment of AnduinOS.
 
-当然，在部署完成后，你可以继续像使用 Ubuntu 那样为它安装软件。
+Of course, after deployment, you can continue to install software as you would with Ubuntu.
 
-> 注意：我们只测试了 Ubuntu 22.04 中的部署效果并且没有任何包冲突。其它版本可能会遇到包版本冲突！
+> Note: We have only tested AnduinOS deployment on Ubuntu 22.04 with no package conflicts. Other versions may encounter package version conflicts!
 
-点击 [这里](https://releases.ubuntu.com/22.04.4/ubuntu-22.04.4-desktop-amd64.iso) 下载 Ubuntu 22.04。
+Click [here](https://releases.ubuntu.com/22.04.4/ubuntu-22.04.4-desktop-amd64.iso) to download Ubuntu 22.04.
 
-## AnduinOS 做了什么
+## What AnduinOS Does
 
-AnduinOS 会允许当前用户免密码使用 sudo。
+AnduinOS allows the current user to use sudo without a password.
 
-> 这会带来一些安全风险，但是这是为了方便用户使用。如果不喜欢这个设定，可以在运行完成后删除 /etc/sudoers.d/$USER 文件。
+> This poses some security risks, but it is for user convenience. If you do not like this setting, you can delete the /etc/sudoers.d/$USER file after running.
 
-AnduinOS 通过额外安装了大量第三方软件来提供体验。
+AnduinOS enhances the experience by installing a multitude of third-party software.
 
-AnduinOS 会安装下列 GUI 软件：
+AnduinOS installs the following GUI software:
 
-* Seahorse 作为密钥管理工具
-* Baobab 作为磁盘分析工具
-* Nautilus 作为文件管理器
-* Cheese 作为摄像头工具
-* Firefox 作为主浏览器
-* Google Chrome 作为备用浏览器
-* IBus Rime 作为输入法
-* Nextcloud 作为云盘
-* Visual Studio Code 作为主要代码编辑器
-* Gnome Text Editor 作为备用代码编辑器
-* Gnome-calculator 作为计算器
-* Shotwell 作为图片查看器
-* Remmina 作为远程桌面客户端
-* Spotify 作为音乐播放器
-* Pinta 作为图片编辑器
-* VLC 作为视频播放器
-* WPS Office 作为办公软件
-* OBS Studio 作为录屏软件
-* Docker Desktop 作为容器软件
-* Gnome Boxes 作为虚拟机管理软件
-* Gnome Console 作为终端软件
-* WeChat 作为聊天软件
-* Blender 作为3D建模软件
-* Motrix 作为下载工具
-* Google Earth 作为地图软件
-* Shotcut 作为视频编辑器
-* Insomnia 作为API测试工具
-* DbBrowser 作为数据库管理工具
-* AisleRiot 作为纸牌游戏
-* Mission Control 作为任务管理器
+* Seahorse as a key management tool
+* Baobab as a disk analysis tool
+* Nautilus as a file manager
+* Cheese as a webcam tool
+* Firefox as the main browser
+* Google Chrome as an alternative browser
+* IBus Rime as an input method
+* Nextcloud as a cloud drive
+* Visual Studio Code as the main code editor
+* Gnome Text Editor as an alternative code editor
+* Gnome-calculator as a calculator
+* Shotwell as an image viewer
+* Remmina as a remote desktop client
+* Spotify as a music player
+* Pinta as an image editor
+* VLC as a video player
+* WPS Office as office software
+* OBS Studio as screen recording software
+* Docker Desktop as container software
+* Gnome Boxes as virtual machine management software
+* Gnome Console as terminal software
+* WeChat as a chat application (For Chinese users)
+* Blender as 3D modeling software
+* Motrix as a download tool
+* Google Earth as a map software
+* Shotcut as a video editor
+* Insomnia as an API testing tool
+* DbBrowser as a database management tool
+* AisleRiot as a solitaire game
+* Mission Control as a task manager
 
-这些软件几乎涵盖了日常使用的所有场景。
+These applications cover nearly all daily use scenarios.
 
-AnduinOS 使用 ibus 作为输入法的后端，使用 Rime 作为输入法的前端。运行的默认输入法配置来自 [雾凇拼音](https://github.com/iDvel/rime-ice)。
+AnduinOS uses ibus as the backend for input methods and Rime as the frontend. The default input method configuration is from [Rime Ice](https://github.com/iDvel/rime-ice).
 
-AnduinOS 会配置下列开发环境：
+AnduinOS configures the following development environments:
 
 * NodeJS, NPM & Yarn
 * Golang
-* .NET 8 (And Entity Framework)
+* .NET 8 (and Entity Framework)
 * Java (OpenJDK)
 * Ruby
 * Python
@@ -98,49 +100,49 @@ AnduinOS 会配置下列开发环境：
 * Hugo
 * Android Debug Bridge (adb)
 
-AnduinOS 会安装下列 CLI 工具：
+AnduinOS installs the following CLI tools:
 
-* 版本控制工具:     git
-* 发行信息工具:     neofetch, lsb-release, clinfo
-* 加密工具:         gnupg
-* 编辑器:           vim, nano
-* 下载工具:         wget, curl, aria2
-* 网络诊断工具:     httping, nethogs, net-tools, iftop, traceroute, dnsutils, iperf3
-* 磁盘诊断工具:     smartmontools
-* 系统监控工具:     htop, iotop, iftop
-* 视频处理工具:     ffmpeg
-* 文件树工具:       tree
-* 时间同步工具:     ntp, ntpdate, ntpstat
-* 网页浏览工具:     w3m
-* 基准测试工具:     sysbench
-* 压缩工具:         zip, unzip
-* JSON解析工具:     jq
+* Version control tools: git
+* Distribution information tools: neofetch, lsb-release, clinfo
+* Encryption tools: gnupg
+* Editors: vim, nano
+* Download tools: wget, curl, aria2
+* Network diagnostic tools: httping, nethogs, net-tools, iftop, traceroute, dnsutils, iperf3
+* Disk diagnostic tools: smartmontools
+* System monitoring tools: htop, iotop, iftop
+* Video processing tools: ffmpeg
+* File tree tools: tree
+* Time synchronization tools: ntp, ntpdate, ntpstat
+* Web browsing tools: w3m
+* Benchmarking tools: sysbench
+* Compression tools: zip, unzip
+* JSON parsing tools: jq
 
-AnduinOS 还会额外安装一些软件包：
+AnduinOS also installs some additional packages:
 
-* apt 仓库:     software-properties-common
-* apt 加密:     apt-transport-https
-* CA 证书:      ca-certificates
-* SMB 客户端:   cifs-utils
+* apt repository: software-properties-common
+* apt encryption: apt-transport-https
+* CA certificates: ca-certificates
+* SMB client: cifs-utils
 
-AnduinOS 会移除掉一些已经被替代或几乎不会被用到的软件：
+AnduinOS removes some software that has been replaced or is rarely used:
 
-* Gnome-maps （使用 Google Earth 替代）
-* Gnome-photos （使用 Shotwell 替代）
-* Gnome-terminal （使用 Gnome Console 替代）
-* Gnome Extension Ubuntu Dock （使用 Dash to Panel 替代）
-* eog （使用 Shotwell viewer 替代）
-* Totem （使用 VLC 替代）
-* Rhythmbox （使用 Spotify 替代）
+* Gnome-maps (replaced by Google Earth)
+* Gnome-photos (replaced by Shotwell)
+* Gnome-terminal (replaced by Gnome Console)
+* Gnome Extension Ubuntu Dock (replaced by Dash to Panel)
+* eog (replaced by Shotwell viewer)
+* Totem (replaced by VLC)
+* Rhythmbox (replaced by Spotify)
 * Gnome-contacts
-* gedit （使用 Visual Studio Code 或 Gnome-Text-Editor 替代）
+* gedit (replaced by Visual Studio Code or Gnome-Text-Editor)
 
-AnduinOS 会安装一些pip全局工具：
+AnduinOS installs some global pip tools:
 
 * Youtube-dl
 * Gnome-extensions-cli
 
-AnduinOS 会安装一些npm全局工具：
+AnduinOS installs some global npm tools:
 
 * npx
 * yarn
@@ -148,64 +150,64 @@ AnduinOS 会安装一些npm全局工具：
 * typescript
 * ts-node
 
-AnduinOS 会安装一些.NET全局工具：
+AnduinOS installs some global .NET tools:
 
 * EntityFrameworkCore
 * Aiursoft.Static
 
-AnduinOS 使用了一些第三方主题来修改桌面体验，包括但不限于：
+AnduinOS uses third-party themes to enhance the desktop experience, including but not limited to:
 
 * [Fluent-gtk-theme](https://github.com/vinceliuice/Fluent-gtk-theme)
 * [Fluent-icon-theme](https://github.com/vinceliuice/Fluent-icon-theme)
 
-AnduinOS 使用了一些 Gnome 插件（并会自动初始化这些插件）：
+AnduinOS uses some Gnome extensions (and initializes these extensions automatically):
 
-* ArcMenu 用于提供类似 Windows 11 的开始菜单
-* Blur My Shell 用于提供类似 Windows 11 的模糊效果
-* Dash to Panel 用于提供类似 Windows 11 的任务栏
-* Network Stats 用于提供网络状态查看
-* OpenWeather 用于提供任务栏左下角的天气查看
-* Removable Drive Menu 用于提供任务栏右下角的设备查看
-* User Themes 用于提供主题切换
+* ArcMenu for a Windows 11-like start menu
+* Blur My Shell for Windows 11-like blur effects
+* Dash to Panel for a Windows 11-like taskbar
+* Network Stats for network status viewing
+* OpenWeather for weather viewing in the bottom left of the taskbar
+* Removable Drive Menu for device viewing in the bottom right of the taskbar
+* User Themes for theme switching
 
-AnduinOS 使用的默认壁纸是来自于 [Fluent-gtk-theme](https://github.com/vinceliuice/Fluent-gtk-theme/tree/Wallpaper) 的壁纸。
+AnduinOS uses a default wallpaper from [Fluent-gtk-theme](https://github.com/vinceliuice/Fluent-gtk-theme/tree/Wallpaper).
 
-AnduinOS 修改了一些系统快捷键：
+AnduinOS modifies some system shortcuts:
 
-* Ctrl + Alt + T 打开的将会是 Gnome Console 而不是 Gnome Terminal
-* Super + S 的功能改变为了搜索
-* Super + A 的功能改变为了聚焦通知中心
-* Super + I 的功能改变为了打开设置
-* Super + E 的功能改变为了打开文件管理器
-* Super + Tab 的功能改变为了预览\切换窗口
-* Ctrl + Super + ← 的功能改变为切换到左边的工作区
-* Ctrl + Super + → 的功能改变为切换到右边的工作区
-* Ctrl + Shift + ECS 的功能改变为打开任务管理器
+* Ctrl + Alt + T opens Gnome Console instead of Gnome Terminal
+* Super + S is changed to search
+* Super + A is changed to focus the notification center
+* Super + I is changed to open settings
+* Super + E is changed to open the file manager
+* Super + Tab is changed to preview/switch windows
+* Ctrl + Super + ← is changed to switch to the left workspace
+* Ctrl + Super + → is changed to switch to the right workspace
+* Ctrl + Shift + ECS is changed to open the task manager
 
 ![Screenshot](./Screenshot/desktop3.png)
 
-## 已知的问题
+## Known Issues
 
-* 微信的体验并不是很良好，包括无法从剪贴板粘贴图片等。
+* The experience with WeChat is not very good, including issues with pasting images from the clipboard.
 
-## 为什么选择 Ubuntu 作为魔改的来源
+## Why Choose Ubuntu as the Base for Customization
 
-Ubuntu 对于 Linux 初学者来说非常流行，它有着还算不错的生态，并且默认就很好看。这使得它成为了最好的魔改来源。
+Ubuntu is very popular among Linux beginners. It has a decent ecosystem and looks great by default, making it the best base for customization.
 
-无论是专业的开发人员，或是普通的用户，适应 Ubuntu 都不算太难。
+Whether for professional developers or ordinary users, adapting to Ubuntu is relatively easy.
 
-## 其他推荐的软件
+## Other Recommended Software
 
-这些软件 AnduinOS 并不会预装。但是它们不会来带引用冲突，并且体验已经测试过非常好。
+These software are not pre-installed in AnduinOS, but they do not cause dependency conflicts and have been tested for a great experience.
 
-如果有需要可以安装：
+If needed, you can install:
 
 * Stellarium
 * Steam
 * Minecraft
-* Dropbox (已经测试可以完全替代 Nextcloud)
-* Kdenlive (已经测试可以完全替代 Shotcut)
-* Telegram (已经测试可以完全替代 WeChat)
-* Postman (已经测试可以完全替代 Insomnia)
-* DaVinci Resolve (已经测试可以完全替代 Shotcut)
-* GIMP (已经测试可以完全替代 Pinta)
+* Dropbox (tested to fully replace Nextcloud)
+* Kdenlive (tested to fully replace Shotcut)
+* Telegram (tested to fully replace WeChat)
+* Postman (tested to fully replace Insomnia)
+* DaVinci Resolve (tested to fully replace Shotcut)
+* GIMP (tested to fully replace Pinta)
