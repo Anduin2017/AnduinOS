@@ -60,7 +60,7 @@ switch-to-workspace-right=['<Primary><Super>Right']
 
 [shell/keybindings]
 toggle-application-view=@as []
-toggle-message-tray=['<Super>a']
+toggle-message-tray=['<Super>a','<Super>n']
 toggle-overview=['<Super>Tab']
 
 [settings-daemon/plugins/media-keys]
