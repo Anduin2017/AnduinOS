@@ -180,6 +180,7 @@ AnduinOS 修改了一些系统快捷键：
 * Super + Tab 的功能改变为了预览\切换窗口
 * Ctrl + Super + ← 的功能改变为切换到左边的工作区
 * Ctrl + Super + → 的功能改变为切换到右边的工作区
+* Ctrl + Shift + ECS 的功能改变为打开任务管理器
 
 ## 已知的问题
 
