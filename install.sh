@@ -121,7 +121,7 @@ judge "Disable Ubuntu Pro advertisement"
 # Test if the user can access Google.
 print_ok "Testing network..."
 if ! curl -s --head  --request GET http://www.google.com/generate_204 | grep "204" > /dev/null; then
-  print_error "You are not able to access Internet. Continue may cause installation failed. Please check your network and try again!"
+  print_error "Failed to connect to Google. You are not able to access Internet. Continue may cause installation failed. Please check your network and try again!"
   areYouSure
 fi
 judge "Test network"
