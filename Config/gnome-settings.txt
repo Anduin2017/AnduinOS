@@ -192,6 +192,7 @@ window-preview-title-position='TOP'
 [shell/extensions/ding]
 check-x11wayland=true
 show-trash=true
+start-corner='top-left'
 
 [shell/extensions/extension-list]
 button-icon=uint32 1
