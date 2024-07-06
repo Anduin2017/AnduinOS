@@ -213,7 +213,7 @@ sudo apt install -y \
   linux-generic-hwe-22.04 \
   gnome-shell \
   nautilus usb-creator-gtk cheese baobab file-roller\
-  gnome-calculator gnome-system-monitor gnome-disk-utility\
+  gnome-calculator gnome-system-monitor gnome-disk-utility gnome-control-center\
   gnome-tweaks gnome-shell-extension-prefs gnome-shell-extension-desktop-icons-ng gnome-shell-extension-appindicator\
   gnome-clocks\
   gnome-weather\
@@ -366,6 +366,7 @@ Icon=$LOGO_PATH
 Terminal=false
 Type=Application
 Categories=System;Monitor;" | sudo tee $DESKTOP_FILE
+  sudo apt install -y libfuse2 # Required by AppImage
   sudo chmod +x $APPIMAGE_PATH
 else
   print_ok "MissionCenter is already installed"
