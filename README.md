@@ -25,7 +25,7 @@ AnduinOS 测试了这些软件和UI的整合体验，因此在使用时一般不
 
 在这里下载 Ubuntu 22.04： [Ubuntu Desktop Download](https://releases.ubuntu.com/22.04.4/ubuntu-22.04.4-desktop-amd64.iso)
 
-按照用户喜欢的方式部署 Ubuntu 即可。不需要特别的设置。
+按照用户喜欢的方式部署 Ubuntu 即可。不需要特别的设置。无论是 Desktop 还是 Server 都可以。无论是虚拟机、实体机还是容器都可以。
 
 在第一次登录 Ubuntu 后，打开终端（Ctrl + Alt + T），然后运行：
 
