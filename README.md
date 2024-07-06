@@ -80,6 +80,7 @@ AnduinOS 会安装下列 GUI 软件：
 * Insomnia 作为API测试工具
 * DbBrowser 作为数据库管理工具
 * AisleRiot 作为纸牌游戏
+* Mission Control 作为任务管理器
 
 这些软件几乎涵盖了日常使用的所有场景。
 

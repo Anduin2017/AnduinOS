@@ -480,6 +480,15 @@ print_ok "Configuring gnome extensions..."
 /usr/bin/pip3 uninstall gnome-extensions-cli -y
 judge "Configure gnome extensions"
 
+# Dash to dock patch
+print_ok "Patching dash to dock..."
+wget -O /tmp/appIcons.js https://gitlab.aiursoft.cn/anduin/anduinos/-/raw/master/Config/menuPatch.js?ref_type=heads
+sudo cp /tmp/appIcons.js ~/.local/share/gnome-shell/extensions/dash-to-panel@jderose9.github.com/
+rm /tmp/appIcons.js
+sudo chmod 664 ~/.local/share/gnome-shell/extensions/dash-to-panel@jderose9.github.com/appIcons.js
+sudo chown $USER:$USER ~/.local/share/gnome-shell/extensions/dash-to-panel@jderose9.github.com/appIcons.js
+judge "Patch dash to dock"
+
 print_ok "Setting distributor logo..."
 wget -O /opt/themes/distributor-logo-ubuntu.svg https://gitlab.aiursoft.cn/anduin/anduinos/-/raw/master/Assets/distributor-logo-ubuntu.svg
 judge "Set distributor logo"
