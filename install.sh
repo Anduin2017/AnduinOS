@@ -297,11 +297,15 @@ sudo npm i -g yarn npm npx typescript ts-node marked
 judge "Install yarn, npm, npx, typescript, ts-node, marked"
 
 # Insomnia
-print_ok "Installing Insomnia..."
-wget https://updates.insomnia.rest/downloads/ubuntu/latest -O insomnia.deb
-sudo dpkg -i insomnia.deb
-judge "Install Insomnia"
-rm ./insomnia.deb
+if ! dpkg -s insomnia > /dev/null 2>&1; then
+  print_ok "Installing Insomnia..."
+  wget https://updates.insomnia.rest/downloads/ubuntu/latest -O insomnia.deb
+  sudo dpkg -i insomnia.deb
+  judge "Install Insomnia"
+  rm ./insomnia.deb
+else
+  print_ok "Insomnia is already installed"
+fi
 
 # Installing wps-office
 if ! dpkg -s wps-office > /dev/null 2>&1; then
