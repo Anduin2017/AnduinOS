@@ -75,10 +75,8 @@ function switchSource() {
       time_total=$(echo $response | awk '{print $2}')
 
       if [ "$http_code" -eq 200 ]; then
-          echo "$url is available, time_total=$time_total"
           results["$url"]=$time_total
       else
-          echo "$url is not available, http_code=$http_code"
           results["$url"]="9999" # 大的数值表示不可用
       fi
   }
