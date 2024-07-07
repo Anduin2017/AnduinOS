@@ -282,7 +282,7 @@ judge "Update apt sources"
 
 sudo apt install -y \
   linux-generic-hwe-22.04 \
-  gnome-shell \
+  gnome-shell gir1.2-gmenu-3.0 gnome-menus gnome-shell-extensions\
   nautilus usb-creator-gtk cheese baobab file-roller\
   gnome-calculator gnome-system-monitor gnome-disk-utility gnome-control-center software-properties-gtk\
   gnome-tweaks gnome-shell-extension-prefs gnome-shell-extension-desktop-icons-ng gnome-shell-extension-appindicator\
