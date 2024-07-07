@@ -278,6 +278,7 @@ judge "Setting firefox"
 print_ok "Setting node 20..."
 sudo mkdir -p /etc/apt/keyrings
 curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg --yes
+# This link requires to be updated manually regularly.
 NODE_MAJOR=20
 echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list
 judge "Setting node 20"
@@ -389,6 +390,7 @@ fi
 if ! dpkg -s wps-office > /dev/null 2>&1; then
     print_ok "wps-office is not installed, downloading and installing..."
     # Download the deb package
+    # This link requires to be updated manually regularly.
     wget https://wdl1.pcfg.cache.wpscdn.com/wpsdl/wpsoffice/download/linux/11719/wps-office_11.1.0.11719.XA_amd64.deb
     # Install the package
     sudo dpkg -i wps-office_11.1.0.11698.XA_amd64.deb
@@ -403,6 +405,7 @@ fi
 if ! dpkg -s motrix > /dev/null 2>&1; then
     print_ok "Motrix is not installed, downloading and installing..."
     # Download the deb package
+    # This link requires to be updated manually regularly.
     wget https://dl.motrix.app/release/Motrix_1.8.19_amd64.deb
     # Install the package
     sudo dpkg -i Motrix_1.8.19_amd64.deb
@@ -417,6 +420,7 @@ fi
 if ! dpkg -s docker-desktop > /dev/null 2>&1; then
     print_ok "docker-desktop is not installed, downloading and installing..."
     # Download the deb package
+    # This link requires to be updated manually regularly.
     wget https://desktop.docker.com/linux/main/amd64/docker-desktop-4.30.0-amd64.deb
     # Install the package
     sudo dpkg -i docker-desktop-4.30.0-amd64.deb
@@ -429,6 +433,7 @@ else
 fi
 
 if ! test -f /opt/missioncenter/AppRun; then
+  # This link requires to be updated manually regularly.
   APPIMAGE_URL="https://gitlab.com/mission-center-devs/mission-center/-/jobs/7109267599/artifacts/raw/MissionCenter-x86_64.AppImage"
   LOGO_URL="https://dl.flathub.org/media/io/missioncenter/MissionCenter/224cb83cac6b6e56f793a0163bcca7aa/icons/128x128/io.missioncenter.MissionCenter.png"
   APPIMAGE_PATH="/opt/missioncenter.appimage"
@@ -504,6 +509,7 @@ judge "Install youtube-dl"
 
 # Clean up obsolete apt sources.
 print_ok "Cleaning up obsolete apt sources...."
+# This link requires to be updated manually regularly.
 wget https://github.com/davidfoerster/aptsources-cleanup/releases/download/v0.1.7.5.2/aptsources-cleanup.pyz
 chmod +x aptsources-cleanup.pyz
 sudo bash -c "echo all | ./aptsources-cleanup.pyz  --yes"
