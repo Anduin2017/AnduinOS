@@ -86,7 +86,7 @@ name='Settings'
 
 [settings-daemon/plugins/media-keys/custom-keybindings/custom3]
 binding='<Primary><Shift>Escape'
-command='/opt/missioncenter.appimage'
+command='/opt/missioncenter/AppRun'
 name='Task Manager'
 
 [shell]

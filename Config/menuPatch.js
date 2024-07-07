@@ -1815,7 +1815,7 @@ var MyShowAppsIconMenu = class extends PopupMenu.PopupMenu {
         // Task manager
         this._appendItem({
             title: _('Task Manager'),
-            cmd: ['/opt/missioncenter.appimage']
+            cmd: ['/opt/missioncenter/AppRun']
         });
 
         this._appendSeparator();
