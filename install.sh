@@ -355,6 +355,7 @@ sudo apt autoremove -y gnome-contacts > /dev/null 2>&1 || true
 sudo apt autoremove -y gnome-terminal > /dev/null 2>&1 || true
 sudo apt autoremove -y gedit > /dev/null 2>&1 || true # gedit is replaced by gnome-text-editor
 sudo apt autoremove -y gnome-shell-extension-ubuntu-dock > /dev/null 2>&1 || true # Ubuntu dock is replaced by dash-to-dock
+sudo apt autoremove -y libreoffice-* > /dev/null 2>&1 || true # LibreOffice is replaced by wps-office
 judge "Remove obsolete gnome apps"
 
 # Add current user as docker.

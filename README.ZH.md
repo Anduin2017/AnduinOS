@@ -134,6 +134,7 @@ AnduinOS 会移除掉一些已经被替代或几乎不会被用到的软件：
 * Rhythmbox （使用 Spotify 替代）
 * Gnome-contacts
 * gedit （使用 Visual Studio Code 或 Gnome-Text-Editor 替代）
+* LibreOffice （使用 WPS Office 替代）
 
 AnduinOS 会安装一些pip全局工具：
 

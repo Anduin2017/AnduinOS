@@ -136,6 +136,7 @@ AnduinOS removes some software that has been replaced or is rarely used:
 * Rhythmbox (replaced by Spotify)
 * Gnome-contacts
 * gedit (replaced by Visual Studio Code or Gnome-Text-Editor)
+* LibreOffice (replaced by WPS Office)
 
 AnduinOS installs some global pip tools:
 
