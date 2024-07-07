@@ -125,6 +125,12 @@ echo "This may introduce non-open-source software to your system."
 
 export DEBIAN_FRONTEND=noninteractive
 
+print_ok "Ensure current architecture is amd64..."
+if [[ $(dpkg --print-architecture) != "amd64" ]]; then
+  print_error "You are not using amd64 architecture. This script is only for amd64 architecture."
+  areYouSure
+fi
+
 print_ok "Ensure you are Ubuntu 22.04..."
 if ! lsb_release -a | grep "Ubuntu 22.04" > /dev/null; then
   print_error "You are not using Ubuntu 22.04. Please upgrade your system to 22.04 and try again."
@@ -383,7 +389,7 @@ fi
 if ! dpkg -s wps-office > /dev/null 2>&1; then
     print_ok "wps-office is not installed, downloading and installing..."
     # Download the deb package
-    wget https://wdl1.pcfg.cache.wpscdn.com/wpsdl/wpsoffice/download/linux/11698/wps-office_11.1.0.11698.XA_amd64.deb
+    wget https://wdl1.pcfg.cache.wpscdn.com/wpsdl/wpsoffice/download/linux/11719/wps-office_11.1.0.11719.XA_amd64.deb
     # Install the package
     sudo dpkg -i wps-office_11.1.0.11698.XA_amd64.deb
     judge "Install wps-office"
