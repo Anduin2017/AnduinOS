@@ -52,7 +52,7 @@ function switchSource() {
       "http://kr.archive.ubuntu.com/ubuntu/" # 韩国
       "http://us.archive.ubuntu.com/ubuntu/" # 美国
       "http://de.archive.ubuntu.com/ubuntu/" # 德国
-      "http://hk.archive.ubuntu.com/ubuntu/" # 香港
+      "https://ubuntu.mirrors.uk2.net/ubuntu/" # 英国
       "http://mirrors.ustc.edu.cn/ubuntu/" # 中国科技大学
       "http://ftp.sjtu.edu.cn/ubuntu/" # 上海交通大学
       "http://mirrors.tuna.tsinghua.edu.cn/ubuntu/" # 清华大学
@@ -62,6 +62,7 @@ function switchSource() {
       "http://mirror.aiursoft.cn/ubuntu/" # Aiursoft
       "http://mirrors.huaweicloud.com/ubuntu/" # 华为云
       "http://mirrors.zju.edu.cn/ubuntu/" # 浙江大学
+      "http://azure.archive.ubuntu.com/ubuntu/" # 微软 Azure
   )
 
   # 存储测速结果
