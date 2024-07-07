@@ -43,6 +43,72 @@ function areYouSure() {
   esac
 }
 
+function switchSource() {
+  # 镜像源列表
+  mirrors=(
+      "http://archive.ubuntu.com/ubuntu/" # 默认源
+      "http://sg.archive.ubuntu.com/ubuntu/" # 新加坡
+      "http://jp.archive.ubuntu.com/ubuntu/" # 日本
+      "http://kr.archive.ubuntu.com/ubuntu/" # 韩国
+      "http://us.archive.ubuntu.com/ubuntu/" # 美国
+      "http://de.archive.ubuntu.com/ubuntu/" # 德国
+      "http://hk.archive.ubuntu.com/ubuntu/" # 香港
+      "http://mirrors.ustc.edu.cn/ubuntu/" # 中国科技大学
+      "http://ftp.sjtu.edu.cn/ubuntu/" # 上海交通大学
+      "http://mirrors.tuna.tsinghua.edu.cn/ubuntu/" # 清华大学
+      "http://mirrors.aliyun.com/ubuntu/" # 阿里云
+      "http://mirrors.163.com/ubuntu/" # 网易
+      "http://mirrors.cloud.tencent.com/ubuntu/" # 腾讯云
+      "http://mirror.aiursoft.cn/ubuntu/" # Aiursoft
+      "http://mirrors.huaweicloud.com/ubuntu/" # 华为云
+      "http://mirrors.zju.edu.cn/ubuntu/" # 浙江大学
+  )
+
+  # 存储测速结果
+  declare -A results
+
+  # 测速函数
+  test_speed() {
+      url=$1
+      response=$(curl -o /dev/null -s -w "%{http_code} %{time_total}\n" "$url")
+      http_code=$(echo $response | awk '{print $1}')
+      time_total=$(echo $response | awk '{print $2}')
+
+      if [ "$http_code" -eq 200 ]; then
+          echo "$url is available, time_total=$time_total"
+          results["$url"]=$time_total
+      else
+          echo "$url is not available, http_code=$http_code"
+          results["$url"]="9999" # 大的数值表示不可用
+      fi
+  }
+
+  # 测试所有镜像源
+  print_ok "Testing all mirrors..."
+  for mirror in "${mirrors[@]}"; do
+      test_speed "$mirror"
+  done
+
+  # 按速度排序
+  sorted_mirrors=$(for url in "${!results[@]}"; do echo "$url ${results[$url]}"; done | sort -k2 -n)
+
+  # 输出排序后的镜像源列表
+  print_ok "Sorted mirrors:"
+  echo "$sorted_mirrors"
+
+  # 获取最快的镜像源
+  fastest_mirror=$(echo "$sorted_mirrors" | head -n 1 | awk '{print $1}')
+
+  # 输出并切换到最快的镜像源
+  print_ok "Fastest mirror: $fastest_mirror"
+  echo "
+  deb $fastest_mirror jammy main restricted universe multiverse
+  deb $fastest_mirror jammy-updates main restricted universe multiverse
+  deb $fastest_mirror jammy-backports main restricted universe multiverse
+  deb $fastest_mirror jammy-security main restricted universe multiverse
+  " | sudo tee /etc/apt/sources.list
+}
+
 clear
 cd ~
 echo "The command you are running is deploying AnduinOS on Ubuntu $(lsb_release -sc)."
@@ -84,14 +150,9 @@ print_ok "Removing ubuntu-advantage advertisement..."
 sudo rm /var/lib/ubuntu-advantage/messages/* > /dev/null 2>&1
 print_ok "Remove ubuntu-advantage advertisement"
 
-echo "Using Aiursoft APT mirror..."
-echo "
-deb http://mirror.aiursoft.cn/ubuntu/ jammy main restricted universe multiverse
-deb http://mirror.aiursoft.cn/ubuntu/ jammy-updates main restricted universe multiverse
-deb http://mirror.aiursoft.cn/ubuntu/ jammy-backports main restricted universe multiverse
-deb http://mirror.aiursoft.cn/ubuntu/ jammy-security main restricted universe multiverse
-" | sudo tee /etc/apt/sources.list
-judge "Using Aiursoft APT mirror"
+echo "Switching to best apt source..."
+switchSource
+judge "Using best apt source"
 
 # print_ok "Removing i386 architecture..."
 # sudo dpkg --remove-architecture i386 || true
@@ -110,8 +171,9 @@ sudo add-apt-repository -y restricted -n
 judge "Add multiverse, universe, restricted"
 
 print_ok "Disabling Ubuntu Pro advertisement..."
-sudo apt autoremove -y ubuntu-advantage-tools || true
-sudo apt-mark hold ubuntu-advantage-tools || true
+# Comment this line, because software-properties-gtk requires ubuntu-advantage-tools.
+#sudo apt autoremove -y ubuntu-advantage-tools || true
+#sudo apt-mark hold ubuntu-advantage-tools || true
 sudo mv /etc/apt/apt.conf.d/20apt-esm-hook.conf /etc/apt/apt.conf.d/20apt-esm-hook.conf.bak
 sudo touch /etc/apt/apt.conf.d/20apt-esm-hook.conf
 sudo pro config set apt_news=false || true
@@ -213,7 +275,7 @@ sudo apt install -y \
   linux-generic-hwe-22.04 \
   gnome-shell \
   nautilus usb-creator-gtk cheese baobab file-roller\
-  gnome-calculator gnome-system-monitor gnome-disk-utility gnome-control-center\
+  gnome-calculator gnome-system-monitor gnome-disk-utility gnome-control-center software-properties-gtk\
   gnome-tweaks gnome-shell-extension-prefs gnome-shell-extension-desktop-icons-ng gnome-shell-extension-appindicator\
   gnome-clocks\
   gnome-weather\

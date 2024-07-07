@@ -49,7 +49,7 @@ AnduinOS allows the current user to use sudo without a password.
 
 > This poses some security risks, but it is for user convenience. If you do not like this setting, you can delete the /etc/sudoers.d/$USER file after running.
 
-AnduinOS enhances the experience by installing a multitude of third-party software.
+AnduinOS enhances the experience by installing a multitude of third-party software. Anduin OS will automatically select the fastest software source based on latency.
 
 AnduinOS installs the following GUI software:
 
