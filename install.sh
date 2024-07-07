@@ -51,8 +51,12 @@ function switchSource() {
       "http://jp.archive.ubuntu.com/ubuntu/" # 日本
       "http://kr.archive.ubuntu.com/ubuntu/" # 韩国
       "http://us.archive.ubuntu.com/ubuntu/" # 美国
+      "http://ca.archive.ubuntu.com/ubuntu/" # 加拿大
+      "http://tw.archive.ubuntu.com/ubuntu/" # 台湾地区
+      "http://th.archive.ubuntu.com/ubuntu/" # 泰国
       "http://de.archive.ubuntu.com/ubuntu/" # 德国
       "https://ubuntu.mirrors.uk2.net/ubuntu/" # 英国
+      "http://ubuntu.mirror.cambrium.nl/ubuntu/" # 荷兰
       "http://mirrors.ustc.edu.cn/ubuntu/" # 中国科技大学
       "http://ftp.sjtu.edu.cn/ubuntu/" # 上海交通大学
       "http://mirrors.tuna.tsinghua.edu.cn/ubuntu/" # 清华大学
@@ -78,6 +82,7 @@ function switchSource() {
       if [ "$http_code" -eq 200 ]; then
           results["$url"]=$time_total
       else
+          print_error "Failed to access $url"
           results["$url"]="9999" # 大的数值表示不可用
       fi
   }
@@ -165,7 +170,7 @@ sudo add-apt-repository -y universe -n
 sudo add-apt-repository -y restricted -n
 judge "Add multiverse, universe, restricted"
 
-echo "Switching to best apt source..."
+print_ok "Switching to best apt source..."
 switchSource
 judge "Using best apt source"
 
