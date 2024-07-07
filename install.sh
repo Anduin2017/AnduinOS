@@ -10,12 +10,17 @@ GreenBG="\033[42;37m"
 RedBG="\033[41;37m"
 OK="${Green}[  OK  ]${Font}"
 ERROR="${Red}[FAILED]${Font}"
+WARNING="${Yellow}[ WARN ]${Font}"
 function print_ok() {
   echo -e "${OK} ${Blue} $1 ${Font}"
 }
 
 function print_error() {
   echo -e "${ERROR} ${Red} $1 ${Font}"
+}
+
+function print_warn() {
+  echo -e "${WARNING} ${Yellow} $1 ${Font}"
 }
 
 function judge() {
@@ -82,7 +87,7 @@ function switchSource() {
       if [ "$http_code" -eq 200 ]; then
           results["$url"]=$time_total
       else
-          print_error "Failed to access $url"
+          print_warn "Failed to access $url"
           results["$url"]="9999" # 大的数值表示不可用
       fi
   }
