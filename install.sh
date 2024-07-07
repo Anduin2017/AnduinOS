@@ -148,10 +148,6 @@ print_ok "Removing ubuntu-advantage advertisement..."
 sudo rm /var/lib/ubuntu-advantage/messages/* > /dev/null 2>&1
 print_ok "Remove ubuntu-advantage advertisement"
 
-echo "Switching to best apt source..."
-switchSource
-judge "Using best apt source"
-
 # print_ok "Removing i386 architecture..."
 # sudo dpkg --remove-architecture i386 || true
 # judge "Remove i386 architecture"
@@ -167,6 +163,10 @@ sudo add-apt-repository -y multiverse -n
 sudo add-apt-repository -y universe -n
 sudo add-apt-repository -y restricted -n
 judge "Add multiverse, universe, restricted"
+
+echo "Switching to best apt source..."
+switchSource
+judge "Using best apt source"
 
 print_ok "Disabling Ubuntu Pro advertisement..."
 # Comment this line, because software-properties-gtk requires ubuntu-advantage-tools.
