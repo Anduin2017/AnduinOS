@@ -685,3 +685,11 @@ print_ok "Clean up desktop icons"
 
 print_ok "Deploy Finished! Please log out and log in again to take effect."
 nautilus -q
+
+## After installation, we can have the following tests:
+
+## Ensure there is start button on the task bar.
+## Ensure right click task bar and click Task Manager should open mission center.
+## Ensure double click a video file is opened by VLC.
+## Ensure the video file has a preview on nautilus.
+## Ensure user can configure desktop icons when right click the desktop.
