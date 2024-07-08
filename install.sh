@@ -587,10 +587,17 @@ judge "Set distributor logo"
 
 print_ok "Configuring gnome settings..."
 dconf load /org/gnome/ < <(curl https://gitlab.aiursoft.cn/anduin/anduinos/-/raw/master/Config/gnome-settings.txt)
+dconf write /org/gtk/settings/file-chooser/sort-directories-first true
 gsettings set org.gnome.desktop.interface gtk-theme 'Fluent-round-Dark'
 gsettings set org.gnome.desktop.interface icon-theme 'Fluent'
 gsettings set org.gnome.desktop.interface cursor-theme 'DMZ-White'
 judge "Configure gnome settings"
+
+print_ok "Configuring default templates..."
+mkdir -p ~/Templates
+touch ~/Templates/Markdown.md
+touch ~/Templates/Text.txt
+judge "Configure default templates"
 
 print_ok "Configuring default applications..."
 # video
@@ -677,3 +684,4 @@ rm ~/Desktop/*.desktop
 print_ok "Clean up desktop icons"
 
 print_ok "Deploy Finished! Please log out and log in again to take effect."
+nautilus -q
