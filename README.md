@@ -64,6 +64,7 @@ AnduinOS installs the following GUI software:
 * Visual Studio Code as the main code editor
 * Gnome Text Editor as an alternative code editor
 * Gnome-calculator as a calculator
+* File Roller as an archive manager
 * Shotwell as an image viewer
 * Remmina as a remote desktop client
 * Spotify as a music player
@@ -124,6 +125,7 @@ AnduinOS also installs some additional packages:
 * apt encryption: apt-transport-https
 * CA certificates: ca-certificates
 * SMB client: cifs-utils
+* Thumbnailer: ffmpegthumbnailer
 
 AnduinOS removes some software that has been replaced or is rarely used:
 

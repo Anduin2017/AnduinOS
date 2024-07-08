@@ -62,6 +62,7 @@ AnduinOS 会安装下列 GUI 软件：
 * Visual Studio Code 作为主要代码编辑器
 * Gnome Text Editor 作为备用代码编辑器
 * Gnome-calculator 作为计算器
+* File Roller 作为压缩工具
 * Shotwell 作为图片查看器
 * Remmina 作为远程桌面客户端
 * Spotify 作为音乐播放器
@@ -122,6 +123,7 @@ AnduinOS 还会额外安装一些软件包：
 * apt 加密:     apt-transport-https
 * CA 证书:      ca-certificates
 * SMB 客户端:   cifs-utils
+* 缩略图生成:   ffmpegthumbnailer
 
 AnduinOS 会移除掉一些已经被替代或几乎不会被用到的软件：
 
