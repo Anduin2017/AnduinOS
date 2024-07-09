@@ -297,7 +297,7 @@ sudo apt install -y \
   gnome-weather\
   gnome-text-editor\
   gnome-nettool\
-  seahorse\
+  seahorse gdebi\
   firefox\
   google-chrome-stable\
   ibus-rime\
@@ -421,7 +421,7 @@ if ! dpkg -s docker-desktop > /dev/null 2>&1; then
     print_ok "docker-desktop is not installed, downloading and installing..."
     # Download the deb package
     # This link requires to be updated manually regularly.
-    wget https://desktop.docker.com/linux/main/amd64/docker-desktop-4.30.0-amd64.deb
+    wget https://desktop.docker.com/linux/main/amd64/157355/docker-desktop-amd64.deb
     # Install the package
     sudo dpkg -i docker-desktop-4.30.0-amd64.deb
     sudo apt install --fix-broken -y
@@ -672,6 +672,8 @@ xdg-mime default org.gnome.FileRoller.desktop application/gzip
 xdg-mime default org.gnome.TextEditor.desktop text/plain
 # torrent
 xdg-mime default motrix.desktop application/x-bittorrent
+# deb
+xdg-mime default gdebi.desktop application/vnd.debian.binary-package
 judge "Configure default applications"
 
 print_ok "Configuring default terminal to gnome-console..."

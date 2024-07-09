@@ -84,6 +84,7 @@ AnduinOS installs the following GUI software:
 * DbBrowser as a database management tool
 * AisleRiot as a solitaire game
 * Mission Control as a task manager
+* GDebi as a deb package installation tool
 
 These applications cover nearly all daily use scenarios.
 
