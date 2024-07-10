@@ -203,6 +203,13 @@ if ! curl -s --head  --request GET http://www.google.com/generate_204 | grep "20
 fi
 judge "Test Google network"
 
+print_ok "Testing Google network with sudo..."
+if ! sudo curl -s --head  --request GET http://www.google.com/generate_204 | grep "204" > /dev/null; then
+  print_error "Failed to connect to Google. You are not able to access Internet. Continue may cause installation failed. Please check your network and try again!"
+  areYouSure
+fi
+judge "Test Google network with sudo"
+
 print_ok "Testing Docker network..."
 if ! curl -s --head  --request GET https://download.docker.com/ | grep "200" > /dev/null; then
   print_error "Failed to connect to Docker. Continue may cause installation failed. Please check your network and try again!"
