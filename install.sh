@@ -239,7 +239,8 @@ judge "Remove snap"
 # Docker source
 print_ok "Setting docker..."
 sudo install -m 0755 -d /etc/apt/keyrings
-sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+#sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo wget -O /etc/apt/keyrings/docker.asc https://download.docker.com/linux/ubuntu/gpg
 judge "Download docker gpg"
 
 print_ok "Trust docker gpg..."
