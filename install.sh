@@ -196,12 +196,26 @@ sudo pro config set motd=false || true
 judge "Disable Ubuntu Pro advertisement"
 
 # Test if the user can access Google.
-print_ok "Testing network..."
+print_ok "Testing Google network..."
 if ! curl -s --head  --request GET http://www.google.com/generate_204 | grep "204" > /dev/null; then
   print_error "Failed to connect to Google. You are not able to access Internet. Continue may cause installation failed. Please check your network and try again!"
   areYouSure
 fi
-judge "Test network"
+judge "Test Google network"
+
+print_ok "Testing Docker network..."
+if ! curl -s --head  --request GET https://download.docker.com/ | grep "200" > /dev/null; then
+  print_error "Failed to connect to Docker. Continue may cause installation failed. Please check your network and try again!"
+  areYouSure
+fi
+judge "Test Docker network"
+
+print_ok "Testing GitHub network..."
+if ! curl -s --head  --request GET https://github.com/ | grep "200" > /dev/null; then
+  print_error "Failed to connect to GitHub. Continue may cause installation failed. Please check your network and try again!"
+  areYouSure
+fi
+judge "Test GitHub network"
 
 # Snap
 print_ok "Removing snap..."
@@ -226,6 +240,9 @@ judge "Remove snap"
 print_ok "Setting docker..."
 sudo install -m 0755 -d /etc/apt/keyrings
 sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+judge "Download docker gpg"
+
+print_ok "Trust docker gpg..."
 sudo chmod a+r /etc/apt/keyrings/docker.asc
 judge "Trust docker gpg"
 echo \
