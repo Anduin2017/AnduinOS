@@ -80,7 +80,7 @@ function switchSource() {
   # 测速函数
   test_speed() {
       url=$1
-      response=$(curl -o /dev/null -s -w "%{http_code} %{time_total}\n" "$url")
+      response=$(curl -o /dev/null -s -w "%{http_code} %{time_total}\n" --connect-timeout 5 --max-time 9 "$url")
       http_code=$(echo $response | awk '{print $1}')
       time_total=$(echo $response | awk '{print $2}')
 
