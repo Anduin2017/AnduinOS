@@ -452,11 +452,11 @@ if ! dpkg -s docker-desktop > /dev/null 2>&1; then
     # This link requires to be updated manually regularly.
     wget https://desktop.docker.com/linux/main/amd64/157355/docker-desktop-amd64.deb
     # Install the package
-    sudo dpkg -i docker-desktop-4.30.0-amd64.deb
+    sudo dpkg -i docker-desktop-amd64.deb
     sudo apt install --fix-broken -y
     judge "Install docker-desktop"
     # Remove the package file
-    rm docker-desktop-4.30.0-amd64.deb
+    rm docker-desktop-amd64.deb
 else
     print_ok "docker-desktop is already installed"
 fi
