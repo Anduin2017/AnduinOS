@@ -421,10 +421,10 @@ if ! dpkg -s wps-office > /dev/null 2>&1; then
     # This link requires to be updated manually regularly.
     wget https://wdl1.pcfg.cache.wpscdn.com/wpsdl/wpsoffice/download/linux/11719/wps-office_11.1.0.11719.XA_amd64.deb
     # Install the package
-    sudo dpkg -i wps-office_11.1.0.11698.XA_amd64.deb
+    sudo dpkg -i wps-office_11.1.0.11719.XA_amd64.deb
     judge "Install wps-office"
     # Remove the package file
-    rm wps-office_11.1.0.11698.XA_amd64.deb
+    rm wps-office_11.1.0.11719.XA_amd64.deb
 else
     print_ok "wps-office is already installed"
 fi
