@@ -287,12 +287,14 @@ echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sou
 judge "Setting spotify"
 
 # Nextcloud
+# Nextcloud Desktop is based on GPL-2.0 license.
 print_ok "Setting nextcloud..."
 sudo add-apt-repository -y ppa:nextcloud-devs/client -n > /dev/null 2>&1
 sudo sh -c 'echo "deb https://mirror-ppa.aiursoft.cn/nextcloud-devs/client/ubuntu/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/nextcloud-devs-client-$(lsb_release -sc).list'
 judge "Setting nextcloud"
 
 # Firefox
+# Firefox is based on MPL-2.0 license.
 print_ok "Setting firefox..."
 sudo add-apt-repository -y ppa:mozillateam/ppa -n > /dev/null 2>&1
 sudo sh -c 'echo "deb https://mirror-ppa.aiursoft.cn/mozillateam/ppa/ubuntu/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/mozillateam-ubuntu-ppa-$(lsb_release -sc).list'
@@ -300,6 +302,7 @@ echo -e '\nPackage: *\nPin: release o=LP-PPA-mozillateam\nPin-Priority: 1002' | 
 judge "Setting firefox"
 
 # Node
+# Node is based on MIT license.
 print_ok "Setting node 20..."
 sudo mkdir -p /etc/apt/keyrings
 curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg --yes
@@ -426,6 +429,7 @@ else
     print_ok "wps-office is already installed"
 fi
 
+# Motrix is based on MIT license.
 # Install Motrix from: https://dl.motrix.app/release/Motrix_1.8.19_amd64.deb
 if ! dpkg -s motrix > /dev/null 2>&1; then
     print_ok "Motrix is not installed, downloading and installing..."
@@ -457,6 +461,7 @@ else
     print_ok "docker-desktop is already installed"
 fi
 
+# MissionCenter is based on GPL-3.0 license.
 if ! test -f /opt/missioncenter/AppRun; then
   # This link requires to be updated manually regularly.
   APPIMAGE_URL="https://gitlab.com/mission-center-devs/mission-center/-/jobs/7109267599/artifacts/raw/MissionCenter-x86_64.AppImage"
@@ -720,3 +725,21 @@ nautilus -q
 ## Ensure double click a video file is opened by VLC.
 ## Ensure the video file has a preview on nautilus.
 ## Ensure user can configure desktop icons when right click the desktop.
+
+## Non-open-source softwares used:
+
+## * Google Chrome (Owned by Google)
+## * Google Earth Pro (Owned by Google)
+## * Microsoft Visual Studio Code (Owned by Microsoft)
+## * Spotify (Owned by Spotify)
+## * WPS Office (Owned by Kingsoft)
+## * Docker Desktop (Owned by Docker)
+## * Insomnia (Owned by Kong)
+## * YouTube-DL (Unlicense)
+## * Rime (GPL-3.0 License)
+## * WeChat (Owned by Tencent)
+## * Motrix (MIT License)
+## * MissionCenter (GPL-3.0 License)
+## * Fluent Theme (MIT License)
+## * Fluent Icon Theme (MIT License)
+## * Fluent GTK Theme (MIT License)
