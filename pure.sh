@@ -240,20 +240,9 @@ sudo apt install -y \
   ibus-rime\
   shotwell\
   remmina remmina-plugin-rdp\
-  pinta\
   vlc\
-  obs-studio\
-  gnome-boxes\
   gnome-console nautilus-extension-gnome-console\
-  blender\
-  shotcut\
-  sqlitebrowser\
-  golang-go\
-  openjdk-17-jdk default-jre\
-  ruby\
   python3-apt python3-pip python-is-python3\
-  hugo\
-  adb\
   git neofetch lsb-release clinfo\
   gnupg vim nano\
   wget curl aria2\

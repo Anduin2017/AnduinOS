@@ -56,6 +56,7 @@ AnduinOS installs the following GUI software:
 * Seahorse as a key management tool
 * Baobab as a disk analysis tool
 * Nautilus as a file manager
+* Evince as a PDF reader
 * Cheese as a webcam tool
 * Firefox as the main browser
 * Google Chrome as an alternative browser

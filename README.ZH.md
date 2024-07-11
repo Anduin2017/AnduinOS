@@ -54,6 +54,7 @@ AnduinOS 会安装下列 GUI 软件：
 * Seahorse 作为密钥管理工具
 * Baobab 作为磁盘分析工具
 * Nautilus 作为文件管理器
+* Evince 作为PDF阅读器
 * Cheese 作为摄像头工具
 * Firefox 作为主浏览器
 * Google Chrome 作为备用浏览器
