@@ -23,7 +23,7 @@ AnduinOS has been tested to ensure a seamless integration of these software and 
 
 ## Deploying AnduinOS
 
-Clearly, AnduinOS is not an independent operating system. Therefore, Ubuntu must be installed first.
+Clearly, AnduinOS is not an independent operating system. Therefore, Ubuntu must be installed first. **English** versions of Ubuntu 22.04 must be installed.
 
 Download Ubuntu 22.04 here: [Ubuntu Desktop Download](https://releases.ubuntu.com/22.04.4/ubuntu-22.04.4-desktop-amd64.iso)
 

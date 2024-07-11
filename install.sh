@@ -138,6 +138,13 @@ if ! lsb_release -a | grep "Ubuntu 22.04" > /dev/null; then
 fi
 judge "Ensure you are Ubuntu 22.04"
 
+print_ok "Ensure the language of this system is English..."
+if ! locale | grep "LANG=en_US.UTF-8" > /dev/null; then
+  print_error "The language of this system is not English. AnduinOS only support English system. Please change the language to English and try again."
+  areYouSure
+fi
+judge "Ensure the language of this system is English"
+
 print_ok "Ensure current user is a normal user instead of root..."
 if [[ $EUID -eq 0 ]]; then
   print_error "You are running this script as root. Please run this script as a normal user. Using root user is extreamly dangerous."

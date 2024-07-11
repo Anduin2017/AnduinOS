@@ -21,7 +21,7 @@ AnduinOS 测试了这些软件和UI的整合体验，因此在使用时一般不
 
 ## 部署 AnduinOS
 
-显然，AnduinOS 并不是独立的操作系统。因此必须先安装 Ubuntu 。
+显然，AnduinOS 并不是独立的操作系统。因此必须先安装 Ubuntu 。必须安装**英文版**的 Ubuntu 22.04。
 
 在这里下载 Ubuntu 22.04： [Ubuntu Desktop Download](https://releases.ubuntu.com/22.04.4/ubuntu-22.04.4-desktop-amd64.iso)
 
