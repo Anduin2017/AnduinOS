@@ -235,7 +235,7 @@ sudo apt install -y \
   gnome-weather\
   gnome-text-editor\
   gnome-nettool\
-  seahorse gdebi\
+  seahorse gdebi evince\
   firefox\
   ibus-rime\
   shotwell\
