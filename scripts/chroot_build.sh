@@ -129,7 +129,6 @@ function install_pkg() {
     resolvconf \
     net-tools \
     wireless-tools \
-    wpagui \
     grub-common \
     grub-gfxpayload-lists \
     grub-pc \
