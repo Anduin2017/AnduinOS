@@ -101,6 +101,7 @@ EOF
     gnome-maps \
     gnome-photos \
     eog \
+    tilix \
     totem totem-plugins \
     rhythmbox \
     gnome-contacts \
