@@ -55,7 +55,7 @@ function check_host() {
 function setup_host() {
     echo "=====> running setup_host ..."
 
-   cat <<EOF > /etc/apt/sources.list
+   cat << EOF > /etc/apt/sources.list
 deb $TARGET_UBUNTU_MIRROR $TARGET_UBUNTU_VERSION main restricted universe multiverse
 deb $TARGET_UBUNTU_MIRROR $TARGET_UBUNTU_VERSION main-updates restricted universe multiverse
 deb $TARGET_UBUNTU_MIRROR $TARGET_UBUNTU_VERSION main-backports restricted universe multiverse

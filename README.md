@@ -113,7 +113,7 @@ From this point we will be configuring the `live system`.
 4. **Configure apt sources.list**
 
    ```shell
-   cat <<EOF > /etc/apt/sources.list
+   cat << EOF > /etc/apt/sources.list
    deb http://us.archive.ubuntu.com/ubuntu/ focal main restricted universe multiverse
    deb-src http://us.archive.ubuntu.com/ubuntu/ focal main restricted universe multiverse
 
@@ -349,7 +349,7 @@ From this point we will be configuring the `live system`.
    3. Configure network-manager
 
       ```shell
-      cat <<EOF > /etc/NetworkManager/NetworkManager.conf
+      cat << EOF > /etc/NetworkManager/NetworkManager.conf
       [main]
       rc-manager=resolvconf
       plugins=ifupdown,keyfile
@@ -465,7 +465,7 @@ We are now back in our `build environment` after setting up our `live system` an
    3. Create image/isolinux/grub.cfg
 
       ```shell
-      cat <<EOF > image/isolinux/grub.cfg
+      cat << EOF > image/isolinux/grub.cfg
 
       search --set=root --file /ubuntu
 
@@ -570,7 +570,7 @@ After everything has been installed and preconfigured in the **chrooted** enviro
 2. Create file image/README.diskdefines
 
    ```shell
-   cat <<EOF > image/README.diskdefines
+   cat << EOF > image/README.diskdefines
    #define DISKNAME  Ubuntu from scratch
    #define TYPE  binary
    #define TYPEbinary  1
@@ -672,7 +672,7 @@ After everything has been installed and preconfigured in the **chrooted** enviro
 1. Create a ISOLINUX (syslinux) boot menu
 
    ```shell
-   cat <<EOF > isolinux/isolinux.cfg
+   cat << EOF > isolinux/isolinux.cfg
    UI vesamenu.c32
 
    MENU TITLE Boot Menu

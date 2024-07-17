@@ -148,7 +148,7 @@ function build_iso() {
 
     # grub
     touch image/ubuntu
-    cat <<EOF > image/isolinux/grub.cfg
+    cat << EOF > image/isolinux/grub.cfg
 
 search --set=root --file /ubuntu
 
@@ -193,7 +193,7 @@ EOF
     printf $(sudo du -sx --block-size=1 chroot | cut -f1) > image/casper/filesystem.size
 
     # create diskdefines
-    cat <<EOF > image/README.diskdefines
+    cat << EOF > image/README.diskdefines
 #define DISKNAME  ${GRUB_LIVEBOOT_LABEL}
 #define TYPE  binary
 #define TYPEbinary  1
