@@ -53,11 +53,14 @@ function chroot_enter_setup() {
 }
 
 function chroot_exit_teardown() {
-    sudo chroot chroot umount /proc
-    sudo chroot chroot umount /sys
-    sudo chroot chroot umount /dev/pts
-    sudo umount chroot/dev
-    sudo umount chroot/run
+    echo "Sleeping for 10 seconds to allow chroot to exit cleanly"
+    sleep 10
+
+    sudo chroot chroot umount /proc || sudo chroot chroot umount -lf /proc
+    sudo chroot chroot umount /sys || sudo chroot chroot umount -lf /sys
+    sudo chroot chroot umount /dev/pts || sudo chroot chroot umount -lf /dev/pts
+    sudo umount chroot/dev || sudo umount -lf chroot/dev
+    sudo umount chroot/run || sudo umount -lf chroot/run
 }
 
 function check_host() {

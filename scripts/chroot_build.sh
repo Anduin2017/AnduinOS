@@ -57,16 +57,30 @@ function setup_host() {
 
    cat <<EOF > /etc/apt/sources.list
 deb $TARGET_UBUNTU_MIRROR $TARGET_UBUNTU_VERSION main restricted universe multiverse
-deb-src $TARGET_UBUNTU_MIRROR $TARGET_UBUNTU_VERSION main restricted universe multiverse
-
-deb $TARGET_UBUNTU_MIRROR $TARGET_UBUNTU_VERSION-security main restricted universe multiverse
-deb-src $TARGET_UBUNTU_MIRROR $TARGET_UBUNTU_VERSION-security main restricted universe multiverse
-
-deb $TARGET_UBUNTU_MIRROR $TARGET_UBUNTU_VERSION-updates main restricted universe multiverse
-deb-src $TARGET_UBUNTU_MIRROR $TARGET_UBUNTU_VERSION-updates main restricted universe multiverse
+deb $TARGET_UBUNTU_MIRROR $TARGET_UBUNTU_VERSION main-updates restricted universe multiverse
+deb $TARGET_UBUNTU_MIRROR $TARGET_UBUNTU_VERSION main-backports restricted universe multiverse
+deb $TARGET_UBUNTU_MIRROR $TARGET_UBUNTU_VERSION main-security restricted universe multiverse
 EOF
 
     echo "$TARGET_NAME" > /etc/hostname
+
+    cat << EOL > /etc/lsb-release
+DISTRIB_ID=AnduinOS
+DISTRIB_RELEASE=22.04
+DISTRIB_CODENAME=jammy
+DISTRIB_DESCRIPTION="AnduinOS 22.04.4 LTS"
+EOL
+    cat << EOL > /etc/os-release
+PRETTY_NAME="AnduinOS 22.04.4 LTS"
+NAME="AnduinOS"
+VERSION="22.04.4 LTS (Jammy Jellyfish)"
+ID=ubuntu
+ID_LIKE=debian
+HOME_URL="https://www.ubuntu.com/"
+SUPPORT_URL="https://help.ubuntu.com/"
+BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+UBUNTU_CODENAME=jammy
+EOL
 
     # we need to install systemd first, to configure machine id
     apt-get update
