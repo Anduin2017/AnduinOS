@@ -146,13 +146,6 @@ function build_iso() {
     sudo cp chroot/boot/vmlinuz-**-**-generic image/casper/vmlinuz
     sudo cp chroot/boot/initrd.img-**-**-generic image/casper/initrd
 
-    # memtest86
-    sudo cp chroot/boot/memtest86+.bin image/install/memtest86+
-
-    wget --progress=dot https://www.memtest86.com/downloads/memtest86-usb.zip -O image/install/memtest86-usb.zip
-    unzip -p image/install/memtest86-usb.zip memtest86-usb.img > image/install/memtest86
-    rm -f image/install/memtest86-usb.zip
-
     # grub
     touch image/ubuntu
     cat <<EOF > image/isolinux/grub.cfg
@@ -177,18 +170,6 @@ menuentry "${GRUB_INSTALL_LABEL}" {
 menuentry "Check disc for defects" {
    linux /casper/vmlinuz boot=casper integrity-check quiet splash ---
    initrd /casper/initrd
-}
-
-menuentry "Test memory Memtest86+ (BIOS)" {
-   linux16 /install/memtest86+
-}
-
-menuentry "Test memory Memtest86 (UEFI, long load time)" {
-   insmod part_gpt
-   insmod search_fs_uuid
-   insmod chain
-   loopback loop /install/memtest86
-   chainloader (loop,gpt1)/efi/boot/BOOTX64.efi
 }
 EOF
 

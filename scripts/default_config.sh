@@ -42,38 +42,51 @@ function customize_image() {
     echo "Installing gnome-shell and other packages"
     # install graphics and desktop
     apt-get install -y \
+    ca-certificates gpg apt-transport-https software-properties-common\
     plymouth-theme-ubuntu-logo \
-    gnome-shell \
-    tee
+    gnome-shell gir1.2-gmenu-3.0 gnome-menus gnome-shell-extensions\
+    nautilus usb-creator-gtk cheese baobab file-roller gnome-sushi ffmpegthumbnailer\
+    gnome-calculator gnome-system-monitor gnome-disk-utility gnome-control-center software-properties-gtk\
+    gnome-tweaks gnome-shell-extension-prefs gnome-shell-extension-desktop-icons-ng gnome-shell-extension-appindicator\
+    gnome-clocks\
+    gnome-weather\
+    gnome-text-editor\
+    gnome-nettool\
+    seahorse gdebi evince\
+    firefox\
+    ibus-rime\
+    shotwell\
+    remmina remmina-plugin-rdp\
+    vlc\
+    gnome-console nautilus-extension-gnome-console\
+    python3-apt python3-pip python-is-python3\
+    git neofetch lsb-release coreutils\
+    gnupg vim nano\
+    wget curl\
+    httping nethogs net-tools iftop traceroute dnsutils iperf3\
+    smartmontools\
+    htop iotop iftop\
+    tree ntp ntpdate ntpstat\
+    w3m sysbench\
+    zip unzip jq\
+    cifs-utils\
+    aisleriot
 
     # Remove snap
-    echo "Removing snap"
-    sudo killall -9 firefox > /dev/null 2>&1
-    snap remove firefox > /dev/null 2>&1
-    snap remove snap-store > /dev/null 2>&1
-    snap remove gtk-common-themes > /dev/null 2>&1
-    snap remove snapd-desktop-integration > /dev/null 2>&1
-    snap remove bare > /dev/null 2>&1
-    systemctl disable --now snapd
+    echo "Removing snap packages"
+    snap remove firefox || true
+    snap remove snap-store || true
+    snap remove gtk-common-themes || true
+    snap remove snapd-desktop-integration || true
+    snap remove bare || true
     apt purge -y snapd
     rm -rf /snap /var/snap /var/lib/snapd /var/cache/snapd /usr/lib/snapd ~/snap
-    echo "Pin snapd to prevent it from being installed again"
     cat << EOF > /etc/apt/preferences.d/no-snap.pref
 Package: snapd
 Pin: release a=*
 Pin-Priority: -10
 EOF
     chown root:root /etc/apt/preferences.d/no-snap.pref
-
-    # useful tools
-    apt-get install -y \
-    clamav-daemon \
-    terminator \
-    apt-transport-https \
-    curl \
-    vim \
-    nano \
-    less
 
     # purge
     apt-get purge -y \
@@ -83,7 +96,18 @@ EOF
     gnome-mines \
     gnome-sudoku \
     aisleriot \
-    hitori
+    hitori \
+    gnome-initial-setup \
+    gnome-maps \
+    gnome-photos \
+    eog \
+    totem totem-plugins \
+    rhythmbox \
+    gnome-contacts \
+    gnome-terminal \
+    gedit \
+    gnome-shell-extension-ubuntu-dock \
+    libreoffice-*
 }
 
 # Used to version the configuration.  If breaking changes occur, manual
