@@ -33,7 +33,7 @@ See also the list of [contributors](CONTRIBUTORS.txt) who participated in this p
 Install packages we need in the `build system` required by our scripts.
 
 ```shell
-sudo apt-get install \
+sudo apt install \
     binutils \
     debootstrap \
     squashfs-tools \
@@ -128,13 +128,13 @@ From this point we will be configuring the `live system`.
 5. **Update indexes packages**
 
    ```shell
-   apt-get update
+   apt update
    ```
 
 6. **Install systemd**
 
    ```shell
-   apt-get install -y libterm-readline-gnu-perl systemd-sysv
+   apt install -y libterm-readline-gnu-perl systemd-sysv
    ```
 
    > **systemd** is a system and service manager for Linux. It provides aggressive parallelization capabilities, uses socket and D-Bus activation for starting services, offers on-demand starting of daemons, keeps track of processes using Linux control groups, maintains mount and automount points and implements an elaborate transactional dependency-based service control logic.
@@ -160,13 +160,13 @@ From this point we will be configuring the `live system`.
 8. **Upgrade packages**
 
    ```shell
-   apt-get -y upgrade
+   apt -y upgrade
    ```
 
 9. **Install packages needed for Live System**
 
    ```shell
-   apt-get install -y \
+   apt install -y \
        sudo \
        ubuntu-standard \
        casper \
@@ -188,13 +188,13 @@ From this point we will be configuring the `live system`.
    ```
 
    ```shell
-   apt-get install -y --no-install-recommends linux-generic
+   apt install -y --no-install-recommends linux-generic
    ```
 
 10. **Graphical installer**
 
     ```shell
-    apt-get install -y \
+    apt install -y \
        ubiquity \
        ubiquity-casper \
        ubiquity-frontend-gtk \
@@ -223,7 +223,7 @@ From this point we will be configuring the `live system`.
 11. **Install window manager**
 
     ```shell
-    apt-get install -y \
+    apt install -y \
         plymouth-theme-ubuntu-logo \
         ubuntu-gnome-desktop \
         ubuntu-gnome-wallpapers
@@ -232,7 +232,7 @@ From this point we will be configuring the `live system`.
 12. **Install useful applications**
 
     ```shell
-    apt-get install -y \
+    apt install -y \
         clamav-daemon \
         terminator \
         apt-transport-https \
@@ -259,9 +259,9 @@ From this point we will be configuring the `live system`.
    2. Then update the package cache and install the package using
 
       ```shell
-      apt-get update
+      apt update
 
-      apt-get install -y code
+      apt install -y code
       ```
 
 14. **Install Google Chrome (optional)**
@@ -277,15 +277,15 @@ From this point we will be configuring the `live system`.
    2. Then update the package cache and install the package using
 
       ```shell
-      apt-get update
+      apt update
 
-      apt-get install google-chrome-stable
+      apt install google-chrome-stable
       ```
 
 15. **Install Java JDK 8 (optional)**
 
     ```shell
-    apt-get install -y \
+    apt install -y \
         openjdk-8-jdk \
         openjdk-8-jre
     ```
@@ -293,7 +293,7 @@ From this point we will be configuring the `live system`.
 16. **Remove unused applications (optional)**
 
     ```shell
-    apt-get purge -y \
+    apt purge -y \
         transmission-gtk \
         transmission-common \
         gnome-mahjongg \
@@ -306,7 +306,7 @@ From this point we will be configuring the `live system`.
 17. **Remove unused packages**
 
     ```shell
-    apt-get autoremove -y
+    apt autoremove -y
     ```
 
 18. **Reconfigure packages**
@@ -385,7 +385,7 @@ From this point we will be configuring the `live system`.
    3. Clean up
 
       ```shell
-      apt-get clean
+      apt clean
 
       rm -rf /tmp/* ~/.bash_history
 

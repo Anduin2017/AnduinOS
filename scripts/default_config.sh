@@ -41,7 +41,7 @@ export TARGET_PACKAGE_REMOVE="
 function customize_image() {
     echo "Installing gnome-shell and other packages"
     # install graphics and desktop
-    apt-get install -y \
+    apt install -y \
     ca-certificates gpg apt-transport-https software-properties-common\
     plymouth-theme-ubuntu-logo \
     gnome-shell gir1.2-gmenu-3.0 gnome-menus gnome-shell-extensions\
@@ -89,7 +89,7 @@ EOF
     chown root:root /etc/apt/preferences.d/no-snap.pref
 
     # purge
-    apt-get purge -y \
+    apt purge -y \
     transmission-gtk \
     transmission-common \
     gnome-mahjongg \

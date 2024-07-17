@@ -87,8 +87,8 @@ UBUNTU_CODENAME=jammy
 EOF
 
     # we need to install systemd first, to configure machine id
-    apt-get update
-    apt-get install -y libterm-readline-gnu-perl systemd-sysv
+    apt update
+    apt install -y libterm-readline-gnu-perl systemd-sysv
 
     #configure machine id
     dbus-uuidgen > /etc/machine-id
@@ -114,10 +114,10 @@ function load_config() {
 
 function install_pkg() {
     echo "=====> running install_pkg ... will take a long time ..."
-    apt-get -y upgrade
+    apt -y upgrade
 
     # install live packages
-    apt-get install -y \
+    apt install -y \
     coreutils \
     sudo \
     ubuntu-standard \
@@ -138,7 +138,7 @@ function install_pkg() {
     
     case $TARGET_UBUNTU_VERSION in
         "focal" | "bionic")
-            apt-get install -y lupin-casper
+            apt install -y lupin-casper
             ;;
         *)
             echo "Package lupin-casper is not needed. Skipping."
@@ -146,10 +146,10 @@ function install_pkg() {
     esac
     
     # install kernel
-    apt-get install -y --no-install-recommends $TARGET_KERNEL_PACKAGE
+    apt install -y --no-install-recommends $TARGET_KERNEL_PACKAGE
 
     # graphic installer - ubiquity
-    apt-get install -y \
+    apt install -y \
     ubiquity \
     ubiquity-casper \
     ubiquity-frontend-gtk \
@@ -160,7 +160,7 @@ function install_pkg() {
     customize_image
 
     # remove unused and clean up apt cache
-    apt-get autoremove -y
+    apt autoremove -y
 
     # final touch
     dpkg-reconfigure locales
@@ -179,7 +179,7 @@ EOF
 
     dpkg-reconfigure network-manager
 
-    apt-get clean -y
+    apt clean -y
 }
 
 function finish_up() { 
