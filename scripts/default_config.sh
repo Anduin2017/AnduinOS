@@ -39,11 +39,31 @@ export TARGET_PACKAGE_REMOVE="
 # Package customisation function.  Update this function to customize packages
 # present on the installed system.
 function customize_image() {
+    echo "Installing gnome-shell and other packages"
     # install graphics and desktop
     apt-get install -y \
     plymouth-theme-ubuntu-logo \
-    ubuntu-gnome-desktop \
-    ubuntu-gnome-wallpapers
+    gnome-shell \
+    tee
+
+    # Remove snap
+    echo "Removing snap"
+    sudo killall -9 firefox > /dev/null 2>&1
+    snap remove firefox > /dev/null 2>&1
+    snap remove snap-store > /dev/null 2>&1
+    snap remove gtk-common-themes > /dev/null 2>&1
+    snap remove snapd-desktop-integration > /dev/null 2>&1
+    snap remove bare > /dev/null 2>&1
+    systemctl disable --now snapd
+    apt purge -y snapd
+    rm -rf /snap /var/snap /var/lib/snapd /var/cache/snapd /usr/lib/snapd ~/snap
+    echo "Pin snapd to prevent it from being installed again"
+    cat << EOF > /etc/apt/preferences.d/no-snap.pref
+Package: snapd
+Pin: release a=*
+Pin-Priority: -10
+EOF
+    chown root:root /etc/apt/preferences.d/no-snap.pref
 
     # useful tools
     apt-get install -y \
