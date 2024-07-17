@@ -672,7 +672,7 @@ After everything has been installed and preconfigured in the **chrooted** enviro
 1. Create a ISOLINUX (syslinux) boot menu
 
    ```shell
-   cat <<EOF> isolinux/isolinux.cfg
+   cat <<EOF > isolinux/isolinux.cfg
    UI vesamenu.c32
 
    MENU TITLE Boot Menu
