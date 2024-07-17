@@ -22,7 +22,7 @@ export TARGET_KERNEL_PACKAGE="linux-generic-hwe-22.04"
 export TARGET_NAME="anduinos"
 
 # The text label shown in GRUB for booting into the live environment
-export GRUB_LIVEBOOT_LABEL="Try AnduinOS without installing"
+export GRUB_LIVEBOOT_LABEL="Try AnduinOS"
 
 # The text label shown in GRUB for starting installation
 export GRUB_INSTALL_LABEL="Install AnduinOS"
