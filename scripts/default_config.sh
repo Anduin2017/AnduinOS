@@ -42,6 +42,15 @@ function customize_image() {
     echo "Installing gnome-shell and other packages"
 
     sleep 10
+    add-apt-repository -y ppa:mozillateam/ppa -n > /dev/null 2>&1
+    echo "deb https://mirror-ppa.aiursoft.cn/mozillateam/ppa/ubuntu/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/mozillateam-ubuntu-ppa-$(lsb_release -sc).list
+    cat << EOF > /etc/apt/preferences.d/mozilla-firefox
+Package: *
+Pin: release o=LP-PPA-mozillateam
+Pin-Priority: 1002
+EOF
+    chown root:root /etc/apt/preferences.d/mozilla-firefox
+
     # install graphics and desktop
     apt install -y \
     ca-certificates gpg apt-transport-https software-properties-common\
@@ -73,6 +82,9 @@ function customize_image() {
     zip unzip jq\
     cifs-utils\
     aisleriot
+
+    # Redirect /usr/local/bin/gnome-terminal -> /usr/bin/kgx
+    ln -s /usr/bin/kgx /usr/local/bin/gnome-terminal
 
     # Remove snap
     echo "Removing snap packages"
@@ -110,7 +122,9 @@ EOF
     gnome-terminal \
     gedit \
     gnome-shell-extension-ubuntu-dock \
-    libreoffice-*
+    libreoffice-* \
+    yelp \
+    info
 
     # Edit default wallpaper
     echo "Downloading default wallpaper"
