@@ -13,7 +13,7 @@ set -u                  # treat unset variable as error
 export LC_ALL=C.UTF-8
 export LANG=C.UTF-8
 export DEBIAN_FRONTEND=noninteractive
-SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
+export SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 
 #==========================
 # Color
@@ -76,7 +76,7 @@ function areYouSure() {
 
 # Load configuration values from file
 function load_config() {
-    print_ok "Loading configuration..."
+    print_ok "Loading configuration from $SCRIPT_DIR/default_config.sh..."
     . "$SCRIPT_DIR/default_config.sh"
     judge "Load configuration"
 }
