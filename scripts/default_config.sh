@@ -40,6 +40,8 @@ export TARGET_PACKAGE_REMOVE="
 # present on the installed system.
 function customize_image() {
     echo "Installing gnome-shell and other packages"
+
+    sleep 10
     # install graphics and desktop
     apt install -y \
     ca-certificates gpg apt-transport-https software-properties-common\
@@ -123,29 +125,20 @@ EOF
     apt install libsass1 sassc -y
     /opt/themes/Fluent-gtk-theme/install.sh -i ubuntu --tweaks noborder round
 
-    echo "Setting Fluent theme"
-    # THis is not working because we are in the chrrot environment and no user is logged in
-    # To fix that: 
-    #gsettings set org.gnome.desktop.interface gtk-theme 'Fluent-round-Dark'
-    #gsettings set org.gnome.desktop.interface icon-theme 'Fluent'
-    #gsettings set org.gnome.desktop.background picture-options "zoom"
-    mkdir /etc/skel/.config
-    mkdir /etc/skel/.config/gtk-3.0
-    cat << EOF > /etc/skel/.config/gtk-3.0/settings.ini
-[Settings]
-gtk-theme-name = Fluent-round-Dark
-gtk-icon-theme-name = Fluent
-EOF
-    # Set default wallpaper to /usr/share/backgrounds/Fluent-building-night.png
-    mkdir /etc/skel/.config/dconf
-    mkdir /etc/skel/.config/dconf/user.d
-    cat << EOF > /etc/skel/.config/dconf/user.d/background
-[org/gnome/desktop/background]
-picture-uri='file:///usr/share/backgrounds/Fluent-building-night.png'
-picture-options='zoom'
-EOF
+    echo "Configuring new users to load default dconf settings..."
+    cat << EOF > /etc/profile.d/load-default-settings.sh
+#!/bin/bash
 
-    echo "Setting Fluent theme"
+if [ "\$XDG_CURRENT_DESKTOP" = "GNOME" ]; then
+    if [ ! -f "\$HOME/.config/dconf/default-dconf-settings-loaded" ]; then
+        # default file is: /etc/skel/.config/dconf/user.d/default
+        dconf load /org/gnome/ < "\$HOME/.config/dconf/default-dconf-settings"
+        touch "\$HOME/.config/dconf/default-dconf-settings-loaded"
+    fi
+fi
+EOF
+    chmod +x /etc/profile.d/load-default-settings.sh
+
     cat << EOF > /etc/lsb-release
 DISTRIB_ID=AnduinOS
 DISTRIB_RELEASE=22.04

@@ -7,7 +7,7 @@ set -u                  # treat unset variable as error
 
 SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 
-CMD=(setup_host debootstrap run_chroot build_iso)
+CMD=(clean setup_host debootstrap run_chroot build_iso)
 
 DATE=`TZ="UTC" date +"%y%m%d-%H%M%S"`
 
@@ -99,6 +99,18 @@ function check_config() {
     fi
 }
 
+function clean() {
+    echo "=====> running clean ..."
+    sudo umount chroot/dev || sudo umount -lf chroot/dev || true
+    sudo umount chroot/run || sudo umount -lf chroot/run || true
+    sudo umount chroot/proc || sudo umount -lf chroot/proc || true
+    sudo umount chroot/sys || sudo umount -lf chroot/sys || true
+    sudo rm -rf chroot
+    sudo rm -rf image
+    sudo rm -f $TARGET_NAME.iso
+    echo "=====> clean done"
+}
+
 function setup_host() {
     echo "=====> running setup_host ..."
     sudo apt update
@@ -121,6 +133,10 @@ function run_chroot() {
     sudo ln -f $SCRIPT_DIR/default_config.sh chroot/root/default_config.sh
     if [[ -f "$SCRIPT_DIR/config.sh" ]]; then
         sudo ln -f $SCRIPT_DIR/config.sh chroot/root/config.sh
+    fi
+    if [[ -f "$SCRIPT_DIR/dconf.ini" ]]; then
+        sudo mkdir -p chroot/etc/skel/.config/dconf/user.d
+        sudo ln -f $SCRIPT_DIR/config.sh chroot/etc/skel/.config/dconf/user.d/default
     fi
 
     # Launch into chroot environment to build install image.
