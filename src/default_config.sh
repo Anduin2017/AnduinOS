@@ -179,6 +179,7 @@ EOF
     apt install libsass1 sassc -y
     /opt/themes/Fluent-gtk-theme/install.sh -i ubuntu --tweaks noborder round
     rm /opt/themes/Fluent-gtk-theme -rf
+    rm /opt/themes -rf
 
     echo "Installing gnome extensions"
     /usr/bin/pip3 install --upgrade gnome-extensions-cli
