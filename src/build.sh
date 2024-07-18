@@ -197,7 +197,7 @@ function build_iso() {
 
     print_ok "Creating image directory..."
     rm -rf image
-    mkdir -p image/{casper,isolinux,install}
+    mkdir -p image/{casper,isolinux}
     judge "Create image directory"
 
     # copy kernel files
