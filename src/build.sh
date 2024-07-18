@@ -138,6 +138,7 @@ function run_chroot() {
     sudo mkdir -p chroot/opt/theme
     sudo cp $SCRIPT_DIR/logo/logo.svg chroot/opt/theme/logo.svg
     sudo cp $SCRIPT_DIR/logo/logo_128.png chroot/opt/theme/logo_128.png
+    sudo cp $SCRIPT_DIR/logo/anduinos_text.png chroot/opt/theme/anduinos_text.png
 
     echo "Copy font configuration..."
     sudo mkdir -p chroot/etc/fonts
