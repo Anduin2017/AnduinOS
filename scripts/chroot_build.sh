@@ -90,6 +90,7 @@ function load_config() {
 
 function install_pkg() {
     echo "=====> running install_pkg ... will take a long time ..."
+    export DEBIAN_FRONTEND=noninteractive
     apt -y upgrade
 
     # install live packages

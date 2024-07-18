@@ -42,7 +42,8 @@ function customize_image() {
     echo "Installing gnome-shell and other packages"
 
     sleep 10
-    # Remove snap
+
+    export DEBIAN_FRONTEND=noninteractive
     echo "Removing snap packages"
     snap remove firefox || true
     snap remove snap-store || true
@@ -57,6 +58,12 @@ Pin: release a=*
 Pin-Priority: -10
 EOF
     chown root:root /etc/apt/preferences.d/no-snap.pref
+
+    echo "Removing Ubuntu Pro advertisements"
+    rm /etc/apt/apt.conf.d/20apt-esm-hook.conf || true
+    touch /etc/apt/apt.conf.d/20apt-esm-hook.conf
+    pro config set apt_news=false || true
+    pro config set motd=false || true
 
     echo "Adding Mozilla Firefox PPA"
     apt install -y software-properties-common
@@ -105,9 +112,7 @@ EOF
     # Redirect /usr/local/bin/gnome-terminal -> /usr/bin/kgx
     ln -s /usr/bin/kgx /usr/local/bin/gnome-terminal
 
-
-
-    echo "Installing fonts"
+    echo "Installing fonts to fix CJKT display issue"
     wget https://gitlab.aiursoft.cn/anduin/anduinos/-/raw/master/Config/fonts.conf -O /etc/fonts/local.conf
     wget -P /tmp https://gitlab.aiursoft.cn/anduin/anduinos/-/raw/master/Assets/fonts.zip
     unzip -o /tmp/fonts.zip -d /usr/share/fonts/
@@ -122,29 +127,56 @@ EOF
     rm -rf /tmp/rime-ice-main
     rm /tmp/main.zip
 
+    echo "Installing MissionCenter..."
+    if ! test -f /opt/missioncenter/AppRun; then
+        # This link requires to be updated manually regularly.
+        APPIMAGE_URL="https://gitlab.com/mission-center-devs/mission-center/-/jobs/7109267599/artifacts/raw/MissionCenter-x86_64.AppImage"
+        LOGO_URL="https://dl.flathub.org/media/io/missioncenter/MissionCenter/224cb83cac6b6e56f793a0163bcca7aa/icons/128x128/io.missioncenter.MissionCenter.png"
+        APPIMAGE_PATH="/opt/missioncenter.appimage"
+        APPBIN_PATH="/opt/missioncenter/AppRun"
+        LOGO_PATH="/usr/share/icons/missioncenter.png"
+        DESKTOP_FILE="/usr/share/applications/missioncenter.desktop"
+        wget -O $APPIMAGE_PATH $APPIMAGE_URL
+        wget -O $LOGO_PATH $LOGO_URL
+        chmod +x $APPIMAGE_PATH
+        $APPIMAGE_PATH --appimage-extract
+        mv ./squashfs-root /opt/missioncenter
+        rm $APPIMAGE_PATH
+        echo "[Desktop Entry]
+        Name=MissionCenter
+        Comment=Monitor overall system and application performance
+        Exec=$APPBIN_PATH
+        Icon=$LOGO_PATH
+        Terminal=false
+        Type=Application
+        Categories=System;Monitor;" | sudo tee $DESKTOP_FILE
+    else
+        print_ok "MissionCenter is already installed"
+    fi
+
     # purge
     apt purge -y \
-    transmission-gtk \
-    transmission-common \
-    gnome-mahjongg \
-    gnome-mines \
-    gnome-sudoku \
-    aisleriot \
-    hitori \
-    gnome-initial-setup \
-    gnome-maps \
-    gnome-photos \
-    eog \
-    tilix \
-    totem totem-plugins \
-    rhythmbox \
-    gnome-contacts \
-    gnome-terminal \
-    gedit \
-    gnome-shell-extension-ubuntu-dock \
-    libreoffice-* \
-    yelp \
-    info
+        transmission-gtk \
+        transmission-common \
+        gnome-mahjongg \
+        gnome-mines \
+        gnome-sudoku \
+        aisleriot \
+        hitori \
+        gnome-initial-setup \
+        gnome-maps \
+        gnome-photos \
+        eog \
+        tilix \
+        totem totem-plugins \
+        rhythmbox \
+        gnome-contacts \
+        gnome-terminal \
+        gedit \
+        gnome-shell-extension-ubuntu-dock \
+        libreoffice-* \
+        yelp \
+        info
 
     # Edit default wallpaper
     echo "Downloading default wallpaper"
@@ -156,34 +188,14 @@ EOF
 
     echo "Installing Fluent icon theme"
     git clone https://git.aiursoft.cn/PublicVault/Fluent-icon-theme /opt/themes/Fluent-icon-theme
-    /opt/themes/Fluent-icon-theme/install.sh 
+    /opt/themes/Fluent-icon-theme/install.sh
+    rm /opt/themes/Fluent-icon-theme -rf
 
     echo "Installing Fluent theme"
     git clone https://git.aiursoft.cn/PublicVault/Fluent-gtk-theme /opt/themes/Fluent-gtk-theme
     apt install libsass1 sassc -y
     /opt/themes/Fluent-gtk-theme/install.sh -i ubuntu --tweaks noborder round
-
-    cat << EOF > /etc/lsb-release
-DISTRIB_ID=AnduinOS
-DISTRIB_RELEASE=22.04
-DISTRIB_CODENAME=jammy
-DISTRIB_DESCRIPTION="AnduinOS 22.04.4 LTS"
-EOF
-
-    cat << EOF > /etc/os-release
-PRETTY_NAME="AnduinOS 22.04.4 LTS"
-NAME="AnduinOS"
-VERSION_ID="22.04"
-VERSION="22.04.4 LTS (Jammy Jellyfish)"
-VERSION_CODENAME=jammy
-ID=ubuntu
-ID_LIKE=debian
-HOME_URL="https://www.ubuntu.com/"
-SUPPORT_URL="https://help.ubuntu.com/"
-BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
-PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
-UBUNTU_CODENAME=jammy
-EOF
+    rm /opt/themes/Fluent-gtk-theme -rf
 
     echo "Installing gnome extensions"
     /usr/bin/pip3 install --upgrade gnome-extensions-cli
@@ -212,15 +224,43 @@ EOF
     echo "Apply root's default dconf settings to /etc/skel"
     export $(dbus-launch)
     dconf load /org/gnome/ < /opt/dconf.ini
+    dconf write /org/gtk/settings/file-chooser/sort-directories-first true
     mkdir -p /etc/skel/.config/dconf
     cp /root/.config/dconf/user /etc/skel/.config/dconf/user
 
-    # Clean up
+    echo "Cleaning up"
     /usr/bin/pip3 uninstall gnome-extensions-cli -y
     rm /root/.config/dconf -rf
     rm /root/.local/share/gnome-shell/extensions -rf
     rm /opt/dconf.ini
 
+    echo "Configuring templates..."
+    mkdir -p /etc/skel/Templates
+    touch /etc/skel/Templates/Text.txt
+    touh /etc/skel/Templates/Markdown.md
+
+    echo "Customization complete. Updating ls/os-release files"
+    cat << EOF > /etc/lsb-release
+DISTRIB_ID=AnduinOS
+DISTRIB_RELEASE=22.04
+DISTRIB_CODENAME=jammy
+DISTRIB_DESCRIPTION="AnduinOS 22.04.4 LTS"
+EOF
+
+    cat << EOF > /etc/os-release
+PRETTY_NAME="AnduinOS 22.04.4 LTS"
+NAME="AnduinOS"
+VERSION_ID="22.04"
+VERSION="22.04.4 LTS (Jammy Jellyfish)"
+VERSION_CODENAME=jammy
+ID=ubuntu
+ID_LIKE=debian
+HOME_URL="https://www.ubuntu.com/"
+SUPPORT_URL="https://help.ubuntu.com/"
+BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+UBUNTU_CODENAME=jammy
+EOF
 }
 
 # Used to version the configuration.  If breaking changes occur, manual
