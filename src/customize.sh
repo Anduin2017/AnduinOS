@@ -131,7 +131,7 @@ EOF
         wget -O $APPIMAGE_PATH $APPIMAGE_URL
         wget -O $LOGO_PATH $LOGO_URL
         chmod +x $APPIMAGE_PATH
-        $APPIMAGE_PATH --appimage-extract
+        $APPIMAGE_PATH --appimage-extract > /dev/null 2>&1
         mv ./squashfs-root /opt/missioncenter
         rm $APPIMAGE_PATH
         chmod +x $APPBIN_PATH
