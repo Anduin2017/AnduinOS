@@ -1,10 +1,5 @@
 #!/bin/bash
 
-# This script provides common customization options for the ISO
-# 
-# Usage: Copy this file to config.sh and make changes there.  Keep this file (default_config.sh) as-is
-#   so that subsequent changes can be easily merged from upstream.  Keep all customiations in config.sh
-
 export TARGET_UBUNTU_VERSION="jammy"
 export TARGET_UBUNTU_MIRROR="http://mirror.aiursoft.cn/ubuntu/"
 export TARGET_KERNEL_PACKAGE="linux-generic-hwe-22.04"
@@ -21,8 +16,6 @@ export TARGET_PACKAGE_REMOVE="
     os-prober \
 "
 
-# Package customisation function.  Update this function to customize packages
-# present on the installed system.
 function customize_image() {
     echo "Installing gnome-shell and other packages"
 
@@ -250,7 +243,3 @@ EOF
 
     echo "Customization complete.  Rebooting in 10 seconds."
 }
-
-# Used to version the configuration.  If breaking changes occur, manual
-# updates to this file from the default may be necessary.
-export CONFIG_FILE_VERSION="0.4"
