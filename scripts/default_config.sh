@@ -102,6 +102,21 @@ Pin-Priority: -10
 EOF
     chown root:root /etc/apt/preferences.d/no-snap.pref
 
+    echo "Installing fonts"
+    wget https://gitlab.aiursoft.cn/anduin/anduinos/-/raw/master/Config/fonts.conf -O /etc/fonts/local.conf
+    wget -P /tmp https://gitlab.aiursoft.cn/anduin/anduinos/-/raw/master/Assets/fonts.zip
+    unzip -o /tmp/fonts.zip -d /usr/share/fonts/
+    rm -f /tmp/fonts.zip
+    fc-cache -fv
+
+    echo "Installing ibus-rime configuration"
+    wget https://github.com/iDvel/rime-ice/archive/refs/heads/main.zip -O /tmp/main.zip
+    unzip /tmp/main.zip -d /tmp/rime-ice-main
+    mkdir -p /etc/skel/.config/ibus/rime
+    mv /tmp/rime-ice-main/rime-ice-main/* /etc/skel/.config/ibus/rime/ -f
+    rm -rf /tmp/rime-ice-main
+    rm /tmp/main.zip
+
     # purge
     apt purge -y \
     transmission-gtk \
