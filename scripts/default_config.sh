@@ -237,7 +237,7 @@ EOF
     echo "Configuring templates..."
     mkdir -p /etc/skel/Templates
     touch /etc/skel/Templates/Text.txt
-    touh /etc/skel/Templates/Markdown.md
+    touch /etc/skel/Templates/Markdown.md
 
     echo "Customization complete. Updating ls/os-release files"
     cat << EOF > /etc/lsb-release
