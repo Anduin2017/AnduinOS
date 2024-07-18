@@ -102,7 +102,7 @@ EOF
 
     # Patch plymouth, use AnduinOS's logo at /opt/theme/logo.svg to replace the default ubuntu logo. Patch the text to show "AnduinOS"
     echo "Patch plymouth"
-    cp /opt/theme/logo_128.png /usr/share/plymouth/themes/spinner/bgrt.png
+    cp /opt/theme/logo_128.png /usr/share/plymouth/themes/spinner/bgrt-fallback.png
     cp /opt/theme/anduinos_text.png /usr/share/plymouth/ubuntu-logo.png
     cp /opt/theme/anduinos_text.png /usr/share/plymouth/themes/spinner/watermark.png
     update-initramfs -u
