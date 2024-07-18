@@ -160,6 +160,20 @@ BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
 PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
 UBUNTU_CODENAME=jammy
 EOF
+
+    echo "Installing gnome extensions"
+    git clone https://github.com/home-sweet-gnome/dash-to-panel.git /opt/gnome-extensions/dash-to-panel
+    (
+        cd /opt/gnome-extensions/dash-to-panel
+        make install
+    )
+    git clone https://github.com/fishears/Arc-Menu.git /opt/gnome-extensions/Arc-Menu
+    (
+        cd /opt/gnome-extensions/Arc-Menu
+        make install
+    )
+
+
 }
 
 # Used to version the configuration.  If breaking changes occur, manual
