@@ -8,6 +8,8 @@ AnduinOS is a custom Debian-based Linux distribution that aims to facilitate use
 
 AnduinOS is built on the Ubuntu Jammy package base.
 
+![Screenshot](./screenshot.png)
+
 ## System Requirements
 
 Minimum system requirements:
