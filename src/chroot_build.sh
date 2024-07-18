@@ -28,6 +28,7 @@ GreenBG="\033[42;37m"
 RedBG="\033[41;37m"
 OK="${Green}[  OK  ]${Font}"
 ERROR="${Red}[FAILED]${Font}"
+WARNING="${Yellow}[ WARN ]${Font}"
 
 #==========================
 # Print Colorful Text

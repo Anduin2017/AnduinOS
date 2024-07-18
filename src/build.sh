@@ -27,6 +27,7 @@ GreenBG="\033[42;37m"
 RedBG="\033[41;37m"
 OK="${Green}[  OK  ]${Font}"
 ERROR="${Red}[FAILED]${Font}"
+WARNING="${Yellow}[ WARN ]${Font}"
 
 #==========================
 # Print Colorful Text
@@ -164,6 +165,9 @@ function run_chroot() {
 
     # Launch into chroot environment to build install image.
     print_ok "Running chroot_build.sh in chroot..."
+    print_warn "============================================"
+    print_warn "   The following will run in chroot ENV!"
+    print_warn "============================================"
     sudo chroot chroot /usr/bin/env DEBIAN_FRONTEND=${DEBIAN_FRONTEND:-readline} /root/chroot_build.sh -
     judge "Run chroot_build.sh in chroot"
 
