@@ -133,6 +133,14 @@ if [ "\$XDG_CURRENT_DESKTOP" = "ubuntu:GNOME" ]; then
     if [ ! -f "\$HOME/.config/dconf/default-dconf-settings-loaded" ]; then
         # default file is: /etc/skel/.config/dconf/user.d/default
         dconf load /org/gnome/ < "\$HOME/.config/dconf/user.d/default"
+        /usr/local/bin/gext -F enable arcmenu@arcmenu.com
+        /usr/local/bin/gext -F enable blur-my-shell@aunetx
+        /usr/local/bin/gext -F enable customize-ibus@hollowman.ml
+        /usr/local/bin/gext -F enable dash-to-panel@jderose9.github.com
+        /usr/local/bin/gext -F enable drive-menu@gnome-shell-extensions.gcampax.github.com
+        /usr/local/bin/gext -F enable network-stats@gnome.noroadsleft.xyz
+        /usr/local/bin/gext -F enable openweather-extension@jenslody.de
+        /usr/local/bin/gext -F enable user-theme@gnome-shell-extensions.gcampax.github.com
         touch "\$HOME/.config/dconf/default-dconf-settings-loaded"
     fi
 fi
@@ -162,17 +170,30 @@ UBUNTU_CODENAME=jammy
 EOF
 
     echo "Installing gnome extensions"
-    git clone https://github.com/home-sweet-gnome/dash-to-panel.git /opt/gnome-extensions/dash-to-panel
-    (
-        cd /opt/gnome-extensions/dash-to-panel
-        make install
-    )
-    git clone https://github.com/fishears/Arc-Menu.git /opt/gnome-extensions/Arc-Menu
-    (
-        cd /opt/gnome-extensions/Arc-Menu
-        make install
-    )
+    /usr/bin/pip3 install --upgrade gnome-extensions-cli
+    /usr/local/bin/gext -F install arcmenu@arcmenu.com
+    /usr/local/bin/gext -F install blur-my-shell@aunetx
+    /usr/local/bin/gext -F install customize-ibus@hollowman.ml
+    /usr/local/bin/gext -F install dash-to-panel@jderose9.github.com
+    /usr/local/bin/gext -F install drive-menu@gnome-shell-extensions.gcampax.github.com
+    /usr/local/bin/gext -F install network-stats@gnome.noroadsleft.xyz
+    #~/.local/bin/gext -F install no-overview@fthx
+    /usr/local/bin/gext -F install openweather-extension@jenslody.de
+    /usr/local/bin/gext -F install user-theme@gnome-shell-extensions.gcampax.github.com
+    /usr/bin/pip3 uninstall gnome-extensions-cli -y
+    sudo mkdir -p /etc/skel/.local/share/gnome-shell/extensions
+    cp /root/.local/share/gnome-shell/extensions -r /usr/share/gnome-shell/extensions
+    rm /root/.local/share/gnome-shell/extensions -r
 
+    # Enable extensions
+    /usr/local/bin/gext -F enable arcmenu@arcmenu.com
+    /usr/local/bin/gext -F enable blur-my-shell@aunetx
+    /usr/local/bin/gext -F enable customize-ibus@hollowman.ml
+    /usr/local/bin/gext -F enable dash-to-panel@jderose9.github.com
+    /usr/local/bin/gext -F enable drive-menu@gnome-shell-extensions.gcampax.github.com
+    /usr/local/bin/gext -F enable network-stats@gnome.noroadsleft.xyz
+    /usr/local/bin/gext -F enable openweather-extension@jenslody.de
+    /usr/local/bin/gext -F enable user-theme@gnome-shell-extensions.gcampax.github.com
 
 }
 
