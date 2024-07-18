@@ -10,6 +10,8 @@ AnduinOS is built on the Ubuntu Jammy package base.
 
 ![Screenshot](./screenshot.png)
 
+[Download AnduinOS (ISO)](https://github.com/Anduin2017/AnduinOS/releases)
+
 ## System Requirements
 
 Minimum system requirements:
