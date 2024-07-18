@@ -5,29 +5,14 @@
 # Usage: Copy this file to config.sh and make changes there.  Keep this file (default_config.sh) as-is
 #   so that subsequent changes can be easily merged from upstream.  Keep all customiations in config.sh
 
-# The version of Ubuntu to generate.  Successfully tested: bionic, cosmic, disco, eoan, focal, groovy, jammy
-# See https://wiki.ubuntu.com/DevelopmentCodeNames for details
 export TARGET_UBUNTU_VERSION="jammy"
-
-# The Ubuntu Mirror URL. It's better to change for faster download.
-# More mirrors see: https://launchpad.net/ubuntu/+archivemirrors
 export TARGET_UBUNTU_MIRROR="http://mirror.aiursoft.cn/ubuntu/"
-
-# The packaged version of the Linux kernel to install on target image.
-# See https://wiki.ubuntu.com/Kernel/LTSEnablementStack for details
 export TARGET_KERNEL_PACKAGE="linux-generic-hwe-22.04"
-
-# The file (no extension) of the ISO containing the generated disk image,
-# the volume id, and the hostname of the live environment are set from this name.
 export TARGET_NAME="anduinos"
-
-# The text label shown in GRUB for booting into the live environment
+export TARGET_BUSINESS_NAME="AnduinOS"
+export TARGET_BUILD_VERSION="0.0.2-alpha"
 export GRUB_LIVEBOOT_LABEL="Try AnduinOS"
-
-# The text label shown in GRUB for starting installation
 export GRUB_INSTALL_LABEL="Install AnduinOS"
-
-# Packages to be removed from the target system after installation completes succesfully
 export TARGET_PACKAGE_REMOVE="
     ubiquity \
     casper \
@@ -243,26 +228,28 @@ EOF
 
     echo "Customization complete. Updating ls/os-release files"
     cat << EOF > /etc/lsb-release
-DISTRIB_ID=AnduinOS
-DISTRIB_RELEASE=22.04
-DISTRIB_CODENAME=jammy
-DISTRIB_DESCRIPTION="AnduinOS 22.04.4 LTS"
+DISTRIB_ID=$TARGET_BUSINESS_NAME
+DISTIRB_RELEASE=$TARGET_BUILD_VERSION
+DISTIRB_CODENAME=$TARGET_UBUNTU_VERSION
+DISTIRB_DESCRIPTION="$TARGET_BUSINESS_NAME $TARGET_BUILD_VERSION based on Ubuntu $TARGET_UBUNTU_VERSION
 EOF
 
     cat << EOF > /etc/os-release
-PRETTY_NAME="AnduinOS 22.04.4 LTS"
-NAME="AnduinOS"
-VERSION_ID="22.04"
-VERSION="22.04.4 LTS (Jammy Jellyfish)"
-VERSION_CODENAME=jammy
+PRETTY_NAME="$TARGET_BUSINESS_NAME $TARGET_BUILD_VERSION based on Ubuntu $TARGET_UBUNTU_VERSION"
+NAME="$TARGET_BUSINESS_NAME"
+VERSION_ID="$TARGET_BUILD_VERSION"
+VERSION="$TARGET_BUILD_VERSION ($TARGET_UBUNTU_VERSION)"
+VERSION_CODENAME=$TARGET_UBUNTU_VERSION
 ID=ubuntu
 ID_LIKE=debian
 HOME_URL="https://www.ubuntu.com/"
 SUPPORT_URL="https://help.ubuntu.com/"
 BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
 PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
-UBUNTU_CODENAME=jammy
+UBUNTU_CODENAME=$TARGET_UBUNTU_VERSION
 EOF
+
+    echo "Customization complete.  Rebooting in 10 seconds."
 }
 
 # Used to version the configuration.  If breaking changes occur, manual
