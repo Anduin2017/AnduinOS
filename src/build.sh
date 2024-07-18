@@ -129,10 +129,10 @@ function run_chroot() {
     # Setup build scripts in chroot environment
     sudo ln -f $SCRIPT_DIR/chroot_build.sh chroot/root/chroot_build.sh
     sudo ln -f $SCRIPT_DIR/default_config.sh chroot/root/default_config.sh
-    if [[ -f "$SCRIPT_DIR/dconf.ini" ]]; then
-        sudo mkdir -p chroot/etc/skel/.config/dconf/user.d
-        sudo cp $SCRIPT_DIR/dconf.ini chroot/opt/dconf.ini
-    fi
+    sudo mkdir -p chroot/etc/skel/.config/dconf/user.d
+    sudo cp $SCRIPT_DIR/dconf/dconf.ini chroot/opt/dconf.ini
+    sudo mkdir -p chroot/opt/theme
+    sudo cp $SCRIPT_DIR/logo/logo.svg chroot/opt/theme/logo.svg
 
     # Launch into chroot environment to build install image.
     sudo chroot chroot /usr/bin/env DEBIAN_FRONTEND=${DEBIAN_FRONTEND:-readline} /root/chroot_build.sh -

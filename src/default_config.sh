@@ -10,7 +10,7 @@ export TARGET_UBUNTU_MIRROR="http://mirror.aiursoft.cn/ubuntu/"
 export TARGET_KERNEL_PACKAGE="linux-generic-hwe-22.04"
 export TARGET_NAME="anduinos"
 export TARGET_BUSINESS_NAME="AnduinOS"
-export TARGET_BUILD_VERSION="0.0.2-alpha"
+export TARGET_BUILD_VERSION="0.0.3-alpha"
 export GRUB_LIVEBOOT_LABEL="Try AnduinOS"
 export GRUB_INSTALL_LABEL="Install AnduinOS"
 export TARGET_PACKAGE_REMOVE="
@@ -168,10 +168,6 @@ EOF
     # Edit default wallpaper
     echo "Downloading default wallpaper"
     wget -O /usr/share/backgrounds/Fluent-building-night.png https://github.com/vinceliuice/Fluent-gtk-theme/raw/Wallpaper/wallpaper-4k/Fluent-building-night.png
-
-    echo "Downloading default distributor logo"
-    mkdir -p /opt/themes
-    wget -O /opt/themes/distributor-logo-ubuntu.svg https://gitlab.aiursoft.cn/anduin/anduinos/-/raw/master/Assets/distributor-logo-ubuntu.svg
 
     echo "Installing Fluent icon theme"
     git clone https://git.aiursoft.cn/PublicVault/Fluent-icon-theme /opt/themes/Fluent-icon-theme
