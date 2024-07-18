@@ -15,14 +15,13 @@ export TARGET_PACKAGE_REMOVE="
     laptop-detect \
     os-prober \
 "
+export DEBIAN_FRONTEND=noninteractive
 
 function customize_image() {
-    echo "Installing gnome-shell and other packages"
-
+    print_ok "Installing gnome-shell and other packages... Sleep 10 seconds to wait for network..."
     sleep 10
 
-    export DEBIAN_FRONTEND=noninteractive
-    echo "Removing snap packages"
+    print_ok "Removing snap packages"
     snap remove firefox || true
     snap remove snap-store || true
     snap remove gtk-common-themes || true
@@ -36,14 +35,16 @@ Pin: release a=*
 Pin-Priority: -10
 EOF
     chown root:root /etc/apt/preferences.d/no-snap.pref
+    judge "Remove snap packages"
 
-    echo "Removing Ubuntu Pro advertisements"
+    print_ok "Removing Ubuntu Pro advertisements"
     rm /etc/apt/apt.conf.d/20apt-esm-hook.conf || true
     touch /etc/apt/apt.conf.d/20apt-esm-hook.conf
     pro config set apt_news=false || true
     pro config set motd=false || true
+    judge "Remove Ubuntu Pro advertisements"
 
-    echo "Adding Mozilla Firefox PPA"
+    print_ok "Adding Mozilla Firefox PPA"
     apt install -y software-properties-common
     add-apt-repository -y ppa:mozillateam/ppa -n
     echo "deb https://mirror-ppa.aiursoft.cn/mozillateam/ppa/ubuntu/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/mozillateam-ubuntu-ppa-$(lsb_release -sc).list
@@ -53,9 +54,14 @@ Pin: release o=LP-PPA-mozillateam
 Pin-Priority: 1002
 EOF
     chown root:root /etc/apt/preferences.d/mozilla-firefox
+    judge "Add Mozilla Firefox PPA"
 
     # install graphics and desktop
+    print_ok "Updating package list"
     apt update
+    judge "Update package list"
+
+    print_ok "Installing gnome-shell and other gnome applications"
     apt install -y \
     ca-certificates gpg apt-transport-https \
     plymouth plymouth-label plymouth-theme-spinner plymouth-theme-ubuntu-text plymouth-theme-ubuntu-logo \
@@ -89,26 +95,31 @@ EOF
     aisleriot \
     language-pack-gnome-zh-hans \
     dmz-cursor-theme
+    judge "Install gnome-shell and other gnome applications"
 
     # Redirect /usr/local/bin/gnome-terminal -> /usr/bin/kgx
+    print_ok "Redirect /usr/local/bin/gnome-terminal -> /usr/bin/kgx"
     ln -s /usr/bin/kgx /usr/local/bin/gnome-terminal
+    judge "Redirect /usr/local/bin/gnome-terminal -> /usr/bin/kgx"
 
     # Patch plymouth, use AnduinOS's logo at /opt/theme/logo.svg to replace the default ubuntu logo. Patch the text to show "AnduinOS"
-    echo "Patch plymouth"
+    print_ok "Patch plymouth"
     cp /opt/theme/logo_128.png /usr/share/plymouth/themes/spinner/bgrt-fallback.png
     cp /opt/theme/anduinos_text.png /usr/share/plymouth/ubuntu-logo.png
     cp /opt/theme/anduinos_text.png /usr/share/plymouth/themes/spinner/watermark.png
     update-initramfs -u
+    judge "Patch plymouth and update initramfs"
 
-    echo "Installing ibus-rime configuration"
+    print_ok "Installing ibus-rime configuration"
     wget https://github.com/iDvel/rime-ice/archive/refs/heads/main.zip -O /tmp/main.zip
     unzip /tmp/main.zip -d /tmp/rime-ice-main
     mkdir -p /etc/skel/.config/ibus/rime
     mv /tmp/rime-ice-main/rime-ice-main/* /etc/skel/.config/ibus/rime/ -f
     rm -rf /tmp/rime-ice-main
     rm /tmp/main.zip
+    judge "Install ibus-rime configuration"
 
-    echo "Installing MissionCenter..."
+    print_ok "Installing MissionCenter..."
     if ! test -f /opt/missioncenter/AppRun; then
         # This link requires to be updated manually regularly.
         APPIMAGE_URL="https://gitlab.com/mission-center-devs/mission-center/-/jobs/7109267599/artifacts/raw/MissionCenter-x86_64.AppImage"
@@ -123,19 +134,21 @@ EOF
         $APPIMAGE_PATH --appimage-extract
         mv ./squashfs-root /opt/missioncenter
         rm $APPIMAGE_PATH
+        chmod +x $APPBIN_PATH
         echo "[Desktop Entry]
-        Name=MissionCenter
-        Comment=Monitor overall system and application performance
-        Exec=$APPBIN_PATH
-        Icon=$LOGO_PATH
-        Terminal=false
-        Type=Application
-        Categories=System;Monitor;" | sudo tee $DESKTOP_FILE
+Name=MissionCenter
+Comment=Monitor overall system and application performance
+Exec=$APPBIN_PATH
+Icon=$LOGO_PATH
+Terminal=false
+Type=Application
+Categories=System;Monitor;" | sudo tee $DESKTOP_FILE
+        judge "Install MissionCenter"
     else
         print_ok "MissionCenter is already installed"
     fi
 
-    # purge
+    print_ok "Purging unnecessary packages"
     apt purge -y \
         transmission-gtk \
         transmission-common \
@@ -159,24 +172,28 @@ EOF
         yelp \
         gnome-system-monitor \
         info
+    judge "Purge unnecessary packages"
 
     # Edit default wallpaper
-    echo "Downloading default wallpaper"
+    print_ok "Downloading default wallpaper"
     wget -O /usr/share/backgrounds/Fluent-building-night.png https://github.com/vinceliuice/Fluent-gtk-theme/raw/Wallpaper/wallpaper-4k/Fluent-building-night.png
+    judge "Download default wallpaper"
 
-    echo "Installing Fluent icon theme"
+    print_ok "Installing Fluent icon theme"
     git clone https://git.aiursoft.cn/PublicVault/Fluent-icon-theme /opt/themes/Fluent-icon-theme
     /opt/themes/Fluent-icon-theme/install.sh
     rm /opt/themes/Fluent-icon-theme -rf
+    judge "Install Fluent icon theme"
 
-    echo "Installing Fluent theme"
+    print_ok "Installing Fluent theme"
     git clone https://git.aiursoft.cn/PublicVault/Fluent-gtk-theme /opt/themes/Fluent-gtk-theme
     apt install libsass1 sassc -y
     /opt/themes/Fluent-gtk-theme/install.sh -i ubuntu --tweaks noborder round
     rm /opt/themes/Fluent-gtk-theme -rf
     rm /opt/themes -rf
+    judge "Install Fluent theme"
 
-    echo "Installing gnome extensions"
+    print_ok "Installing gnome extensions"
     /usr/bin/pip3 install --upgrade gnome-extensions-cli
     /usr/local/bin/gext -F install arcmenu@arcmenu.com
     /usr/local/bin/gext -F install blur-my-shell@aunetx
@@ -184,47 +201,58 @@ EOF
     /usr/local/bin/gext -F install dash-to-panel@jderose9.github.com
     /usr/local/bin/gext -F install network-stats@gnome.noroadsleft.xyz
     /usr/local/bin/gext -F install openweather-extension@jenslody.de
+    judge "Install gnome extensions"
     #/usr/local/bin/gext -F install drive-menu@gnome-shell-extensions.gcampax.github.com
     #/usr/local/bin/gext -F install user-theme@gnome-shell-extensions.gcampax.github.com
 
-    echo "Moving gnome extensions to /usr/share/gnome-shell/extensions"
+    print_ok "Moving root's gnome extensions to /usr/share/gnome-shell/extensions"
     mv /root/.local/share/gnome-shell/extensions/* /usr/share/gnome-shell/extensions/
+    judge "Move root's gnome extensions"
 
     # Enable extensions
+    print_ok "Enabling gnome extensions for root"
     /usr/local/bin/gext -F enable arcmenu@arcmenu.com
     /usr/local/bin/gext -F enable blur-my-shell@aunetx
     /usr/local/bin/gext -F enable customize-ibus@hollowman.ml
     /usr/local/bin/gext -F enable dash-to-panel@jderose9.github.com
     /usr/local/bin/gext -F enable network-stats@gnome.noroadsleft.xyz
     /usr/local/bin/gext -F enable openweather-extension@jenslody.de
+    judge "Enable gnome extensions"
     #/usr/local/bin/gext -F enable drive-menu@gnome-shell-extensions.gcampax.github.com
     #/usr/local/bin/gext -F enable user-theme@gnome-shell-extensions.gcampax.github.com
 
-    echo "Apply root's default dconf settings to /etc/skel"
+    print_ok "Loading dconf settings"
     export $(dbus-launch)
     dconf load /org/gnome/ < /opt/dconf.ini
     dconf write /org/gtk/settings/file-chooser/sort-directories-first true
+    judge "Load dconf settings"
+
+    print_ok "Copying root's dconf settings to /etc/skel"
     mkdir -p /etc/skel/.config/dconf
     cp /root/.config/dconf/user /etc/skel/.config/dconf/user
+    judge "Copy root's dconf settings to /etc/skel"
 
-    echo "Cleaning up"
+    print_ok "Cleaning up"
     /usr/bin/pip3 uninstall gnome-extensions-cli -y
     rm /root/.config/dconf -rf
     rm /root/.local/share/gnome-shell/extensions -rf
     rm /opt/dconf.ini
+    judge "Clean up"
 
-    echo "Configuring templates..."
+    print_ok "Configuring templates..."
     mkdir -p /etc/skel/Templates
     touch /etc/skel/Templates/Text.txt
     touch /etc/skel/Templates/Markdown.md
+    judge "Configure templates"
 
-    echo "Customization complete. Updating ls/os-release files"
+    print_ok "Customization complete. Updating ls/os-release files"
     cat << EOF > /etc/lsb-release
 DISTRIB_ID=$TARGET_BUSINESS_NAME
 DISTIRB_RELEASE=$TARGET_BUILD_VERSION
 DISTIRB_CODENAME=$TARGET_UBUNTU_VERSION
 DISTIRB_DESCRIPTION="$TARGET_BUSINESS_NAME $TARGET_BUILD_VERSION based on Ubuntu $TARGET_UBUNTU_VERSION
 EOF
+    judge "Update lsb-release"
 
     cat << EOF > /etc/os-release
 PRETTY_NAME="$TARGET_BUSINESS_NAME $TARGET_BUILD_VERSION"
@@ -240,6 +268,5 @@ BUG_REPORT_URL="https://github.com/Anduin2017/AnduinOS/issues"
 PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
 UBUNTU_CODENAME=$TARGET_UBUNTU_VERSION
 EOF
-
-    echo "Customization complete.  Rebooting in 10 seconds."
+    judge "Update os-release"
 }

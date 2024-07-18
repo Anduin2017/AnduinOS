@@ -78,8 +78,8 @@ function areYouSure() {
 
 # Load configuration values from file
 function load_config() {
-    print_ok "Loading configuration from $SCRIPT_DIR/default_config.sh..."
-    . "$SCRIPT_DIR/default_config.sh"
+    print_ok "Loading configuration from $SCRIPT_DIR/customize.sh..."
+    . "$SCRIPT_DIR/customize.sh"
     judge "Load configuration"
 }
 

@@ -77,8 +77,8 @@ function areYouSure() {
 
 # Load configuration values from file
 function load_config() {
-    print_ok "Loading configuration from $SCRIPT_DIR/default_config.sh..."
-    . "$SCRIPT_DIR/default_config.sh"
+    print_ok "Loading configuration from $SCRIPT_DIR/customize.sh..."
+    . "$SCRIPT_DIR/customize.sh"
     judge "Load configuration"
 }
 
@@ -138,7 +138,7 @@ function run_chroot() {
 
     print_ok "Linking actual build scripts to chroot for execution on /root..."
     sudo ln -f $SCRIPT_DIR/chroot_build.sh chroot/root/chroot_build.sh
-    sudo ln -f $SCRIPT_DIR/default_config.sh chroot/root/default_config.sh
+    sudo ln -f $SCRIPT_DIR/customize.sh chroot/root/customize.sh
     judge "Link build scripts"
 
     print_ok "Copy default dconf configuration to chroot /opt..."
@@ -169,6 +169,9 @@ function run_chroot() {
     print_warn "   The following will run in chroot ENV!"
     print_warn "============================================"
     sudo chroot chroot /usr/bin/env DEBIAN_FRONTEND=${DEBIAN_FRONTEND:-readline} /root/chroot_build.sh -
+    print_warn "============================================"
+    print_warn "   chroot ENV execution completed!"
+    print_warn "============================================"
     judge "Run chroot_build.sh in chroot"
 
     # Cleanup after image changes
@@ -334,8 +337,8 @@ EOF
            "."
     judge "Create iso image"
 
-    print_ok "Moving iso image to $SCRIPT_DIR/dist/$TARGET_BUSINESS_NAME-$TARGET_UBUNTU_VERSION-$TARGET_BUILD_VERSION-$DATE.iso..."
     DATE=`TZ="UTC" date +"%y%m%d%H%M"`
+    print_ok "Moving iso image to $SCRIPT_DIR/dist/$TARGET_BUSINESS_NAME-$TARGET_UBUNTU_VERSION-$TARGET_BUILD_VERSION-$DATE.iso..."
     mkdir -p $SCRIPT_DIR/dist
     mv $SCRIPT_DIR/$TARGET_NAME.iso $SCRIPT_DIR/dist/$TARGET_BUSINESS_NAME-$TARGET_UBUNTU_VERSION-$TARGET_BUILD_VERSION-$DATE.iso
     judge "Move iso image"
