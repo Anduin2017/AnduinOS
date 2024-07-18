@@ -108,7 +108,8 @@ EOF
     zip unzip jq\
     cifs-utils\
     aisleriot\
-    language-pack-gnome-zh-hans
+    language-pack-gnome-zh-hans\
+    dmz-cursor-theme
 
     # Redirect /usr/local/bin/gnome-terminal -> /usr/bin/kgx
     ln -s /usr/bin/kgx /usr/local/bin/gnome-terminal
