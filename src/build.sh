@@ -273,6 +273,11 @@ EOF
     echo "SHA256: $HASH" > $SCRIPT_DIR/dist/$TARGET_BUSINESS_NAME-$TARGET_UBUNTU_VERSION-$TARGET_BUILD_VERSION-$DATE.sha256
 
     popd
+
+    # Play a sound to indicate the build is done
+    if [ -x "$(command -v paplay)" ]; then
+        paplay /usr/share/sounds/freedesktop/stereo/complete.oga
+    fi
 }
 
 # =============   main  ================
