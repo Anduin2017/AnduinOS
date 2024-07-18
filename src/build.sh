@@ -137,6 +137,7 @@ function run_chroot() {
     echo "Copy logo..."
     sudo mkdir -p chroot/opt/theme
     sudo cp $SCRIPT_DIR/logo/logo.svg chroot/opt/theme/logo.svg
+    sudo cp $SCRIPT_DIR/logo/logo_128.png chroot/opt/theme/logo_128.png
 
     echo "Copy font configuration..."
     sudo mkdir -p chroot/etc/fonts

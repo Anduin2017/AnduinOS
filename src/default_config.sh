@@ -100,6 +100,11 @@ EOF
     # Redirect /usr/local/bin/gnome-terminal -> /usr/bin/kgx
     ln -s /usr/bin/kgx /usr/local/bin/gnome-terminal
 
+    # Patch plymouth, use AnduinOS's logo at /opt/theme/logo.svg to replace the default ubuntu logo. Patch the text to show "AnduinOS"
+    echo "Patch plymouth"
+    cp /opt/theme/logo_128.png /usr/share/plymouth/themes/spinner/bgrt.png
+    update-initramfs -u
+
     echo "Installing ibus-rime configuration"
     wget https://github.com/iDvel/rime-ice/archive/refs/heads/main.zip -O /tmp/main.zip
     unzip /tmp/main.zip -d /tmp/rime-ice-main
