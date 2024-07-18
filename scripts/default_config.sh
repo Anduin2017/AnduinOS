@@ -42,7 +42,25 @@ function customize_image() {
     echo "Installing gnome-shell and other packages"
 
     sleep 10
-    add-apt-repository -y ppa:mozillateam/ppa -n > /dev/null 2>&1
+    # Remove snap
+    echo "Removing snap packages"
+    snap remove firefox || true
+    snap remove snap-store || true
+    snap remove gtk-common-themes || true
+    snap remove snapd-desktop-integration || true
+    snap remove bare || true
+    apt purge -y snapd
+    rm -rf /snap /var/snap /var/lib/snapd /var/cache/snapd /usr/lib/snapd ~/snap
+    cat << EOF > /etc/apt/preferences.d/no-snap.pref
+Package: snapd
+Pin: release a=*
+Pin-Priority: -10
+EOF
+    chown root:root /etc/apt/preferences.d/no-snap.pref
+
+    echo "Adding Mozilla Firefox PPA"
+    apt install -y software-properties-common
+    add-apt-repository -y ppa:mozillateam/ppa -n
     echo "deb https://mirror-ppa.aiursoft.cn/mozillateam/ppa/ubuntu/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/mozillateam-ubuntu-ppa-$(lsb_release -sc).list
     cat << EOF > /etc/apt/preferences.d/mozilla-firefox
 Package: *
@@ -53,7 +71,7 @@ EOF
 
     # install graphics and desktop
     apt install -y \
-    ca-certificates gpg apt-transport-https software-properties-common\
+    ca-certificates gpg apt-transport-https\
     plymouth plymouth-label plymouth-theme-spinner plymouth-theme-ubuntu-text plymouth-theme-ubuntu-logo \
     gnome-shell gir1.2-gmenu-3.0 gnome-menus gnome-shell-extensions\
     nautilus usb-creator-gtk cheese baobab file-roller gnome-sushi ffmpegthumbnailer\
@@ -64,10 +82,10 @@ EOF
     gnome-text-editor\
     gnome-nettool\
     seahorse gdebi evince\
-    firefox\
     ibus-rime\
     shotwell\
     remmina remmina-plugin-rdp\
+    firefox\
     vlc\
     gnome-console nautilus-extension-gnome-console\
     python3-apt python3-pip python-is-python3\
@@ -86,21 +104,7 @@ EOF
     # Redirect /usr/local/bin/gnome-terminal -> /usr/bin/kgx
     ln -s /usr/bin/kgx /usr/local/bin/gnome-terminal
 
-    # Remove snap
-    echo "Removing snap packages"
-    snap remove firefox || true
-    snap remove snap-store || true
-    snap remove gtk-common-themes || true
-    snap remove snapd-desktop-integration || true
-    snap remove bare || true
-    apt purge -y snapd
-    rm -rf /snap /var/snap /var/lib/snapd /var/cache/snapd /usr/lib/snapd ~/snap
-    cat << EOF > /etc/apt/preferences.d/no-snap.pref
-Package: snapd
-Pin: release a=*
-Pin-Priority: -10
-EOF
-    chown root:root /etc/apt/preferences.d/no-snap.pref
+
 
     echo "Installing fonts"
     wget https://gitlab.aiursoft.cn/anduin/anduinos/-/raw/master/Config/fonts.conf -O /etc/fonts/local.conf
