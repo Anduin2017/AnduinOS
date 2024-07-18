@@ -171,7 +171,7 @@ Categories=System;Monitor;" | sudo tee $DESKTOP_FILE
         libreoffice-* \
         yelp \
         gnome-system-monitor \
-        info
+        info > /dev/null
     judge "Purge unnecessary packages"
 
     # Edit default wallpaper
@@ -202,8 +202,6 @@ Categories=System;Monitor;" | sudo tee $DESKTOP_FILE
     /usr/local/bin/gext -F install network-stats@gnome.noroadsleft.xyz
     /usr/local/bin/gext -F install openweather-extension@jenslody.de
     judge "Install gnome extensions"
-    #/usr/local/bin/gext -F install drive-menu@gnome-shell-extensions.gcampax.github.com
-    #/usr/local/bin/gext -F install user-theme@gnome-shell-extensions.gcampax.github.com
 
     print_ok "Moving root's gnome extensions to /usr/share/gnome-shell/extensions"
     mv /root/.local/share/gnome-shell/extensions/* /usr/share/gnome-shell/extensions/
@@ -218,8 +216,6 @@ Categories=System;Monitor;" | sudo tee $DESKTOP_FILE
     /usr/local/bin/gext -F enable network-stats@gnome.noroadsleft.xyz
     /usr/local/bin/gext -F enable openweather-extension@jenslody.de
     judge "Enable gnome extensions"
-    #/usr/local/bin/gext -F enable drive-menu@gnome-shell-extensions.gcampax.github.com
-    #/usr/local/bin/gext -F enable user-theme@gnome-shell-extensions.gcampax.github.com
 
     print_ok "Loading dconf settings"
     export $(dbus-launch)

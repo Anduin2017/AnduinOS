@@ -232,7 +232,7 @@ EOF
 
     # generate manifest
     print_ok "Generating manifes for filesystem..."
-    sudo chroot chroot dpkg-query -W --showformat='${Package} ${Version}\n' | sudo tee image/casper/filesystem.manifest
+    sudo chroot chroot dpkg-query -W --showformat='${Package} ${Version}\n' | sudo tee image/casper/filesystem.manifest >/dev/null 2>&1
     judge "Generate manifest for filesystem"
 
     print_ok "Generating manifest for filesystem-desktop..."
