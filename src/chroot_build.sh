@@ -64,31 +64,9 @@ EOF
 
     echo "$TARGET_NAME" > /etc/hostname
 
-    cat << EOF > /etc/lsb-release
-DISTRIB_ID=AnduinOS
-DISTRIB_RELEASE=22.04
-DISTRIB_CODENAME=jammy
-DISTRIB_DESCRIPTION="AnduinOS 22.04.4 LTS"
-EOF
-
-    cat << EOF > /etc/os-release
-PRETTY_NAME="AnduinOS 22.04.4 LTS"
-NAME="AnduinOS"
-VERSION_ID="22.04"
-VERSION="22.04.4 LTS (Jammy Jellyfish)"
-VERSION_CODENAME=jammy
-ID=ubuntu
-ID_LIKE=debian
-HOME_URL="https://www.ubuntu.com/"
-SUPPORT_URL="https://help.ubuntu.com/"
-BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
-PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
-UBUNTU_CODENAME=jammy
-EOF
-
     # we need to install systemd first, to configure machine id
-    apt-get update
-    apt-get install -y libterm-readline-gnu-perl systemd-sysv
+    apt update
+    apt install -y libterm-readline-gnu-perl systemd-sysv
 
     #configure machine id
     dbus-uuidgen > /etc/machine-id
@@ -101,9 +79,7 @@ EOF
 
 # Load configuration values from file
 function load_config() {
-    if [[ -f "$SCRIPT_DIR/config.sh" ]]; then 
-        . "$SCRIPT_DIR/config.sh"
-    elif [[ -f "$SCRIPT_DIR/default_config.sh" ]]; then
+    if [[ -f "$SCRIPT_DIR/default_config.sh" ]]; then
         . "$SCRIPT_DIR/default_config.sh"
     else
         >&2 echo "Unable to find default config file  $SCRIPT_DIR/default_config.sh, aborting."
@@ -114,10 +90,11 @@ function load_config() {
 
 function install_pkg() {
     echo "=====> running install_pkg ... will take a long time ..."
-    apt-get -y upgrade
+    export DEBIAN_FRONTEND=noninteractive
+    apt -y upgrade
 
     # install live packages
-    apt-get install -y \
+    apt install -y \
     coreutils \
     sudo \
     ubuntu-standard \
@@ -138,7 +115,7 @@ function install_pkg() {
     
     case $TARGET_UBUNTU_VERSION in
         "focal" | "bionic")
-            apt-get install -y lupin-casper
+            apt install -y lupin-casper
             ;;
         *)
             echo "Package lupin-casper is not needed. Skipping."
@@ -146,10 +123,10 @@ function install_pkg() {
     esac
     
     # install kernel
-    apt-get install -y --no-install-recommends $TARGET_KERNEL_PACKAGE
+    apt install -y --no-install-recommends $TARGET_KERNEL_PACKAGE
 
     # graphic installer - ubiquity
-    apt-get install -y \
+    apt install -y \
     ubiquity \
     ubiquity-casper \
     ubiquity-frontend-gtk \
@@ -160,7 +137,7 @@ function install_pkg() {
     customize_image
 
     # remove unused and clean up apt cache
-    apt-get autoremove -y
+    apt autoremove -y
 
     # final touch
     dpkg-reconfigure locales
@@ -179,7 +156,7 @@ EOF
 
     dpkg-reconfigure network-manager
 
-    apt-get clean -y
+    apt clean -y
 }
 
 function finish_up() { 

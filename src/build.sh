@@ -7,7 +7,7 @@ set -u                  # treat unset variable as error
 
 SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 
-CMD=(setup_host debootstrap run_chroot build_iso)
+CMD=(clean setup_host debootstrap run_chroot build_iso)
 
 DATE=`TZ="UTC" date +"%y%m%d-%H%M%S"`
 
@@ -78,9 +78,7 @@ function check_host() {
 
 # Load configuration values from file
 function load_config() {
-    if [[ -f "$SCRIPT_DIR/config.sh" ]]; then
-        . "$SCRIPT_DIR/config.sh"
-    elif [[ -f "$SCRIPT_DIR/default_config.sh" ]]; then
+    if [[ -f "$SCRIPT_DIR/default_config.sh" ]]; then
         . "$SCRIPT_DIR/default_config.sh"
     else
         >&2 echo "Unable to find default config file  $SCRIPT_DIR/default_config.sh, aborting."
@@ -97,6 +95,18 @@ function check_config() {
         >&2 echo "Invalid or old config version $CONFIG_FILE_VERSION, expected $expected_config_version. Please update your configuration file from the default."
         exit 1
     fi
+}
+
+function clean() {
+    echo "=====> running clean ..."
+    sudo umount chroot/dev || sudo umount -lf chroot/dev || true
+    sudo umount chroot/run || sudo umount -lf chroot/run || true
+    sudo umount chroot/proc || sudo umount -lf chroot/proc || true
+    sudo umount chroot/sys || sudo umount -lf chroot/sys || true
+    sudo rm -rf chroot
+    sudo rm -rf image
+    sudo rm -f $TARGET_NAME.iso
+    echo "=====> clean done"
 }
 
 function setup_host() {
@@ -119,8 +129,9 @@ function run_chroot() {
     # Setup build scripts in chroot environment
     sudo ln -f $SCRIPT_DIR/chroot_build.sh chroot/root/chroot_build.sh
     sudo ln -f $SCRIPT_DIR/default_config.sh chroot/root/default_config.sh
-    if [[ -f "$SCRIPT_DIR/config.sh" ]]; then
-        sudo ln -f $SCRIPT_DIR/config.sh chroot/root/config.sh
+    if [[ -f "$SCRIPT_DIR/dconf.ini" ]]; then
+        sudo mkdir -p chroot/etc/skel/.config/dconf/user.d
+        sudo cp $SCRIPT_DIR/dconf.ini chroot/opt/dconf.ini
     fi
 
     # Launch into chroot environment to build install image.
@@ -128,10 +139,6 @@ function run_chroot() {
 
     # Cleanup after image changes
     sudo rm -f chroot/root/chroot_build.sh
-    sudo rm -f chroot/root/default_config.sh
-    if [[ -f "chroot/root/config.sh" ]]; then
-        sudo rm -f chroot/root/config.sh
-    fi
 
     chroot_exit_teardown
 }
@@ -259,7 +266,18 @@ EOF
            "/boot/grub/bios.img=isolinux/bios.img" \
            "."
 
+    DATE=`TZ="UTC" date +"%y%m%d%H%M"`
+    mkdir -p $SCRIPT_DIR/dist
+    mv $SCRIPT_DIR/$TARGET_NAME.iso $SCRIPT_DIR/dist/$TARGET_BUSINESS_NAME-$TARGET_UBUNTU_VERSION-$TARGET_BUILD_VERSION-$DATE.iso
+    HASH=`sha256sum $SCRIPT_DIR/dist/$TARGET_BUSINESS_NAME-$TARGET_UBUNTU_VERSION-$TARGET_BUILD_VERSION-$DATE.iso | cut -d ' ' -f 1`
+    echo "SHA256: $HASH" > $SCRIPT_DIR/dist/$TARGET_BUSINESS_NAME-$TARGET_UBUNTU_VERSION-$TARGET_BUILD_VERSION-$DATE.sha256
+
     popd
+
+    # Play a sound to indicate the build is done
+    if [ -x "$(command -v paplay)" ]; then
+        paplay /usr/share/sounds/freedesktop/stereo/complete.oga
+    fi
 }
 
 # =============   main  ================

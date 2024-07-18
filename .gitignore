@@ -1,3 +1,4 @@
-scripts/chroot
-scripts/image
+src/chroot
+src/image
+src/dist
 *.iso
