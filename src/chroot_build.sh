@@ -128,7 +128,8 @@ EOF
 }
 
 function install_pkg() {
-    print_ok "Updating packages..."
+    print_ok "Updating packages. Sleep 10 seconds to wait for network..."
+    sleep 10
     apt -y upgrade
     judge "Upgrade packages"
 
