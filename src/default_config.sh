@@ -243,8 +243,8 @@ VERSION_CODENAME=$TARGET_UBUNTU_VERSION
 ID=ubuntu
 ID_LIKE=debian
 HOME_URL="https://www.ubuntu.com/"
-SUPPORT_URL="https://help.ubuntu.com/"
-BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+SUPPORT_URL="https://github.com/Anduin2017/AnduinOS/discussions"
+BUG_REPORT_URL="https://github.com/Anduin2017/AnduinOS/issues"
 PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
 UBUNTU_CODENAME=$TARGET_UBUNTU_VERSION
 EOF

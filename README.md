@@ -48,3 +48,9 @@ This project is licensed under the GNU GENERAL PUBLIC LICENSE - see the [LICENSE
 The open-source software included in AnduinOS is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY.
 
 [List of open-source software included in AnduinOS](OSS.md)
+
+## Support
+
+For community support and discussion, please join our [AnduinOS Discussions](https://github.com/Anduin2017/AnduinOS/discussions).
+
+For bug reports and feature requests, please use the [Issues](https://github.com/Anduin2017/AnduinOS/issues) page.
