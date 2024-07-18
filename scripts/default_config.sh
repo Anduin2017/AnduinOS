@@ -107,7 +107,8 @@ EOF
     w3m sysbench\
     zip unzip jq\
     cifs-utils\
-    aisleriot
+    aisleriot\
+    language-pack-gnome-zh-hans
 
     # Redirect /usr/local/bin/gnome-terminal -> /usr/bin/kgx
     ln -s /usr/bin/kgx /usr/local/bin/gnome-terminal
