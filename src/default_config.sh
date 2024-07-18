@@ -100,9 +100,9 @@ EOF
     ln -s /usr/bin/kgx /usr/local/bin/gnome-terminal
 
     echo "Installing fonts to fix CJKT display issue"
-    wget https://gitlab.aiursoft.cn/anduin/anduinos/-/raw/master/Config/fonts.conf -O /etc/fonts/local.conf
-    wget -P /tmp https://gitlab.aiursoft.cn/anduin/anduinos/-/raw/master/Assets/fonts.zip
-    unzip -o /tmp/fonts.zip -d /usr/share/fonts/
+    #wget https://gitlab.aiursoft.cn/anduin/anduinos/-/raw/master/Config/fonts.conf -O /etc/fonts/local.conf
+    #wget -P /tmp https://gitlab.aiursoft.cn/anduin/anduinos/-/raw/master/Assets/fonts.zip
+    #    unzip -o /tmp/fonts.zip -d /usr/share/fonts/
     rm -f /tmp/fonts.zip
     fc-cache -fv
 

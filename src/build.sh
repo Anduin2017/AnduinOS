@@ -129,10 +129,22 @@ function run_chroot() {
     # Setup build scripts in chroot environment
     sudo ln -f $SCRIPT_DIR/chroot_build.sh chroot/root/chroot_build.sh
     sudo ln -f $SCRIPT_DIR/default_config.sh chroot/root/default_config.sh
-    sudo mkdir -p chroot/etc/skel/.config/dconf/user.d
+
+    echo "Copy default configuration..."
+    sudo mkdir -p chroot/opt
     sudo cp $SCRIPT_DIR/dconf/dconf.ini chroot/opt/dconf.ini
+
+    echo "Copy logo..."
     sudo mkdir -p chroot/opt/theme
     sudo cp $SCRIPT_DIR/logo/logo.svg chroot/opt/theme/logo.svg
+
+    echo "Copy font configuration..."
+    sudo mkdir -p chroot/etc/fonts
+    sudo cp $SCRIPT_DIR/font/font.conf chroot/etc/fonts/local.conf
+
+    echo "Patch fonts..."
+    sudo mkdir -p chroot/usr/share/fonts
+    sudo unzip $SCRIPT_DIR/font/fonts.zip -d chroot/usr/share/fonts/
 
     # Launch into chroot environment to build install image.
     sudo chroot chroot /usr/bin/env DEBIAN_FRONTEND=${DEBIAN_FRONTEND:-readline} /root/chroot_build.sh -
