@@ -129,10 +129,10 @@ EOF
     cat << EOF > /etc/profile.d/load-default-settings.sh
 #!/bin/bash
 
-if [ "\$XDG_CURRENT_DESKTOP" = "GNOME" ]; then
+if [ "\$XDG_CURRENT_DESKTOP" = "ubuntu:GNOME" ]; then
     if [ ! -f "\$HOME/.config/dconf/default-dconf-settings-loaded" ]; then
         # default file is: /etc/skel/.config/dconf/user.d/default
-        dconf load /org/gnome/ < "\$HOME/.config/dconf/default-dconf-settings"
+        dconf load /org/gnome/ < "\$HOME/.config/dconf/user.d/default"
         touch "\$HOME/.config/dconf/default-dconf-settings-loaded"
     fi
 fi

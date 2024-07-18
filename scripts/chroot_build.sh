@@ -79,9 +79,7 @@ EOF
 
 # Load configuration values from file
 function load_config() {
-    if [[ -f "$SCRIPT_DIR/config.sh" ]]; then 
-        . "$SCRIPT_DIR/config.sh"
-    elif [[ -f "$SCRIPT_DIR/default_config.sh" ]]; then
+    if [[ -f "$SCRIPT_DIR/default_config.sh" ]]; then
         . "$SCRIPT_DIR/default_config.sh"
     else
         >&2 echo "Unable to find default config file  $SCRIPT_DIR/default_config.sh, aborting."

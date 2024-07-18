@@ -78,9 +78,7 @@ function check_host() {
 
 # Load configuration values from file
 function load_config() {
-    if [[ -f "$SCRIPT_DIR/config.sh" ]]; then
-        . "$SCRIPT_DIR/config.sh"
-    elif [[ -f "$SCRIPT_DIR/default_config.sh" ]]; then
+    if [[ -f "$SCRIPT_DIR/default_config.sh" ]]; then
         . "$SCRIPT_DIR/default_config.sh"
     else
         >&2 echo "Unable to find default config file  $SCRIPT_DIR/default_config.sh, aborting."
@@ -131,12 +129,9 @@ function run_chroot() {
     # Setup build scripts in chroot environment
     sudo ln -f $SCRIPT_DIR/chroot_build.sh chroot/root/chroot_build.sh
     sudo ln -f $SCRIPT_DIR/default_config.sh chroot/root/default_config.sh
-    if [[ -f "$SCRIPT_DIR/config.sh" ]]; then
-        sudo ln -f $SCRIPT_DIR/config.sh chroot/root/config.sh
-    fi
     if [[ -f "$SCRIPT_DIR/dconf.ini" ]]; then
         sudo mkdir -p chroot/etc/skel/.config/dconf/user.d
-        sudo ln -f $SCRIPT_DIR/config.sh chroot/etc/skel/.config/dconf/user.d/default
+        sudo cp $SCRIPT_DIR/dconf.ini chroot/etc/skel/.config/dconf/user.d/default
     fi
 
     # Launch into chroot environment to build install image.
@@ -144,10 +139,6 @@ function run_chroot() {
 
     # Cleanup after image changes
     sudo rm -f chroot/root/chroot_build.sh
-    sudo rm -f chroot/root/default_config.sh
-    if [[ -f "chroot/root/config.sh" ]]; then
-        sudo rm -f chroot/root/config.sh
-    fi
 
     chroot_exit_teardown
 }
