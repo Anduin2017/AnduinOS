@@ -131,7 +131,7 @@ function run_chroot() {
     sudo ln -f $SCRIPT_DIR/default_config.sh chroot/root/default_config.sh
     if [[ -f "$SCRIPT_DIR/dconf.ini" ]]; then
         sudo mkdir -p chroot/etc/skel/.config/dconf/user.d
-        sudo cp $SCRIPT_DIR/dconf.ini chroot/etc/skel/.config/dconf/user.d/default
+        sudo cp $SCRIPT_DIR/dconf.ini chroot/opt/dconf.ini
     fi
 
     # Launch into chroot environment to build install image.

@@ -45,7 +45,7 @@ function customize_image() {
     # install graphics and desktop
     apt install -y \
     ca-certificates gpg apt-transport-https software-properties-common\
-    plymouth-theme-ubuntu-logo \
+    plymouth plymouth-label plymouth-theme-spinner plymouth-theme-ubuntu-text plymouth-theme-ubuntu-logo \
     gnome-shell gir1.2-gmenu-3.0 gnome-menus gnome-shell-extensions\
     nautilus usb-creator-gtk cheese baobab file-roller gnome-sushi ffmpegthumbnailer\
     gnome-calculator gnome-system-monitor gnome-disk-utility gnome-control-center software-properties-gtk\
@@ -116,6 +116,10 @@ EOF
     echo "Downloading default wallpaper"
     wget -O /usr/share/backgrounds/Fluent-building-night.png https://github.com/vinceliuice/Fluent-gtk-theme/raw/Wallpaper/wallpaper-4k/Fluent-building-night.png
 
+    echo "Downloading default distributor logo"
+    mkdir -p /opt/themes
+    wget -O /opt/themes/distributor-logo-ubuntu.svg https://gitlab.aiursoft.cn/anduin/anduinos/-/raw/master/Assets/distributor-logo-ubuntu.svg
+
     echo "Installing Fluent icon theme"
     git clone https://git.aiursoft.cn/PublicVault/Fluent-icon-theme /opt/themes/Fluent-icon-theme
     /opt/themes/Fluent-icon-theme/install.sh 
@@ -124,28 +128,6 @@ EOF
     git clone https://git.aiursoft.cn/PublicVault/Fluent-gtk-theme /opt/themes/Fluent-gtk-theme
     apt install libsass1 sassc -y
     /opt/themes/Fluent-gtk-theme/install.sh -i ubuntu --tweaks noborder round
-
-    echo "Configuring new users to load default dconf settings..."
-    cat << EOF > /etc/profile.d/load-default-settings.sh
-#!/bin/bash
-
-if [ "\$XDG_CURRENT_DESKTOP" = "ubuntu:GNOME" ]; then
-    if [ ! -f "\$HOME/.config/dconf/default-dconf-settings-loaded" ]; then
-        # default file is: /etc/skel/.config/dconf/user.d/default
-        dconf load /org/gnome/ < "\$HOME/.config/dconf/user.d/default"
-        /usr/local/bin/gext -F enable arcmenu@arcmenu.com
-        /usr/local/bin/gext -F enable blur-my-shell@aunetx
-        /usr/local/bin/gext -F enable customize-ibus@hollowman.ml
-        /usr/local/bin/gext -F enable dash-to-panel@jderose9.github.com
-        /usr/local/bin/gext -F enable drive-menu@gnome-shell-extensions.gcampax.github.com
-        /usr/local/bin/gext -F enable network-stats@gnome.noroadsleft.xyz
-        /usr/local/bin/gext -F enable openweather-extension@jenslody.de
-        /usr/local/bin/gext -F enable user-theme@gnome-shell-extensions.gcampax.github.com
-        touch "\$HOME/.config/dconf/default-dconf-settings-loaded"
-    fi
-fi
-EOF
-    chmod +x /etc/profile.d/load-default-settings.sh
 
     cat << EOF > /etc/lsb-release
 DISTRIB_ID=AnduinOS
@@ -175,25 +157,35 @@ EOF
     /usr/local/bin/gext -F install blur-my-shell@aunetx
     /usr/local/bin/gext -F install customize-ibus@hollowman.ml
     /usr/local/bin/gext -F install dash-to-panel@jderose9.github.com
-    /usr/local/bin/gext -F install drive-menu@gnome-shell-extensions.gcampax.github.com
     /usr/local/bin/gext -F install network-stats@gnome.noroadsleft.xyz
-    #~/.local/bin/gext -F install no-overview@fthx
     /usr/local/bin/gext -F install openweather-extension@jenslody.de
-    /usr/local/bin/gext -F install user-theme@gnome-shell-extensions.gcampax.github.com
-    /usr/bin/pip3 uninstall gnome-extensions-cli -y
-    sudo mkdir -p /etc/skel/.local/share/gnome-shell/extensions
-    cp /root/.local/share/gnome-shell/extensions -r /usr/share/gnome-shell/extensions
-    rm /root/.local/share/gnome-shell/extensions -r
+    #/usr/local/bin/gext -F install drive-menu@gnome-shell-extensions.gcampax.github.com
+    #/usr/local/bin/gext -F install user-theme@gnome-shell-extensions.gcampax.github.com
+
+    echo "Moving gnome extensions to /usr/share/gnome-shell/extensions"
+    mv /root/.local/share/gnome-shell/extensions/* /usr/share/gnome-shell/extensions/
 
     # Enable extensions
     /usr/local/bin/gext -F enable arcmenu@arcmenu.com
     /usr/local/bin/gext -F enable blur-my-shell@aunetx
     /usr/local/bin/gext -F enable customize-ibus@hollowman.ml
     /usr/local/bin/gext -F enable dash-to-panel@jderose9.github.com
-    /usr/local/bin/gext -F enable drive-menu@gnome-shell-extensions.gcampax.github.com
     /usr/local/bin/gext -F enable network-stats@gnome.noroadsleft.xyz
     /usr/local/bin/gext -F enable openweather-extension@jenslody.de
-    /usr/local/bin/gext -F enable user-theme@gnome-shell-extensions.gcampax.github.com
+    #/usr/local/bin/gext -F enable drive-menu@gnome-shell-extensions.gcampax.github.com
+    #/usr/local/bin/gext -F enable user-theme@gnome-shell-extensions.gcampax.github.com
+
+    echo "Apply root's default dconf settings to /etc/skel"
+    export $(dbus-launch)
+    dconf load /org/gnome/ < /opt/dconf.ini
+    mkdir -p /etc/skel/.config/dconf
+    cp /root/.config/dconf/user /etc/skel/.config/dconf/user
+
+    # Clean up
+    /usr/bin/pip3 uninstall gnome-extensions-cli -y
+    rm /root/.config/dconf -rf
+    rm /root/.local/share/gnome-shell/extensions -rf
+    rm /opt/dconf.ini
 
 }
 
