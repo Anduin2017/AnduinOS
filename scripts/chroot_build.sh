@@ -64,28 +64,6 @@ EOF
 
     echo "$TARGET_NAME" > /etc/hostname
 
-    cat << EOF > /etc/lsb-release
-DISTRIB_ID=AnduinOS
-DISTRIB_RELEASE=22.04
-DISTRIB_CODENAME=jammy
-DISTRIB_DESCRIPTION="AnduinOS 22.04.4 LTS"
-EOF
-
-    cat << EOF > /etc/os-release
-PRETTY_NAME="AnduinOS 22.04.4 LTS"
-NAME="AnduinOS"
-VERSION_ID="22.04"
-VERSION="22.04.4 LTS (Jammy Jellyfish)"
-VERSION_CODENAME=jammy
-ID=ubuntu
-ID_LIKE=debian
-HOME_URL="https://www.ubuntu.com/"
-SUPPORT_URL="https://help.ubuntu.com/"
-BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
-PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
-UBUNTU_CODENAME=jammy
-EOF
-
     # we need to install systemd first, to configure machine id
     apt update
     apt install -y libterm-readline-gnu-perl systemd-sysv

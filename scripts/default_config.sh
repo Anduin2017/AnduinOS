@@ -109,6 +109,64 @@ EOF
     gedit \
     gnome-shell-extension-ubuntu-dock \
     libreoffice-*
+
+    # Edit default wallpaper
+    echo "Downloading default wallpaper"
+    wget -O /usr/share/backgrounds/Fluent-building-night.png https://github.com/vinceliuice/Fluent-gtk-theme/raw/Wallpaper/wallpaper-4k/Fluent-building-night.png
+
+    echo "Installing Fluent icon theme"
+    git clone https://git.aiursoft.cn/PublicVault/Fluent-icon-theme /opt/themes/Fluent-icon-theme
+    /opt/themes/Fluent-icon-theme/install.sh 
+
+    echo "Installing Fluent theme"
+    git clone https://git.aiursoft.cn/PublicVault/Fluent-gtk-theme /opt/themes/Fluent-gtk-theme
+    apt install libsass1 sassc -y
+    /opt/themes/Fluent-gtk-theme/install.sh -i ubuntu --tweaks noborder round
+
+    echo "Setting Fluent theme"
+    # THis is not working because we are in the chrrot environment and no user is logged in
+    # To fix that: 
+    #gsettings set org.gnome.desktop.interface gtk-theme 'Fluent-round-Dark'
+    #gsettings set org.gnome.desktop.interface icon-theme 'Fluent'
+    #gsettings set org.gnome.desktop.background picture-options "zoom"
+    mkdir /etc/skel/.config
+    mkdir /etc/skel/.config/gtk-3.0
+    cat << EOF > /etc/skel/.config/gtk-3.0/settings.ini
+[Settings]
+gtk-theme-name = Fluent-round-Dark
+gtk-icon-theme-name = Fluent
+EOF
+    # Set default wallpaper to /usr/share/backgrounds/Fluent-building-night.png
+    mkdir /etc/skel/.config/dconf
+    mkdir /etc/skel/.config/dconf/user.d
+    cat << EOF > /etc/skel/.config/dconf/user.d/background
+[org/gnome/desktop/background]
+picture-uri='file:///usr/share/backgrounds/Fluent-building-night.png'
+picture-options='zoom'
+EOF
+
+    echo "Setting Fluent theme"
+    cat << EOF > /etc/lsb-release
+DISTRIB_ID=AnduinOS
+DISTRIB_RELEASE=22.04
+DISTRIB_CODENAME=jammy
+DISTRIB_DESCRIPTION="AnduinOS 22.04.4 LTS"
+EOF
+
+    cat << EOF > /etc/os-release
+PRETTY_NAME="AnduinOS 22.04.4 LTS"
+NAME="AnduinOS"
+VERSION_ID="22.04"
+VERSION="22.04.4 LTS (Jammy Jellyfish)"
+VERSION_CODENAME=jammy
+ID=ubuntu
+ID_LIKE=debian
+HOME_URL="https://www.ubuntu.com/"
+SUPPORT_URL="https://help.ubuntu.com/"
+BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+UBUNTU_CODENAME=jammy
+EOF
 }
 
 # Used to version the configuration.  If breaking changes occur, manual
