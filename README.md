@@ -4,7 +4,34 @@ AnduinOS is a custom Debian-based Linux distribution that aims to facilitate use
 
 AnduinOS is built on the Ubuntu Jammy package base.
 
-## Installation
+## System Requirements
+
+Minimum system requirements:
+
+- 2 GHz processor
+- 1 GB RAM
+- 25 GB disk space
+- 1024x768 screen resolution
+- USB port or DVD drive
+
+System requirements for the best experience:
+
+- 2.5 GHz quad-core processor
+- 4 GB RAM
+- 50 GB disk space
+- Internet access
+
+## Virtual Machine Installation
+
+First, download AnduinOS from releases page.
+
+Then, create a new virtual machine with any virtualization software (e.g. VirtualBox, VMware, etc.) and attach the downloaded ISO file to the virtual machine.
+
+Finally, boot the virtual machine and follow the on-screen instructions to install AnduinOS.
+
+> For UEFI boot, please make sure to disable secure boot in the virtual machine settings.
+
+## Bare-mental Installation
 
 First, download the latest release of AnduinOS from the releases page.
 
