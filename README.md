@@ -42,8 +42,10 @@ First, download the latest release of AnduinOS from the releases page.
 If you are using a Windows machine, you can use Rufus to create a bootable USB drive. If you are using a Linux machine, you can use the `dd` command.
 
 ```shell
-sudo dd if=ubuntu-from-scratch.iso of=<device> status=progress oflag=sync
+sudo dd if=./AnduinOS-jammy-1.0.0-2407181704.iso of=<device> status=progress oflag=sync bs=4M
 ```
+
+Then, boot the computer from the USB drive and follow the on-screen instructions to install AnduinOS.
 
 ## License
 
