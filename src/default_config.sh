@@ -68,7 +68,7 @@ EOF
     plymouth plymouth-label plymouth-theme-spinner plymouth-theme-ubuntu-text plymouth-theme-ubuntu-logo \
     gnome-shell gir1.2-gmenu-3.0 gnome-menus gnome-shell-extensions\
     nautilus usb-creator-gtk cheese baobab file-roller gnome-sushi ffmpegthumbnailer\
-    gnome-calculator gnome-system-monitor gnome-disk-utility gnome-control-center software-properties-gtk gnome-logs\
+    gnome-calculator gnome-disk-utility gnome-control-center software-properties-gtk gnome-logs\
     gnome-tweaks gnome-shell-extension-prefs gnome-shell-extension-desktop-icons-ng gnome-shell-extension-appindicator\
     gnome-clocks\
     gnome-weather\
@@ -163,6 +163,7 @@ EOF
         gnome-shell-extension-ubuntu-dock \
         libreoffice-* \
         yelp \
+        gnome-system-monitor \
         info
 
     # Edit default wallpaper
