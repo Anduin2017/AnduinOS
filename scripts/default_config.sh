@@ -70,6 +70,7 @@ EOF
     chown root:root /etc/apt/preferences.d/mozilla-firefox
 
     # install graphics and desktop
+    apt update
     apt install -y \
     ca-certificates gpg apt-transport-https\
     plymouth plymouth-label plymouth-theme-spinner plymouth-theme-ubuntu-text plymouth-theme-ubuntu-logo \
