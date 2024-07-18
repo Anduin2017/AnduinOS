@@ -266,6 +266,12 @@ EOF
            "/boot/grub/bios.img=isolinux/bios.img" \
            "."
 
+    DATE=`TZ="UTC" date +"%y%m%d%H%M"`
+    mkdir -p $SCRIPT_DIR/dist
+    mv $SCRIPT_DIR/$TARGET_NAME.iso $SCRIPT_DIR/dist/$TARGET_BUSINESS_NAME-$TARGET_UBUNTU_VERSION-$TARGET_BUILD_VERSION-$DATE.iso
+    HASH=`sha256sum $SCRIPT_DIR/dist/$TARGET_BUSINESS_NAME-$TARGET_UBUNTU_VERSION-$TARGET_BUILD_VERSION-$DATE.iso | cut -d ' ' -f 1`
+    echo "SHA256: $HASH" > $SCRIPT_DIR/dist/$TARGET_BUSINESS_NAME-$TARGET_UBUNTU_VERSION-$TARGET_BUILD_VERSION-$DATE.sha256
+
     popd
 }
 
