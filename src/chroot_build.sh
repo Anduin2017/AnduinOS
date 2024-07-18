@@ -135,7 +135,8 @@ function install_pkg() {
     judge "Upgrade packages"
 
     # install live packages
-    print_ok "Installing live packages..."
+    print_ok "Installing live packages. Sleep 10 seconds to wait for network..."
+    sleep 10
     apt install -y \
         coreutils \
         sudo \
