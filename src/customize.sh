@@ -63,38 +63,40 @@ EOF
 
     print_ok "Installing gnome-shell and other gnome applications"
     apt install -y \
-    ca-certificates gpg apt-transport-https \
-    plymouth plymouth-label plymouth-theme-spinner plymouth-theme-ubuntu-text plymouth-theme-ubuntu-logo \
-    gnome-shell gir1.2-gmenu-3.0 gnome-menus gnome-shell-extensions \
-    nautilus usb-creator-gtk cheese baobab file-roller gnome-sushi ffmpegthumbnailer \
-    gnome-calculator gnome-disk-utility gnome-control-center software-properties-gtk gnome-logs \
-    gnome-tweaks gnome-shell-extension-prefs gnome-shell-extension-desktop-icons-ng gnome-shell-extension-appindicator \
-    gnome-screenshot \
-    gnome-clocks \
-    gnome-weather \
-    gnome-text-editor \
-    gnome-nettool \
-    seahorse gdebi evince \
-    ibus-rime \
-    shotwell \
-    remmina remmina-plugin-rdp \
-    firefox \
-    vlc \
-    gnome-console nautilus-extension-gnome-console \
-    python3-apt python3-pip python-is-python3 \
-    git neofetch lsb-release coreutils \
-    gnupg vim nano \
-    wget curl \
-    httping nethogs net-tools iftop traceroute dnsutils iperf3 \
-    smartmontools \
-    htop iotop iftop \
-    tree ntp ntpdate ntpstat \
-    w3m sysbench \
-    zip unzip jq \
-    cifs-utils \
-    aisleriot \
-    language-pack-gnome-zh-hans \
-    dmz-cursor-theme
+        ca-certificates gpg apt-transport-https \
+        plymouth plymouth-label plymouth-theme-spinner plymouth-theme-ubuntu-text plymouth-theme-ubuntu-logo \
+        gnome-shell gir1.2-gmenu-3.0 gnome-menus gnome-shell-extensions \
+        nautilus usb-creator-gtk cheese baobab file-roller gnome-sushi ffmpegthumbnailer \
+        gnome-calculator gnome-disk-utility gnome-control-center software-properties-gtk gnome-logs \
+        gnome-tweaks gnome-shell-extension-prefs gnome-shell-extension-desktop-icons-ng gnome-shell-extension-appindicator \
+        gnome-screenshot \
+        gnome-clocks \
+        gnome-weather \
+        gnome-text-editor \
+        gnome-nettool \
+        seahorse gdebi evince \
+        ibus-rime \
+        shotwell \
+        remmina remmina-plugin-rdp \
+        firefox \
+        vlc \
+        gnome-console nautilus-extension-gnome-console \
+        python3-apt python3-pip python-is-python3 \
+        git neofetch lsb-release coreutils \
+        gnupg vim nano \
+        wget curl \
+        httping nethogs net-tools iftop traceroute dnsutils iperf3 \
+        smartmontools \
+        htop iotop iftop \
+        tree ntp ntpdate ntpstat \
+        w3m sysbench \
+        zip unzip jq \
+        cifs-utils \
+        aisleriot \
+        language-pack-zh-hans   language-pack-zh-hans-base language-pack-gnome-zh-hans \
+        language-pack-zh-hant   language-pack-zh-hant-base language-pack-gnome-zh-hant \
+        language-pack-en        language-pack-en-base      language-pack-gnome-en \
+        dmz-cursor-theme
     judge "Install gnome-shell and other gnome applications"
 
     # Redirect /usr/local/bin/gnome-terminal -> /usr/bin/kgx
