@@ -153,11 +153,6 @@ function run_chroot() {
     sudo cp $SCRIPT_DIR/logo/anduinos_text.png chroot/opt/theme/anduinos_text.png
     judge "Copy logo"
 
-    print_ok "Copy font configuration to chroot /etc/fonts..."
-    sudo mkdir -p chroot/etc/fonts
-    sudo cp $SCRIPT_DIR/font/font.conf chroot/etc/fonts/local.conf
-    judge "Copy font configuration"
-
     print_ok "Copy fonts to chroot /usr/share/fonts..."
     sudo mkdir -p chroot/usr/share/fonts
     sudo unzip $SCRIPT_DIR/font/fonts.zip -d chroot/usr/share/fonts/
