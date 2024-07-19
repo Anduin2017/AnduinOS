@@ -93,6 +93,7 @@ EOF
         zip unzip jq \
         cifs-utils \
         aisleriot \
+        libsass1 sassc \
         language-pack-zh-hans   language-pack-zh-hans-base language-pack-gnome-zh-hans \
         language-pack-zh-hant   language-pack-zh-hant-base language-pack-gnome-zh-hant \
         language-pack-en        language-pack-en-base      language-pack-gnome-en \
@@ -189,7 +190,6 @@ Categories=System;Monitor;" | sudo tee $DESKTOP_FILE
 
     print_ok "Installing Fluent theme"
     git clone https://git.aiursoft.cn/PublicVault/Fluent-gtk-theme /opt/themes/Fluent-gtk-theme
-    apt install libsass1 sassc -y
     /opt/themes/Fluent-gtk-theme/install.sh -i ubuntu --tweaks noborder round
     rm /opt/themes/Fluent-gtk-theme -rf
     rm /opt/themes -rf
