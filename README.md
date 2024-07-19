@@ -41,7 +41,7 @@ Finally, boot the virtual machine and follow the on-screen instructions to insta
 
 > For UEFI boot, please make sure to disable secure boot in the virtual machine settings.
 
-## Bare-mental Installation
+## Bare-mental Installation - Make a USB installer
 
 First, download the latest release of AnduinOS from the releases page.
 
