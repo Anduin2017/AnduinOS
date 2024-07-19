@@ -8,9 +8,11 @@ AnduinOS is a custom Debian-based Linux distribution that aims to facilitate use
 
 AnduinOS is built on the Ubuntu Jammy package base.
 
-![Screenshot](./screenshot.png)
-
 [Download AnduinOS (ISO)](https://github.com/Anduin2017/AnduinOS/releases)
+
+## Preview
+
+![Screenshot](./screenshot.png)
 
 ## System Requirements
 
@@ -39,7 +41,7 @@ Finally, boot the virtual machine and follow the on-screen instructions to insta
 
 > For UEFI boot, please make sure to disable secure boot in the virtual machine settings.
 
-## Bare-mental Installation
+## Bare-mental Installation - Make a USB installer
 
 First, download the latest release of AnduinOS from the releases page.
 
