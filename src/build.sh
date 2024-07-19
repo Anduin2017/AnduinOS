@@ -10,8 +10,8 @@ set -u                  # treat unset variable as error
 #==========================
 # Basic Information
 #==========================
-export LC_ALL=C.UTF-8
-export LANG=C.UTF-8
+export LC_ALL=C
+export LANG=en_US.UTF-8
 export DEBIAN_FRONTEND=noninteractive
 export SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 
