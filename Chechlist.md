@@ -6,6 +6,7 @@
 * Ensure user can configure desktop icons when right click the desktop.
 * Ensure there is start button on the task bar with the logo of our distro.
 * Ensure right click task bar and click Task Manager should open mission center.
+* Ensure Super + Tab, Alt + Tab, Super + I are functional.
 * Ensure folders are sorted before files in nautilus.
 * Ensure double click a photo file is opened with shotwell.
 * Ensure the video file has a preview on nautilus.
