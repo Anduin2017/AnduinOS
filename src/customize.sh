@@ -203,7 +203,7 @@ EOF
     print_ok "Installing Fluent icon theme"
     git clone https://git.aiursoft.cn/PublicVault/Fluent-icon-theme /opt/themes/Fluent-icon-theme
     #rm /usr/share/icons/* -rf
-    /opt/themes/Fluent-icon-theme/install.sh
+    /opt/themes/Fluent-icon-theme/install.sh standard
     judge "Install Fluent icon theme"
 
     print_ok "Installing Fluent theme"
