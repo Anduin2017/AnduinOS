@@ -70,7 +70,7 @@ EOF
         nautilus usb-creator-gtk cheese baobab file-roller gnome-sushi ffmpegthumbnailer \
         gnome-calculator gnome-disk-utility gnome-control-center software-properties-gtk gnome-logs \
         gnome-tweaks gnome-shell-extension-prefs gnome-shell-extension-desktop-icons-ng gnome-shell-extension-appindicator \
-        gnome-screenshot \
+        gnome-screenshot gnome-system-monitor gnome-sound-recorder \
         gnome-clocks \
         gnome-weather \
         gnome-text-editor \
@@ -123,35 +123,6 @@ EOF
     rm /tmp/main.zip
     judge "Install ibus-rime configuration"
 
-    print_ok "Installing MissionCenter..."
-    INSTALL_DIR="/usr/share/missioncenter"
-    APP_RUN="AppRun"
-    if ! test -f $INSTALL_DIR/$APP_RUN; then
-        # This link requires to be updated manually regularly.
-        APPIMAGE_URL="https://gitlab.com/mission-center-devs/mission-center/-/jobs/7109267599/artifacts/raw/MissionCenter-x86_64.AppImage"
-        LOGO_URL="https://dl.flathub.org/media/io/missioncenter/MissionCenter/224cb83cac6b6e56f793a0163bcca7aa/icons/128x128/io.missioncenter.MissionCenter.png"
-        APPIMAGE_PATH="/tmp/missioncenter.appimage"
-        LOGO_PATH="$INSTALL_DIR/missioncenter.png"
-        DESKTOP_FILE="/usr/share/applications/missioncenter.desktop"
-        APP_LINK="/usr/bin/missioncenter"
-        wget -O $APPIMAGE_PATH $APPIMAGE_URL
-        chmod +x $APPIMAGE_PATH
-        $APPIMAGE_PATH --appimage-extract > /dev/null 2>&1
-        mkdir -p $INSTALL_DIR
-        cp -r ./squashfs-root/. $INSTALL_DIR/
-        wget -O $LOGO_PATH $LOGO_URL
-        rm $APPIMAGE_PATH
-        chmod +x $INSTALL_DIR/$APP_RUN
-        
-        # Create a symbolic link in /usr/bin
-        ln -s $INSTALL_DIR/$APP_RUN $APP_LINK
-        cp $INSTALL_DIR/usr/share/applications/io.missioncenter.MissionCenter.desktop /usr/share/applications/
-        rm -rf ./squashfs-root
-        judge "Install MissionCenter"
-    else
-        print_ok "MissionCenter is already installed"
-    fi
-
     print_ok "Removing the hint for sudo"
     if grep -q "sudo hint" /etc/bash.bashrc; then
         sed -i '43,54d' /etc/bash.bashrc
@@ -184,7 +155,6 @@ EOF
         libreoffice-* \
         yaru-theme-unity yaru-theme-icon yaru-theme-gtk \
         yelp \
-        gnome-system-monitor \
         info > /dev/null
     # Above remove everything about yaru-theme but keeps yaru-theme-sound and yaru-theme-gnome-shell (Required by Ubuntu session)
     judge "Purge unnecessary packages"

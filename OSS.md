@@ -8,7 +8,6 @@
 * [VLC](https://www.videolan.org/)
 * [Mozilla Firefox](https://www.mozilla.org/)
 * [Rime-ice](https://github.com/iDvel/rime-ice)
-* [Mission Center](https://gitlab.com/mission-center-devs/mission-center)
 * [Fluent icon theme](https://github.com/vinceliuice/Fluent-icon-theme)
 * [Fluent gtk theme](https://github.com/vinceliuice/Fluent-gtk-theme)
 * [Gnome Extensions CLI](https://github.com/essembeh/gnome-extensions-cli)

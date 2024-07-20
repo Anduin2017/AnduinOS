@@ -4,6 +4,8 @@
 
 * First open terminal nolonger shows the `sudo` hint.
 * By default install with `ubuntu-session`, `yaru-theme-sound` and `yaru-theme-gnome-shell`
+* Nolonger install `MissionCenter` since it's an app image and may increase the size of the ISO file.
+* Install `gnome-system-monitor` and `gnome-sound-recorder` by default.
 
 ## v0.0.4-alpha-jammy
 
