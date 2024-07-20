@@ -209,6 +209,17 @@ function build_iso() {
     # grub
     print_ok "Generating grub.cfg..."
     touch image/ubuntu
+    # TRY mode vs actual installed
+    # * Enfoce user name `ubuntu` and hostname `ubuntu`
+    # * Enforce X11
+    # * Couldn't logout
+    # * Couldn't lock screen
+    # * On the desktop there will be a "Install" icon
+
+    # Install mode vs TRY mode
+    # * All gnome extensions are disabled
+    # * Will show Ubiquity installer by default
+    # * Ubiquity installer won't ask if you want to keep trying this OS
     cat << EOF > image/isolinux/grub.cfg
 
 search --set=root --file /ubuntu
