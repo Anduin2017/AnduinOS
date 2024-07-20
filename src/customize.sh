@@ -135,27 +135,18 @@ EOF
         DESKTOP_FILE="/usr/share/applications/missioncenter.desktop"
         APP_LINK="/usr/bin/missioncenter"
         wget -O $APPIMAGE_PATH $APPIMAGE_URL
-        wget -O $LOGO_PATH $LOGO_URL
         chmod +x $APPIMAGE_PATH
         $APPIMAGE_PATH --appimage-extract > /dev/null 2>&1
-        mv ./squashfs-root $INSTALL_DIR
+        mkdir -p $INSTALL_DIR
+        cp ./squashfs-root/. $INSTALL_DIR/
+        wget -O $LOGO_PATH $LOGO_URL
         rm $APPIMAGE_PATH
         chmod +x $INSTALL_DIR/$APP_RUN
         
         # Create a symbolic link in /usr/bin
         ln -s $INSTALL_DIR/$APP_RUN $APP_LINK
-        
-        echo << EOF > $DESKTOP_FILE
-[Desktop Entry]
-Name=MissionCenter
-Comment=Monitor overall system and application performance
-Exec=$APP_LINK
-Icon=$LOGO_PATH
-Terminal=false
-Type=Application
-Categories=System;Monitor;
-EOF
-        
+        cp $INSTALL_DIR/usr/share/applications/io.missioncenter.MissionCenter.desktop /usr/share/applications/
+        rm -rf ./squashfs-root
         judge "Install MissionCenter"
     else
         print_ok "MissionCenter is already installed"
