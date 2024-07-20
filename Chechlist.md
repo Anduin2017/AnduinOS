@@ -12,6 +12,7 @@
 * Ensure on `Tweaks` app sound theme, icon theme, shell theme are all set.
 * Ensure there will be a `DO` sound (Yaru) when typing tab on terminal.
 * Ensure folders are sorted before files in nautilus.
+* Ensure `/opt` folder is empty.
 * Ensure double click a photo file is opened with shotwell. (UNDER DEVELOPMENT)
 * Ensure the photo and video files have previews on nautilus.
 * Ensure double clicking a .deb file will open gdebi. (UNDER DEVELOPMENT)
