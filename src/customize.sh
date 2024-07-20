@@ -138,7 +138,7 @@ EOF
         chmod +x $APPIMAGE_PATH
         $APPIMAGE_PATH --appimage-extract > /dev/null 2>&1
         mkdir -p $INSTALL_DIR
-        cp ./squashfs-root/. $INSTALL_DIR/
+        cp -r ./squashfs-root/. $INSTALL_DIR/
         wget -O $LOGO_PATH $LOGO_URL
         rm $APPIMAGE_PATH
         chmod +x $INSTALL_DIR/$APP_RUN
