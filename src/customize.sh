@@ -64,6 +64,7 @@ EOF
     print_ok "Installing gnome-shell and other gnome applications"
     apt install -y \
         ca-certificates gpg apt-transport-https \
+        ubuntu-session yaru-theme-sound yaru-theme-gnome-shell \
         plymouth plymouth-label plymouth-theme-spinner plymouth-theme-ubuntu-text plymouth-theme-ubuntu-logo \
         gnome-shell gir1.2-gmenu-3.0 gnome-menus gnome-shell-extensions \
         nautilus usb-creator-gtk cheese baobab file-roller gnome-sushi ffmpegthumbnailer \
@@ -170,14 +171,13 @@ Categories=System;Monitor;" | sudo tee $DESKTOP_FILE
         gnome-contacts \
         gnome-terminal \
         gedit \
-        ubuntu-session \
         gnome-shell-extension-ubuntu-dock \
         libreoffice-* \
-        yaru-theme-unity yaru-theme-icon yaru-theme-gtk yaru-theme-gnome-shell \
+        yaru-theme-unity yaru-theme-icon yaru-theme-gtk \
         yelp \
         gnome-system-monitor \
         info > /dev/null
-    # Above remove everything about yaru-theme but keeps yaru-theme-sound
+    # Above remove everything about yaru-theme but keeps yaru-theme-sound and yaru-theme-gnome-shell (Required by Ubuntu session)
     judge "Purge unnecessary packages"
 
     # Edit default wallpaper
