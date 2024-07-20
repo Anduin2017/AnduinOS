@@ -101,6 +101,12 @@ EOF
         dmz-cursor-theme
     judge "Install gnome-shell and other gnome applications"
 
+    print_ok "Patching Shotwell localization..."
+    sed -i '/^Name=/a Name[zh_CN]=图库' /usr/share/applications/shotwell.desktop
+    sed -i '/^Name=/a Name[zh_TW]=圖庫' /usr/share/applications/shotwell.desktop
+    sed -i '/^X-GNOME-FullName=/a X-GNOME-FullName[zh_CN]=图库' /usr/share/applications/shotwell.desktop
+    sed -i '/^X-GNOME-FullName=/a X-GNOME-FullName[zh_TW]=圖庫' /usr/share/applications/shotwell.desktop
+
     # Redirect /usr/local/bin/gnome-terminal -> /usr/bin/kgx
     print_ok "Redirect /usr/local/bin/gnome-terminal -> /usr/bin/kgx"
     ln -s /usr/bin/kgx /usr/local/bin/gnome-terminal
@@ -181,13 +187,11 @@ EOF
 
     print_ok "Installing Fluent icon theme"
     git clone https://git.aiursoft.cn/PublicVault/Fluent-icon-theme /opt/themes/Fluent-icon-theme
-    #rm /usr/share/icons/* -rf
     /opt/themes/Fluent-icon-theme/install.sh standard
     judge "Install Fluent icon theme"
 
     print_ok "Installing Fluent theme"
     git clone https://git.aiursoft.cn/PublicVault/Fluent-gtk-theme /opt/themes/Fluent-gtk-theme
-    #rm /usr/share/themes/* -rf
     /opt/themes/Fluent-gtk-theme/install.sh -i ubuntu --tweaks noborder round
     judge "Install Fluent theme"
 
