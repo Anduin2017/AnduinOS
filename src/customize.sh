@@ -124,29 +124,38 @@ EOF
     judge "Install ibus-rime configuration"
 
     print_ok "Installing MissionCenter..."
-    if ! test -f /opt/missioncenter/AppRun; then
+    INSTALL_DIR="/usr/share/missioncenter"
+    APP_RUN="AppRun"
+    if ! test -f $INSTALL_DIR/$APP_RUN; then
         # This link requires to be updated manually regularly.
         APPIMAGE_URL="https://gitlab.com/mission-center-devs/mission-center/-/jobs/7109267599/artifacts/raw/MissionCenter-x86_64.AppImage"
         LOGO_URL="https://dl.flathub.org/media/io/missioncenter/MissionCenter/224cb83cac6b6e56f793a0163bcca7aa/icons/128x128/io.missioncenter.MissionCenter.png"
-        APPIMAGE_PATH="/opt/missioncenter.appimage"
-        APPBIN_PATH="/opt/missioncenter/AppRun"
-        LOGO_PATH="/usr/share/icons/missioncenter.png"
+        APPIMAGE_PATH="/tmp/missioncenter.appimage"
+        LOGO_PATH="$INSTALL_DIR/missioncenter.png"
         DESKTOP_FILE="/usr/share/applications/missioncenter.desktop"
+        APP_LINK="/usr/bin/missioncenter"
         wget -O $APPIMAGE_PATH $APPIMAGE_URL
         wget -O $LOGO_PATH $LOGO_URL
         chmod +x $APPIMAGE_PATH
         $APPIMAGE_PATH --appimage-extract > /dev/null 2>&1
-        mv ./squashfs-root /opt/missioncenter
+        mv ./squashfs-root $INSTALL_DIR
         rm $APPIMAGE_PATH
-        chmod +x $APPBIN_PATH
-        echo "[Desktop Entry]
+        chmod +x $INSTALL_DIR/$APP_RUN
+        
+        # Create a symbolic link in /usr/bin
+        ln -s $INSTALL_DIR/$APP_RUN $APP_LINK
+        
+        echo << EOF > $DESKTOP_FILE
+[Desktop Entry]
 Name=MissionCenter
 Comment=Monitor overall system and application performance
-Exec=$APPBIN_PATH
+Exec=$APP_LINK
 Icon=$LOGO_PATH
 Terminal=false
 Type=Application
-Categories=System;Monitor;" | sudo tee $DESKTOP_FILE
+Categories=System;Monitor;
+EOF
+        
         judge "Install MissionCenter"
     else
         print_ok "MissionCenter is already installed"
