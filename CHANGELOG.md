@@ -8,6 +8,7 @@
 * Install `gnome-system-monitor` and `gnome-sound-recorder` by default.
 * Patch Chinese localization for `shotwell.desktop`.
 * Reset arcmenu (start menu) icons to default for better localization.
+* Start menu added some buttons for files, settings, console. Next to Power button.
 
 ## v0.0.4-alpha-jammy
 
