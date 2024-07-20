@@ -153,6 +153,10 @@ function run_chroot() {
     sudo cp $SCRIPT_DIR/logo/anduinos_text.png chroot/opt/theme/anduinos_text.png
     judge "Copy logo"
 
+    print_ok "Copy wallpaper to chroot /opt/theme..."
+    sudo cp $SCRIPT_DIR/wallpaper/Fluent-building-night.png chroot/opt/theme/Fluent-building-night.png
+    judge "Copy wallpaper"
+
     print_ok "Copy fonts to chroot /usr/share/fonts..."
     sudo mkdir -p chroot/usr/share/fonts
     sudo unzip $SCRIPT_DIR/font/fonts.zip -d chroot/usr/share/fonts/

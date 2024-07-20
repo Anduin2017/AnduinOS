@@ -178,9 +178,24 @@ Categories=System;Monitor;" | sudo tee $DESKTOP_FILE
     judge "Purge unnecessary packages"
 
     # Edit default wallpaper
-    print_ok "Downloading default wallpaper"
-    wget -O /usr/share/backgrounds/Fluent-building-night.png https://github.com/vinceliuice/Fluent-gtk-theme/raw/Wallpaper/wallpaper-4k/Fluent-building-night.png
-    judge "Download default wallpaper"
+    print_ok "Cleaning and reinstalling wallpaper"
+    rm /usr/share/gnome-background-properties/* -rf
+    rm /usr/share/backgrounds/* -rf
+    mv /opt/theme/Fluent-building-night.png /usr/share/backgrounds/
+cat << EOF > /usr/share/gnome-background-properties/fluent.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE wallpapers SYSTEM "gnome-wp-list.dtd">
+<wallpapers>
+  <wallpaper deleted="false">
+    <name>Fluent Building Night</name>
+    <filename>/usr/share/backgrounds/Fluent-building-night.png</filename>
+    <filename-dark>/usr/share/backgrounds/Fluent-building-night.png</filename-dark>
+    <options>zoom</options>
+    <shade_type>solid</shade_type>
+  </wallpaper>
+</wallpapers>
+EOF
+    judge "Clean and reinstall wallpaper"
 
     print_ok "Installing Fluent icon theme"
     git clone https://git.aiursoft.cn/PublicVault/Fluent-icon-theme /opt/themes/Fluent-icon-theme
