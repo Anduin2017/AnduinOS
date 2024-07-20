@@ -107,9 +107,10 @@ EOF
 
     # Patch plymouth, use AnduinOS's logo at /opt/theme/logo.svg to replace the default ubuntu logo. Patch the text to show "AnduinOS"
     print_ok "Patch plymouth"
-    cp /opt/theme/logo_128.png /usr/share/plymouth/themes/spinner/bgrt-fallback.png
-    cp /opt/theme/anduinos_text.png /usr/share/plymouth/ubuntu-logo.png
-    cp /opt/theme/anduinos_text.png /usr/share/plymouth/themes/spinner/watermark.png
+    cp /opt/logo/logo_128.png /usr/share/plymouth/themes/spinner/bgrt-fallback.png
+    cp /opt/logo/anduinos_text.png /usr/share/plymouth/ubuntu-logo.png
+    cp /opt/logo/anduinos_text.png /usr/share/plymouth/themes/spinner/watermark.png
+    rm /opt/logo -rf
     update-initramfs -u
     judge "Patch plymouth and update initramfs"
 
@@ -181,7 +182,7 @@ Categories=System;Monitor;" | sudo tee $DESKTOP_FILE
     print_ok "Cleaning and reinstalling wallpaper"
     rm /usr/share/gnome-background-properties/* -rf
     rm /usr/share/backgrounds/* -rf
-    mv /opt/theme/Fluent-building-night.png /usr/share/backgrounds/
+    mv /opt/wallpaper/Fluent-building-night.png /usr/share/backgrounds/
 cat << EOF > /usr/share/gnome-background-properties/fluent.xml
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE wallpapers SYSTEM "gnome-wp-list.dtd">

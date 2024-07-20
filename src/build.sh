@@ -146,15 +146,15 @@ function run_chroot() {
     sudo cp $SCRIPT_DIR/dconf/dconf.ini chroot/opt/dconf.ini
     judge "Copy default dconf configuration"
 
-    print_ok "Copy logo to chroot /opt/theme..."
-    sudo mkdir -p chroot/opt/theme
-    sudo cp $SCRIPT_DIR/logo/logo.svg chroot/opt/theme/logo.svg
-    sudo cp $SCRIPT_DIR/logo/logo_128.png chroot/opt/theme/logo_128.png
-    sudo cp $SCRIPT_DIR/logo/anduinos_text.png chroot/opt/theme/anduinos_text.png
+    print_ok "Copy logo to chroot /opt/logo..."
+    sudo mkdir -p chroot/opt/logo
+    sudo cp $SCRIPT_DIR/logo/logo.svg chroot/usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/icons/anduinos-logo.svg
+    sudo cp $SCRIPT_DIR/logo/logo_128.png chroot/opt/logo/logo_128.png
+    sudo cp $SCRIPT_DIR/logo/anduinos_text.png chroot/opt/logo/anduinos_text.png
     judge "Copy logo"
 
-    print_ok "Copy wallpaper to chroot /opt/theme..."
-    sudo cp $SCRIPT_DIR/wallpaper/Fluent-building-night.png chroot/opt/theme/Fluent-building-night.png
+    print_ok "Copy wallpaper to chroot /opt/wallpaper..."
+    sudo cp $SCRIPT_DIR/wallpaper/Fluent-building-night.png chroot/opt/wallpaper/Fluent-building-night.png
     judge "Copy wallpaper"
 
     print_ok "Copy fonts to chroot /usr/share/fonts..."
