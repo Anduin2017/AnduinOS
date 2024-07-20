@@ -152,6 +152,15 @@ Categories=System;Monitor;" | sudo tee $DESKTOP_FILE
         print_ok "MissionCenter is already installed"
     fi
 
+    print_ok "Removing the hint for sudo"
+    if grep -q "sudo hint" /etc/bash.bashrc; then
+        sed -i '43,54d' /etc/bash.bashrc
+        judge "Remove the hint for sudo"
+    else
+        print_error "Error: 'sudo hint' not found in /etc/bash.bashrc."
+        exit 1
+    fi
+
     print_ok "Purging unnecessary packages"
     apt purge -y \
         transmission-gtk \
@@ -227,7 +236,6 @@ EOF
     mv /opt/logo/logo.svg /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/icons/anduinos-logo.svg
     judge "Move root's gnome extensions"
 
-    # Enable extensions
     print_ok "Enabling gnome extensions for root"
     /usr/local/bin/gext -F enable arcmenu@arcmenu.com
     /usr/local/bin/gext -F enable blur-my-shell@aunetx

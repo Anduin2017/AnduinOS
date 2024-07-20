@@ -1,5 +1,10 @@
 # AnduinOS Changelog
 
+## v0.0.5-alpha-jammy
+
+* First open terminal nolonger shows the `sudo` hint.
+* By default install with `ubuntu-session`, `yaru-theme-sound` and `yaru-theme-gnome-shell`
+
 ## v0.0.4-alpha-jammy
 
 * Fixed an issue that after system boot, gnome may show overview.
