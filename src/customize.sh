@@ -5,7 +5,7 @@ export TARGET_UBUNTU_MIRROR="http://mirror.aiursoft.cn/ubuntu/"
 export TARGET_KERNEL_PACKAGE="linux-generic-hwe-22.04"
 export TARGET_NAME="anduinos"
 export TARGET_BUSINESS_NAME="AnduinOS"
-export TARGET_BUILD_VERSION="0.0.4-alpha"
+export TARGET_BUILD_VERSION="0.0.5-alpha"
 export GRUB_LIVEBOOT_LABEL="Try AnduinOS"
 export GRUB_INSTALL_LABEL="Install AnduinOS"
 export TARGET_PACKAGE_REMOVE="
@@ -110,7 +110,6 @@ EOF
     cp /opt/logo/logo_128.png /usr/share/plymouth/themes/spinner/bgrt-fallback.png
     cp /opt/logo/anduinos_text.png /usr/share/plymouth/ubuntu-logo.png
     cp /opt/logo/anduinos_text.png /usr/share/plymouth/themes/spinner/watermark.png
-    rm /opt/logo -rf
     update-initramfs -u
     judge "Patch plymouth and update initramfs"
 
@@ -171,11 +170,14 @@ Categories=System;Monitor;" | sudo tee $DESKTOP_FILE
         gnome-contacts \
         gnome-terminal \
         gedit \
+        ubuntu-session \
         gnome-shell-extension-ubuntu-dock \
         libreoffice-* \
+        yaru-theme-unity yaru-theme-icon yaru-theme-gtk yaru-theme-gnome-shell \
         yelp \
         gnome-system-monitor \
         info > /dev/null
+    # Above remove everything about yaru-theme but keeps yaru-theme-sound
     judge "Purge unnecessary packages"
 
     # Edit default wallpaper
@@ -200,15 +202,14 @@ EOF
 
     print_ok "Installing Fluent icon theme"
     git clone https://git.aiursoft.cn/PublicVault/Fluent-icon-theme /opt/themes/Fluent-icon-theme
+    #rm /usr/share/icons/* -rf
     /opt/themes/Fluent-icon-theme/install.sh
-    rm /opt/themes/Fluent-icon-theme -rf
     judge "Install Fluent icon theme"
 
     print_ok "Installing Fluent theme"
     git clone https://git.aiursoft.cn/PublicVault/Fluent-gtk-theme /opt/themes/Fluent-gtk-theme
+    #rm /usr/share/themes/* -rf
     /opt/themes/Fluent-gtk-theme/install.sh -i ubuntu --tweaks noborder round
-    rm /opt/themes/Fluent-gtk-theme -rf
-    rm /opt/themes -rf
     judge "Install Fluent theme"
 
     print_ok "Installing gnome extensions"
@@ -223,6 +224,7 @@ EOF
 
     print_ok "Moving root's gnome extensions to /usr/share/gnome-shell/extensions"
     mv /root/.local/share/gnome-shell/extensions/* /usr/share/gnome-shell/extensions/
+    mv /opt/logo/logo.svg /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/icons/anduinos-logo.svg
     judge "Move root's gnome extensions"
 
     # Enable extensions
@@ -251,6 +253,9 @@ EOF
     rm /root/.config/dconf -rf
     rm /root/.local/share/gnome-shell/extensions -rf
     rm /opt/dconf.ini
+    rm /opt/wallpaper -rf
+    rm /opt/themes -rf
+    rm /opt/logo -rf
     judge "Clean up"
 
     print_ok "Configuring templates..."

@@ -148,12 +148,13 @@ function run_chroot() {
 
     print_ok "Copy logo to chroot /opt/logo..."
     sudo mkdir -p chroot/opt/logo
-    sudo cp $SCRIPT_DIR/logo/logo.svg chroot/usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/icons/anduinos-logo.svg
+    sudo cp $SCRIPT_DIR/logo/logo.svg chroot/opt/logo/logo.svg
     sudo cp $SCRIPT_DIR/logo/logo_128.png chroot/opt/logo/logo_128.png
     sudo cp $SCRIPT_DIR/logo/anduinos_text.png chroot/opt/logo/anduinos_text.png
     judge "Copy logo"
 
     print_ok "Copy wallpaper to chroot /opt/wallpaper..."
+    sudo mkdir -p chroot/opt/wallpaper
     sudo cp $SCRIPT_DIR/wallpaper/Fluent-building-night.png chroot/opt/wallpaper/Fluent-building-night.png
     judge "Copy wallpaper"
 
