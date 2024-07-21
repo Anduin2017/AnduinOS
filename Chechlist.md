@@ -6,7 +6,6 @@
 * Ensure right clicking the desktop can open console here.
 * Ensure user can configure desktop icons when right click the desktop.
 * Ensure there is start button on the task bar with the logo of our distro.
-* Ensure right click task bar and click Task Manager should open mission center. (UNDER DEVELOPMENT)
 * Ensure Super + Tab, Alt + Tab, Super + I are functional. (Super + I is (UNDER DEVELOPMENT))
 * Ensure Super + Shift + S will take a screenshot. (UNDER DEVELOPMENT)
 * Ensure on `Tweaks` app sound theme, icon theme, shell theme are all set.

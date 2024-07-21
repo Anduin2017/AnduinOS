@@ -219,13 +219,15 @@ EOF
     mv /opt/logo/logo.svg /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/icons/anduinos-logo.svg
     judge "Move root's gnome extensions"
 
-    # Patch arc menu. /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/appMenu.js
-    # Replace 'Unpin from ArcMenu' to 'Unpin from Start menu'
-    # Replace 'Pin to ArcMenu'to 'Pin to Start menu'
-    print_ok "Patching Arc Menu"...
+    print_ok "Patching Arc Menu..."
     sed -i 's/Unpin from ArcMenu/Unpin from Start menu/g' /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/appMenu.js
     sed -i 's/Pin to ArcMenu/Pin to Start menu/g' /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/appMenu.js
     judge "Patch Arc Menu"
+
+    # print_ok "Patching localization..."
+    # msgunfmt /usr/share/locale/zh_CN/LC_MESSAGES/gnome-shell-extensions.mo -o gnome-shell.po
+    # sed -i 's/收藏/任务栏/g' gnome-shell.po
+    # msgfmt gnome-shell.po -o /usr/share/locale/zh_CN/LC_MESSAGES/gnome-shell-extensions.mo
 
     print_ok "Enabling gnome extensions for root"
     /usr/local/bin/gext -F enable arcmenu@arcmenu.com

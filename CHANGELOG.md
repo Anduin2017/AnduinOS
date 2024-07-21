@@ -5,6 +5,7 @@
 * Removed useless system gnome extensions to reduce the size of the ISO file.
 * By default disable magnifier. This will disable keyboard shortcut `Super + =` and `Super + -`. But better performance.
 * Patch `ArcMenu` to show `Pin to Start menu` instead of `Pin to ArcMenu`.
+* Edited taskbar behavior to activate panel menu buttons on click instead of hover.
 
 ## v0.0.5-alpha-jammy
 
