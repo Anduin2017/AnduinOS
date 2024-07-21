@@ -7,6 +7,7 @@
 * Patch `ArcMenu` to show `Pin to Start menu` instead of `Pin to ArcMenu`.
 * Edited taskbar behavior to activate panel menu buttons on click instead of hover.
 * Hide date on the taskbar.
+* Ubiquity installer will show the AnduinOS wallpaper.
 
 ## v0.0.5-alpha-jammy
 
