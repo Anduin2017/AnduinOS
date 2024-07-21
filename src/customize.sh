@@ -212,7 +212,6 @@ EOF
     rm /usr/share/gnome-shell/extensions/native-window-placement* -rf
     rm /usr/share/gnome-shell/extensions/places-menu* -rf
     rm /usr/share/gnome-shell/extensions/screenshot-window-sizer* -rf
-    rm /usr/share/gnome-shell/extensions/ubuntu-appindicators* -rf
     rm /usr/share/gnome-shell/extensions/window-list* -rf
     rm /usr/share/gnome-shell/extensions/windowsNavigator* -rf
     rm /usr/share/gnome-shell/extensions/workspace-indicator* -rf
