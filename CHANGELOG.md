@@ -3,6 +3,7 @@
 ## v0.0.6-alpha-jammy
 
 * Removed useless system gnome extensions to reduce the size of the ISO file.
+* By default enable magnifier to enable keyboard shortcut `Super + =` and `Super + -`.
 
 ## v0.0.5-alpha-jammy
 
