@@ -163,6 +163,12 @@ function run_chroot() {
     sudo unzip $SCRIPT_DIR/font/fonts.zip -d chroot/usr/share/fonts/
     judge "Copy fonts"
 
+    print_ok "Copy installer assets to /opt..."
+    sudo mkdir -p chroot/opt/installer
+    sudo cp $SCRIPT_DIR/installer/background.png chroot/opt/installer/background.png
+    sudo cp $SCRIPT_DIR/installer/welcome.png chroot/opt/installer/welcome.png
+    judge "Copy installer assets"
+
     # Launch into chroot environment to build install image.
     print_ok "Running chroot_build.sh in chroot..."
     print_warn "============================================"
