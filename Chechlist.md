@@ -18,3 +18,4 @@
 * Ensure double clicking a .deb file will open gdebi. (UNDER DEVELOPMENT)
 * Try running installation. Ensure in the log there is no error like ``Gtk-WARNING **: Locale not supported by C library. `
 * After installation, ensure the start menu apps' names are localized.
+* Try installing Motrix and see if it can be shown successfully on the tray.
