@@ -5,7 +5,7 @@ export TARGET_UBUNTU_MIRROR="http://mirror.aiursoft.cn/ubuntu/"
 export TARGET_KERNEL_PACKAGE="linux-generic-hwe-22.04"
 export TARGET_NAME="anduinos"
 export TARGET_BUSINESS_NAME="AnduinOS"
-export TARGET_BUILD_VERSION="0.0.5-alpha"
+export TARGET_BUILD_VERSION="0.0.6-alpha"
 export GRUB_LIVEBOOT_LABEL="Try AnduinOS"
 export GRUB_INSTALL_LABEL="Install AnduinOS"
 export TARGET_PACKAGE_REMOVE="
@@ -206,6 +206,16 @@ EOF
     judge "Install gnome extensions"
 
     print_ok "Moving root's gnome extensions to /usr/share/gnome-shell/extensions"
+    rm /usr/share/gnome-shell/extensions/apps-menu* -rf
+    rm /usr/share/gnome-shell/extensions/auto-move-windows* -rf
+    rm /usr/share/gnome-shell/extensions/launch-new-instance* -rf
+    rm /usr/share/gnome-shell/extensions/native-window-placement* -rf
+    rm /usr/share/gnome-shell/extensions/places-menu* -rf
+    rm /usr/share/gnome-shell/extensions/screenshot-window-sizer* -rf
+    rm /usr/share/gnome-shell/extensions/ubuntu-appindicators* -rf
+    rm /usr/share/gnome-shell/extensions/window-list* -rf
+    rm /usr/share/gnome-shell/extensions/windowsNavigator* -rf
+    rm /usr/share/gnome-shell/extensions/workspace-indicator* -rf
     mv /root/.local/share/gnome-shell/extensions/* /usr/share/gnome-shell/extensions/
     mv /opt/logo/logo.svg /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/icons/anduinos-logo.svg
     judge "Move root's gnome extensions"

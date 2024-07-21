@@ -1,5 +1,9 @@
 # AnduinOS Changelog
 
+## v0.0.6-alpha-jammy
+
+* Removed useless system gnome extensions to reduce the size of the ISO file.
+
 ## v0.0.5-alpha-jammy
 
 * First open terminal nolonger shows the `sudo` hint.
