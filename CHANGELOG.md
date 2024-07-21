@@ -6,9 +6,12 @@
 * By default install with `ubuntu-session`, `yaru-theme-sound` and `yaru-theme-gnome-shell`
 * Nolonger install `MissionCenter` since it's an app image and may increase the size of the ISO file.
 * Install `gnome-system-monitor` and `gnome-sound-recorder` by default.
+* `Ctrl + Shift + ECS` will open `gnome-system-monitor` instead of `MissionCenter`.
+* Fixed an issue that `Super + Left` and `Super + Right` may not work.
 * Patch Chinese localization for `shotwell.desktop`.
 * Reset arcmenu (start menu) icons to default for better localization.
 * Start menu added some buttons for files, settings, console. Next to Power button.
+* Added keyboard shortcut `Super + =` and `Super + -` to zoom in and out.
 
 ## v0.0.4-alpha-jammy
 
