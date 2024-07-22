@@ -127,7 +127,7 @@ EOF
 
     print_ok "Patch Ubiquity installer"
     # /opt/slides to /usr/share/ubiquity-slideshow/slides
-    rsync -Aavx --update --delete /opt/slides/ /usr/share/ubiquity-slideshow/slides/
+    rsync -Aavx --update --delete /opt/slides/ /usr/share/ubiquity-slideshow/
     #sed -i "s|background-color:#3C3B37;|background-color:#132F5E;|g" /usr/share/ubiquity-slideshow/slides/link/base.css
     judge "Patch Ubiquity installer"
 
