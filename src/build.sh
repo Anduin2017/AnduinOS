@@ -262,6 +262,7 @@ EOF
     sudo mksquashfs chroot image/casper/filesystem.squashfs \
         -noappend -no-duplicates -no-recovery \
         -wildcards \
+        -comp xz -b 1M -Xdict-size 100% \
         -e "var/cache/apt/archives/*" \
         -e "root/*" \
         -e "root/.*" \

@@ -9,6 +9,7 @@
 * Hide date on the taskbar.
 * Ubiquity installer will show the AnduinOS wallpaper.
 * Added `fonts-noto-cjk fonts-noto-core fonts-noto-mono fonts-noto-color-emoji` to support more languages.
+* Compress the squashfs file with `xz` to reduce the size of the ISO file.
 
 ## v0.0.5-alpha-jammy
 
