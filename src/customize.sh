@@ -102,6 +102,10 @@ EOF
         dmz-cursor-theme
     judge "Install gnome-shell and other gnome applications"
 
+    print_ok "Updating font cache"
+    fc-cache -f -v
+    judge "Update font cache"
+
     print_ok "Patching Shotwell localization..."
     sed -i '/^Name=/a Name[zh_CN]=图库' /usr/share/applications/shotwell.desktop
     sed -i '/^Name=/a Name[zh_TW]=圖庫' /usr/share/applications/shotwell.desktop
