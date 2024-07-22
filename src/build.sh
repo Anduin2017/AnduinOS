@@ -164,9 +164,8 @@ function run_chroot() {
     judge "Copy fonts"
 
     print_ok "Copy installer assets to /opt..."
-    sudo mkdir -p chroot/opt/installer
-    sudo cp $SCRIPT_DIR/installer/background.png chroot/opt/installer/background.png
-    sudo cp $SCRIPT_DIR/installer/welcome.png chroot/opt/installer/welcome.png
+    sudo mkdir -p chroot/opt/slides
+    sudo cp $SCRIPT_DIR/ubiquity/slides chroot/opt/slides
     judge "Copy installer assets"
 
     # Launch into chroot environment to build install image.

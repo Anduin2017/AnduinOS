@@ -1,0 +1,408 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+	margin:0;
+	padding:0;
+	border:0;
+	outline:0;
+	font-size: 100%;
+	font-style:normal;
+	text-decoration:none;
+	font-weight:normal;
+	vertical-align:baseline;
+	background:transparent;
+}
+ol, ul {
+	list-style:none;
+}
+
+
+
+html, body {
+	margin:0;
+	padding:0;
+
+	background-color:#F7F6F6;
+
+	font-family:'Ubuntu', 'UbuntuBeta', sans-serif;
+	font-size:12px;
+	line-height:1.4em;
+
+	color:#333333;
+
+	/* no reason to expose this extra stuff to the user */
+	-webkit-user-select:none;
+	-moz-user-select:none;
+	user-select:none;
+	cursor:default;
+}
+
+/*
+Hyperlink-style text
+*/
+a {
+	color: #ffffff; 
+	text-decoration:none;
+	font-weight: bold;
+	display:inline;
+}
+
+.text a:hover {
+	text-decoration:underline;
+}
+
+strong {
+	font-weight: bolder;
+}
+
+#wrapper {
+	position:absolute;
+
+	width:752px;
+	height:100%;
+}
+
+#slideshow {
+	width:752px;
+	min-height:442px;
+	height:100%;
+	overflow:hidden;
+}
+#slideshow > div {
+	position:absolute;
+	width:100%;
+	height:100%;
+}
+
+.control-arrow {
+	display:block;
+	position:absolute;
+
+	z-index:100;
+	top:218px;
+	height:64px;
+	width:33px;
+
+	background-repeat:no-repeat;
+	cursor:pointer;
+}
+.control-arrow.disabled {
+	cursor:default;
+}
+.control-arrow:hover {
+	background-position: 0px -65px;
+}
+.control-arrow:active {
+	background-position: 0px -130px;
+}
+.control-arrow#prev-slide {
+	background-image:url('arrow-back.png');
+	left:0px;
+}
+.control-arrow#next-slide {
+	background-image:url('arrow-next.png');
+	left:719px; /* 752px - 33px */
+}
+
+/* Fixed container for a slide's title */
+.header {
+	display:table; /* this is a bit evil, but it lets us vertically centre stuff */
+	position:absolute;
+	/* FIXME: better to use position:relative here and for #main.
+	   Need to have a specific maximum height, though,
+	   which isn't working with display:table */
+	top:0px;
+	width:100%;
+	height:68px;
+	background-color:#3C3B37;
+}
+
+.header > .slidetitle {
+	display:table-cell;
+	padding:0px 25px;
+	vertical-align:middle;
+	font-size:24px;
+	line-height:30px;
+	font-weight:normal;
+	color: #f9f9f9; /*#DED9CB; */
+}
+.header > .slidetitle img {
+	display: block;
+}
+
+.main {
+	position:absolute;
+	top:68px; /* 68px + 2px margin */
+	bottom:0px;
+	left:0px;
+	right:0px;
+	min-height:370px; /* 442px (from #slideshow) - 70px - 2px */
+	background-image:url('background.png');
+	background-repeat: no-repeat;
+	/* move this to #slideshow if we don't want the background image to move with slides */
+	/* background-image:url('background.png'); */
+}
+
+.main.wide {
+	top:68px;
+	left:0px;
+	right:0px;
+	bottom:0px;
+	background-image:none;
+}
+
+/*
+A slide's body text goes inside here.
+Inner space is 224px wide.
+*/
+.main > .text {
+	position:absolute;
+	z-index:10;
+	top:25px;
+	left:36px;
+	width:248px;
+	bottom:35px;
+	min-height:329px; /* 369 - 25 - 15 (for bottom) */
+	overflow:auto;
+}
+
+.text > div {
+	margin-bottom:8px;
+	padding:6px 12px;
+	color: #ffffff;
+	background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+}
+.text > div:last-child {
+	margin-bottom:0px;
+}
+
+.text > div > .subtitle {
+	padding-bottom:2px;
+	margin-bottom:5px;
+	font-size:inherit;
+	font-weight:normal;
+	text-decoration:none;
+	border-bottom:#d04e21 dotted 1px;
+}
+
+.main.wide > .text {
+	top:25px;
+	width:350px;
+}
+
+.main.wide > .text > div {
+	background:none;
+	font-size:16px;
+	line-height:1.2em;
+	color:#F7F6F6;
+	text-shadow:1px 1px 2px #333333;
+}
+
+.featured ul {
+	display:table;
+}
+.featured li {
+	display:table-row;
+}
+.featured li > * {
+	padding-bottom:12px;
+}
+.featured li .icon {
+	display:table-cell;
+	width:24px;
+	height:auto;
+	padding-right:12px;
+}
+.featured li .caption {
+	display:table-cell;
+	vertical-align:middle;
+}
+
+/* Expects screenshot to be 448x304 px */
+.main > .screenshot {
+	position:absolute;
+	top:25px;
+	right:-2px; /* offsets 2px margin of .main */
+
+	z-index:2;
+
+	/* -webkit-box-shadow:#999999 0px 0px 5px;
+	-moz-box-shadow:#999999 0px 0px 5px;
+	box-shadow:#999999 0px 0px 5px; */
+}
+
+/* Expects screenshot to be 748x370 px */
+.main.wide > .background {
+	top:0px;
+	right:0px;
+	width:100%;
+	height:auto;
+	-webkit-box-shadow:none;
+	-moz-box-shadow:none;
+	box-shadow:none;
+
+	z-index:0;
+}
+
+.main.wide > .twitter-stream {
+	display:none; /* always revealed by javascript */
+
+	position:absolute;
+	width:334px;
+	height:304px; /* 304 - 22 (for .twitter-stream-input) */
+	top:25px;
+	right:16px;
+	z-index:2;
+
+	padding:0 6px;
+
+	color:#eee;
+}
+
+.twitter-stream .twitter-stream-header {
+	display:block;
+	padding:6px 2px 0px 2px;
+}
+.twitter-stream .twitter-stream-header h2 {
+	display:inline;
+	color:#fff;
+
+	font-size:16px;
+}
+.twitter-stream .twitter-stream-header img {
+	opacity:0.6;
+	float:right;
+
+	margin-left:22px;
+
+	-webkit-transition:opacity 150ms linear;
+}
+.twitter-stream .twitter-stream-header:hover img {
+	opacity:0.8;
+}
+
+.twitter-stream .twitter-stream-tweets {
+	overflow:hidden;
+
+	height:100%;
+
+	/* Warning: this is non-standard, only works in Webkit, could break at any time */
+	-webkit-mask-image:-webkit-linear-gradient(top, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%);
+}
+
+.twitter-stream .tweet {
+	padding:6px 2px;
+	border-bottom:1px dotted rgba(255, 255, 255, 0.2);
+}
+.tweet .tweet-avatar {
+	display:table-cell;
+	vertical-align:top;
+	padding:0 6px;
+}
+
+.tweet .tweet-author-details {
+	display:inline-block;
+}
+
+.tweet .tweet-author-name {
+	color:#fff;
+	font-weight:bold;
+}
+.tweet .tweet-author-id {
+	color:#bbb;
+	font-weight:normal;
+	margin-left:1em;
+	font-size:0.9em;
+}
+
+.tweet .tweet-text {
+	display:block;
+}
+
+.tweet .tweet-text a {
+	color:#bbb;
+}
+
+.twitter-stream input.twitter-stream-input {
+	width:100%;
+
+	-webkit-box-sizing:border-box;
+	padding:4px 2px 4px 22px;
+
+	background-color:rgba(0, 0, 0, 0);
+	border:none;
+	outline:none;
+	color:#fff;
+
+	background-image:url('twitter-bird-16.png');
+	background-position:left center;
+	background-repeat:no-repeat;
+}
+.twitter-stream input.twitter-stream-input:focus {
+	background-color:rgba(0, 0, 0, 0.1);
+}
+
+/*
+This rule disables drag-and-drop for images.  See bug #448703.
+*/
+img {
+ 	-webkit-user-drag:none;
+}
+
+
+
+/* RTL stuff */
+.rtl {
+	direction:rtl;
+}
+
+.rtl .control-arrow#prev-slide {
+	background-image:url('arrow-next.png');
+	left:719px;
+}
+.rtl .control-arrow#next-slide {
+	background-image:url('arrow-back.png');
+	left:0px; /* 752px - 33px */
+}
+
+.rtl .main > .text {
+	left:auto;
+	right:36px;
+}
+
+.rtl .main > .screenshot {
+	right:auto;
+	left:-2px;
+}
+
+.rtl .featured li .icon {
+	padding-right:0px;
+	padding-left:12px;
+}
+
+.rtl .main.wide > .twitter-stream {
+	right:auto;
+	left:16px;
+}
+
+.rtl .twitter-stream .twitter-stream-header img {
+	float:left;
+	margin-left:0;
+	margin-right:22px;
+}
+
+.rtl .twitter-stream input.twitter-stream-input {
+	padding:4px 22px 4px 2px;
+	background-position:right center;
+}
+
+.l10n-string {
+	display:none;
+}
