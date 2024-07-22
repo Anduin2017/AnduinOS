@@ -16,6 +16,7 @@
 * Ensure double click a photo file is opened with shotwell. (UNDER DEVELOPMENT)
 * Ensure the photo and video files have previews on nautilus.
 * Ensure double clicking a .deb file will open gdebi. (UNDER DEVELOPMENT)
+* Try start instllation (Ubiquty) and ensure all language texts are shown correctly. (Without square boxes)
 * Try running installation. Ensure in the log there is no error like ``Gtk-WARNING **: Locale not supported by C library. `
 * After installation, ensure the start menu apps' names are localized.
 * Try installing Motrix and see if it can be shown successfully on the tray.
