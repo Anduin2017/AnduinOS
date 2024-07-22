@@ -71,6 +71,7 @@ EOF
         gnome-calculator gnome-disk-utility gnome-control-center software-properties-gtk gnome-logs \
         gnome-tweaks gnome-shell-extension-prefs gnome-shell-extension-desktop-icons-ng gnome-shell-extension-appindicator \
         gnome-screenshot gnome-system-monitor gnome-sound-recorder \
+        fonts-noto-cjk fonts-noto-core fonts-noto-mono fonts-noto-color-emoji \
         gnome-clocks \
         gnome-weather \
         gnome-text-editor \

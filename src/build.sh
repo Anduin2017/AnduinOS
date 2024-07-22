@@ -165,7 +165,7 @@ function run_chroot() {
 
     print_ok "Copy installer assets to /opt..."
     sudo mkdir -p chroot/opt/slides
-    sudo cp $SCRIPT_DIR/ubiquity/slides chroot/opt/slides
+    sudo cp -r $SCRIPT_DIR/ubiquity/slides chroot/opt/slides
     judge "Copy installer assets"
 
     # Launch into chroot environment to build install image.
