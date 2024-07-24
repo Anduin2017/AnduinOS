@@ -1,5 +1,9 @@
 # AnduinOS Changelog
 
+## v0.0.8-alpha-jammy
+
+* Remove package `update-manager-core` to avoid the user upgraded to Ubuntu next version. (AnduinOS will handle the upgrade)
+
 ## v0.0.7-alpha-jammy
 
 * Refactor the resources files structure during the build process.

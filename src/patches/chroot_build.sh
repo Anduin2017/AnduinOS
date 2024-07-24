@@ -327,6 +327,7 @@ EOF
         gnome-contacts \
         gnome-terminal \
         gedit \
+        update-manager-core \
         gnome-shell-extension-ubuntu-dock \
         libreoffice-* \
         yaru-theme-unity yaru-theme-icon yaru-theme-gtk \
