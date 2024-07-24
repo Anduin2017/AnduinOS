@@ -1,5 +1,10 @@
 # AnduinOS Changelog
 
+## v0.0.7-alpha-jammy
+
+* Refactor the resources files structure during the build process.
+* Patch fonts with `CascadiaCode, NerdFontsSymbols, Noto_Sans, Noto_serif, TwitterColorEmoji-SVGinOT` to support more languages.
+
 ## v0.0.6-alpha-jammy
 
 * Removed useless system gnome extensions to reduce the size of the ISO file.

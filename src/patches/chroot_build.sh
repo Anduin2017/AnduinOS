@@ -257,6 +257,11 @@ EOF
         dmz-cursor-theme
     judge "Install gnome-shell and other gnome applications"
 
+    print_ok "Patching fonts..."
+    cp $SCRIPT_DIR/fonts/local.conf /etc/fonts/
+    unzip $SCRIPT_DIR/fonts/fonts.zip -d /usr/share/fonts/
+    judge "Patch fonts"
+
     print_ok "Updating font cache"
     fc-cache -f -v
     judge "Update font cache"
