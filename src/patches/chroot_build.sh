@@ -236,7 +236,7 @@ EOF
         shotwell \
         remmina remmina-plugin-rdp \
         firefox \
-        totem \
+        totem totem-plugins gstreamer1.0-libav \
         gnome-console nautilus-extension-gnome-console \
         python3-apt python3-pip python-is-python3 \
         git neofetch lsb-release coreutils \
@@ -322,7 +322,6 @@ EOF
         gnome-photos \
         eog \
         tilix \
-        totem totem-plugins \
         rhythmbox \
         gnome-contacts \
         gnome-terminal \
