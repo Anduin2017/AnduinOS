@@ -236,7 +236,7 @@ EOF
         shotwell \
         remmina remmina-plugin-rdp \
         firefox \
-        vlc \
+        totem \
         gnome-console nautilus-extension-gnome-console \
         python3-apt python3-pip python-is-python3 \
         git neofetch lsb-release coreutils \
