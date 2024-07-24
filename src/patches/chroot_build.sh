@@ -286,7 +286,7 @@ EOF
     judge "Patch plymouth and update initramfs"
 
     print_ok "Patch Ubiquity installer"
-    rsync -Aavx --update --delete $SCRIPT_DIR/slides/ /usr/share/ubiquity-slideshow/
+    rsync -Aavx --update --delete $SCRIPT_DIR/slides/ /usr/share/ubiquity-slideshow/slides/
     #sed -i "s|background-color:#3C3B37;|background-color:#132F5E;|g" /usr/share/ubiquity-slideshow/slides/link/base.css
     judge "Patch Ubiquity installer"
 
