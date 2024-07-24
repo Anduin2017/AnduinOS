@@ -207,12 +207,12 @@ insmod all_video
 set default="0"
 set timeout=30
 
-menuentry "${GRUB_LIVEBOOT_LABEL}" {
+menuentry "Try AnduinOS" {
    linux /casper/vmlinuz boot=casper nopersistent toram quiet splash ---
    initrd /casper/initrd
 }
 
-menuentry "${GRUB_INSTALL_LABEL}" {
+menuentry "Install AnduinOS" {
    linux /casper/vmlinuz boot=casper only-ubiquity quiet splash ---
    initrd /casper/initrd
 }
@@ -250,7 +250,7 @@ EOF
 
     print_ok "Generating README.diskdefines..."
     cat << EOF > image/README.diskdefines
-#define DISKNAME  ${GRUB_LIVEBOOT_LABEL}
+#define DISKNAME  Try AnduinOS
 #define TYPE  binary
 #define TYPEbinary  1
 #define ARCH  amd64

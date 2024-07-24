@@ -158,7 +158,7 @@ function install_kernel_ubiquity() {
     judge "Install live packages"
 
     print_ok "Installing kernel package..."
-    apt install -y --no-install-recommends $TARGET_KERNEL_PACKAGE
+    apt install -y --no-install-recommends linux-generic-hwe-22.04
     judge "Install kernel package"
 
     # graphic installer - ubiquity
