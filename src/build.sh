@@ -136,54 +136,27 @@ function run_chroot() {
     sudo chroot chroot mount none -t devpts /dev/pts
     judge "Mount /dev /run /proc /sys"
 
-    print_ok "Linking actual build scripts to chroot for execution on /root..."
-    sudo ln -f $SCRIPT_DIR/chroot_build.sh chroot/root/chroot_build.sh
-    sudo ln -f $SCRIPT_DIR/customize.sh chroot/root/customize.sh
-    judge "Link build scripts"
+    print_ok "Copying patches to chroot /root..."
+    sudo cp -r $SCRIPT_DIR/patches chroot/root/patches
 
-    print_ok "Copy default dconf configuration to chroot /opt..."
-    sudo mkdir -p chroot/opt
-    sudo cp $SCRIPT_DIR/dconf/dconf.ini chroot/opt/dconf.ini
-    judge "Copy default dconf configuration"
-
-    print_ok "Copy logo to chroot /opt/logo..."
-    sudo mkdir -p chroot/opt/logo
-    sudo cp $SCRIPT_DIR/logo/logo.svg chroot/opt/logo/logo.svg
-    sudo cp $SCRIPT_DIR/logo/logo_128.png chroot/opt/logo/logo_128.png
-    sudo cp $SCRIPT_DIR/logo/anduinos_text.png chroot/opt/logo/anduinos_text.png
-    judge "Copy logo"
-
-    print_ok "Copy wallpaper to chroot /opt/wallpaper..."
-    sudo mkdir -p chroot/opt/wallpaper
-    sudo cp $SCRIPT_DIR/wallpaper/Fluent-building-night.png chroot/opt/wallpaper/Fluent-building-night.png
-    judge "Copy wallpaper"
-
-    print_ok "Copy fonts to chroot /usr/share/fonts..."
-    sudo mkdir -p chroot/usr/share/fonts
-    sudo unzip $SCRIPT_DIR/font/fonts.zip -d chroot/usr/share/fonts/
-    judge "Copy fonts"
-
-    print_ok "Copy installer assets to /opt..."
-    sudo mkdir -p chroot/opt/slides
-    sudo cp -r $SCRIPT_DIR/ubiquity/slides chroot/opt/slides
-    judge "Copy installer assets"
-
-    # Launch into chroot environment to build install image.
     print_ok "Running chroot_build.sh in chroot..."
     print_warn "============================================"
     print_warn "   The following will run in chroot ENV!"
     print_warn "============================================"
-    sudo chroot chroot /usr/bin/env DEBIAN_FRONTEND=${DEBIAN_FRONTEND:-readline} /root/chroot_build.sh -
+    sudo chroot chroot /usr/bin/env DEBIAN_FRONTEND=${DEBIAN_FRONTEND:-readline} /root/patches/chroot_build.sh -
     print_warn "============================================"
     print_warn "   chroot ENV execution completed!"
     print_warn "============================================"
     judge "Run chroot_build.sh in chroot"
 
+    print_ok "Cleaning patches from chroot /root..."
+    sudo rm -rf chroot/root/patches
+    judge "Clean up chroot /root/patches"
+
     # Cleanup after image changes
-    print_ok "Cleaning up chroot /root..."
-    sudo rm -f chroot/root/default_config.sh
-    sudo rm -f chroot/root/chroot_build.sh
-    judge "Clean up chroot /root"
+    print_ok "Cleaning up chroot /root/patches..."
+    sudo rm -rf chroot/root/patches
+    judge "Clean up chroot /root/patches"
 
     print_ok "Sleeping for 5 seconds to allow chroot to exit cleanly..."
     sleep 5
