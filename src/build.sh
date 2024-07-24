@@ -187,17 +187,30 @@ function build_iso() {
     # grub
     print_ok "Generating grub.cfg..."
     touch image/ubuntu
-    # TRY mode vs actual installed
+    # TRY mode
     # * Enfoce user name `ubuntu` and hostname `ubuntu`
     # * Enforce X11
     # * Couldn't logout
     # * Couldn't lock screen
-    # * On the desktop there will be a "Install" icon
+    # * On the desktop there will be a "Install" icon for Ubiquity installer
 
-    # Install mode vs TRY mode
-    # * All gnome extensions are disabled
+    # Install mode
+    # * Enfoce user name `ubuntu` and hostname `ubuntu`
+    # * Enforce X11
+    # * Couldn't logout
+    # * Couldn't lock screen
+    # * No desktop. All gnome extensions are disabled
     # * Will show Ubiquity installer by default
     # * Ubiquity installer won't ask if you want to keep trying this OS
+
+    # After installation
+    # * Requires login. User name is set during installation
+    # * Nvidia users will enforce X11. Others will use Wayland
+    # * Can logout
+    # * Can lock screen
+    # * Desktop is enabled. All gnome extensions are enabled
+    # * No Ubiquity installer
+    # * No "Install" icon on the desktop
     cat << EOF > image/isolinux/grub.cfg
 
 search --set=root --file /ubuntu
