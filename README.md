@@ -2,7 +2,7 @@
 
 [![ManHours](https://manhours.aiursoft.cn/r/gitlab.aiursoft.cn/anduin/anduinos.svg)](https://gitlab.aiursoft.cn/anduin/anduinos/-/commits/master?ref_type=heads)
 
-<img align="right" width="100" height="100" src="./src/logo/logo.svg">
+<img align="right" width="100" height="100" src="./src/patches/logo/logo.svg">
 
 AnduinOS is a custom Debian-based Linux distribution that aims to facilitate users transitioning from Windows to Ubuntu by maintaining familiar operational habits and workflows.
 
