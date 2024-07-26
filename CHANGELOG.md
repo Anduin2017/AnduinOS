@@ -4,6 +4,7 @@
 
 * Remove package `update-manager-core` to avoid the user upgraded to Ubuntu next version. (AnduinOS will handle the upgrade)
 * Use totem as the default video player instead of vlc.
+* Add `https://github.com/tomflannaghan/proxy-switcher` to the default gnome-shell extension list.
 
 ## v0.0.7-alpha-jammy
 

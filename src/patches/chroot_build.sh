@@ -368,6 +368,7 @@ EOF
     print_ok "Installing gnome extensions"
     /usr/bin/pip3 install --upgrade gnome-extensions-cli
     /usr/local/bin/gext -F install arcmenu@arcmenu.com
+    /usr/local/bin/gext -F install proxyswitcher@flannaghan.com
     /usr/local/bin/gext -F install blur-my-shell@aunetx
     /usr/local/bin/gext -F install customize-ibus@hollowman.ml
     /usr/local/bin/gext -F install dash-to-panel@jderose9.github.com
@@ -393,11 +394,6 @@ EOF
     sed -i 's/Unpin from ArcMenu/Unpin from Start menu/g' /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/appMenu.js
     sed -i 's/Pin to ArcMenu/Pin to Start menu/g' /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/appMenu.js
     judge "Patch Arc Menu"
-
-    # print_ok "Patching localization..."
-    # msgunfmt /usr/share/locale/zh_CN/LC_MESSAGES/gnome-shell-extensions.mo -o gnome-shell.po
-    # sed -i 's/收藏/任务栏/g' gnome-shell.po
-    # msgfmt gnome-shell.po -o /usr/share/locale/zh_CN/LC_MESSAGES/gnome-shell-extensions.mo
 
     print_ok "Enabling gnome extensions for root"
     /usr/local/bin/gext -F enable arcmenu@arcmenu.com
