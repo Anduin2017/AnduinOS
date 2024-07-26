@@ -237,6 +237,8 @@ EOF
         remmina remmina-plugin-rdp \
         firefox \
         totem totem-plugins gstreamer1.0-libav \
+        rhythmbox rhythmbox-plugins \
+        transmission-gtk transmission-common \
         gnome-console nautilus-extension-gnome-console \
         python3-apt python3-pip python-is-python3 \
         git neofetch lsb-release coreutils \
@@ -310,8 +312,6 @@ EOF
 
     print_ok "Purging unnecessary packages"
     apt purge -y \
-        transmission-gtk \
-        transmission-common \
         gnome-mahjongg \
         gnome-mines \
         gnome-sudoku \
@@ -322,7 +322,6 @@ EOF
         gnome-photos \
         eog \
         tilix \
-        rhythmbox \
         gnome-contacts \
         gnome-terminal \
         gedit \
@@ -414,6 +413,55 @@ EOF
     mkdir -p /etc/skel/.config/dconf
     cp /root/.config/dconf/user /etc/skel/.config/dconf/user
     judge "Copy root's dconf settings to /etc/skel"
+
+    # images with shotwell
+    print_ok "Setting default applications"
+    xdg-mime default shotwell-viewer.desktop image/png # png
+    xdg-mime default shotwell-viewer.desktop image/jpeg # jpg
+    xdg-mime default shotwell-viewer.desktop image/gif # gif
+    xdg-mime default shotwell-viewer.desktop image/bmp # bmp
+    xdg-mime default shotwell-viewer.desktop image/tiff # tiff
+    xdg-mime default shotwell-viewer.desktop image/webp # webp
+    xdg-mime default shotwell-viewer.desktop image/x-xcf # xcf
+    # videos with totem
+    xdg-mime default totem.desktop video/mp4 # mp4
+    xdg-mime default totem.desktop video/x-matroska # mkv
+    xdg-mime default totem.desktop video/mp4 # mp4
+    xdg-mime default totem.desktop video/quicktime # mov
+    xdg-mime default totem.desktop video/x-msvideo # avi
+    xdg-mime default totem.desktop video/x-ms-wmv # wmv
+    xdg-mime default totem.desktop video/x-flv # flv
+    xdg-mime default totem.desktop video/x-m4v # m4v
+    xdg-mime default totem.desktop video/webm # webm
+    # audio with rhythmbox
+    xdg-mime default rhythmbox.desktop audio/mpeg # mp3
+    xdg-mime default rhythmbox.desktop audio/x-wav # wav
+    xdg-mime default rhythmbox.desktop audio/x-ms-wma # wma
+    xdg-mime default rhythmbox.desktop audio/x-flac # flac
+    xdg-mime default rhythmbox.desktop audio/x-m4a # m4a
+    xdg-mime default rhythmbox.desktop audio/x-aac # aac
+    # books with evince
+    xdg-mime default org.gnome.Evince.desktop application/pdf
+    xdg-mime default org.gnome.Evince.desktop application/epub+zip
+    # zip with file-roller
+    xdg-mime default org.gnome.FileRoller.desktop application/zip
+    xdg-mime default org.gnome.FileRoller.desktop application/x-7z-compressed
+    xdg-mime default org.gnome.FileRoller.desktop application/x-rar
+    xdg-mime default org.gnome.FileRoller.desktop application/x-tar
+    xdg-mime default org.gnome.FileRoller.desktop application/gzip
+    # txt with gnome-text-editor
+    xdg-mime default org.gnome.TextEditor.desktop text/plain
+    # torrent with transmission-gtk
+    xdg-mime default transmission-gtk.desktop application/x-bittorrent
+    xdg-mime default transmission-gtk.desktop application/x-utorrent
+    # deb
+    xdg-mime default gdebi.desktop application/vnd.debian.binary-package
+    judge "Set default applications"
+
+    print_ok "Copying root's default applications to /etc/skel"
+    mkdir -p /etc/skel/.config
+    cp /root/.config/mimeapps.list /etc/skel/.config/
+    judge "Copy root's default applications to /etc/skel"
 
     print_ok "Cleaning up"
     /usr/bin/pip3 uninstall gnome-extensions-cli -y

@@ -5,6 +5,16 @@
 * Remove package `update-manager-core` to avoid the user upgraded to Ubuntu next version. (AnduinOS will handle the upgrade)
 * Use totem as the default video player instead of vlc.
 * Add `https://github.com/tomflannaghan/proxy-switcher` to the default gnome-shell extension list.
+* Add `transmission-gtk` to the default app list.
+* Add `rhythmbox` to the default app list.
+* Edited default app mime types to open with the default app.
+  * totem for video files.
+  * rhythmbox for audio files.
+  * transmission-gtk for torrent files.
+  * file-roll for archive files.
+  * gnome-text-editor for text files.
+  * gdebi for deb files.
+  * shotwell for photo files.
 
 ## v0.0.7-alpha-jammy
 

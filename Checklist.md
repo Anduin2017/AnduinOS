@@ -13,9 +13,9 @@
 * Ensure the text `遍角次亮采之门` in gnome-text-editor is shown correctly.
 * Ensure folders are sorted before files in nautilus.
 * Ensure `/opt` folder is empty.
-* Ensure double click a photo file is opened with shotwell. (UNDER DEVELOPMENT)
-* Ensure the photo and video files have previews on nautilus.
-* Ensure double clicking a .deb file will open gdebi. (UNDER DEVELOPMENT)
+* Ensure double click a photo file is opened with shotwell.
+* Download a png file and a mp4 file. Ensure the photo and video files have previews on nautilus.
+* Ensure double clicking a .deb file will open gdebi.
 * Try start instllation (Ubiquty) and ensure all language texts are shown correctly. (Without square boxes)
 * Try running installation. Ensure in the log there is no error like ``Gtk-WARNING **: Locale not supported by C library. `
 * After installation, ensure the start menu apps' names are localized.
