@@ -6,7 +6,7 @@
 * Use totem as the default video player instead of vlc.
 * Add `https://github.com/tomflannaghan/proxy-switcher` to the default gnome-shell extension list.
 * Add `transmission-gtk` to the default app list.
-* Add `rhythmbox` to the default app list.
+* Add `rhythmbox` to the default app list and start menu.
 * Edited default app mime types to open with the default app.
   * totem for video files.
   * rhythmbox for audio files.
