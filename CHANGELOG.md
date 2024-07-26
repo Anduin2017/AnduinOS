@@ -15,6 +15,7 @@
   * gnome-text-editor for text files.
   * gdebi for deb files.
   * shotwell for photo files.
+* Remove imagemagick from the default app list to reduce the size of the ISO file.
 
 ## v0.0.7-alpha-jammy
 

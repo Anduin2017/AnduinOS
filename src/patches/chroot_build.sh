@@ -330,6 +330,7 @@ EOF
         libreoffice-* \
         yaru-theme-unity yaru-theme-icon yaru-theme-gtk \
         yelp \
+        imagemagick* \
         info > /dev/null
     # Above remove everything about yaru-theme but keeps yaru-theme-sound and yaru-theme-gnome-shell (Required by Ubuntu session)
     judge "Purge unnecessary packages"
