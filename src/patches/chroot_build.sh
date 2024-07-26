@@ -396,6 +396,7 @@ EOF
 
     print_ok "Enabling gnome extensions for root"
     /usr/local/bin/gext -F enable arcmenu@arcmenu.com
+    /usr/local/bin/gext -F enable proxyswitcher@flannaghan.com
     /usr/local/bin/gext -F enable blur-my-shell@aunetx
     /usr/local/bin/gext -F enable customize-ibus@hollowman.ml
     /usr/local/bin/gext -F enable dash-to-panel@jderose9.github.com
