@@ -1,5 +1,9 @@
 # AnduinOS Changelog
 
+## v0.0.9-alpha-jammy
+
+* Fixed an issue that `/etc/lsb_release` and `/etc/os-release` may not have the correct version number.
+
 ## v0.0.8-alpha-jammy
 
 * Remove package `update-manager-core` to avoid the user upgraded to Ubuntu next version. (AnduinOS will handle the upgrade)
