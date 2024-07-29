@@ -368,6 +368,7 @@ EOF
     print_ok "Installing gnome extensions"
     /usr/bin/pip3 install --upgrade gnome-extensions-cli
     /usr/local/bin/gext -F install arcmenu@arcmenu.com
+    /usr/local/bin/gext -F install audio-output-switcher@anduchs
     /usr/local/bin/gext -F install proxyswitcher@flannaghan.com
     /usr/local/bin/gext -F install blur-my-shell@aunetx
     /usr/local/bin/gext -F install customize-ibus@hollowman.ml
@@ -397,6 +398,7 @@ EOF
 
     print_ok "Enabling gnome extensions for root"
     /usr/local/bin/gext -F enable arcmenu@arcmenu.com
+    /usr/local/bin/gext -F enable audio-output-switcher@anduchs
     /usr/local/bin/gext -F enable proxyswitcher@flannaghan.com
     /usr/local/bin/gext -F enable blur-my-shell@aunetx
     /usr/local/bin/gext -F enable customize-ibus@hollowman.ml

@@ -3,6 +3,7 @@
 ## v0.0.9-alpha-jammy
 
 * Fixed an issue that `/etc/lsb_release` and `/etc/os-release` may not have the correct version number.
+* Add `audio-output-switcher@anduchs` to the default gnome-shell extension list.
 
 ## v0.0.8-alpha-jammy
 
