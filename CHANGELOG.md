@@ -4,6 +4,7 @@
 
 * Fixed an issue that `/etc/lsb_release` and `/etc/os-release` may not have the correct version number.
 * Add `audio-output-switcher@anduchs` to the default gnome-shell extension list.
+* Patch Chinese localization for `Rhythmbox`.
 
 ## v0.0.8-alpha-jammy
 
