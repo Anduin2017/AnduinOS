@@ -223,7 +223,7 @@ EOF
         plymouth plymouth-label plymouth-theme-spinner plymouth-theme-ubuntu-text plymouth-theme-ubuntu-logo \
         gnome-shell gir1.2-gmenu-3.0 gnome-menus gnome-shell-extensions \
         nautilus usb-creator-gtk cheese baobab file-roller gnome-sushi ffmpegthumbnailer \
-        gnome-calculator gnome-disk-utility gnome-control-center software-properties-gtk gnome-logs \
+        gnome-calculator gnome-disk-utility gnome-control-center gnome-logs \
         gnome-tweaks gnome-shell-extension-prefs gnome-shell-extension-desktop-icons-ng gnome-shell-extension-appindicator \
         gnome-screenshot gnome-system-monitor gnome-sound-recorder \
         fonts-noto-cjk fonts-noto-core fonts-noto-mono fonts-noto-color-emoji \
@@ -339,6 +339,9 @@ EOF
         yaru-theme-unity yaru-theme-icon yaru-theme-gtk \
         yelp \
         imagemagick* \
+        ubuntu-pro-client ubuntu-advantage-desktop-daemon ubuntu-advantage-tools ubuntu-pro-client ubuntu-pro-client-l10n \
+        gnome-software gnome-software-common gnome-software-plugin-snap \
+        software-properties-gtk
         info > /dev/null
     # Above remove everything about yaru-theme but keeps yaru-theme-sound and yaru-theme-gnome-shell (Required by Ubuntu session)
     judge "Purge unnecessary packages"
