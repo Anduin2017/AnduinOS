@@ -122,7 +122,7 @@ function setup_host() {
 }
 
 function download_base_system() {
-    print_ok "Downloading base system from $TARGET_UBUNTU_MIRROR for $TARGET_UBUNTU_VERSION..."
+    print_ok "Calling debootstrap to download base debian system..."
     sudo debootstrap  --arch=amd64 --variant=minbase $TARGET_UBUNTU_VERSION chroot $TARGET_UBUNTU_MIRROR
     judge "Download base system"
 }
@@ -153,7 +153,6 @@ function run_chroot() {
     sudo rm -rf chroot/root/patches
     judge "Clean up chroot /root/patches"
 
-    # Cleanup after image changes
     print_ok "Cleaning up chroot /root/patches..."
     sudo rm -rf chroot/root/patches
     judge "Clean up chroot /root/patches"
@@ -199,7 +198,7 @@ function build_iso() {
     # * Enforce X11
     # * Couldn't logout
     # * Couldn't lock screen
-    # * No desktop. All gnome extensions are disabled
+    # * Desktop is enabled. All gnome extensions are disabled.
     # * Will show Ubiquity installer by default
     # * Ubiquity installer won't ask if you want to keep trying this OS
 
