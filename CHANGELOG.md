@@ -7,6 +7,7 @@
 * Added a new command `do_anduinos_upgrade` to upgrade the system to the latest version.
 * Fix a typo in `/etc/lsb_release`.
 * Patched `/etc/issue` to show the AnduinOS brand.
+* Patched `/etc/issue.net` to show the AnduinOS brand.
 
 ## v0.1.0-beta-jammy
 
