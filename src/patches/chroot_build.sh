@@ -499,7 +499,7 @@ EOF
 # Supported variables are:
 # USERNAME, USERFULLNAME, HOST, BUILD_SYSTEM, FLAVOUR
 
-export USERNAME="live"
+export USERNAME="anduin"
 export USERFULLNAME="AnduinOS Live session user"
 export HOST="anduinos"
 export BUILD_SYSTEM="Ubuntu"
