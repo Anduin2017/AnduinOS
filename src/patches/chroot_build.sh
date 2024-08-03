@@ -482,7 +482,7 @@ EOF
 DISTRIB_ID=$TARGET_BUSINESS_NAME
 DISTRIB_RELEASE=$TARGET_BUILD_VERSION
 DISTRIB_CODENAME=$TARGET_UBUNTU_VERSION
-DISTRIB_DESCRIPTION="$TARGET_BUSINESS_NAME $TARGET_BUILD_VERSION based on Ubuntu $TARGET_UBUNTU_VERSION"
+DISTRIB_DESCRIPTION="$TARGET_BUSINESS_NAME $TARGET_BUILD_VERSION"
 EOF
     judge "Update lsb-release"
 
@@ -519,6 +519,13 @@ export BUILD_SYSTEM="Ubuntu"
 
 export FLAVOUR="AnduinOS"
 EOF
+
+    print_ok "Updating /etc/issue"
+    cat << EOF > /etc/issue
+$TARGET_BUSINESS_NAME $TARGET_BUILD_VERSION \n \l
+EOF
+    judge "Update /etc/issue"
+
     # Update initramfs
     update-initramfs -u -k all
     judge "Update /etc/casper.conf"

@@ -1,8 +1,12 @@
 # AnduinOS Changelog
 
-## v0.1.1-beta-jammy
+## v0.1.1-beta
 
+* Simplified the name of this OS to `v0.1.1-beta`. Removed the `jammy` word.
 * Compress the ubiquity slideshow images to reduce the size of the ISO file.
+* Added a new command `do_anduinos_upgrade` to upgrade the system to the latest version.
+* Fix a typo in `/etc/lsb_release`.
+* Patched `/etc/issue` to show the AnduinOS brand.
 
 ## v0.1.0-beta-jammy
 

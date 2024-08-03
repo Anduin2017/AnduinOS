@@ -338,14 +338,14 @@ EOF
     judge "Create iso image"
 
     DATE=`TZ="UTC" date +"%y%m%d%H%M"`
-    print_ok "Moving iso image to $SCRIPT_DIR/dist/$TARGET_BUSINESS_NAME-$TARGET_UBUNTU_VERSION-$TARGET_BUILD_VERSION-$DATE.iso..."
+    print_ok "Moving iso image to $SCRIPT_DIR/dist/$TARGET_BUSINESS_NAME-$TARGET_BUILD_VERSION-$DATE.iso..."
     mkdir -p $SCRIPT_DIR/dist
-    mv $SCRIPT_DIR/$TARGET_NAME.iso $SCRIPT_DIR/dist/$TARGET_BUSINESS_NAME-$TARGET_UBUNTU_VERSION-$TARGET_BUILD_VERSION-$DATE.iso
+    mv $SCRIPT_DIR/$TARGET_NAME.iso $SCRIPT_DIR/dist/$TARGET_BUSINESS_NAME-$TARGET_BUILD_VERSION-$DATE.iso
     judge "Move iso image"
 
     print_ok "Generating sha256 checksum..."
-    HASH=`sha256sum $SCRIPT_DIR/dist/$TARGET_BUSINESS_NAME-$TARGET_UBUNTU_VERSION-$TARGET_BUILD_VERSION-$DATE.iso | cut -d ' ' -f 1`
-    echo "SHA256: $HASH" > $SCRIPT_DIR/dist/$TARGET_BUSINESS_NAME-$TARGET_UBUNTU_VERSION-$TARGET_BUILD_VERSION-$DATE.sha256
+    HASH=`sha256sum $SCRIPT_DIR/dist/$TARGET_BUSINESS_NAME-$TARGET_BUILD_VERSION-$DATE.iso | cut -d ' ' -f 1`
+    echo "SHA256: $HASH" > $SCRIPT_DIR/dist/$TARGET_BUSINESS_NAME-$TARGET_BUILD_VERSION-$DATE.sha256
     judge "Generate sha256 checksum"
 
     popd
