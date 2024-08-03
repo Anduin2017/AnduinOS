@@ -3,6 +3,7 @@
 ## v0.0.10-alpha-jammy
 
 * Removed `gnome-software`, `software-properties-gtk`, `ubuntu-pro-client`, `ubuntu-advantage-desktop-daemon`, `ubuntu-advantage-tools`, `ubuntu-pro-client-l10n`, `gnome-software-common`, `gnome-software-plugin-snap` to reduce the size of the ISO file.
+* Added a `Software-store` pointing to `https://anduinos-docs.aiursoft.cn/Applications/Introduction.html` in the start menu.
 
 ## v0.0.9-alpha-jammy
 
