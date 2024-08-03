@@ -10,6 +10,7 @@
 * Ensure Super + Shift + S will take a screenshot. (UNDER DEVELOPMENT)
 * Ensure on `Tweaks` app sound theme, icon theme, shell theme are all set.
 * Ensure there will be a `DO` sound (Yaru) when typing tab on terminal.
+* Ensure `lsb_release` with arg `-i -d -r -c -a` will show the correct information.
 * Ensure the text `遍角次亮采之门` in gnome-text-editor is shown correctly.
 * Ensure folders are sorted before files in nautilus.
 * Ensure `/opt` folder is empty.
@@ -20,3 +21,4 @@
 * Try running installation. Ensure in the log there is no error like ``Gtk-WARNING **: Locale not supported by C library. `
 * After installation, ensure the start menu apps' names are localized.
 * Try installing Motrix and see if it can be shown successfully on the tray.
+* Try pressing `Ctrl + Alt + F6` and ensure it can switch to tty6. Message is `AnduinOS`.
