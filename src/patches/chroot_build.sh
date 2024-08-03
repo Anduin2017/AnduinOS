@@ -282,6 +282,22 @@ EOF
     sed -i '/^X-GNOME-FullName=/a X-GNOME-FullName[zh_TW]=音樂' /usr/share/applications/rhythmbox.desktop
     judge "Patch rhythmbox localization"
 
+    print_ok "Adding new app called AnduinOS Software..."
+    cat << EOF > /usr/share/applications/anduinos-software.desktop
+[Desktop Entry]
+Name=Apps Store
+GenericName=Apps Store
+Name[zh_CN]=应用商店
+Name[zh_TW]=應用商店
+Comment=Browse AnduinOS's software collection and install our verified applications
+Categories=System;
+Exec=xdg-open https://anduinos-docs.aiursoft.cn/Applications/Introduction.html
+Terminal=false
+Type=Application
+Icon=system-software-install
+StartupNotify=true
+EOF
+
     # Redirect /usr/local/bin/gnome-terminal -> /usr/bin/kgx
     print_ok "Redirect /usr/local/bin/gnome-terminal -> /usr/bin/kgx"
     ln -s /usr/bin/kgx /usr/local/bin/gnome-terminal
