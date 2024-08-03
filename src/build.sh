@@ -153,10 +153,6 @@ function run_chroot() {
     sudo rm -rf chroot/root/patches
     judge "Clean up chroot /root/patches"
 
-    print_ok "Cleaning up chroot /root/patches..."
-    sudo rm -rf chroot/root/patches
-    judge "Clean up chroot /root/patches"
-
     print_ok "Sleeping for 5 seconds to allow chroot to exit cleanly..."
     sleep 5
 
@@ -210,6 +206,8 @@ function build_iso() {
     # * Desktop is enabled. All gnome extensions are enabled
     # * No Ubiquity installer
     # * No "Install" icon on the desktop
+
+    # Those configurations are setup in chroot/usr/share/initramfs-tools/scripts/casper-bottom/25configure_init
     cat << EOF > image/isolinux/grub.cfg
 
 search --set=root --file /ubuntu
