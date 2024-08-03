@@ -170,7 +170,7 @@ function build_iso() {
 
     print_ok "Creating image directory..."
     rm -rf image
-    mkdir -p image/{casper,isolinux}
+    mkdir -p image/{casper,isolinux,.disk}
     judge "Create image directory"
 
     # copy kernel files
@@ -306,6 +306,10 @@ EOF
     print_ok "Creating hybrid boot image on /isolinux/bios.img..."
     cat /usr/lib/grub/i386-pc/cdboot.img isolinux/core.img > isolinux/bios.img
     judge "Create hybrid boot image"
+
+    print_ok "Creating .disk/info..."
+    echo "$TARGET_BUSINESS_NAME $TARGET_BUILD_VERSION "Jammy Jellyfish" - Release amd64 ($(date +%Y%m%d))" | sudo tee .disk/info
+    judge "Create .disk/info"
 
     print_ok "Creating md5sum.txt..."
     sudo /bin/bash -c "(find . -type f -print0 | xargs -0 md5sum | grep -v -e 'md5sum.txt' -e 'bios.img' -e 'efiboot.img' > md5sum.txt)"

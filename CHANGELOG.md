@@ -8,6 +8,7 @@
 * Fix a typo in `/etc/lsb_release`.
 * Patched `/etc/issue` to show the AnduinOS brand.
 * Patched `/etc/issue.net` to show the AnduinOS brand.
+* Created `.disk/info` file under the root of the ISO file to show the AnduinOS brand.
 
 ## v0.1.0-beta-jammy
 
