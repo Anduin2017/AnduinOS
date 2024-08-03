@@ -468,12 +468,21 @@ EOF
     touch /etc/skel/Templates/Markdown.md
     judge "Configure templates"
 
+    print_ok "Adding new command to this OS: do_anduinos_upgrade..."
+    cat << EOF > /usr/local/bin/do_anduinos_upgrade
+#!/bin/bash
+echo "Upgrading AnduinOS..."
+curl -sSL https://gitlab.aiursoft.cn/anduin/anduinos/-/raw/master/src/upgrade.sh | bash
+EOF
+    chmod +x /usr/local/bin/do_anduinos_upgrade
+    judge "Add new command do_anduinos_upgrade"
+
     print_ok "Customization complete. Updating ls/os-release files"
     cat << EOF > /etc/lsb-release
 DISTRIB_ID=$TARGET_BUSINESS_NAME
-DISTIRB_RELEASE=$TARGET_BUILD_VERSION
-DISTIRB_CODENAME=$TARGET_UBUNTU_VERSION
-DISTIRB_DESCRIPTION="$TARGET_BUSINESS_NAME $TARGET_BUILD_VERSION based on Ubuntu $TARGET_UBUNTU_VERSION"
+DISTRIB_RELEASE=$TARGET_BUILD_VERSION
+DISTRIB_CODENAME=$TARGET_UBUNTU_VERSION
+DISTRIB_DESCRIPTION="$TARGET_BUSINESS_NAME $TARGET_BUILD_VERSION based on Ubuntu $TARGET_UBUNTU_VERSION"
 EOF
     judge "Update lsb-release"
 
