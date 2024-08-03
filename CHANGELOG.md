@@ -1,5 +1,9 @@
 # AnduinOS Changelog
 
+## v0.1.1-beta-jammy
+
+* Compress the ubiquity slideshow images to reduce the size of the ISO file.
+
 ## v0.1.0-beta-jammy
 
 * Removed `gnome-software`, `software-properties-gtk`, `ubuntu-pro-client`, `ubuntu-advantage-desktop-daemon`, `ubuntu-advantage-tools`, `ubuntu-pro-client-l10n`, `gnome-software-common`, `gnome-software-plugin-snap` to reduce the size of the ISO file.
