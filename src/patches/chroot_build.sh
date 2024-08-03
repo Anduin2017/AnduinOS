@@ -523,6 +523,7 @@ EOF
     print_ok "Updating /etc/issue"
     cat << EOF > /etc/issue
 $TARGET_BUSINESS_NAME $TARGET_BUILD_VERSION \n \l
+
 EOF
     judge "Update /etc/issue"
 
