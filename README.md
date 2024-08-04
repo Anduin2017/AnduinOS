@@ -71,9 +71,6 @@ For bug reports and feature requests, please use the [Issues](https://github.com
 
 <!-- TODO
 www.anduinos.com       # Homepage
-source.anduinos.com    # GitLab
 docs.anduinos.com      # MkDocs
 downloads.anduinos.com # ISO Download
-mirror.anduinos.com    # APT Mirror
-update.anduinos.com    # Update Server (Pure script)
  -->
