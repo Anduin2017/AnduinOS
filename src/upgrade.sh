@@ -128,14 +128,19 @@ function applyLsbRelease() {
 }
 
 function main() {
+    print_ok "Current version is: ${CURRENT_VERSION}. Checking for updates..."
+
     # Ensure the current OS is AnduinOS
     ensureCurrentOsAnduinOs
 
     # Compare current version with latest version
     if [ "$CURRENT_VERSION" == "$LATEST_VERSION" ]; then
-        print_ok "Your system is already up to date. No updates available."
+        print_ok "Your system is already up to date. No update available."
         exit 0
     fi
+
+    print_ok "Upgrading system to version ${LATEST_VERSION}..."
+    sleep 5
 
     # Run necessary upgrades based on current version
     case "$CURRENT_VERSION" in
