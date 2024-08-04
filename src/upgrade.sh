@@ -107,6 +107,11 @@ function upgrade_011_to_012() {
     sudo apt autoremove apport neofetch -y
     judge "Uninstalling apport, neofetch"
 
+    print_ok "Removing /etc/update-manager/, /etc/update-motd.d/"
+    sudo rm /etc/update-manager/ -rf
+    sudo rm /etc/update-motd.d/ -rf
+    judge "Removing /etc/update-manager/, /etc/update-motd.d/"
+
     print_ok "Upgrade to 0.1.2-beta succeeded"
 }
 

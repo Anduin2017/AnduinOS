@@ -199,6 +199,11 @@ EOF
     pro config set motd=false || true
     judge "Remove Ubuntu Pro advertisements"
 
+    print_ok "Removing Ubuntu motd and update-manager"
+    rm /etc/update-manager/ -rf
+    rm /etc/update-motd.d/ -rf
+    judge "Remove Ubuntu motd and update-manager"
+
     print_ok "Adding Mozilla Firefox PPA"
     apt install -y software-properties-common
     add-apt-repository -y ppa:mozillateam/ppa -n

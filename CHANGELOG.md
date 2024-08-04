@@ -5,6 +5,7 @@
 * Added `ubuntu-drivers-common` to the default app list to simplify the driver installation process.
 * Removed `apport` and `python3-systemd` to reduce the size of the ISO file.
 * Removed `neofetch` from default app list to reduce the size of the ISO file.
+* Removed `/etc/update-manager/` and `/etc/update-motd.d/` to simplify the message after login.
 
 ## v0.1.1-beta
 
