@@ -20,5 +20,6 @@
 * Try start instllation (Ubiquty) and ensure all language texts are shown correctly. (Without square boxes)
 * Try running installation. Ensure in the log there is no error like ``Gtk-WARNING **: Locale not supported by C library. `
 * After installation, ensure the start menu apps' names are localized.
+* Open terminal and type `ubuntu-` with `Tab`. Ensure it can auto complete to `ubuntu-drivers`.
 * Try installing Motrix and see if it can be shown successfully on the tray.
 * Try pressing `Ctrl + Alt + F6` and ensure it can switch to tty6. Message is `AnduinOS`.
