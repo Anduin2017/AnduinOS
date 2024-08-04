@@ -122,6 +122,9 @@ function applyLsbRelease() {
 
     # Update /etc/issue
     echo "AnduinOS ${LATEST_VERSION} \n \l" | sudo tee /etc/issue > /dev/null
+
+    # Update /usr/lib/os-release
+    sudo cp /etc/os-release /usr/lib/os-release
 }
 
 function main() {
