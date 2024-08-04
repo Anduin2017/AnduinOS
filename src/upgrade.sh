@@ -59,24 +59,6 @@ function judge() {
   fi
 }
 
-#==========================
-# Are you sure function
-#==========================
-function areYouSure() {
-  print_warn "Found a new version of AnduinOS. Your current version is ${CURRENT_VERSION}. The latest version is ${LATEST_VERSION}"
-  print_warn "Are you sure to continue the installation? Enter [y/N] to continue"
-  read -r install
-  case $install in
-  [yY][eE][sS] | [yY])
-    print_ok "Continue the installation"
-    ;;
-  *)
-    print_error "Installation terminated"
-    exit 1
-    ;;
-  esac
-}
-
 function ensureCurrentOsAnduinOs() {
     # Ensure the current OS is AnduinOS
     if ! grep -q "DISTRIB_ID=AnduinOS" /etc/lsb-release; then
@@ -163,12 +145,10 @@ function main() {
     # Run necessary upgrades based on current version
     case "$CURRENT_VERSION" in
         "0.1.0-beta")
-            areYouSure
             upgrade_010_to_011
             upgrade_011_to_012
             ;;
         "0.1.1-beta")
-            areYouSure
             upgrade_011_to_012
             ;;
         *)
