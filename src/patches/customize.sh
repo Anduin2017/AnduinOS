@@ -4,7 +4,7 @@ export TARGET_UBUNTU_VERSION="jammy"
 export TARGET_UBUNTU_MIRROR="http://mirror.aiursoft.cn/ubuntu/"
 export TARGET_NAME="anduinos"
 export TARGET_BUSINESS_NAME="AnduinOS"
-export TARGET_BUILD_VERSION="0.1.1-beta"
+export TARGET_BUILD_VERSION="0.1.2-beta"
 export TARGET_PACKAGE_REMOVE="
     ubiquity \
     casper \
