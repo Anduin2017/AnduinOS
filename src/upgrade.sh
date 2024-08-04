@@ -126,7 +126,10 @@ function applyLsbRelease() {
     sudo sed -i "s/PRETTY_NAME=.*/PRETTY_NAME=\"AnduinOS ${LATEST_VERSION}\"/" /etc/os-release
 
     # Update /etc/issue
-    echo "AnduinOS ${LATEST_VERSION} \n \l" | sudo tee /etc/issue > /dev/null
+    sudo bash -c 'cat << EOF > /etc/issue
+AnduinOS ${LATEST_VERSION} \n \l
+
+EOF'
 
     # Update /usr/lib/os-release
     sudo cp /etc/os-release /usr/lib/os-release
