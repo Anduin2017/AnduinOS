@@ -1,5 +1,9 @@
 # AnduinOS Changelog
 
+## v0.1.2-beta
+
+* Added `ubuntu-drivers-common` to the default app list to simplify the driver installation process.
+
 ## v0.1.1-beta
 
 * Simplified the name of this OS to `v0.1.1-beta`. Removed the `jammy` word.
