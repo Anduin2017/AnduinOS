@@ -357,6 +357,7 @@ EOF
         libreoffice-* \
         yaru-theme-unity yaru-theme-icon yaru-theme-gtk \
         yelp \
+        apport python3-systemd \
         imagemagick* \
         ubuntu-pro-client ubuntu-advantage-desktop-daemon ubuntu-advantage-tools ubuntu-pro-client ubuntu-pro-client-l10n \
         gnome-software gnome-software-common gnome-software-plugin-snap \
