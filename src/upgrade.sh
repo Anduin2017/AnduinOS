@@ -1,12 +1,4 @@
 #!/bin/bash
-# This script can only run on AnduinOS. It will detect current OS distro first. Stop running on other distros.
-# This script will compare current version based on: /etc/lsb-release and latest version from the repository
-# This script will see if there is a new version available and if so, it will upgrade the system
-# Every version upgrade will be a function. For example: 0.1.1, 0.1.2, 0.1.3, etc.
-# This script will run all missing upgrades in order to reach the latest version. For example: Current version is 0.1.1, latest version is 0.1.3. This script will run 0.1.2 and 0.1.3 upgrades.
-# If there is no new version available, this script will do nothing, only output a message
-# Finally this script will update the /etc/lsb-release, /etc/os-release and /etc/issue files with the latest version
-
 #==========================
 # Set up the environment
 #==========================
@@ -111,9 +103,9 @@ function upgrade_011_to_012() {
     sudo apt install ubuntu-drivers-common -y
     judge "Install ubuntu-drivers-common"
 
-    print_ok "Installing apport"
-    sudo apt autoremove apport -y
-    judge "Install apport"
+    print_ok "Uninstalling apport, neofetch"
+    sudo apt autoremove apport neofetch -y
+    judge "Uninstalling apport, neofetch"
 
     print_ok "Upgrade to 0.1.2-beta succeeded"
 }

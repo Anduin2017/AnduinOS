@@ -242,7 +242,7 @@ EOF
         transmission-gtk transmission-common \
         gnome-console nautilus-extension-gnome-console \
         python3-apt python3-pip python-is-python3 \
-        git neofetch lsb-release coreutils \
+        git lsb-release coreutils \
         gnupg vim nano \
         wget curl \
         httping nethogs net-tools iftop traceroute dnsutils iperf3 \
