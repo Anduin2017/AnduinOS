@@ -76,6 +76,13 @@ function areYouSure() {
   esac
 }
 
+function waitNetwork() {
+    while curl -s mirror.aiursoft.cn > /dev/null; [ $? -ne 0 ]; do
+        echo "Waiting for registry (https://mirror.aiursoft.cn) to start... ETA: 25s"
+        sleep 1
+    done
+}
+
 # Load configuration values from file
 function load_config() {
     print_ok "Loading configuration from $SCRIPT_DIR/customize.sh..."
@@ -111,6 +118,7 @@ EOF
 
     # we need to install systemd first, to configure machine id
     print_ok "Installing systemd..."
+    waitNetwork
     apt update
     apt install -y libterm-readline-gnu-perl systemd-sysv
     judge "Install systemd"
@@ -136,7 +144,7 @@ function install_kernel_ubiquity() {
 
     # install live packages
     print_ok "Installing live packages. Sleep 10 seconds to wait for network..."
-    sleep 10
+    waitNetwork
     apt install -y \
         coreutils \
         sudo \
@@ -158,11 +166,13 @@ function install_kernel_ubiquity() {
     judge "Install live packages"
 
     print_ok "Installing kernel package..."
+    waitNetwork
     apt install -y --no-install-recommends linux-generic-hwe-22.04
     judge "Install kernel package"
 
     # graphic installer - ubiquity
     print_ok "Installing ubiquity (Ubuntu installer)..."
+    waitNetwork
     apt install -y \
         ubiquity \
         ubiquity-casper \
@@ -222,6 +232,7 @@ EOF
     judge "Update package list"
 
     print_ok "Installing gnome-shell and other gnome applications"
+    waitNetwork
     apt install -y \
         ca-certificates gpg apt-transport-https \
         ubuntu-session yaru-theme-sound yaru-theme-gnome-shell \
