@@ -11,6 +11,7 @@
 * Created `.disk/info` file under the root of the ISO file to show the AnduinOS brand.
 * Fixed an issue that in `Ubiquity-slideshow` the `Privacy` page may miss an image.
 * Software store link changed to `https://docs.anduinos.com/`.
+* Use AnduinOS own website instead of GitHub to distribute release.
 
 ## v0.1.0-beta-jammy
 
