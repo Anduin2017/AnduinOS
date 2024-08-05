@@ -1,5 +1,9 @@
 # AnduinOS Changelog
 
+## v0.1.3-beta
+
+* Install Fluent cursor theme
+
 ## v0.1.2-beta
 
 * Added `ubuntu-drivers-common` to the default app list to simplify the driver installation process.
