@@ -404,8 +404,14 @@ EOF
     print_ok "Installing Fluent icon theme"
     git clone https://git.aiursoft.cn/PublicVault/Fluent-icon-theme $SCRIPT_DIR/themes/Fluent-icon-theme
     $SCRIPT_DIR/themes/Fluent-icon-theme/install.sh standard
-    $SCRIPT_DIR/themes/Fluent-icon-theme/cursors/install.sh
     judge "Install Fluent icon theme"
+
+    print_ok "Installing Fluent cursor theme"
+    (
+        $SCRIPT_DIR/themes/Fluent-icon-theme/cursors/ && \
+        $SCRIPT_DIR/themes/Fluent-icon-theme/cursors/install.sh
+    )
+    judge "Install Fluent cursor theme"
 
     print_ok "Installing Fluent theme"
     git clone https://git.aiursoft.cn/PublicVault/Fluent-gtk-theme $SCRIPT_DIR/themes/Fluent-gtk-theme
