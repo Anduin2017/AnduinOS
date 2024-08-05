@@ -408,7 +408,7 @@ EOF
 
     print_ok "Installing Fluent cursor theme"
     (
-        $SCRIPT_DIR/themes/Fluent-icon-theme/cursors/ && \
+        cd $SCRIPT_DIR/themes/Fluent-icon-theme/cursors/ && \
         $SCRIPT_DIR/themes/Fluent-icon-theme/cursors/install.sh
     )
     judge "Install Fluent cursor theme"
