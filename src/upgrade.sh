@@ -118,6 +118,23 @@ function upgrade_011_to_012() {
 function upgrade_012_to_013() {
     # Add your upgrade steps from 0.1.2 to 0.1.3 here
     print_ok "Upgrading from 0.1.2 to 0.1.3"
+
+    print_ok "Installing fluent-cursor-theme"
+    (
+        cd /tmp
+        git clone https://git.aiursoft.cn/PublicVault/Fluent-icon-theme.git
+        cd /tmp/Fluent-icon-theme/cursors
+        bash -c /tmp/Fluent-icon-theme/cursors/install.sh
+        gsettings set org.gnome.desktop.interface cursor-theme 'Fluent-dark-cursors'
+        cd ~
+    )
+    judge "Install fluent-cursor-theme"
+
+    print_ok "Patching /etc/os-release"
+    # Replace HOME_URL="https://www.ubuntu.com/" to HOME_URL="https://www.anduinos.com/"
+    sudo sed -i "s/HOME_URL=.*/HOME_URL=\"https:\/\/www.anduinos.com\/\"/" /etc/os-release
+    judge "Patch /etc/os-release"
+
     print_ok "Upgrade to 0.1.3-beta succeeded"
 }
 
