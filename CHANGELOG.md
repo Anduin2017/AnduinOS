@@ -3,6 +3,7 @@
 ## v0.1.3-beta
 
 * Install Fluent cursor theme
+* Edited `Home_url` in `/etc/os-release` to point to the AnduinOS website.
 
 ## v0.1.2-beta
 
