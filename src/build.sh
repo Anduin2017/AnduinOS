@@ -50,7 +50,7 @@ function print_warn() {
 function judge() {
   if [[ 0 -eq $? ]]; then
     print_ok "$1 succeeded"
-    sleep 1
+    sleep 0.2
   else
     print_error "$1 failed"
     exit 1

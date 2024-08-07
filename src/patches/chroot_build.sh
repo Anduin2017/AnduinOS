@@ -51,7 +51,7 @@ function print_warn() {
 function judge() {
   if [[ 0 -eq $? ]]; then
     print_ok "$1 succeeded"
-    sleep 1
+    sleep 0.2
   else
     print_error "$1 failed"
     exit 1
@@ -136,13 +136,13 @@ EOF
 }
 
 function install_kernel_ubiquity() {
-    print_ok "Updating packages. Sleep 10 seconds to wait for network..."
-    sleep 10
+    print_ok "Updating packages..."
+    waitNetwork
     apt -y upgrade
     judge "Upgrade packages"
 
     # install live packages
-    print_ok "Installing live packages. Sleep 10 seconds to wait for network..."
+    print_ok "Installing live packages."
     waitNetwork
     apt install -y \
         coreutils \
@@ -182,9 +182,6 @@ function install_kernel_ubiquity() {
 }
 
 function customize_image() {
-    print_ok "Installing gnome-shell and other packages... Sleep 10 seconds to wait for network..."
-    sleep 10
-
     print_ok "Removing snap packages"
     snap remove firefox || true
     snap remove snap-store || true
@@ -214,6 +211,7 @@ EOF
     judge "Remove Ubuntu motd and update-manager"
 
     print_ok "Adding Mozilla Firefox PPA"
+    waitNetwork
     apt install -y software-properties-common
     add-apt-repository -y ppa:mozillateam/ppa -n
     echo "deb https://mirror-ppa.aiursoft.cn/mozillateam/ppa/ubuntu/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/mozillateam-ubuntu-ppa-$(lsb_release -sc).list
