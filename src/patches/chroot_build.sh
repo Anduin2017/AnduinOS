@@ -386,13 +386,15 @@ EOF
     rm /usr/share/gnome-background-properties/* -rf
     rm /usr/share/backgrounds/* -rf
     mv $SCRIPT_DIR/wallpaper/Fluent-building-night.png /usr/share/backgrounds/
+    mv $SCRIPT_DIR/wallpaper/Fluent-building-light.jpg /usr/share/backgrounds/
+
 cat << EOF > /usr/share/gnome-background-properties/fluent.xml
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE wallpapers SYSTEM "gnome-wp-list.dtd">
 <wallpapers>
   <wallpaper deleted="false">
-    <name>Fluent Building Night</name>
-    <filename>/usr/share/backgrounds/Fluent-building-night.png</filename>
+    <name>Fluent Building</name>
+    <filename>/usr/share/backgrounds/Fluent-building-light.png</filename>
     <filename-dark>/usr/share/backgrounds/Fluent-building-night.png</filename-dark>
     <options>zoom</options>
     <shade_type>solid</shade_type>
