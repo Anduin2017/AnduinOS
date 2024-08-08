@@ -385,7 +385,7 @@ EOF
     rm /usr/share/gnome-background-properties/* -rf
     rm /usr/share/backgrounds/* -rf
     mv $SCRIPT_DIR/wallpaper/Fluent-building-night.png /usr/share/backgrounds/
-    mv $SCRIPT_DIR/wallpaper/Fluent-building-light.jpg /usr/share/backgrounds/
+    mv $SCRIPT_DIR/wallpaper/Fluent-building-light.png /usr/share/backgrounds/
 
 cat << EOF > /usr/share/gnome-background-properties/fluent.xml
 <?xml version="1.0" encoding="UTF-8"?>
