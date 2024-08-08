@@ -24,8 +24,6 @@ The open-source software included in AnduinOS is distributed in the hope that it
 
 [List of open-source software included in AnduinOS](OSS.md)
 
-[AnduinOS Change Log](CHANGELOG.md)
-
 ## Support
 
 For community support and discussion, please join our [AnduinOS Discussions](https://github.com/Anduin2017/AnduinOS/discussions).
