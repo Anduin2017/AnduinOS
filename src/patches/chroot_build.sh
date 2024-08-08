@@ -441,6 +441,7 @@ EOF
     /usr/local/bin/gext -F install openweather-extension@jenslody.de
     judge "Install gnome extensions"
 
+
     print_ok "Moving root's gnome extensions to /usr/share/gnome-shell/extensions"
     rm /usr/share/gnome-shell/extensions/apps-menu* -rf
     rm /usr/share/gnome-shell/extensions/auto-move-windows* -rf
@@ -454,6 +455,10 @@ EOF
     mv /root/.local/share/gnome-shell/extensions/* /usr/share/gnome-shell/extensions/
     mv $SCRIPT_DIR/logo/logo.svg /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/icons/anduinos-logo.svg
     judge "Move root's gnome extensions"
+
+    print_ok "Installing gnome extension: switcher@anduinos"
+    cp $SCRIPT_DIR/switcher@anduinos /usr/share/gnome-shell/extensions/switcher@anduinos -rf
+    judge "Install gnome extension: switcher@anduinos"
 
     print_ok "Patching Arc Menu..."
     sed -i 's/Unpin from ArcMenu/Unpin from Start menu/g' /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/appMenu.js
@@ -469,6 +474,7 @@ EOF
     /usr/local/bin/gext -F enable dash-to-panel@jderose9.github.com
     /usr/local/bin/gext -F enable network-stats@gnome.noroadsleft.xyz
     /usr/local/bin/gext -F enable openweather-extension@jenslody.de
+    /usr/local/bin/gext -F enable switcher@anduinos
     judge "Enable gnome extensions"
 
     print_ok "Loading dconf settings"
