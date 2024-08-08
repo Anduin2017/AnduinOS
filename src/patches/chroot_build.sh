@@ -488,6 +488,11 @@ EOF
     cp /root/.config/dconf/user /etc/skel/.config/dconf/user
     judge "Copy root's dconf settings to /etc/skel"
 
+    print_ok "Copying root's gnome-shell css to /etc/skel"
+    mkdir -p /etc/skel/.config/gtk-3.0
+    cp $SCRIPT_DIR/gtk-3.0/gtk.css /etc/skel/.config/gtk-3.0/
+    judge "Copy root's gnome-shell css to /etc/skel"
+
     print_ok "Setting default applications"
     bash -c $SCRIPT_DIR/default_apps/install.sh
     judge "Set default applications"
