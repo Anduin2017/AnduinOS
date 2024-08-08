@@ -182,7 +182,8 @@ function build_iso() {
     # grub
     print_ok "Generating grub.cfg..."
     touch image/ubuntu
-    # TRY mode
+    # TRY mode 
+    # (Add 'toram' to boot options will load the whole system into RAM)
     # * Enfoce user name `ubuntu` and hostname `ubuntu`
     # * Enforce X11
     # * Couldn't logout
@@ -218,7 +219,7 @@ set default="0"
 set timeout=30
 
 menuentry "Try AnduinOS" {
-   linux /casper/vmlinuz boot=casper nopersistent toram quiet splash ---
+   linux /casper/vmlinuz boot=casper nopersistent quiet splash ---
    initrd /casper/initrd
 }
 
