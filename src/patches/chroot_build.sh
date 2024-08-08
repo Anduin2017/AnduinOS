@@ -81,6 +81,7 @@ function waitNetwork() {
         echo "Waiting for registry (https://mirror.aiursoft.cn) to start... ETA: 25s"
         sleep 1
     done
+    print_ok "Network is online. Continue..."
 }
 
 # Load configuration values from file
