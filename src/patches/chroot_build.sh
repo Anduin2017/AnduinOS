@@ -386,18 +386,28 @@ EOF
     rm /usr/share/backgrounds/* -rf
     mv $SCRIPT_DIR/wallpaper/Fluent-building-night.png /usr/share/backgrounds/
     mv $SCRIPT_DIR/wallpaper/Fluent-building-light.png /usr/share/backgrounds/
-
-cat << EOF > /usr/share/gnome-background-properties/fluent.xml
+cat << EOF > /usr/share/gnome-background-properties/fluent.dark.xml
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE wallpapers SYSTEM "gnome-wp-list.dtd">
 <wallpapers>
   <wallpaper deleted="false">
-    <name>Fluent Building</name>
-    <filename>/usr/share/backgrounds/Fluent-building-light.png</filename>
-    <filename-dark>/usr/share/backgrounds/Fluent-building-night.png</filename-dark>
+    <name>Fluent Building Dark</name>
+    <filename>/usr/share/backgrounds/Fluent-building-night.png</filename>
     <options>zoom</options>
     <shade_type>solid</shade_type>
   </wallpaper>
+</wallpapers>
+EOF
+cat << EOF > /usr/share/gnome-background-properties/fluent.light.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE wallpapers SYSTEM "gnome-wp-list.dtd">
+<wallpapers>
+    <wallpaper deleted="false">
+        <name>Fluent Building Light</name>
+        <filename>/usr/share/backgrounds/Fluent-building-light.png</filename>
+        <options>zoom</options>
+        <shade_type>solid</shade_type>
+    </wallpaper>
 </wallpapers>
 EOF
     judge "Clean and reinstall wallpaper"
