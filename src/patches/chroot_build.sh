@@ -105,12 +105,12 @@ function setup_host() {
 
     print_ok "Setting up apt sources..."
    cat << EOF > /etc/apt/sources.list
-deb $TARGET_UBUNTU_MIRROR $TARGET_UBUNTU_VERSION main restricted universe multiverse
-deb $TARGET_UBUNTU_MIRROR $TARGET_UBUNTU_VERSION-updates main restricted universe multiverse
-deb $TARGET_UBUNTU_MIRROR $TARGET_UBUNTU_VERSION-backports main restricted universe multiverse
-deb $TARGET_UBUNTU_MIRROR $TARGET_UBUNTU_VERSION-security main restricted universe multiverse
+deb $BUILD_UBUNTU_MIRROR $TARGET_UBUNTU_VERSION main restricted universe multiverse
+deb $BUILD_UBUNTU_MIRROR $TARGET_UBUNTU_VERSION-updates main restricted universe multiverse
+deb $BUILD_UBUNTU_MIRROR $TARGET_UBUNTU_VERSION-backports main restricted universe multiverse
+deb $BUILD_UBUNTU_MIRROR $TARGET_UBUNTU_VERSION-security main restricted universe multiverse
 EOF
-    judge "Set up apt sources to $TARGET_UBUNTU_MIRROR"
+    judge "Set up apt sources to $BUILD_UBUNTU_MIRROR"
 
     print_ok "Setting up hostname..."
     echo "$TARGET_NAME" > /etc/hostname
@@ -522,6 +522,15 @@ curl -sSL https://gitlab.aiursoft.cn/anduin/anduinos/-/raw/master/src/upgrade.sh
 EOF
     chmod +x /usr/local/bin/do_anduinos_upgrade
     judge "Add new command do_anduinos_upgrade"
+
+    print_ok "Setting up apt sources..."
+   cat << EOF > /etc/apt/sources.list
+deb $TARGET_UBUNTU_MIRROR $TARGET_UBUNTU_VERSION main restricted universe multiverse
+deb $TARGET_UBUNTU_MIRROR $TARGET_UBUNTU_VERSION-updates main restricted universe multiverse
+deb $TARGET_UBUNTU_MIRROR $TARGET_UBUNTU_VERSION-backports main restricted universe multiverse
+deb $TARGET_UBUNTU_MIRROR $TARGET_UBUNTU_VERSION-security main restricted universe multiverse
+EOF
+    judge "Set up apt sources to $BUILD_UBUNTU_MIRROR"
 
     print_ok "Customization complete. Updating ls/os-release files"
     cat << EOF > /etc/lsb-release
