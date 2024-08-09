@@ -51,7 +51,7 @@ function print_warn() {
 function judge() {
   if [[ 0 -eq $? ]]; then
     print_ok "$1 succeeded"
-    sleep 1
+    sleep 0.2
   else
     print_error "$1 failed"
     exit 1
@@ -81,6 +81,7 @@ function waitNetwork() {
         echo "Waiting for registry (https://mirror.aiursoft.cn) to start... ETA: 25s"
         sleep 1
     done
+    print_ok "Network is online. Continue..."
 }
 
 # Load configuration values from file
@@ -104,12 +105,12 @@ function setup_host() {
 
     print_ok "Setting up apt sources..."
    cat << EOF > /etc/apt/sources.list
-deb $TARGET_UBUNTU_MIRROR $TARGET_UBUNTU_VERSION main restricted universe multiverse
-deb $TARGET_UBUNTU_MIRROR $TARGET_UBUNTU_VERSION-updates main restricted universe multiverse
-deb $TARGET_UBUNTU_MIRROR $TARGET_UBUNTU_VERSION-backports main restricted universe multiverse
-deb $TARGET_UBUNTU_MIRROR $TARGET_UBUNTU_VERSION-security main restricted universe multiverse
+deb $BUILD_UBUNTU_MIRROR $TARGET_UBUNTU_VERSION main restricted universe multiverse
+deb $BUILD_UBUNTU_MIRROR $TARGET_UBUNTU_VERSION-updates main restricted universe multiverse
+deb $BUILD_UBUNTU_MIRROR $TARGET_UBUNTU_VERSION-backports main restricted universe multiverse
+deb $BUILD_UBUNTU_MIRROR $TARGET_UBUNTU_VERSION-security main restricted universe multiverse
 EOF
-    judge "Set up apt sources to $TARGET_UBUNTU_MIRROR"
+    judge "Set up apt sources to $BUILD_UBUNTU_MIRROR"
 
     print_ok "Setting up hostname..."
     echo "$TARGET_NAME" > /etc/hostname
@@ -136,13 +137,13 @@ EOF
 }
 
 function install_kernel_ubiquity() {
-    print_ok "Updating packages. Sleep 10 seconds to wait for network..."
-    sleep 10
+    print_ok "Updating packages..."
+    waitNetwork
     apt -y upgrade
     judge "Upgrade packages"
 
     # install live packages
-    print_ok "Installing live packages. Sleep 10 seconds to wait for network..."
+    print_ok "Installing live packages."
     waitNetwork
     apt install -y \
         coreutils \
@@ -182,9 +183,6 @@ function install_kernel_ubiquity() {
 }
 
 function customize_image() {
-    print_ok "Installing gnome-shell and other packages... Sleep 10 seconds to wait for network..."
-    sleep 10
-
     print_ok "Removing snap packages"
     snap remove firefox || true
     snap remove snap-store || true
@@ -214,6 +212,7 @@ EOF
     judge "Remove Ubuntu motd and update-manager"
 
     print_ok "Adding Mozilla Firefox PPA"
+    waitNetwork
     apt install -y software-properties-common
     add-apt-repository -y ppa:mozillateam/ppa -n
     echo "deb https://mirror-ppa.aiursoft.cn/mozillateam/ppa/ubuntu/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/mozillateam-ubuntu-ppa-$(lsb_release -sc).list
@@ -386,17 +385,29 @@ EOF
     rm /usr/share/gnome-background-properties/* -rf
     rm /usr/share/backgrounds/* -rf
     mv $SCRIPT_DIR/wallpaper/Fluent-building-night.png /usr/share/backgrounds/
-cat << EOF > /usr/share/gnome-background-properties/fluent.xml
+    mv $SCRIPT_DIR/wallpaper/Fluent-building-light.png /usr/share/backgrounds/
+cat << EOF > /usr/share/gnome-background-properties/fluent.dark.xml
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE wallpapers SYSTEM "gnome-wp-list.dtd">
 <wallpapers>
   <wallpaper deleted="false">
-    <name>Fluent Building Night</name>
+    <name>Fluent Building Dark</name>
     <filename>/usr/share/backgrounds/Fluent-building-night.png</filename>
-    <filename-dark>/usr/share/backgrounds/Fluent-building-night.png</filename-dark>
     <options>zoom</options>
     <shade_type>solid</shade_type>
   </wallpaper>
+</wallpapers>
+EOF
+cat << EOF > /usr/share/gnome-background-properties/fluent.light.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE wallpapers SYSTEM "gnome-wp-list.dtd">
+<wallpapers>
+    <wallpaper deleted="false">
+        <name>Fluent Building Light</name>
+        <filename>/usr/share/backgrounds/Fluent-building-light.png</filename>
+        <options>zoom</options>
+        <shade_type>solid</shade_type>
+    </wallpaper>
 </wallpapers>
 EOF
     judge "Clean and reinstall wallpaper"
@@ -405,6 +416,13 @@ EOF
     git clone https://git.aiursoft.cn/PublicVault/Fluent-icon-theme $SCRIPT_DIR/themes/Fluent-icon-theme
     $SCRIPT_DIR/themes/Fluent-icon-theme/install.sh standard
     judge "Install Fluent icon theme"
+
+    print_ok "Installing Fluent cursor theme"
+    (
+        cd $SCRIPT_DIR/themes/Fluent-icon-theme/cursors/ && \
+        $SCRIPT_DIR/themes/Fluent-icon-theme/cursors/install.sh
+    )
+    judge "Install Fluent cursor theme"
 
     print_ok "Installing Fluent theme"
     git clone https://git.aiursoft.cn/PublicVault/Fluent-gtk-theme $SCRIPT_DIR/themes/Fluent-gtk-theme
@@ -423,6 +441,7 @@ EOF
     /usr/local/bin/gext -F install openweather-extension@jenslody.de
     judge "Install gnome extensions"
 
+
     print_ok "Moving root's gnome extensions to /usr/share/gnome-shell/extensions"
     rm /usr/share/gnome-shell/extensions/apps-menu* -rf
     rm /usr/share/gnome-shell/extensions/auto-move-windows* -rf
@@ -436,6 +455,10 @@ EOF
     mv /root/.local/share/gnome-shell/extensions/* /usr/share/gnome-shell/extensions/
     mv $SCRIPT_DIR/logo/logo.svg /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/icons/anduinos-logo.svg
     judge "Move root's gnome extensions"
+
+    print_ok "Installing gnome extension: switcher@anduinos"
+    cp $SCRIPT_DIR/switcher@anduinos /usr/share/gnome-shell/extensions/switcher@anduinos -rf
+    judge "Install gnome extension: switcher@anduinos"
 
     print_ok "Patching Arc Menu..."
     sed -i 's/Unpin from ArcMenu/Unpin from Start menu/g' /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/appMenu.js
@@ -451,6 +474,7 @@ EOF
     /usr/local/bin/gext -F enable dash-to-panel@jderose9.github.com
     /usr/local/bin/gext -F enable network-stats@gnome.noroadsleft.xyz
     /usr/local/bin/gext -F enable openweather-extension@jenslody.de
+    /usr/local/bin/gext -F enable switcher@anduinos
     judge "Enable gnome extensions"
 
     print_ok "Loading dconf settings"
@@ -463,6 +487,11 @@ EOF
     mkdir -p /etc/skel/.config/dconf
     cp /root/.config/dconf/user /etc/skel/.config/dconf/user
     judge "Copy root's dconf settings to /etc/skel"
+
+    print_ok "Copying root's gnome-shell css to /etc/skel"
+    mkdir -p /etc/skel/.config/gtk-3.0
+    cp $SCRIPT_DIR/gtk-3.0/gtk.css /etc/skel/.config/gtk-3.0/
+    judge "Copy root's gnome-shell css to /etc/skel"
 
     print_ok "Setting default applications"
     bash -c $SCRIPT_DIR/default_apps/install.sh
@@ -494,6 +523,15 @@ EOF
     chmod +x /usr/local/bin/do_anduinos_upgrade
     judge "Add new command do_anduinos_upgrade"
 
+    print_ok "Setting up apt sources..."
+   cat << EOF > /etc/apt/sources.list
+deb $TARGET_UBUNTU_MIRROR $TARGET_UBUNTU_VERSION main restricted universe multiverse
+deb $TARGET_UBUNTU_MIRROR $TARGET_UBUNTU_VERSION-updates main restricted universe multiverse
+deb $TARGET_UBUNTU_MIRROR $TARGET_UBUNTU_VERSION-backports main restricted universe multiverse
+deb $TARGET_UBUNTU_MIRROR $TARGET_UBUNTU_VERSION-security main restricted universe multiverse
+EOF
+    judge "Set up apt sources to $BUILD_UBUNTU_MIRROR"
+
     print_ok "Customization complete. Updating ls/os-release files"
     cat << EOF > /etc/lsb-release
 DISTRIB_ID=$TARGET_BUSINESS_NAME
@@ -511,7 +549,7 @@ VERSION="$TARGET_BUILD_VERSION ($TARGET_UBUNTU_VERSION)"
 VERSION_CODENAME=$TARGET_UBUNTU_VERSION
 ID=ubuntu
 ID_LIKE=debian
-HOME_URL="https://www.ubuntu.com/"
+HOME_URL="https://www.anduinos.com/"
 SUPPORT_URL="https://github.com/Anduin2017/AnduinOS/discussions"
 BUG_REPORT_URL="https://github.com/Anduin2017/AnduinOS/issues"
 PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"

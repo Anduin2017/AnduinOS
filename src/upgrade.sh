@@ -6,7 +6,7 @@ set -e                  # exit on error
 set -o pipefail         # exit on pipeline error
 set -u                  # treat unset variable as error
 export DEBIAN_FRONTEND=noninteractive
-export LATEST_VERSION="0.1.2-beta"
+export LATEST_VERSION="0.1.3-beta"
 export CURRENT_VERSION=$(cat /etc/lsb-release | grep DISTRIB_RELEASE | cut -d "=" -f 2)
 
 #==========================
@@ -44,7 +44,7 @@ function print_warn() {
 function judge() {
   if [[ 0 -eq $? ]]; then
     print_ok "$1 succeeded"
-    sleep 1
+    sleep 0.2
   else
     print_error "$1 failed"
     exit 1
@@ -103,9 +103,11 @@ function upgrade_011_to_012() {
     sudo apt install ubuntu-drivers-common -y
     judge "Install ubuntu-drivers-common"
 
-    print_ok "Uninstalling apport, neofetch"
-    sudo apt autoremove apport neofetch -y
-    judge "Uninstalling apport, neofetch"
+    # Upgrade script shouldn't uninstall packages, even in this version it's removed by default
+    # This is because the user might have installed it manually
+    #print_ok "Uninstalling apport, neofetch"
+    #sudo apt autoremove apport neofetch -y
+    #judge "Uninstalling apport, neofetch"
 
     print_ok "Removing /etc/update-manager/, /etc/update-motd.d/"
     sudo rm /etc/update-manager/ -rf
@@ -113,6 +115,50 @@ function upgrade_011_to_012() {
     judge "Removing /etc/update-manager/, /etc/update-motd.d/"
 
     print_ok "Upgrade to 0.1.2-beta succeeded"
+}
+
+function upgrade_012_to_013() {
+    # Add your upgrade steps from 0.1.2 to 0.1.3 here
+    print_ok "Upgrading from 0.1.2 to 0.1.3"
+
+    print_ok "Installing fluent-cursor-theme"
+    (
+        cd /tmp
+        git clone https://git.aiursoft.cn/PublicVault/Fluent-icon-theme.git
+        cd /tmp/Fluent-icon-theme/cursors
+        mkdir -p /usr/share/icons
+        sudo bash -c /tmp/Fluent-icon-theme/cursors/install.sh
+        gsettings set org.gnome.desktop.interface cursor-theme 'Fluent-dark-cursors'
+        rm -rf /tmp/Fluent-icon-theme
+    )
+    judge "Install fluent-cursor-theme"
+
+    print_ok "Installing new plugin..."
+    (
+        cd /tmp
+        mkdir -p /tmp/repo
+        git clone -b 1.1.3 https://gitlab.aiursoft.cn/anduin/anduinos.git /tmp/repo
+        sudo rsync -Aavx --update --delete /tmp/repo/src/patches/switcher@anduinos/* /usr/share/gnome-shell/extensions/switcher@anduinos
+
+        sudo cp /tmp/repo/src/patches/wallpaper/Fluent-building-light.png /usr/share/backgrounds/
+        sudo cp /tmp/repo/src/patches/wallpaper/Fluent-building-night.png /usr/share/backgrounds/
+
+        dconf load /org/gnome/ < /tmp/repo/src/patches/dconf/dconf.ini
+
+        sudo mkdir -p /etc/skel/.config/gtk-3.0/
+        mkdir -p ~/.config/gtk-3.0/
+        sudo cp /tmp/repo/src/patches/gtk-3.0/gtk.css /etc/skel/.config/gtk-3.0/
+        sudo cp /tmp/repo/src/patches/gtk-3.0/gtk.css ~/.config/gtk-3.0/
+        rm -rf /tmp/repo
+    )
+    judge "Install new plugin"
+
+    print_ok "Patching /etc/os-release"
+    # Replace HOME_URL="https://www.ubuntu.com/" to HOME_URL="https://www.anduinos.com/"
+    sudo sed -i "s/HOME_URL=.*/HOME_URL=\"https:\/\/www.anduinos.com\/\"/" /etc/os-release
+    judge "Patch /etc/os-release"
+
+    print_ok "Upgrade to 0.1.3-beta succeeded"
 }
 
 function applyLsbRelease() {
@@ -145,17 +191,24 @@ function main() {
         exit 0
     fi
 
-    print_ok "Upgrading system to version ${LATEST_VERSION}..."
-    sleep 5
+    print_ok "This script will upgrade your system to version ${LATEST_VERSION}..."
+    print_ok "Please press [ENTER] to continue, or press CTRL+C to cancel."
+    read
+
 
     # Run necessary upgrades based on current version
     case "$CURRENT_VERSION" in
         "0.1.0-beta")
             upgrade_010_to_011
             upgrade_011_to_012
+            upgrade_012_to_013
             ;;
         "0.1.1-beta")
             upgrade_011_to_012
+            upgrade_012_to_013
+            ;;
+        "0.1.2-beta")
+            upgrade_012_to_013
             ;;
         *)
             print_error "Unknown current version. Exiting."

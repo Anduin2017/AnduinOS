@@ -50,7 +50,7 @@ function print_warn() {
 function judge() {
   if [[ 0 -eq $? ]]; then
     print_ok "$1 succeeded"
-    sleep 1
+    sleep 0.2
   else
     print_error "$1 failed"
     exit 1
@@ -123,7 +123,7 @@ function setup_host() {
 
 function download_base_system() {
     print_ok "Calling debootstrap to download base debian system..."
-    sudo debootstrap  --arch=amd64 --variant=minbase $TARGET_UBUNTU_VERSION chroot $TARGET_UBUNTU_MIRROR
+    sudo debootstrap  --arch=amd64 --variant=minbase $TARGET_UBUNTU_VERSION chroot $BUILD_UBUNTU_MIRROR
     judge "Download base system"
 }
 
@@ -182,7 +182,8 @@ function build_iso() {
     # grub
     print_ok "Generating grub.cfg..."
     touch image/ubuntu
-    # TRY mode
+    # TRY mode 
+    # (Add 'toram' to boot options will load the whole system into RAM)
     # * Enfoce user name `ubuntu` and hostname `ubuntu`
     # * Enforce X11
     # * Couldn't logout
@@ -218,7 +219,7 @@ set default="0"
 set timeout=30
 
 menuentry "Try AnduinOS" {
-   linux /casper/vmlinuz boot=casper nopersistent toram quiet splash ---
+   linux /casper/vmlinuz boot=casper nopersistent quiet splash ---
    initrd /casper/initrd
 }
 
