@@ -44,6 +44,9 @@ const DARK_THEME_SETTINGS = {
     },
 };
 
+let switcherMenu;
+let settings;
+
 function applySettings(settings) {
     for (let schemaId in settings) {
         let schema = new Gio.Settings({ schema: schemaId });
@@ -99,9 +102,6 @@ class ThemeMenuToggle {
         this.menu.destroy();
     }
 }
-
-let switcherMenu;
-let settings;
 
 function init() {
     ExtensionUtils.initTranslations(Me.metadata.uuid);
