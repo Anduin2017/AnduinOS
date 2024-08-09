@@ -137,7 +137,7 @@ function upgrade_012_to_013() {
     (
         cd /tmp
         mkdir -p /tmp/repo
-        git clone -b 1.1.3 https://gitlab.aiursoft.cn/anduin/anduinos.git /tmp/repo
+        git clone https://gitlab.aiursoft.cn/anduin/anduinos.git /tmp/repo
         sudo rsync -Aavx --update --delete /tmp/repo/src/patches/switcher@anduinos/* /usr/share/gnome-shell/extensions/switcher@anduinos
 
         sudo cp /tmp/repo/src/patches/wallpaper/Fluent-building-light.png /usr/share/backgrounds/
