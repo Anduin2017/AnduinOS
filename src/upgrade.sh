@@ -132,6 +132,21 @@ function upgrade_012_to_013() {
     )
     judge "Install fluent-cursor-theme"
 
+    print_ok "Installing new plugin..."
+    (
+        cd /tmp
+        mkdir -p /tmp/repo
+        git clone -b 1.1.3 https://gitlab.aiursoft.cn/anduin/anduinos.git /tmp/repo
+        sudo cp /tmp/repo/src/patches/switcher@anduinos /usr/share/gnome-shell/extensions/switcher@anduinos -rf
+
+        sudo cp /tmp/repo/src/patches/wallpaper/Fluent-building-light.png /usr/share/backgrounds/
+        sudo cp /tmp/repo/src/patches/wallpaper/Fluent-building-night.png /usr/share/backgrounds/
+
+        dconf load /org/gnome/ < /tmp/repo/src/patches/dconf/dconf.ini
+        rm -rf /tmp/repo
+    )
+    judge "Install new plugin"
+
     print_ok "Patching /etc/os-release"
     # Replace HOME_URL="https://www.ubuntu.com/" to HOME_URL="https://www.anduinos.com/"
     sudo sed -i "s/HOME_URL=.*/HOME_URL=\"https:\/\/www.anduinos.com\/\"/" /etc/os-release

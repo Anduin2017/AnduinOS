@@ -13,9 +13,6 @@ const LIGHT_SCHEME_ICON = "weather-clear-symbolic";
 const DARK_SCHEME_ICON = "weather-clear-night-symbolic";
 
 const LIGHT_THEME_SETTINGS = {
-    "org.gnome.Console": {
-        "theme": "day",
-    },
     "org.gnome.desktop.interface": {
         "color-scheme": LIGHT_SCHEME_NAME,
         "cursor-theme": "Fluent-dark-cursors",
@@ -32,9 +29,6 @@ const LIGHT_THEME_SETTINGS = {
 };
 
 const DARK_THEME_SETTINGS = {
-    "org.gnome.Console": {
-        "theme": "night",
-    },
     "org.gnome.desktop.interface": {
         "color-scheme": DARK_SCHEME_NAME,
         "cursor-theme": "Fluent-dark-cursors",
