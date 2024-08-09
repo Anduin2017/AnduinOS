@@ -193,8 +193,6 @@ function main() {
 
     print_ok "This script will upgrade your system to version ${LATEST_VERSION}..."
     print_ok "Please press [ENTER] to continue, or press CTRL+C to cancel."
-    read
-
 
     # Run necessary upgrades based on current version
     case "$CURRENT_VERSION" in
