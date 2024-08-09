@@ -144,6 +144,8 @@ function upgrade_012_to_013() {
 
         dconf load /org/gnome/ < /tmp/repo/src/patches/dconf/dconf.ini
 
+        sudo mkdir -p /etc/skel/.config/gtk-3.0/
+        mkdir -p ~/.config/gtk-3.0/
         sudo cp /tmp/repo/src/patches/gtk-3.0/gtk.css /etc/skel/.config/gtk-3.0/
         sudo cp /tmp/repo/src/patches/gtk-3.0/gtk.css ~/.config/gtk-3.0/
         rm -rf /tmp/repo
