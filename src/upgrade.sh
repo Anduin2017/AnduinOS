@@ -103,9 +103,11 @@ function upgrade_011_to_012() {
     sudo apt install ubuntu-drivers-common -y
     judge "Install ubuntu-drivers-common"
 
-    print_ok "Uninstalling apport, neofetch"
-    sudo apt autoremove apport neofetch -y
-    judge "Uninstalling apport, neofetch"
+    # Upgrade script shouldn't uninstall packages, even in this version it's removed by default
+    # This is because the user might have installed it manually
+    #print_ok "Uninstalling apport, neofetch"
+    #sudo apt autoremove apport neofetch -y
+    #judge "Uninstalling apport, neofetch"
 
     print_ok "Removing /etc/update-manager/, /etc/update-motd.d/"
     sudo rm /etc/update-manager/ -rf
@@ -168,8 +170,10 @@ function main() {
         exit 0
     fi
 
-    print_ok "Upgrading system to version ${LATEST_VERSION}..."
-    sleep 5
+    print_ok "This script will upgrade your system to version ${LATEST_VERSION}..."
+    print_ok "Please press [ENTER] to continue, or press CTRL+C to cancel."
+    read
+
 
     # Run necessary upgrades based on current version
     case "$CURRENT_VERSION" in
