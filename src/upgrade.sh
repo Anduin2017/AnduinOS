@@ -126,10 +126,10 @@ function upgrade_012_to_013() {
         cd /tmp
         git clone https://git.aiursoft.cn/PublicVault/Fluent-icon-theme.git
         cd /tmp/Fluent-icon-theme/cursors
-        mkdir -p ~/.local/share/icons
-        bash -c /tmp/Fluent-icon-theme/cursors/install.sh
+        mkdir -p /usr/share/icons
+        sudo bash -c /tmp/Fluent-icon-theme/cursors/install.sh
         gsettings set org.gnome.desktop.interface cursor-theme 'Fluent-dark-cursors'
-        cd ~
+        rm -rf /tmp/Fluent-icon-theme
     )
     judge "Install fluent-cursor-theme"
 
