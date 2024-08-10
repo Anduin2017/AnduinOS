@@ -144,6 +144,7 @@ function upgrade_012_to_013() {
         sudo cp /tmp/repo/src/patches/wallpaper/Fluent-building-night.png /usr/share/backgrounds/
 
         dconf load /org/gnome/ < /tmp/repo/src/patches/dconf/dconf.ini
+        gnome-extensions enable switcher@anduinos
 
         sudo mkdir -p /etc/skel/.config/gtk-3.0/
         mkdir -p ~/.config/gtk-3.0/
