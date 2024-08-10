@@ -353,6 +353,7 @@ EOF
 
     print_ok "Purging unnecessary packages"
     apt purge -y \
+        gstreamer1.0-vaapi \
         gnome-mahjongg \
         gnome-mines \
         gnome-sudoku \
