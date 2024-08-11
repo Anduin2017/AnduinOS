@@ -162,6 +162,30 @@ function upgrade_012_to_013() {
     print_ok "Upgrade to 0.1.3-beta succeeded"
 }
 
+function upgrade_013_to_014() {
+    # Add your upgrade steps from 0.1.3 to 0.1.4 here
+    print_ok "Upgrading from 0.1.3 to 0.1.4"
+
+    print_ok "Loading new dconf settings..."
+    (
+        cd /tmp
+        mkdir -p /tmp/repo
+        git clone -b 0.1.4 https://gitlab.aiursoft.cn/anduin/anduinos.git /tmp/repo
+        dconf load /org/gnome/ < /tmp/repo/src/patches/dconf/dconf.ini
+    )
+    judge "Load new dconf settings"
+
+    print_ok "Uninstalling gstreamer1.0-vaapi to fix video playback issue"
+    sudo apt autoremove gstreamer1.0-vaapi -y
+    judge "Uninstalling gstreamer1.0-vaapi"
+
+    print_ok "Installing cups and system-config-printer"
+    sudo apt install cups system-config-printer -y
+    judge "Install cups and system-config-printer"
+
+    print_ok "Upgrade to 0.1.4-beta succeeded"
+}
+
 function applyLsbRelease() {
     # Update /etc/lsb-release
     sudo sed -i "s/DISTRIB_RELEASE=.*/DISTRIB_RELEASE=${LATEST_VERSION}/" /etc/lsb-release
