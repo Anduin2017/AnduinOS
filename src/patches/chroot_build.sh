@@ -242,6 +242,7 @@ EOF
         gnome-screenshot gnome-system-monitor gnome-sound-recorder \
         fonts-noto-cjk fonts-noto-core fonts-noto-mono fonts-noto-color-emoji \
         cups system-config-printer cups-bsd \
+        caribou \
         ubuntu-drivers-common \
         gnome-clocks \
         gnome-weather \
