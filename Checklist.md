@@ -23,6 +23,7 @@
 * Try running installation. Ensure in the log there is no error like ``Gtk-WARNING **: Locale not supported by C library. `
 * After installation, ensure the start menu apps' names are localized.
 * Open terminal and type `ubuntu-` with `Tab`. Ensure it can auto complete to `ubuntu-drivers`.
+* Ensure the printer tab in settings can show the printer.
 * Try installing Motrix and see if it can be shown successfully on the tray.
 * Download a H264 video and try to play with `totem` and ensure it can play.
 * Try switching from dark and light theme in the bottom drop down menu. And the text should be localized.
