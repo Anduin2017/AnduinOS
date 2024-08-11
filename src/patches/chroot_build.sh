@@ -241,7 +241,7 @@ EOF
         gnome-tweaks gnome-shell-extension-prefs gnome-shell-extension-desktop-icons-ng gnome-shell-extension-appindicator \
         gnome-screenshot gnome-system-monitor gnome-sound-recorder \
         fonts-noto-cjk fonts-noto-core fonts-noto-mono fonts-noto-color-emoji \
-        cups system-config-printer \
+        cups system-config-printer cups-bsd \
         ubuntu-drivers-common \
         gnome-clocks \
         gnome-weather \
