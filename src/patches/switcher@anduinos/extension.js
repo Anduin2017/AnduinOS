@@ -19,10 +19,6 @@ const LIGHT_THEME_SETTINGS = {
         "gtk-theme": "Fluent-round-Light",
         "icon-theme": "Fluent-light",
     },
-    "org.gnome.desktop.background": {
-        "picture-uri": "file:///usr/share/backgrounds/Fluent-building-light.png",
-        "picture-uri-dark": "file:///usr/share/backgrounds/Fluent-building-night.png",
-    },
     "org.gnome.shell.extensions.user-theme": {
         "name": "Fluent-round-Light",
     },
@@ -34,10 +30,6 @@ const DARK_THEME_SETTINGS = {
         "cursor-theme": "Fluent-dark-cursors",
         "gtk-theme": "Fluent-round-Dark",
         "icon-theme": "Fluent-dark",
-    },
-    "org.gnome.desktop.background": {
-        "picture-uri": "file:///usr/share/backgrounds/Fluent-building-night.png",
-        "picture-uri-dark": "file:///usr/share/backgrounds/Fluent-building-night.png",
     },
     "org.gnome.shell.extensions.user-theme": {
         "name": "Fluent-round-Dark",
