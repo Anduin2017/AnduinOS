@@ -473,6 +473,13 @@ EOF
     rm /tmp/arcmenu.po
     judge "Patch Arc Menu"
 
+    print_ok "Patching Dash-to-panel"
+    msgunfmt /usr/share/gnome-shell/extensions/dash-to-panel@jderose9.github.com/locale/zh_CN/LC_MESSAGES/dash-to-panel.mo -o /tmp/dash-to-panel.po
+    sed -i "s/Dash to Panel 设置/任务栏设置/g" /tmp/dash-to-panel.po
+    msgfmt /tmp/dash-to-panel.po -o /usr/share/gnome-shell/extensions/dash-to-panel@jderose9.github.com/locale/zh_CN/LC_MESSAGES/dash-to-panel.mo
+    rm /tmp/dash-to-panel.po
+    judge "Patch Dash-to-panel"
+
     print_ok "Patching Gnome Shell..."
     msgunfmt /usr/share/locale-langpack/zh_CN/LC_MESSAGES/gnome-shell.mo -o /tmp/gnome-shell.po
     sed -i "s/收藏夹/任务栏/g" /tmp/gnome-shell.po
