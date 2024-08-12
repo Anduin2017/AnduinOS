@@ -125,6 +125,7 @@ function upgrade_012_to_013() {
     print_ok "Installing fluent-cursor-theme"
     (
         cd /tmp
+        sudo rm -rf /tmp/Fluent-icon-theme || true
         git clone https://git.aiursoft.cn/PublicVault/Fluent-icon-theme.git
         cd /tmp/Fluent-icon-theme/cursors
         mkdir -p /usr/share/icons
@@ -137,6 +138,7 @@ function upgrade_012_to_013() {
     print_ok "Installing new plugin..."
     (
         cd /tmp
+        sudo rm -rf /tmp/repo || true
         mkdir -p /tmp/repo
         git clone -b 0.1.3 https://gitlab.aiursoft.cn/anduin/anduinos.git /tmp/repo
         sudo rsync -Aavx --update --delete /tmp/repo/src/patches/switcher@anduinos/* /usr/share/gnome-shell/extensions/switcher@anduinos
@@ -171,6 +173,7 @@ function upgrade_013_to_014() {
     print_ok "Loading new dconf settings..."
     (
         cd /tmp
+        sudo rm -rf /tmp/repo || true
         mkdir -p /tmp/repo
         git clone -b 0.1.4 https://gitlab.aiursoft.cn/anduin/anduinos.git /tmp/repo
         sudo rsync -Aavx --update --delete /tmp/repo/src/patches/switcher@anduinos/* /usr/share/gnome-shell/extensions/switcher@anduinos
@@ -187,7 +190,9 @@ function upgrade_013_to_014() {
         sudo sed -i "s/_('Power Off...')/_('Power Off')/" /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/constants.js
 
         msgunfmt /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/locale/zh_CN/LC_MESSAGES/arcmenu.mo -o /tmp/arcmenu.po
-        if ! grep -q "Pin to Start menu" /tmp/arcmenu.po; then
+        if grep_result=$(grep -q "Pin to Start menu" /tmp/arcmenu.po); then
+            echo "The string 'Pin to Start menu' is already present in /tmp/arcmenu.po"
+        else
             cat /tmp/repo/src/patches/arcmenu/arcmenu.po >> /tmp/arcmenu.po
         fi
 
