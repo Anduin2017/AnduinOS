@@ -92,7 +92,7 @@ StartupNotify=true
 EOF
 '
     judge "Add new app called AnduinOS Software"
-
+    sleep 5
 }
 
 function upgrade_011_to_012() {
@@ -115,6 +115,7 @@ function upgrade_011_to_012() {
     judge "Removing /etc/update-manager/, /etc/update-motd.d/"
 
     print_ok "Upgrade to 0.1.2-beta succeeded"
+    sleep 5
 }
 
 function upgrade_012_to_013() {
@@ -160,6 +161,7 @@ function upgrade_012_to_013() {
     judge "Patch /etc/os-release"
 
     print_ok "Upgrade to 0.1.3-beta succeeded"
+    sleep 5
 }
 
 function upgrade_013_to_014() {
@@ -171,19 +173,52 @@ function upgrade_013_to_014() {
         cd /tmp
         mkdir -p /tmp/repo
         git clone -b 0.1.4 https://gitlab.aiursoft.cn/anduin/anduinos.git /tmp/repo
+        sudo rsync -Aavx --update --delete /tmp/repo/src/patches/switcher@anduinos/* /usr/share/gnome-shell/extensions/switcher@anduinos
+
         dconf load /org/gnome/ < /tmp/repo/src/patches/dconf/dconf.ini
+        gnome-extensions disable switcher@anduinos
+        gnome-extensions enable switcher@anduinos
+
+        print_ok "Patching Arc Menu..."
+        sudo sed -i 's/Unpin from ArcMenu/Unpin from Start menu/g' /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/appMenu.js
+        sudo sed -i 's/Pin to ArcMenu/Pin to Start menu/g' /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/appMenu.js
+        sudo sed -i "s/_('Log Out...')/_('Log Out')/" /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/constants.js
+        sudo sed -i "s/_('Restart...')/_('Restart')/" /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/constants.js
+        sudo sed -i "s/_('Power Off...')/_('Power Off')/" /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/constants.js
+
+        msgunfmt /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/locale/zh_CN/LC_MESSAGES/arcmenu.mo -o /tmp/arcmenu.po
+        if ! grep -q "Pin to Start menu" /tmp/arcmenu.po; then
+            cat /tmp/repo/src/patches/arcmenu/arcmenu.po >> /tmp/arcmenu.po
+        fi
+
+        sed -i "s/新建/新增/g" /tmp/arcmenu.po
+        sudo msgfmt /tmp/arcmenu.po -o /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/locale/zh_CN/LC_MESSAGES/arcmenu.mo
+        rm /tmp/arcmenu.po
+        judge "Patch Arc Menu"
+
+        print_ok "Patching Dash-to-panel"
+        msgunfmt /usr/share/gnome-shell/extensions/dash-to-panel@jderose9.github.com/locale/zh_CN/LC_MESSAGES/dash-to-panel.mo -o /tmp/dash-to-panel.po
+        sudo sed -i "s/Dash to Panel 设置/任务栏设置/g" /tmp/dash-to-panel.po
+        sudo msgfmt /tmp/dash-to-panel.po -o /usr/share/gnome-shell/extensions/dash-to-panel@jderose9.github.com/locale/zh_CN/LC_MESSAGES/dash-to-panel.mo
+        rm /tmp/dash-to-panel.po
+        judge "Patch Dash-to-panel"
+
+        print_ok "Patching Gnome Shell..."
+        msgunfmt /usr/share/locale-langpack/zh_CN/LC_MESSAGES/gnome-shell.mo -o /tmp/gnome-shell.po
+        sed -i "s/收藏夹/任务栏/g" /tmp/gnome-shell.po
+        sudo msgfmt /tmp/gnome-shell.po -o /usr/share/locale-langpack/zh_CN/LC_MESSAGES/gnome-shell.mo
+        rm /tmp/gnome-shell.po
+        judge "Patch Gnome Shell"
+        rm -rf /tmp/repo
     )
     judge "Load new dconf settings"
-
-    print_ok "Uninstalling gstreamer1.0-vaapi to fix video playback issue"
-    sudo apt autoremove gstreamer1.0-vaapi -y
-    judge "Uninstalling gstreamer1.0-vaapi"
 
     print_ok "Installing cups and system-config-printer"
     sudo apt install cups system-config-printer -y
     judge "Install cups and system-config-printer"
 
     print_ok "Upgrade to 0.1.4-beta succeeded"
+    sleep 5
 }
 
 function applyLsbRelease() {
@@ -225,13 +260,19 @@ function main() {
             upgrade_010_to_011
             upgrade_011_to_012
             upgrade_012_to_013
+            upgrade_013_to_014
             ;;
         "0.1.1-beta")
             upgrade_011_to_012
             upgrade_012_to_013
+            upgrade_013_to_014
             ;;
         "0.1.2-beta")
             upgrade_012_to_013
+            upgrade_013_to_014
+            ;;
+        "0.1.3-beta")
+            upgrade_013_to_014
             ;;
         *)
             print_error "Unknown current version. Exiting."
