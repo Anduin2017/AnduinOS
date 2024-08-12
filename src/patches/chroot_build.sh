@@ -354,7 +354,6 @@ EOF
 
     print_ok "Purging unnecessary packages"
     apt purge -y \
-        gstreamer1.0-vaapi \
         gnome-mahjongg \
         gnome-mines \
         gnome-sudoku \
@@ -443,7 +442,6 @@ EOF
     /usr/local/bin/gext -F install openweather-extension@jenslody.de
     judge "Install gnome extensions"
 
-
     print_ok "Moving root's gnome extensions to /usr/share/gnome-shell/extensions"
     rm /usr/share/gnome-shell/extensions/apps-menu* -rf
     rm /usr/share/gnome-shell/extensions/auto-move-windows* -rf
@@ -465,6 +463,9 @@ EOF
     print_ok "Patching Arc Menu..."
     sed -i 's/Unpin from ArcMenu/Unpin from Start menu/g' /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/appMenu.js
     sed -i 's/Pin to ArcMenu/Pin to Start menu/g' /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/appMenu.js
+    sed -i "s/_('Log Out...')/_('Log Out')/" /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/constants.js
+    sed -i "s/_('Restart...')/_('Restart')/" /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/constants.js
+    sed -i "s/_('Power Off...')/_('Power Off')/" /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/constants.js
     judge "Patch Arc Menu"
 
     print_ok "Enabling gnome extensions for root"
