@@ -28,3 +28,13 @@
 * Download a H264 video and try to play with `totem` and ensure it can play.
 * Try switching from dark and light theme in the bottom drop down menu. And the text should be localized.
 * Try pressing `Ctrl + Alt + F6` and ensure it can switch to tty6. Message is `AnduinOS`.
+
+## Release steps
+
+* Write the release notes.
+* Write the upgrade script for OTA updates.
+* Checkout a new branch with the version number.
+* Build the image with the new version number.
+* Copy the image and the hash to the server.
+* Create the torrent file.
+* Update the website with the new version number.
