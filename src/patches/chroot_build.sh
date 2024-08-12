@@ -473,6 +473,13 @@ EOF
     rm /tmp/arcmenu.po
     judge "Patch Arc Menu"
 
+    print_ok "Patching Gnome Shell..."
+    msgunfmt /usr/share/locale-langpack/zh_CN/LC_MESSAGES/gnome-shell.mo -o /tmp/gnome-shell.po
+    sed -i "s/收藏夹/任务栏/g" /tmp/gnome-shell.po
+    msgfmt /tmp/gnome-shell.po -o /usr/share/locale-langpack/zh_CN/LC_MESSAGES/gnome-shell.mo
+    rm /tmp/gnome-shell.po
+    judge "Patch Gnome Shell"
+
     print_ok "Enabling gnome extensions for root"
     /usr/local/bin/gext -F enable arcmenu@arcmenu.com
     /usr/local/bin/gext -F enable audio-output-switcher@anduchs
