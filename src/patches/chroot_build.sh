@@ -466,6 +466,11 @@ EOF
     sed -i "s/_('Log Out...')/_('Log Out')/" /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/constants.js
     sed -i "s/_('Restart...')/_('Restart')/" /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/constants.js
     sed -i "s/_('Power Off...')/_('Power Off')/" /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/constants.js
+    msgunfmt /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/locale/zh_CN/LC_MESSAGES/arcmenu.mo -o /tmp/arcmenu.po
+    cat $SCRIPT_DIR/arcmenu/arcmenu.po >> /tmp/arcmenu.po
+    sed -i "s/新建/新增/g" /tmp/arcmenu.po
+    msgfmt /tmp/arcmenu.po -o /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/locale/zh_CN/LC_MESSAGES/arcmenu.mo
+    rm /tmp/arcmenu.po
     judge "Patch Arc Menu"
 
     print_ok "Enabling gnome extensions for root"

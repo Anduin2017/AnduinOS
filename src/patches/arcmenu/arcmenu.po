@@ -1,0 +1,6 @@
+
+msgid "Pin to Start menu"
+msgstr "固定到开始菜单"
+
+msgid "Unpin from Start menu"
+msgstr "从开始菜单取消固定"
