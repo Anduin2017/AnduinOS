@@ -191,7 +191,7 @@ function upgrade_013_to_014() {
 
         msgunfmt /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/locale/zh_CN/LC_MESSAGES/arcmenu.mo -o /tmp/arcmenu.po
         if grep_result=$(grep -q "Pin to Start menu" /tmp/arcmenu.po); then
-            echo "The string 'Pin to Start menu' is already present in /tmp/arcmenu.po"
+            print_warn "The string 'Pin to Start menu' is already present in /tmp/arcmenu.po"
         else
             cat /tmp/repo/src/patches/arcmenu/arcmenu.po >> /tmp/arcmenu.po
         fi
@@ -257,7 +257,8 @@ function main() {
     fi
 
     print_ok "This script will upgrade your system to version ${LATEST_VERSION}..."
-    print_ok "Please press [ENTER] to continue, or press CTRL+C to cancel."
+    print_ok "Please press CTRL+C to cancel... Countdown will start in 5 seconds..."
+    sleep 5
 
     # Run necessary upgrades based on current version
     case "$CURRENT_VERSION" in
