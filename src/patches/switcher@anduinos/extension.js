@@ -56,6 +56,12 @@ class ThemeMenuToggle {
     }
 
     _init() {
+        // Hide the power button in the top panel
+        let powerButton = Main.panel.statusArea['aggregateMenu']._power.indicators;
+        if (powerButton) {
+            powerButton.hide();
+        }
+
         this.menu = new PopupMenu.PopupSubMenuMenuItem(_("Theme"), true);
         this.menu.icon.icon_name = LIGHT_SCHEME_ICON;
         this._createMenuItems();
