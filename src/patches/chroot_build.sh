@@ -148,7 +148,33 @@ function install_kernel_ubiquity() {
     apt install -y \
         coreutils \
         sudo \
-        ubuntu-standard \
+        bind9-dnsutils \
+        busybox-static \
+        cpio \
+        cron \
+        dmidecode \
+        dosfstools \
+        ed \
+        file \
+        ftp \
+        hdparm \
+        info \
+        libpam-systemd \
+        logrotate \
+        lshw \
+        lsof \
+        man-db \
+        media-types \
+        nftables \
+        parted \
+        pciutils \
+        psmisc \
+        rsync \
+        strace \
+        time \
+        usbutils \
+        wget \
+        xz-utils \
         casper \
         discover \
         laptop-detect \
