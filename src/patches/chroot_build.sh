@@ -453,7 +453,7 @@ EOF
 
     print_ok "Installing Fluent theme"
     git clone https://git.aiursoft.cn/PublicVault/Fluent-gtk-theme $SCRIPT_DIR/themes/Fluent-gtk-theme
-    $SCRIPT_DIR/themes/Fluent-gtk-theme/install.sh -i ubuntu --tweaks noborder round
+    $SCRIPT_DIR/themes/Fluent-gtk-theme/install.sh --tweaks noborder round
     judge "Install Fluent theme"
 
     print_ok "Installing gnome extensions"
