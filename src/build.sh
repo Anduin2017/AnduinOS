@@ -181,7 +181,7 @@ function build_iso() {
 
     # grub
     print_ok "Generating grub.cfg..."
-    touch image/ubuntu
+    touch image/anduinos
     # TRY mode 
     # (Add 'toram' to boot options will load the whole system into RAM)
     # * Enfoce user name `ubuntu` and hostname `ubuntu`
@@ -211,7 +211,7 @@ function build_iso() {
     # Those configurations are setup in chroot/usr/share/initramfs-tools/scripts/casper-bottom/25configure_init
     cat << EOF > image/isolinux/grub.cfg
 
-search --set=root --file /ubuntu
+search --set=root --file /anduinos
 
 insmod all_video
 
