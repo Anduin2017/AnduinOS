@@ -59,7 +59,7 @@ class ThemeMenuToggle {
         // Hide the power button in the top panel (Only for non-laptop devices)
         let powerButton = Main.panel.statusArea['aggregateMenu']._power.indicators;
         let isPowerButtonPresent = powerButton_proxy.IsPresent;
-        if (powerButton && !isPowerButtonPresent) {
+        if (!isPowerButtonPresent) {
             powerButton.hide();
         }
 
