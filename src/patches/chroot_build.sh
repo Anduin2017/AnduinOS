@@ -175,6 +175,24 @@ function install_kernel_ubiquity() {
         usbutils \
         wget \
         xz-utils \
+        bash-completion \
+        command-not-found \
+        apparmor \
+        ufw \
+        iptables \
+        iproute2 \
+        iputils-ping \
+        iputils-tracepath \
+        irqbalance \
+        manpages \
+        mtr-tiny \
+        openssh-client \
+        plymouth \
+        plymouth-theme-ubuntu-text \
+        tcpdump \
+        telnet \
+        ufw \
+        uuid-runtime \
         casper \
         discover \
         laptop-detect \
