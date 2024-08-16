@@ -175,6 +175,8 @@ function install_kernel_ubiquity() {
         irqbalance \
         laptop-detect \
         libpam-systemd \
+        linux-firmware \
+        firmware-sof-signed \
         locales \
         logrotate \
         lshw \
