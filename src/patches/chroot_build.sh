@@ -160,6 +160,7 @@ function install_kernel_ubiquity() {
         dosfstools \
         ed \
         file \
+        firmware-sof-signed \
         ftp \
         grub-common \
         grub-gfxpayload-lists \
@@ -176,7 +177,6 @@ function install_kernel_ubiquity() {
         laptop-detect \
         libpam-systemd \
         linux-firmware \
-        firmware-sof-signed \
         locales \
         logrotate \
         lshw \
