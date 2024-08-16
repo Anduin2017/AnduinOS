@@ -226,6 +226,36 @@ function upgrade_013_to_014() {
     sleep 5
 }
 
+function upgrade_014_to_015() {
+    # Add your upgrade steps from 0.1.4 to 0.1.5 here
+    print_ok "Upgrading from 0.1.4 to 0.1.5"
+
+    print_ok "Installing new plugin..."
+    (
+        cd /tmp
+        sudo rm -rf /tmp/repo || true
+        mkdir -p /tmp/repo
+        git clone -b 0.1.5 https://gitlab.aiursoft.cn/anduin/anduinos.git /tmp/repo
+        sudo rsync -Aavx --update --delete /tmp/repo/src/patches/switcher@anduinos/* /usr/share/gnome-shell/extensions/switcher@anduinos
+        dconf load /org/gnome/ < /tmp/repo/src/patches/dconf/dconf.ini
+    )
+    judge "Install new plugin"
+
+    print_ok "Installing new kernel..."
+    sudo apt install -y \
+        linux-headers-6.8.0-40-generic \
+        linux-headers-generic-hwe-22.04 \
+        linux-hwe-6.8-headers-6.8.0-40 \
+        linux-image-6.8.0-40-generic \
+        linux-image-generic-hwe-22.04 \
+        linux-modules-6.8.0-40-generic \
+        linux-modules-extra-6.8.0-40-generic
+    judge "Install new kernel"
+
+    print_ok "Upgrade to 0.1.5-beta succeeded"
+    sleep 5
+}
+
 function applyLsbRelease() {
     # Update /etc/lsb-release
     sudo sed -i "s/DISTRIB_RELEASE=.*/DISTRIB_RELEASE=${LATEST_VERSION}/" /etc/lsb-release
