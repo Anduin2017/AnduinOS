@@ -146,67 +146,66 @@ function install_kernel_ubiquity() {
     print_ok "Installing live packages."
     waitNetwork
     apt install -y \
-        coreutils \
-        sudo \
+        apparmor \
+        bash-completion \
         bind9-dnsutils \
         busybox-static \
+        casper \
+        command-not-found \
+        coreutils \
         cpio \
         cron \
+        discover \
         dmidecode \
         dosfstools \
         ed \
         file \
         ftp \
-        hdparm \
-        info \
-        libpam-systemd \
-        logrotate \
-        lshw \
-        lsof \
-        man-db \
-        media-types \
-        nftables \
-        parted \
-        pciutils \
-        psmisc \
-        rsync \
-        strace \
-        time \
-        usbutils \
-        wget \
-        xz-utils \
-        bash-completion \
-        command-not-found \
-        apparmor \
-        ufw \
-        iptables \
-        iproute2 \
-        iputils-ping \
-        iputils-tracepath \
-        irqbalance \
-        manpages \
-        mtr-tiny \
-        openssh-client \
-        plymouth \
-        plymouth-theme-ubuntu-text \
-        tcpdump \
-        telnet \
-        ufw \
-        uuid-runtime \
-        casper \
-        discover \
-        laptop-detect \
-        os-prober \
-        network-manager \
-        resolvconf \
-        net-tools \
-        wireless-tools \
         grub-common \
         grub-gfxpayload-lists \
         grub-pc \
         grub-pc-bin \
         grub2-common \
-        locales
+        hdparm \
+        info \
+        iproute2 \
+        iptables \
+        iputils-ping \
+        iputils-tracepath \
+        irqbalance \
+        laptop-detect \
+        libpam-systemd \
+        locales \
+        logrotate \
+        lshw \
+        lsof \
+        man-db \
+        manpages \
+        media-types \
+        mtr-tiny \
+        net-tools \
+        network-manager \
+        nftables \
+        openssh-client \
+        os-prober \
+        parted \
+        pciutils \
+        plymouth \
+        plymouth-theme-ubuntu-text \
+        psmisc \
+        resolvconf \
+        rsync \
+        strace \
+        sudo \
+        tcpdump \
+        telnet \
+        time \
+        ufw \
+        usbutils \
+        uuid-runtime \
+        wget \
+        wireless-tools \
+        xz-utils
     judge "Install live packages"
 
     print_ok "Installing kernel package..."
