@@ -227,15 +227,15 @@ function upgrade_013_to_014() {
 }
 
 function upgrade_014_to_020() {
-    # Add your upgrade steps from 0.1.4 to 0.1.5 here
-    print_ok "Upgrading from 0.1.4 to 0.1.5"
+    # Add your upgrade steps from 0.1.4 to 0.2.0 here
+    print_ok "Upgrading from 0.1.4 to 0.2.0"
 
     print_ok "Installing new plugin..."
     (
         cd /tmp
         sudo rm -rf /tmp/repo || true
         mkdir -p /tmp/repo
-        git clone -b 0.1.5 https://gitlab.aiursoft.cn/anduin/anduinos.git /tmp/repo
+        git clone -b 0.2.0 https://gitlab.aiursoft.cn/anduin/anduinos.git /tmp/repo
         sudo rsync -Aavx --update --delete /tmp/repo/src/patches/switcher@anduinos/* /usr/share/gnome-shell/extensions/switcher@anduinos
         dconf load /org/gnome/ < /tmp/repo/src/patches/dconf/dconf.ini
     )
