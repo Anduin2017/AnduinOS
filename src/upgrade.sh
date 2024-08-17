@@ -6,7 +6,7 @@ set -e                  # exit on error
 set -o pipefail         # exit on pipeline error
 set -u                  # treat unset variable as error
 export DEBIAN_FRONTEND=noninteractive
-export LATEST_VERSION="0.1.4-beta"
+export LATEST_VERSION="0.2.0-beta"
 export CURRENT_VERSION=$(cat /etc/lsb-release | grep DISTRIB_RELEASE | cut -d "=" -f 2)
 
 #==========================
@@ -226,7 +226,7 @@ function upgrade_013_to_014() {
     sleep 5
 }
 
-function upgrade_014_to_015() {
+function upgrade_014_to_020() {
     # Add your upgrade steps from 0.1.4 to 0.1.5 here
     print_ok "Upgrading from 0.1.4 to 0.1.5"
 
@@ -324,25 +324,25 @@ function main() {
             upgrade_011_to_012
             upgrade_012_to_013
             upgrade_013_to_014
-            upgrade_014_to_015
+            upgrade_014_to_020
             ;;
         "0.1.1-beta")
             upgrade_011_to_012
             upgrade_012_to_013
             upgrade_013_to_014
-            upgrade_014_to_015
+            upgrade_014_to_020
             ;;
         "0.1.2-beta")
             upgrade_012_to_013
             upgrade_013_to_014
-            upgrade_014_to_015
+            upgrade_014_to_020
             ;;
         "0.1.3-beta")
             upgrade_013_to_014
-            upgrade_014_to_015
+            upgrade_014_to_020
             ;;
         "0.1.4-beta")
-            upgrade_014_to_015
+            upgrade_014_to_020
             ;;
         *)
             print_error "Unknown current version. Exiting."
