@@ -63,7 +63,7 @@ class ThemeMenuToggle {
             if (content[0]) {
                 let chassisType = parseInt(content[1].toString().trim(), 10);
                 // Chassis types that typically do not have a battery
-                let desktopTypes = [3, 4, 5, 6, 7, 10, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28];
+                let desktopTypes = [3, 4, 6, 7];
                 return desktopTypes.includes(chassisType);
             }
         } catch (e) {
