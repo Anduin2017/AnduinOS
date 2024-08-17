@@ -260,23 +260,23 @@ function upgrade_014_to_020() {
     judge "Install new packages"
     
     print_ok "Setting up /usr/share/gnome-sessions/sessions..."
-    sed -i 's/Ubuntu/AnduinOS/g' /usr/share/gnome-session/sessions/ubuntu.session
+    sudo sed -i 's/Ubuntu/AnduinOS/g' /usr/share/gnome-session/sessions/ubuntu.session
     judge "Set up /usr/share/gnome-sessions/sessions"
 
     print_ok "Setting up /usr/share/xsessions..."
-    rm /usr/share/xsessions/gnome*
-    mv /usr/share/xsessions/ubuntu.desktop /usr/share/xsessions/anduinos.desktop
-    mv /usr/share/xsessions/ubuntu-xorg.desktop /usr/share/xsessions/anduinos-xorg.desktop
-    sed -i 's/Name=Ubuntu/Name=AnduinOS/g' /usr/share/xsessions/anduinos.desktop
-    sed -i 's/Name=Ubuntu/Name=AnduinOS/g' /usr/share/xsessions/anduinos-xorg.desktop
+    sudo rm /usr/share/xsessions/gnome*
+    sudo mv /usr/share/xsessions/ubuntu.desktop /usr/share/xsessions/anduinos.desktop
+    sudo mv /usr/share/xsessions/ubuntu-xorg.desktop /usr/share/xsessions/anduinos-xorg.desktop
+    sudo sed -i 's/Name=Ubuntu/Name=AnduinOS/g' /usr/share/xsessions/anduinos.desktop
+    sudo sed -i 's/Name=Ubuntu/Name=AnduinOS/g' /usr/share/xsessions/anduinos-xorg.desktop
     judge "Set up /usr/share/xsessions"
 
     print_ok "Setting up /usr/share/wayland-sessions..."
-    rm /usr/share/wayland-sessions/gnome*
-    mv /usr/share/wayland-sessions/ubuntu.desktop /usr/share/wayland-sessions/anduinos.desktop
-    mv /usr/share/wayland-sessions/ubuntu-wayland.desktop /usr/share/wayland-sessions/anduinos-wayland.desktop
-    sed -i 's/Name=Ubuntu/Name=AnduinOS/g' /usr/share/wayland-sessions/anduinos.desktop
-    sed -i 's/Name=Ubuntu/Name=AnduinOS/g' /usr/share/wayland-sessions/anduinos-wayland.desktop
+    sudo rm /usr/share/wayland-sessions/gnome*
+    sudo mv /usr/share/wayland-sessions/ubuntu.desktop /usr/share/wayland-sessions/anduinos.desktop
+    sudo mv /usr/share/wayland-sessions/ubuntu-wayland.desktop /usr/share/wayland-sessions/anduinos-wayland.desktop
+    sudo sed -i 's/Name=Ubuntu/Name=AnduinOS/g' /usr/share/wayland-sessions/anduinos.desktop
+    sudo sed -i 's/Name=Ubuntu/Name=AnduinOS/g' /usr/share/wayland-sessions/anduinos-wayland.desktop
     judge "Set up /usr/share/wayland-sessions"
 
     print_ok "Upgrade to 0.1.5-beta succeeded"
