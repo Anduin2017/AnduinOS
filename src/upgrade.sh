@@ -265,16 +265,16 @@ function upgrade_014_to_020() {
 
     print_ok "Setting up /usr/share/xsessions..."
     sudo rm /usr/share/xsessions/gnome* || print_warn "No gnome* files found"
-    sudo mv /usr/share/xsessions/ubuntu.desktop /usr/share/xsessions/anduinos.desktop
-    sudo mv /usr/share/xsessions/ubuntu-xorg.desktop /usr/share/xsessions/anduinos-xorg.desktop
+    sudo mv /usr/share/xsessions/ubuntu.desktop /usr/share/xsessions/anduinos.desktop || print_warn "No ubuntu.desktop file found"
+    sudo mv /usr/share/xsessions/ubuntu-xorg.desktop /usr/share/xsessions/anduinos-xorg.desktop || print_warn "No ubuntu-xorg.desktop file found"
     sudo sed -i 's/Name=Ubuntu/Name=AnduinOS/g' /usr/share/xsessions/anduinos.desktop
     sudo sed -i 's/Name=Ubuntu/Name=AnduinOS/g' /usr/share/xsessions/anduinos-xorg.desktop
     judge "Set up /usr/share/xsessions"
 
     print_ok "Setting up /usr/share/wayland-sessions..."
     sudo rm /usr/share/wayland-sessions/gnome* || print_warn "No gnome* files found"
-    sudo mv /usr/share/wayland-sessions/ubuntu.desktop /usr/share/wayland-sessions/anduinos.desktop
-    sudo mv /usr/share/wayland-sessions/ubuntu-wayland.desktop /usr/share/wayland-sessions/anduinos-wayland.desktop
+    sudo mv /usr/share/wayland-sessions/ubuntu.desktop /usr/share/wayland-sessions/anduinos.desktop || print_warn "No ubuntu.desktop file found"
+    sudo mv /usr/share/wayland-sessions/ubuntu-wayland.desktop /usr/share/wayland-sessions/anduinos-wayland.desktop || print_warn "No ubuntu-wayland.desktop file found"
     sudo sed -i 's/Name=Ubuntu/Name=AnduinOS/g' /usr/share/wayland-sessions/anduinos.desktop
     sudo sed -i 's/Name=Ubuntu/Name=AnduinOS/g' /usr/share/wayland-sessions/anduinos-wayland.desktop
     judge "Set up /usr/share/wayland-sessions"
