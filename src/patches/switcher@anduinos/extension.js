@@ -57,14 +57,16 @@ class ThemeMenuToggle {
 
     _init() {
         // Hide the power button in the top panel (Only for non-laptop devices)
-        let powerButton = Main.panel.statusArea['aggregateMenu']._power.indicators;
-        let isDesktop = powerButton._proxy.Type === 0 &&
-                        powerButton._proxy.State === 0 &&
-                        powerButton._proxy.Percentage === 0;
-                        powerButton._proxy.IsPresent === false;
-        if (isDesktop) {
-            powerButton.hide();
-        }
+        setTimeout(() => {
+            let powerButton = Main.panel.statusArea['aggregateMenu']._power.indicators;
+            let isDesktop = powerButton._proxy.Type === 0 &&
+                            powerButton._proxy.State === 0 &&
+                            powerButton._proxy.Percentage === 0;
+                            powerButton._proxy.IsPresent === false;
+            if (isDesktop) {
+                powerButton.hide();
+            }
+        }, 1000);
 
         this.menu = new PopupMenu.PopupSubMenuMenuItem(_("Theme"), true);
         this.menu.icon.icon_name = LIGHT_SCHEME_ICON;
