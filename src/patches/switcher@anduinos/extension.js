@@ -77,9 +77,10 @@ class ThemeMenuToggle {
         let isDesktop = this.isDesktop();
         if (isDesktop) {
             let powerButton = Main.panel.statusArea['aggregateMenu']._power.indicators;
-            powerButton.hide();
+            if (powerButton) {
+                powerButton.hide();
+            }
         }
-
 
         this.menu = new PopupMenu.PopupSubMenuMenuItem(_("Theme"), true);
         this.menu.icon.icon_name = LIGHT_SCHEME_ICON;
