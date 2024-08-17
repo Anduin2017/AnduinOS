@@ -1,6 +1,6 @@
-const { GLib } = imports.gi;
 const Main = imports.ui.main;
 const Gio = imports.gi.Gio;
+const GLib = imports.gi.GLib;
 const PopupMenu = imports.ui.popupMenu;
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
@@ -56,26 +56,27 @@ class ThemeMenuToggle {
         this._init();
     }
 
-    // Function to check if the device is a desktop
-    isDesktop() {
+    // Function to check if the device has a battery
+    hasBattery() {
         try {
-            let content = GLib.file_get_contents('/sys/class/dmi/id/chassis_type');
-            if (content[0]) {
-                let chassisType = parseInt(content[1].toString().trim(), 10);
-                // Chassis types that typically do not have a battery
-                let desktopTypes = [3, 4, 6, 7];
-                return desktopTypes.includes(chassisType);
+            let dir = Gio.File.new_for_path('/sys/class/power_supply');
+            let enumerator = dir.enumerate_children('standard::name', Gio.FileQueryInfoFlags.NONE, null);
+            let info;
+            while ((info = enumerator.next_file(null)) !== null) {
+                if (info.get_name().startsWith('BAT')) {
+                    return true;
+                }
             }
         } catch (e) {
             logError(e);
         }
         return false;
     }
-
+    
     _init() {
-        // Hide the power button in the top panel (Only for non-laptop devices)
-        let isDesktop = this.isDesktop();
-        if (isDesktop) {
+        // Hide the power button if the device does not have a battery
+        let hasBattery = this.hasBattery();
+        if (!hasBattery) {
             let powerButton = Main.panel.statusArea['aggregateMenu']._power.indicators;
             if (powerButton) {
                 powerButton.hide();
