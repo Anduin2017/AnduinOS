@@ -147,6 +147,7 @@ function install_kernel_ubiquity() {
     waitNetwork
     apt install -y \
         apparmor \
+        apt-utils \
         bash-completion \
         bind9-dnsutils \
         busybox-static \
