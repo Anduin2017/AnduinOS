@@ -243,14 +243,41 @@ function upgrade_014_to_015() {
 
     print_ok "Installing new kernel..."
     sudo apt install -y \
-        linux-headers-6.8.0-40-generic \
         linux-headers-generic-hwe-22.04 \
-        linux-hwe-6.8-headers-6.8.0-40 \
         linux-image-6.8.0-40-generic \
         linux-image-generic-hwe-22.04 \
-        linux-modules-6.8.0-40-generic \
         linux-modules-extra-6.8.0-40-generic
     judge "Install new kernel"
+
+    print_ok "Installing new packages..."
+    sudo apt install -y alsa-utils apparmor apt-utils bash-completion bind9-dnsutils busybox-static command-not-found \
+                        coreutils cpio cron dmidecode dosfstools ed file firmware-sof-signed ftp grub-common \
+                        grub-gfxpayload-lists grub-pc grub-pc-bin grub2-common hdparm iproute2 iptables \
+                        iputils-ping iputils-tracepath irqbalance laptop-detect libpam-systemd linux-firmware \
+                        locales logrotate lshw lsof man-db manpages media-types mtr-tiny net-tools network-manager \
+                        nftables openssh-client os-prober parted pciutils plymouth plymouth-theme-ubuntu-text psmisc \
+                        resolvconf rsync strace sudo tcpdump telnet time ufw usbutils uuid-runtime wget wireless-tools xz-utils
+    judge "Install new packages"
+    
+    print_ok "Setting up /usr/share/gnome-sessions/sessions..."
+    sed -i 's/Ubuntu/AnduinOS/g' /usr/share/gnome-session/sessions/ubuntu.session
+    judge "Set up /usr/share/gnome-sessions/sessions"
+
+    print_ok "Setting up /usr/share/xsessions..."
+    rm /usr/share/xsessions/gnome*
+    mv /usr/share/xsessions/ubuntu.desktop /usr/share/xsessions/anduinos.desktop
+    mv /usr/share/xsessions/ubuntu-xorg.desktop /usr/share/xsessions/anduinos-xorg.desktop
+    sed -i 's/Name=Ubuntu/Name=AnduinOS/g' /usr/share/xsessions/anduinos.desktop
+    sed -i 's/Name=Ubuntu/Name=AnduinOS/g' /usr/share/xsessions/anduinos-xorg.desktop
+    judge "Set up /usr/share/xsessions"
+
+    print_ok "Setting up /usr/share/wayland-sessions..."
+    rm /usr/share/wayland-sessions/gnome*
+    mv /usr/share/wayland-sessions/ubuntu.desktop /usr/share/wayland-sessions/anduinos.desktop
+    mv /usr/share/wayland-sessions/ubuntu-wayland.desktop /usr/share/wayland-sessions/anduinos-wayland.desktop
+    sed -i 's/Name=Ubuntu/Name=AnduinOS/g' /usr/share/wayland-sessions/anduinos.desktop
+    sed -i 's/Name=Ubuntu/Name=AnduinOS/g' /usr/share/wayland-sessions/anduinos-wayland.desktop
+    judge "Set up /usr/share/wayland-sessions"
 
     print_ok "Upgrade to 0.1.5-beta succeeded"
     sleep 5
@@ -297,18 +324,25 @@ function main() {
             upgrade_011_to_012
             upgrade_012_to_013
             upgrade_013_to_014
+            upgrade_014_to_015
             ;;
         "0.1.1-beta")
             upgrade_011_to_012
             upgrade_012_to_013
             upgrade_013_to_014
+            upgrade_014_to_015
             ;;
         "0.1.2-beta")
             upgrade_012_to_013
             upgrade_013_to_014
+            upgrade_014_to_015
             ;;
         "0.1.3-beta")
             upgrade_013_to_014
+            upgrade_014_to_015
+            ;;
+        "0.1.4-beta")
+            upgrade_014_to_015
             ;;
         *)
             print_error "Unknown current version. Exiting."
