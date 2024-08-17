@@ -1,11 +1,12 @@
+const { GLib } = imports.gi;
 const Main = imports.ui.main;
 const Gio = imports.gi.Gio;
 const PopupMenu = imports.ui.popupMenu;
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const Gettext = imports.gettext.domain(Me.metadata.uuid);
-const _ = Gettext.gettext;
 
+const _ = Gettext.gettext;
 const DEFAULT_SCHEME_NAME = "default";
 const LIGHT_SCHEME_NAME = "prefer-light";
 const DARK_SCHEME_NAME = "prefer-dark";
@@ -55,18 +56,30 @@ class ThemeMenuToggle {
         this._init();
     }
 
+    // Function to check if the device is a desktop
+    isDesktop() {
+        try {
+            let content = GLib.file_get_contents('/sys/class/dmi/id/chassis_type');
+            if (content[0]) {
+                let chassisType = parseInt(content[1].toString().trim(), 10);
+                // Chassis types that typically do not have a battery
+                let desktopTypes = [3, 4, 5, 6, 7, 10, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28];
+                return desktopTypes.includes(chassisType);
+            }
+        } catch (e) {
+            logError(e);
+        }
+        return false;
+    }
+
     _init() {
         // Hide the power button in the top panel (Only for non-laptop devices)
-        setTimeout(() => {
+        let isDesktop = this.isDesktop();
+        if (isDesktop) {
             let powerButton = Main.panel.statusArea['aggregateMenu']._power.indicators;
-            let isDesktop = powerButton._proxy.Type === 0 &&
-                            powerButton._proxy.State === 0 &&
-                            powerButton._proxy.Percentage === 0;
-                            powerButton._proxy.IsPresent === false;
-            if (isDesktop) {
-                powerButton.hide();
-            }
-        }, 1000);
+            powerButton.hide();
+        }
+
 
         this.menu = new PopupMenu.PopupSubMenuMenuItem(_("Theme"), true);
         this.menu.icon.icon_name = LIGHT_SCHEME_ICON;
