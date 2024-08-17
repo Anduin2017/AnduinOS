@@ -169,7 +169,6 @@ function install_kernel_ubiquity() {
         grub-pc-bin \
         grub2-common \
         hdparm \
-        info \
         iproute2 \
         iptables \
         iputils-ping \
@@ -422,8 +421,7 @@ EOF
         imagemagick* \
         ubuntu-pro-client ubuntu-advantage-desktop-daemon ubuntu-advantage-tools ubuntu-pro-client ubuntu-pro-client-l10n \
         gnome-software gnome-software-common gnome-software-plugin-snap \
-        software-properties-gtk
-        info > /dev/null
+        software-properties-gtk > /dev/null
     # Above remove everything about yaru-theme but keeps yaru-theme-sound and yaru-theme-gnome-shell (Required by Ubuntu session)
     judge "Purge unnecessary packages"
 
