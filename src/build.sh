@@ -113,7 +113,7 @@ function clean() {
 function setup_host() {
     print_ok "Setting up host environment..."
     sudo apt update
-    sudo apt install -y binutils debootstrap squashfs-tools xorriso mtools dosfstools unzip grub-efi-amd64-signed
+    sudo apt install -y binutils debootstrap squashfs-tools xorriso grub-pc-bin grub-efi-amd64-bin mtools dosfstools unzip
     judge "Install required tools"
 
     print_ok "Creating chroot directory..."
