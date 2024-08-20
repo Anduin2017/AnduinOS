@@ -283,7 +283,7 @@ EOF
         gnome-shell gir1.2-gmenu-3.0 gnome-menus gnome-shell-extensions \
         nautilus usb-creator-gtk cheese baobab file-roller gnome-sushi ffmpegthumbnailer \
         gnome-calculator gnome-disk-utility gnome-control-center gnome-logs \
-        gnome-tweaks gnome-shell-extension-prefs gnome-shell-extension-desktop-icons-ng gnome-shell-extension-appindicator \
+        gnome-shell-extension-prefs gnome-shell-extension-desktop-icons-ng gnome-shell-extension-appindicator \
         gnome-screenshot gnome-system-monitor gnome-sound-recorder \
         fonts-noto-cjk fonts-noto-core fonts-noto-mono fonts-noto-color-emoji \
         cups system-config-printer cups-bsd \
