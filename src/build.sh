@@ -119,6 +119,7 @@ function setup_host() {
     print_ok "Building ibus rime patch..."
     (
       cd patches && \
+      (rm -rf anduinos-rime || true) && \
       git clone https://gitlab.aiursoft.cn/aiursoft/anduinos-rime.git && \
       cd anduinos-rime && \
       ./build.sh
