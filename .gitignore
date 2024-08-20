@@ -1,4 +1,5 @@
 src/chroot
 src/image
 src/dist
+src/patches/anduinos-rime
 *.iso
