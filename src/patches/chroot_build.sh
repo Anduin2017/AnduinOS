@@ -388,6 +388,10 @@ EOF
     rm /tmp/main.zip
     judge "Install ibus-rime configuration"
 
+    print_ok "Patching rime..."
+    cp $SCRIPT_DIR/rime/default.yaml /etc/skel/.config/ibus/rime/default.yaml
+    judge "Patch rime"
+
     print_ok "Removing the hint for sudo"
     if grep -q "sudo hint" /etc/bash.bashrc; then
         sed -i '43,54d' /etc/bash.bashrc
