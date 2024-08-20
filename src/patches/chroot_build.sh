@@ -415,7 +415,7 @@ EOF
         tilix \
         gnome-contacts \
         gnome-terminal \
-        gedit \
+        gnome-text-editor \
         update-manager-core \
         gnome-shell-extension-ubuntu-dock \
         libreoffice-* \
