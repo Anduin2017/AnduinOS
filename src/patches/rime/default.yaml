@@ -9,6 +9,10 @@ menu:
 
 switcher:
   caption: 'Input Method'
+  hotkeys:
+    - F4
+    - Control+grave
+    - Control+Shift+grave
   save_options:
     - ascii_punct
     - traditionalization

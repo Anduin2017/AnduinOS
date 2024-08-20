@@ -389,7 +389,24 @@ EOF
     judge "Install ibus-rime configuration"
 
     print_ok "Patching rime..."
+    rm /etc/skel/.config/ibus/rime/.gitignore
+    rm /etc/skel/.config/ibus/rime/README.md
+    rm /etc/skel/.config/ibus/rime/LICENSE
+    rm /etc/skel/.config/ibus/rime/.github -rf
+    rm /etc/skel/.config/ibus/rime/.git -rf
+    rm /etc/skel/.config/ibus/rime/double_pinyin*.yaml
+    rm /etc/skel/.config/ibus/rime/radical_pinyin*.yaml
+    rm /etc/skel/.config/ibus/rime/melt_eng*.yaml
+    # Keep rime_ice.schema.yaml
+    rm /etc/skel/.config/ibus/rime/t9.schema.yaml
+    rm /etc/skel/.config/ibus/rime/squirrel.yaml
+    rm /etc/skel/.config/ibus/rime/weasel.yaml
+    rm /etc/skel/.config/ibus/rime/other -rf
+    rm /etc/skel/.config/ibus/rime/cn_dicts/41448.dict.yaml
+    rm /etc/skel/.config/ibus/rime/cn_dicts/tencent.dict.yaml
     cp $SCRIPT_DIR/rime/default.yaml /etc/skel/.config/ibus/rime/default.yaml
+    cp $SCRIPT_DIR/rime/rime_ice_dict.yaml /etc/skel/.config/ibus/rime/rime_ice_dict.yaml
+    cp $SCRIPT_DIR/rime/rime_ice_schema.yaml /etc/skel/.config/ibus/rime/rime_ice_schema.yaml
     judge "Patch rime"
 
     print_ok "Removing the hint for sudo"
