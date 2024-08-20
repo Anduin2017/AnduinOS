@@ -390,13 +390,6 @@ EOF
     rsync -Aavx --update --delete $SCRIPT_DIR/anduinos-rime/assets/ /etc/skel/.config/ibus/rime/
     judge "Install ibus-rime configuration"
 
-    print_ok "Avoid system auto install ibus-libpinyin"
-cat << EOF > /etc/apt/preferences.d/no-ibus-libpinyin.pref
-Package: ibus-libpinyin
-Pin: release a=*
-Pin-Priority: -10
-EOF
-
     print_ok "Removing the hint for sudo"
     if grep -q "sudo hint" /etc/bash.bashrc; then
         sed -i '43,54d' /etc/bash.bashrc
