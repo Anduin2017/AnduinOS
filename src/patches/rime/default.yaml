@@ -5,7 +5,7 @@ schema_list:
   - schema: rime_ice
 
 menu:
-  page_size: 8
+  page_size: 7
 
 switcher:
   caption: 'Input Method'
