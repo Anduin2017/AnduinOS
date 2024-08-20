@@ -381,8 +381,8 @@ EOF
 
     print_ok "Installing ibus-rime configuration"
     mkdir -p /etc/skel/.config/ibus/rime/build
-    rsync -Aavx --update --delete $SCRIPT_DIR/anduinos-rime/assets/ ~/.config/ibus/rime/
-    rsync -Aavx --update --delete $SCRIPT_DIR/anduinos-rime/dist/ ~/.config/ibus/rime/build/
+    rsync -Aavx --update --delete $SCRIPT_DIR/anduinos-rime/assets/ /etc/skel/.config/ibus/rime/
+    rsync -Aavx --update --delete $SCRIPT_DIR/anduinos-rime/dist/ /etc/skel/.config/ibus/rime/build/
     judge "Install ibus-rime configuration"
 
     print_ok "Removing the hint for sudo"
