@@ -290,7 +290,7 @@ EOF
         ubuntu-drivers-common alsa-utils \
         gnome-clocks \
         gnome-weather \
-        gnome-text-editor \
+        gedit \
         gnome-nettool \
         seahorse gdebi evince \
         ibus-rime \

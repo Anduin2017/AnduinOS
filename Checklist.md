@@ -14,8 +14,8 @@
 * Ensure there will be a `DO` sound (Yaru) when typing tab on terminal.
 * Ensure when running `sudo apt update`, it's connecting to `http://mirrors.anduinos.com`
 * Ensure `lsb_release` with arg `-i -d -r -c -a` will show the correct information.
-* Ensure the text `遍角次亮采之门` in gnome-text-editor is shown correctly.
-* Ensure the text `http://` in gnome-text-editor is shown correctly.
+* Ensure the text `遍角次亮采之门` in gedit is shown correctly.
+* Ensure the text `http://` in gedit is shown correctly.
 * Ensure folders are sorted before files in nautilus.
 * Ensure `/opt` folder is empty.
 * Ensure double click a photo file is opened with shotwell.
