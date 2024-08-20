@@ -122,7 +122,8 @@ function setup_host() {
       (rm -rf anduinos-rime || true) && \
       git clone https://gitlab.aiursoft.cn/aiursoft/anduinos-rime.git && \
       cd anduinos-rime && \
-      ./build.sh
+      ./build.sh &&
+      rm ./.git -rf
     )
     judge "Build ibus rime patch"
 
