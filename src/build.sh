@@ -116,6 +116,15 @@ function setup_host() {
     sudo apt install -y binutils debootstrap squashfs-tools xorriso grub-pc-bin grub-efi-amd64-bin mtools dosfstools unzip
     judge "Install required tools"
 
+    print_ok "Building ibus rime patch..."
+    (
+      cd patches && \
+      git clone https://gitlab.aiursoft.cn/aiursoft/anduinos-rime.git && \
+      cd anduinos-rime && \
+      ./build.sh
+    )
+    judge "Build ibus rime patch"
+
     print_ok "Creating chroot directory..."
     sudo mkdir -p chroot
     judge "Create chroot directory"

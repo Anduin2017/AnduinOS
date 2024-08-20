@@ -380,34 +380,10 @@ EOF
     judge "Patch Ubiquity installer"
 
     print_ok "Installing ibus-rime configuration"
-    wget https://github.com/iDvel/rime-ice/archive/refs/heads/main.zip -O /tmp/main.zip
-    unzip /tmp/main.zip -d /tmp/rime-ice-main
-    mkdir -p /etc/skel/.config/ibus/rime
-    mv /tmp/rime-ice-main/rime-ice-main/* /etc/skel/.config/ibus/rime/ -f
-    rm -rf /tmp/rime-ice-main
-    rm /tmp/main.zip
+    mkdir -p /etc/skel/.config/ibus/rime/build
+    rsync -Aavx --update --delete $SCRIPT_DIR/anduinos-rime/assets/ ~/.config/ibus/rime/
+    rsync -Aavx --update --delete $SCRIPT_DIR/anduinos-rime/dist/ ~/.config/ibus/rime/build/
     judge "Install ibus-rime configuration"
-
-    print_ok "Patching rime..."
-    rm /etc/skel/.config/ibus/rime/.gitignore
-    rm /etc/skel/.config/ibus/rime/README.md
-    rm /etc/skel/.config/ibus/rime/LICENSE
-    rm /etc/skel/.config/ibus/rime/.github -rf
-    rm /etc/skel/.config/ibus/rime/.git -rf
-    rm /etc/skel/.config/ibus/rime/double_pinyin*.yaml
-    rm /etc/skel/.config/ibus/rime/radical_pinyin*.yaml
-    rm /etc/skel/.config/ibus/rime/melt_eng*.yaml
-    # Keep rime_ice.schema.yaml
-    rm /etc/skel/.config/ibus/rime/t9.schema.yaml
-    rm /etc/skel/.config/ibus/rime/squirrel.yaml
-    rm /etc/skel/.config/ibus/rime/weasel.yaml
-    rm /etc/skel/.config/ibus/rime/other -rf
-    rm /etc/skel/.config/ibus/rime/cn_dicts/41448.dict.yaml
-    rm /etc/skel/.config/ibus/rime/cn_dicts/tencent.dict.yaml
-    cp $SCRIPT_DIR/rime/default.yaml /etc/skel/.config/ibus/rime/default.yaml
-    cp $SCRIPT_DIR/rime/rime_ice_dict.yaml /etc/skel/.config/ibus/rime/rime_ice_dict.yaml
-    cp $SCRIPT_DIR/rime/rime_ice_schema.yaml /etc/skel/.config/ibus/rime/rime_ice_schema.yaml
-    judge "Patch rime"
 
     print_ok "Removing the hint for sudo"
     if grep -q "sudo hint" /etc/bash.bashrc; then
