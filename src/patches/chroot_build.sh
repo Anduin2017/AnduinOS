@@ -293,7 +293,7 @@ EOF
         gedit \
         gnome-nettool \
         seahorse gdebi evince \
-        ibus-rime \
+        ibus \
         shotwell \
         remmina remmina-plugin-rdp \
         firefox \
@@ -384,11 +384,6 @@ EOF
     print_ok "Patch Ubiquity installer"
     rsync -Aavx --update --delete $SCRIPT_DIR/slides/ /usr/share/ubiquity-slideshow/slides/
     judge "Patch Ubiquity installer"
-
-    print_ok "Installing ibus-rime configuration"
-    mkdir -p /etc/skel/.config/ibus/rime/build
-    rsync -Aavx --update --delete $SCRIPT_DIR/anduinos-rime/assets/ /etc/skel/.config/ibus/rime/
-    judge "Install ibus-rime configuration"
 
     print_ok "Removing the hint for sudo"
     if grep -q "sudo hint" /etc/bash.bashrc; then

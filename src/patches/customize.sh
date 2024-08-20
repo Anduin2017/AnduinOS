@@ -12,6 +12,5 @@ export TARGET_PACKAGE_REMOVE="
     discover \
     laptop-detect \
     os-prober \
-    ibus-libpinyin \
 "
 export DEBIAN_FRONTEND=noninteractive
