@@ -35,10 +35,10 @@
 
 ## Release steps
 
-* Write the release notes.
-* Write the upgrade script for OTA updates.
 * Checkout a new branch with the version number.
+* Write the release notes.
 * Build the image with the new version number.
 * Copy the image and the hash to the server.
 * Create the torrent file.
 * Update the website with the new version number.
+* Write the upgrade script for OTA updates.
