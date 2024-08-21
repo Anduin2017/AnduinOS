@@ -6,3 +6,5 @@ deb $TARGET_UBUNTU_MIRROR $TARGET_UBUNTU_VERSION-backports main restricted unive
 deb $TARGET_UBUNTU_MIRROR $TARGET_UBUNTU_VERSION-security main restricted universe multiverse
 EOF
 judge "Set up apt sources to $TARGET_UBUNTU_MIRROR"
+
+apt update
