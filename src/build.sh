@@ -75,12 +75,22 @@ function areYouSure() {
   esac
 }
 
-# Load configuration values from file
-function load_config() {
-    print_ok "Loading configuration from $SCRIPT_DIR/customize.sh..."
-    . "$SCRIPT_DIR/patches/customize.sh"
-    judge "Load configuration"
-}
+#==========================
+# Variables for building
+#==========================
+export TARGET_UBUNTU_VERSION="jammy"
+export BUILD_UBUNTU_MIRROR="http://mirror.aiursoft.cn/ubuntu/"
+export TARGET_UBUNTU_MIRROR="http://mirrors.anduinos.com/ubuntu/"
+export TARGET_NAME="anduinos"
+export TARGET_BUSINESS_NAME="AnduinOS"
+export TARGET_BUILD_VERSION="0.2.1-beta"
+export TARGET_PACKAGE_REMOVE="
+    ubiquity \
+    casper \
+    discover \
+    laptop-detect \
+    os-prober \
+"
 
 function check_host() {
     local os_ver
@@ -98,11 +108,11 @@ function check_host() {
 
 function clean() {
     print_ok "Cleaning up..."
-    sudo umount chroot/dev || sudo umount -lf chroot/dev || true
-    sudo umount chroot/run || sudo umount -lf chroot/run || true
-    sudo umount chroot/proc || sudo umount -lf chroot/proc || true
-    sudo umount chroot/sys || sudo umount -lf chroot/sys || true
-    sudo rm -rf chroot || true
+    sudo umount new_building_os/dev || sudo umount -lf new_building_os/dev || true
+    sudo umount new_building_os/run || sudo umount -lf new_building_os/run || true
+    sudo umount new_building_os/proc || sudo umount -lf new_building_os/proc || true
+    sudo umount new_building_os/sys || sudo umount -lf new_building_os/sys || true
+    sudo rm -rf new_building_os || true
     judge "Clean up rootfs"
     sudo rm -rf image || true
     judge "Clean up image"
@@ -116,52 +126,52 @@ function setup_host() {
     sudo apt install -y binutils debootstrap squashfs-tools xorriso grub-pc-bin grub-efi-amd64-bin mtools dosfstools unzip
     judge "Install required tools"
 
-    print_ok "Creating chroot directory..."
-    sudo mkdir -p chroot
-    judge "Create chroot directory"
+    print_ok "Creating new_building_os directory..."
+    sudo mkdir -p new_building_os
+    judge "Create new_building_os directory"
 }
 
 function download_base_system() {
     print_ok "Calling debootstrap to download base debian system..."
-    sudo debootstrap  --arch=amd64 --variant=minbase $TARGET_UBUNTU_VERSION chroot $BUILD_UBUNTU_MIRROR
+    sudo debootstrap  --arch=amd64 --variant=minbase $TARGET_UBUNTU_VERSION new_building_os $BUILD_UBUNTU_MIRROR
     judge "Download base system"
 }
 
 function run_chroot() {
-    print_ok "Mounting /dev /run /proc /sys from host to chroot..."
-    sudo mount --bind /dev chroot/dev
-    sudo mount --bind /run chroot/run
-    sudo chroot chroot mount none -t proc /proc
-    sudo chroot chroot mount none -t sysfs /sys
-    sudo chroot chroot mount none -t devpts /dev/pts
+    print_ok "Mounting /dev /run /proc /sys from host to new_building_os..."
+    sudo mount --bind /dev new_building_os/dev
+    sudo mount --bind /run new_building_os/run
+    sudo chroot new_building_os mount none -t proc /proc
+    sudo chroot new_building_os mount none -t sysfs /sys
+    sudo chroot new_building_os mount none -t devpts /dev/pts
     judge "Mount /dev /run /proc /sys"
 
-    print_ok "Copying patches to chroot /root..."
-    sudo cp -r $SCRIPT_DIR/patches chroot/root/patches
+    print_ok "Copying mods to new_building_os/root..."
+    sudo cp -r $SCRIPT_DIR/mods new_building_os/root/mods
 
-    print_ok "Running chroot_build.sh in chroot..."
+    print_ok "Running install_all_mods.sh in new_building_os..."
     print_warn "============================================"
     print_warn "   The following will run in chroot ENV!"
     print_warn "============================================"
-    sudo chroot chroot /usr/bin/env DEBIAN_FRONTEND=${DEBIAN_FRONTEND:-readline} /root/patches/chroot_build.sh -
+    sudo chroot new_building_os /usr/bin/env DEBIAN_FRONTEND=${DEBIAN_FRONTEND:-readline} /root/mods/install_all_mods.sh -
     print_warn "============================================"
     print_warn "   chroot ENV execution completed!"
     print_warn "============================================"
-    judge "Run chroot_build.sh in chroot"
+    judge "Run install_all_mods.sh in new_building_os"
 
-    print_ok "Cleaning patches from chroot /root..."
-    sudo rm -rf chroot/root/patches
-    judge "Clean up chroot /root/patches"
+    print_ok "Cleaning mods from new_building_os/root..."
+    sudo rm -rf new_building_os/root/mods
+    judge "Clean up new_building_os /root/mods"
 
     print_ok "Sleeping for 5 seconds to allow chroot to exit cleanly..."
     sleep 5
 
-    print_ok "Unmounting /dev /run /proc /sys from chroot..."
-    sudo chroot chroot umount /proc || sudo chroot chroot umount -lf /proc
-    sudo chroot chroot umount /sys || sudo chroot chroot umount -lf /sys
-    sudo chroot chroot umount /dev/pts || sudo chroot chroot umount -lf /dev/pts
-    sudo umount chroot/dev || sudo umount -lf chroot/dev
-    sudo umount chroot/run || sudo umount -lf chroot/run
+    print_ok "Unmounting /dev /run /proc /sys from new_building_os..."
+    sudo chroot new_building_os umount /proc || sudo chroot new_building_os umount -lf /proc
+    sudo chroot new_building_os umount /sys || sudo chroot new_building_os umount -lf /sys
+    sudo chroot new_building_os umount /dev/pts || sudo chroot new_building_os umount -lf /dev/pts
+    sudo umount new_building_os/dev || sudo umount -lf new_building_os/dev
+    sudo umount new_building_os/run || sudo umount -lf new_building_os/run
     judge "Unmount /dev /run /proc /sys"
 }
 
@@ -175,8 +185,8 @@ function build_iso() {
 
     # copy kernel files
     print_ok "Copying kernel files as /casper/vmlinuz and /casper/initrd..."
-    sudo cp chroot/boot/vmlinuz-**-**-generic image/casper/vmlinuz
-    sudo cp chroot/boot/initrd.img-**-**-generic image/casper/initrd
+    sudo cp new_building_os/boot/vmlinuz-**-**-generic image/casper/vmlinuz
+    sudo cp new_building_os/boot/initrd.img-**-**-generic image/casper/initrd
     judge "Copy kernel files"
 
     # grub
@@ -208,7 +218,7 @@ function build_iso() {
     # * No Ubiquity installer
     # * No "Install" icon on the desktop
 
-    # Those configurations are setup in chroot/usr/share/initramfs-tools/scripts/casper-bottom/25configure_init
+    # Those configurations are setup in new_building_os/usr/share/initramfs-tools/scripts/casper-bottom/25configure_init
     cat << EOF > image/isolinux/grub.cfg
 
 search --set=root --file /anduinos
@@ -232,7 +242,7 @@ EOF
 
     # generate manifest
     print_ok "Generating manifes for filesystem..."
-    sudo chroot chroot dpkg-query -W --showformat='${Package} ${Version}\n' | sudo tee image/casper/filesystem.manifest >/dev/null 2>&1
+    sudo chroot new_building_os dpkg-query -W --showformat='${Package} ${Version}\n' | sudo tee image/casper/filesystem.manifest >/dev/null 2>&1
     judge "Generate manifest for filesystem"
 
     print_ok "Generating manifest for filesystem-desktop..."
@@ -243,7 +253,7 @@ EOF
     judge "Generate manifest for filesystem-desktop"
 
     print_ok "Compressing rootfs as squashfs on /casper/filesystem.squashfs..."
-    sudo mksquashfs chroot image/casper/filesystem.squashfs \
+    sudo mksquashfs new_building_os image/casper/filesystem.squashfs \
         -noappend -no-duplicates -no-recovery \
         -wildcards \
         -comp xz -b 1M -Xdict-size 100% \
@@ -256,7 +266,7 @@ EOF
     judge "Compress rootfs"
     
     print_ok "Generating filesystem.size on /casper/filesystem.size..."
-    printf $(sudo du -sx --block-size=1 chroot | cut -f1) > image/casper/filesystem.size
+    printf $(sudo du -sx --block-size=1 new_building_os | cut -f1) > image/casper/filesystem.size
     judge "Generate filesystem.size"
 
     print_ok "Generating README.diskdefines..."
@@ -365,7 +375,6 @@ EOF
 
 # =============   main  ================
 cd $SCRIPT_DIR
-load_config
 check_host
 clean
 setup_host
