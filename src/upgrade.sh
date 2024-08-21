@@ -294,10 +294,10 @@ function upgrade_020_to_021() {
     judge "Install new plugin"
 
     print_ok "Patching localization..."
-    sudo sed -i '/^Name=/a Name[zh_CN]=磁盘分析' /usr/share/applications/org.gnome.gedit.desktop
-    sudo sed -i '/^Name=/a Name[zh_TW]=磁碟分析' /usr/share/applications/org.gnome.gedit.desktop
-    sudo sed -i '/^X-GNOME-FullName=/a X-GNOME-FullName[zh_CN]=磁盘分析' /usr/share/applications/org.gnome.gedit.desktop
-    sudo sed -i '/^X-GNOME-FullName=/a X-GNOME-FullName[zh_TW]=磁碟分析' /usr/share/applications/org.gnome.gedit.desktop
+    sudo sed -i '/^Name=/a Name[zh_CN]=磁盘分析' /usr/share/applications/org.gnome.baobab.desktop
+    sudo sed -i '/^Name=/a Name[zh_TW]=磁碟分析' /usr/share/applications/org.gnome.baobab.desktop
+    sudo sed -i '/^X-GNOME-FullName=/a X-GNOME-FullName[zh_CN]=磁盘分析' /usr/share/applications/org.gnome.baobab.desktop
+    sudo sed -i '/^X-GNOME-FullName=/a X-GNOME-FullName[zh_TW]=磁碟分析' /usr/share/applications/org.gnome.baobab.desktop
     judge "Patch localization"
 
     # if have ibus-rime installed, then install anduinos-rime
@@ -309,6 +309,7 @@ function upgrade_020_to_021() {
         rm -rf anduinos-rime-master
         ibus restart
         ibus engine rime
+        echo "Please logout and login to start AnduinOS-Rime!"
     fi
 
     print_ok "Upgrade to 0.2.1-beta succeeded"
