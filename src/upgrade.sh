@@ -388,6 +388,7 @@ function main() {
         "0.2.1-beta")
             print_ok "Your system is already up to date. No update available."
             exit 0
+            ;;
         *)
             print_error "Unknown current version. Exiting."
             exit 1
