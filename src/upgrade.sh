@@ -103,12 +103,6 @@ function upgrade_011_to_012() {
     sudo apt install ubuntu-drivers-common -y
     judge "Install ubuntu-drivers-common"
 
-    # Upgrade script shouldn't uninstall packages, even in this version it's removed by default
-    # This is because the user might have installed it manually
-    #print_ok "Uninstalling apport, neofetch"
-    #sudo apt autoremove apport neofetch -y
-    #judge "Uninstalling apport, neofetch"
-
     print_ok "Removing /etc/update-manager/, /etc/update-motd.d/"
     sudo rm /etc/update-manager/ -rf
     sudo rm /etc/update-motd.d/ -rf

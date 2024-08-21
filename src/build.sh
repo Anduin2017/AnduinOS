@@ -1,8 +1,12 @@
 #!/bin/bash
 
+#==========================
+# Set up the environment
+#==========================
 set -e                  # exit on error
 set -o pipefail         # exit on pipeline error
 set -u                  # treat unset variable as error
+source ./args.sh
 
 function check_host() {
     local os_ver
@@ -59,6 +63,7 @@ function run_chroot() {
     judge "Mount /dev /run /proc /sys"
 
     print_ok "Copying mods to new_building_os/root..."
+    sudo cp ./args.sh new_building_os/root/mods/args.sh
     sudo cp -r $SCRIPT_DIR/mods new_building_os/root/mods
 
     print_ok "Running install_all_mods.sh in new_building_os..."
@@ -286,7 +291,6 @@ EOF
 }
 
 # =============   main  ================
-source ./mods/00-aa-shared-args/install.sh
 cd $SCRIPT_DIR
 check_host
 clean
