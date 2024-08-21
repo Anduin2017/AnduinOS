@@ -593,7 +593,7 @@ deb $TARGET_UBUNTU_MIRROR $TARGET_UBUNTU_VERSION-updates main restricted univers
 deb $TARGET_UBUNTU_MIRROR $TARGET_UBUNTU_VERSION-backports main restricted universe multiverse
 deb $TARGET_UBUNTU_MIRROR $TARGET_UBUNTU_VERSION-security main restricted universe multiverse
 EOF
-    judge "Set up apt sources to $BUILD_UBUNTU_MIRROR"
+    judge "Set up apt sources to $TARGET_UBUNTU_MIRROR"
 
     print_ok "Setting up /usr/share/gnome-sessions/sessions..."
     sed -i 's/Ubuntu/AnduinOS/g' /usr/share/gnome-session/sessions/ubuntu.session
@@ -615,7 +615,7 @@ EOF
     sed -i 's/Name=Ubuntu/Name=AnduinOS/g' /usr/share/wayland-sessions/anduinos-wayland.desktop
     judge "Set up /usr/share/wayland-sessions"
 
-    print_ok "Customization complete. Updating ls/os-release files"
+    print_ok "Customization complete. Updating lsb/os-release files"
     cat << EOF > /etc/lsb-release
 DISTRIB_ID=$TARGET_BUSINESS_NAME
 DISTRIB_RELEASE=$TARGET_BUILD_VERSION
