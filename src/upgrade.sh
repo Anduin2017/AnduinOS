@@ -6,7 +6,7 @@ set -e                  # exit on error
 set -o pipefail         # exit on pipeline error
 set -u                  # treat unset variable as error
 export DEBIAN_FRONTEND=noninteractive
-export LATEST_VERSION="0.2.0-beta"
+export LATEST_VERSION="0.2.1-beta"
 export CURRENT_VERSION=$(cat /etc/lsb-release | grep DISTRIB_RELEASE | cut -d "=" -f 2)
 
 #==========================
@@ -277,6 +277,45 @@ function upgrade_014_to_020() {
     sleep 5
 }
 
+function upgrade_020_to_021() {
+    # Add your upgrade steps from 0.2.0 to 0.2.1 here
+    print_ok "Upgrading from 0.2.0 to 0.2.1"
+
+    sudo apt update
+    sudo apt install gedit fprintd libpam-fprintd baobab -y
+
+    print_ok "Installing new plugin..."
+    (
+        cd /tmp
+        sudo rm -rf /tmp/repo || true
+        mkdir -p /tmp/repo
+        git clone -b 0.2.1 https://gitlab.aiursoft.cn/anduin/anduinos.git /tmp/repo
+        dconf load /org/gnome/ < /tmp/repo/src/mods/34-dconf-patch/dconf.ini 
+    )
+    judge "Install new plugin"
+
+    print_ok "Patching localization..."
+    sudo sed -i '/^Name=/a Name[zh_CN]=磁盘分析' /usr/share/applications/org.gnome.gedit.desktop
+    sudo sed -i '/^Name=/a Name[zh_TW]=磁碟分析' /usr/share/applications/org.gnome.gedit.desktop
+    sudo sed -i '/^X-GNOME-FullName=/a X-GNOME-FullName[zh_CN]=磁盘分析' /usr/share/applications/org.gnome.gedit.desktop
+    sudo sed -i '/^X-GNOME-FullName=/a X-GNOME-FullName[zh_TW]=磁碟分析' /usr/share/applications/org.gnome.gedit.desktop
+    judge "Patch localization"
+
+    # if have ibus-rime installed, then install anduinos-rime
+    if dpkg -l | grep -q "ibus-rime"; then
+        print_ok "Installing anduinos-rime..."
+        zip=https://gitlab.aiursoft.cn/anduin/anduinos-rime/-/archive/master/anduinos-rime-master.zip
+        wget $zip -O anduinos-rime.zip && unzip anduinos-rime.zip && rm anduinos-rime.zip
+        rsync -Aavx --update --delete ./anduinos-rime-master/assets/ ~/.config/ibus/rime/
+        rm -rf anduinos-rime-master
+        ibus restart
+        ibus engine rime
+    fi
+
+    print_ok "Upgrade to 0.2.1-beta succeeded"
+    sleep 5
+}
+
 function applyLsbRelease() {
     # Update /etc/lsb-release
     sudo sed -i "s/DISTRIB_RELEASE=.*/DISTRIB_RELEASE=${LATEST_VERSION}/" /etc/lsb-release
@@ -319,25 +358,36 @@ function main() {
             upgrade_012_to_013
             upgrade_013_to_014
             upgrade_014_to_020
+            upgrade_020_to_021
             ;;
         "0.1.1-beta")
             upgrade_011_to_012
             upgrade_012_to_013
             upgrade_013_to_014
             upgrade_014_to_020
+            upgrade_020_to_021
             ;;
         "0.1.2-beta")
             upgrade_012_to_013
             upgrade_013_to_014
             upgrade_014_to_020
+            upgrade_020_to_021
             ;;
         "0.1.3-beta")
             upgrade_013_to_014
             upgrade_014_to_020
+            upgrade_020_to_021
             ;;
         "0.1.4-beta")
             upgrade_014_to_020
+            upgrade_020_to_021
             ;;
+        "0.2.0-beta")
+            upgrade_020_to_021
+            ;;
+        "0.2.1-beta")
+            print_ok "Your system is already up to date. No update available."
+            exit 0
         *)
             print_error "Unknown current version. Exiting."
             exit 1
