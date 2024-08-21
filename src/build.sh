@@ -1,96 +1,8 @@
 #!/bin/bash
 
-#==========================
-# Set up the environment
-#==========================
 set -e                  # exit on error
 set -o pipefail         # exit on pipeline error
 set -u                  # treat unset variable as error
-
-#==========================
-# Basic Information
-#==========================
-export LC_ALL=C
-export LANG=en_US.UTF-8
-export DEBIAN_FRONTEND=noninteractive
-export SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
-
-#==========================
-# Color
-#==========================
-Green="\033[32m"
-Red="\033[31m"
-Yellow="\033[33m"
-Blue="\033[36m"
-Font="\033[0m"
-GreenBG="\033[42;37m"
-RedBG="\033[41;37m"
-OK="${Green}[  OK  ]${Font}"
-ERROR="${Red}[FAILED]${Font}"
-WARNING="${Yellow}[ WARN ]${Font}"
-
-#==========================
-# Print Colorful Text
-#==========================
-function print_ok() {
-  echo -e "${OK} ${Blue} $1 ${Font}"
-}
-
-function print_error() {
-  echo -e "${ERROR} ${Red} $1 ${Font}"
-}
-
-function print_warn() {
-  echo -e "${WARNING} ${Yellow} $1 ${Font}"
-}
-
-#==========================
-# Judge function
-#==========================
-function judge() {
-  if [[ 0 -eq $? ]]; then
-    print_ok "$1 succeeded"
-    sleep 0.2
-  else
-    print_error "$1 failed"
-    exit 1
-  fi
-}
-
-#==========================
-# Are you sure function
-#==========================
-function areYouSure() {
-  print_error "This script found some issue and failed to run. Continue may cause system unstable."
-  print_error "Are you sure to continue the installation? Enter [y/N] to continue"
-  read -r install
-  case $install in
-  [yY][eE][sS] | [yY])
-    print_ok "Continue the installation"
-    ;;
-  *)
-    print_error "Installation terminated"
-    exit 1
-    ;;
-  esac
-}
-
-#==========================
-# Variables for building
-#==========================
-export TARGET_UBUNTU_VERSION="jammy"
-export BUILD_UBUNTU_MIRROR="http://mirror.aiursoft.cn/ubuntu/"
-export TARGET_UBUNTU_MIRROR="http://mirrors.anduinos.com/ubuntu/"
-export TARGET_NAME="anduinos"
-export TARGET_BUSINESS_NAME="AnduinOS"
-export TARGET_BUILD_VERSION="0.2.1-beta"
-export TARGET_PACKAGE_REMOVE="
-    ubiquity \
-    casper \
-    discover \
-    laptop-detect \
-    os-prober \
-"
 
 function check_host() {
     local os_ver
@@ -374,6 +286,7 @@ EOF
 }
 
 # =============   main  ================
+source ./mods/00-aa-shared-args/install.sh
 cd $SCRIPT_DIR
 check_host
 clean
