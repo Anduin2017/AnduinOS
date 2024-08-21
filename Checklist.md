@@ -14,18 +14,20 @@
 * Ensure there will be a `DO` sound (Yaru) when typing tab on terminal.
 * Ensure when running `sudo apt update`, it's connecting to `http://mirrors.anduinos.com`
 * Ensure `lsb_release` with arg `-i -d -r -c -a` will show the correct information.
-* Ensure the text `遍角次亮采之门` in gedit is shown correctly.
-* Ensure the text `http://` in gedit is shown correctly.
 * Ensure folders are sorted before files in nautilus.
 * Ensure `/opt` folder is empty.
 * Ensure double click a photo file is opened with shotwell.
 * Download a png file and a mp4 file. Ensure the photo and video files have previews on nautilus.
 * Ensure double clicking a .deb file will open gdebi.
 * Try start instllation (Ubiquty) and ensure all language texts are shown correctly. (Without square boxes)
-* Try running installation. Ensure in the log there is no error like ``Gtk-WARNING **: Locale not supported by C library. `
+* Try running installation. Select `中文`. Ensure in the log there is no error like ``Gtk-WARNING **: Locale not supported by C library. `
 * After installation, ensure the start menu apps' names are localized.
 * Open terminal and type `ubuntu-` with `Tab`. Ensure it can auto complete to `ubuntu-drivers`.
 * Ensure the printer tab in settings can show the printer.
+* Ensure the Chinese input can be switched by `Windows + Space` in gedit.
+* Ensure the candidate words are shown correctly when typing in gedit.
+* Ensure the text `遍角次亮采之门` in gedit is shown correctly.
+* Ensure the text `http://` in gedit is shown correctly.
 * Try installing Motrix and see if it can be shown successfully on the tray.
 * Download a H264 video and try to play with `totem` and ensure it can play.
 * Try switching from dark and light theme in the bottom drop down menu. And the text should be localized. Both GTK and QT apps should be switched.
