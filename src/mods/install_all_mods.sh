@@ -97,6 +97,5 @@ for mod in "$SCRIPT_DIR"/*; do
             chmod +x install.sh && \
             bash "$mod/install.sh"
         )
-        judge "$mod/install.sh"
     fi
 done

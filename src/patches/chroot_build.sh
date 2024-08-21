@@ -494,7 +494,6 @@ EOF
     rm /usr/share/gnome-shell/extensions/windowsNavigator* -rf
     rm /usr/share/gnome-shell/extensions/workspace-indicator* -rf
     mv /root/.local/share/gnome-shell/extensions/* /usr/share/gnome-shell/extensions/
-    mv $SCRIPT_DIR/logo/logo.svg /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/icons/anduinos-logo.svg
     judge "Move root's gnome extensions"
 
     print_ok "Installing gnome extension: switcher@anduinos"
@@ -502,6 +501,7 @@ EOF
     judge "Install gnome extension: switcher@anduinos"
 
     print_ok "Patching Arc Menu..."
+    mv $SCRIPT_DIR/logo/logo.svg /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/icons/anduinos-logo.svg
     sed -i 's/Unpin from ArcMenu/Unpin from Start menu/g' /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/appMenu.js
     sed -i 's/Pin to ArcMenu/Pin to Start menu/g' /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/appMenu.js
     sed -i "s/_('Log Out...')/_('Log Out')/" /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/constants.js
