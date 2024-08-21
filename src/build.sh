@@ -45,6 +45,10 @@ function setup_host() {
     print_ok "Creating new_building_os directory..."
     sudo mkdir -p new_building_os
     judge "Create new_building_os directory"
+
+    print_ok "Setting up mods executable..."
+    find . -type f -name "*.sh" -exec chmod +x {} \;
+    judge "Set up mods executable"
 }
 
 function download_base_system() {
