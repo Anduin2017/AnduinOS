@@ -1,4 +1,4 @@
-print_ok "Installing live packages."
+print_ok "Installing basic system tool packages."
 waitNetwork
 apt install -y \
     apparmor \
@@ -59,4 +59,4 @@ apt install -y \
     wget \
     wireless-tools \
     xz-utils
-judge "Install live packages"
+judge "Install basic system tool packages."
