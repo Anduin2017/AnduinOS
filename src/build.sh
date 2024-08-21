@@ -63,9 +63,8 @@ function run_chroot() {
     judge "Mount /dev /run /proc /sys"
 
     print_ok "Copying mods to new_building_os/root..."
-    sudo mkdir -p new_building_os/root/mods
-    sudo cp ./args.sh new_building_os/root/mods/args.sh
     sudo cp -r $SCRIPT_DIR/mods new_building_os/root/mods
+    sudo cp ./args.sh new_building_os/root/mods/args.sh
 
     print_ok "Running install_all_mods.sh in new_building_os..."
     print_warn "============================================"
