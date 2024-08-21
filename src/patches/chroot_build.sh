@@ -129,7 +129,7 @@ EOF
     ln -fs /etc/machine-id /var/lib/dbus/machine-id
     judge "Configure machine id"
 
-    # don't understand why, but multiple sources indicate this
+    # set up initctl
     print_ok "Setting up initctl..."
     dpkg-divert --local --rename --add /sbin/initctl
     ln -s /bin/true /sbin/initctl

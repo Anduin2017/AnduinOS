@@ -39,7 +39,7 @@ function print_ok() {
 }
 
 function print_info() {
-  echo -e "${INFO} ${Blue} $1 ${Font}"
+  echo -e "${INFO} ${Font} $1"
 }
 
 function print_error() {
@@ -94,6 +94,7 @@ for mod in "$SCRIPT_DIR"/*; do
         print_info "Processing mod: $mod"
         (
             cd "$mod" && \
+            chmod +x install.sh && \
             bash "$mod/install.sh"
         )
         judge "$mod/install.sh"
