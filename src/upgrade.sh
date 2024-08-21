@@ -236,11 +236,10 @@ function upgrade_014_to_020() {
     judge "Install new plugin"
 
     print_ok "Installing new kernel..."
+    sudo apt update
     sudo apt install -y \
         linux-headers-generic-hwe-22.04 \
-        linux-image-6.8.0-40-generic \
         linux-image-generic-hwe-22.04 \
-        linux-modules-extra-6.8.0-40-generic
     judge "Install new kernel"
 
     print_ok "Installing new packages..."
