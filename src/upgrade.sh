@@ -173,8 +173,8 @@ function upgrade_013_to_014() {
         sudo rsync -Aavx --update --delete /tmp/repo/src/patches/switcher@anduinos/* /usr/share/gnome-shell/extensions/switcher@anduinos
 
         dconf load /org/gnome/ < /tmp/repo/src/patches/dconf/dconf.ini
-        gnome-extensions disable switcher@anduinos
-        gnome-extensions enable switcher@anduinos
+        gnome-extensions disable switcher@anduinos || true
+        gnome-extensions enable switcher@anduinos || true
 
         print_ok "Patching Arc Menu..."
         sudo sed -i 's/Unpin from ArcMenu/Unpin from Start menu/g' /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/appMenu.js
