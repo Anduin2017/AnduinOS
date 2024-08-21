@@ -2,5 +2,4 @@ src/chroot
 src/new_building_os
 src/image
 src/dist
-src/patches/anduinos-rime
 *.iso

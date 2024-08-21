@@ -75,12 +75,22 @@ function areYouSure() {
   esac
 }
 
-# Load configuration values from file
-function load_config() {
-    print_ok "Loading configuration from $SCRIPT_DIR/customize.sh..."
-    . "$SCRIPT_DIR/patches/customize.sh"
-    judge "Load configuration"
-}
+#==========================
+# Variables for building
+#==========================
+export TARGET_UBUNTU_VERSION="jammy"
+export BUILD_UBUNTU_MIRROR="http://mirror.aiursoft.cn/ubuntu/"
+export TARGET_UBUNTU_MIRROR="http://mirrors.anduinos.com/ubuntu/"
+export TARGET_NAME="anduinos"
+export TARGET_BUSINESS_NAME="AnduinOS"
+export TARGET_BUILD_VERSION="0.2.1-beta"
+export TARGET_PACKAGE_REMOVE="
+    ubiquity \
+    casper \
+    discover \
+    laptop-detect \
+    os-prober \
+"
 
 function check_host() {
     local os_ver
@@ -365,7 +375,6 @@ EOF
 
 # =============   main  ================
 cd $SCRIPT_DIR
-load_config
 check_host
 clean
 setup_host
