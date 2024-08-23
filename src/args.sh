@@ -65,7 +65,7 @@ export -f print_ok print_error print_warn judge waitNetwork
 
 export TARGET_UBUNTU_VERSION="jammy"
 export BUILD_UBUNTU_MIRROR="http://mirror.aiursoft.cn/ubuntu/"
-export TARGET_UBUNTU_MIRROR="http://mirrors.anduinos.com/ubuntu/"
+export TARGET_UBUNTU_MIRROR="http://archive.ubuntu.com/ubuntu/"
 export TARGET_NAME="anduinos"
 export TARGET_BUSINESS_NAME="AnduinOS"
 export TARGET_BUILD_VERSION="0.2.2-beta"
