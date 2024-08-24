@@ -5,9 +5,9 @@
 #==========================
 
 # Set the language environment. Can be: en_US, zh_CN, zh_TW
-export LANG_MODE="zh_CN"
+export LANG_MODE="ja_JP"
 # Set the language pack code. Can be: zh, en, ja, ko, etc.
-export LANG_PACK_CODE="zh"
+export LANG_PACK_CODE="ja"
 
 export LC_ALL=$LANG_MODE.UTF-8
 export LC_TIME=$LANG_MODE.UTF-8
