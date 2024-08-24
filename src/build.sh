@@ -140,47 +140,8 @@ function build_iso() {
     # * No "Install" icon on the desktop
 
     # Those configurations are setup in new_building_os/usr/share/initramfs-tools/scripts/casper-bottom/25configure_init
-    if [ "$LANG_MODE" == "zh_TW" ]; then
-        export TRY_TEXT="試用 AnduinOS"
-        export INSTALL_TEXT="安裝 AnduinOS"
-    elif [ "$LANG_MODE" == "zh_CN" ]; then
-        export TRY_TEXT="试用 AnduinOS"
-        export INSTALL_TEXT="安装 AnduinOS"
-    elif [ "$LANG_MODE" == "ja_JP" ]; then
-        export TRY_TEXT="AnduinOS を試す"
-        export INSTALL_TEXT="AnduinOS をインストール"
-    elif [ "$LANG_MODE" == "ko_KR" ]; then
-        export TRY_TEXT="AnduinOS 를 시도"
-        export INSTALL_TEXT="AnduinOS 를 설치"
-    elif [ "$LANG_MODE" == "ru_RU" ]; then
-        export TRY_TEXT="Попробовать AnduinOS"
-        export INSTALL_TEXT="Установить AnduinOS"
-    elif [ "$LANG_MODE" == "es_ES" ]; then
-        export TRY_TEXT="Probar AnduinOS"
-        export INSTALL_TEXT="Instalar AnduinOS"
-    elif [ "$LANG_MODE" == "fr_FR" ]; then
-        export TRY_TEXT="Essayer AnduinOS"
-        export INSTALL_TEXT="Installer AnduinOS"
-    elif [ "$LANG_MODE" == "de_DE" ]; then
-        export TRY_TEXT="AnduinOS ausprobieren"
-        export INSTALL_TEXT="AnduinOS installieren"
-    elif [ "$LANG_MODE" == "pt_BR" ]; then
-        export TRY_TEXT="Experimente AnduinOS"
-        export INSTALL_TEXT="Instalar AnduinOS"
-    elif [ "$LANG_MODE" == "vi_VN" ]; then
-        export TRY_TEXT="Thử AnduinOS"
-        export INSTALL_TEXT="Cài đặt AnduinOS"
-    elif [ "$LANG_MODE" == "it_IT" ]; then
-        export TRY_TEXT="Prova AnduinOS"
-        export INSTALL_TEXT="Installa AnduinOS"
-    elif [ "$LANG_MODE" == "tr_TR" ]; then
-        export TRY_TEXT="AnduinOS'u Dene"
-        export INSTALL_TEXT="AnduinOS'u Yükle"
-    else
-        export TRY_TEXT="Try AnduinOS"
-        export INSTALL_TEXT="Install AnduinOS"
-    fi
-
+    TRY_TEXT="Try AnduinOS"
+    INSTALL_TEXT="Install AnduinOS"
     cat << EOF > image/isolinux/grub.cfg
 
 search --set=root --file /anduinos
