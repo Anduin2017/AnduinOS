@@ -38,8 +38,9 @@ apt install -y \
     cifs-utils \
     aisleriot \
     libsass1 sassc \
-    language-pack-zh-hans   language-pack-zh-hans-base language-pack-gnome-zh-hans \
-    language-pack-zh-hant   language-pack-zh-hant-base language-pack-gnome-zh-hant \
-    language-pack-en        language-pack-en-base      language-pack-gnome-en \
     dmz-cursor-theme
 judge "Install gnome-shell and other gnome applications"
+
+print_ok "Installing $LANGUAGE_PACKS language packs"
+apt install -y $LANGUAGE_PACKS
+judge "Install language packs"
