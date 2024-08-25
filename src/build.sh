@@ -140,6 +140,8 @@ function build_iso() {
     # * No "Install" icon on the desktop
 
     # Those configurations are setup in new_building_os/usr/share/initramfs-tools/scripts/casper-bottom/25configure_init
+    TRY_TEXT="Try AnduinOS"
+    INSTALL_TEXT="Install AnduinOS"
     cat << EOF > image/isolinux/grub.cfg
 
 search --set=root --file /anduinos
@@ -149,12 +151,12 @@ insmod all_video
 set default="0"
 set timeout=30
 
-menuentry "Try AnduinOS" {
+menuentry "$TRY_TEXT" {
    linux /casper/vmlinuz boot=casper nopersistent quiet splash ---
    initrd /casper/initrd
 }
 
-menuentry "Install AnduinOS" {
+menuentry "$INSTALL_TEXT" {
    linux /casper/vmlinuz boot=casper only-ubiquity quiet splash ---
    initrd /casper/initrd
 }
@@ -274,14 +276,14 @@ EOF
     judge "Create iso image"
 
     DATE=`TZ="UTC" date +"%y%m%d%H%M"`
-    print_ok "Moving iso image to $SCRIPT_DIR/dist/$TARGET_BUSINESS_NAME-$TARGET_BUILD_VERSION-$DATE.iso..."
+    print_ok "Moving iso image to $SCRIPT_DIR/dist/$TARGET_BUSINESS_NAME-$TARGET_BUILD_VERSION-$LANG_MODE-$DATE.iso..."
     mkdir -p $SCRIPT_DIR/dist
-    mv $SCRIPT_DIR/$TARGET_NAME.iso $SCRIPT_DIR/dist/$TARGET_BUSINESS_NAME-$TARGET_BUILD_VERSION-$DATE.iso
+    mv $SCRIPT_DIR/$TARGET_NAME.iso $SCRIPT_DIR/dist/$TARGET_BUSINESS_NAME-$TARGET_BUILD_VERSION-$LANG_MODE-$DATE.iso
     judge "Move iso image"
 
     print_ok "Generating sha256 checksum..."
-    HASH=`sha256sum $SCRIPT_DIR/dist/$TARGET_BUSINESS_NAME-$TARGET_BUILD_VERSION-$DATE.iso | cut -d ' ' -f 1`
-    echo "SHA256: $HASH" > $SCRIPT_DIR/dist/$TARGET_BUSINESS_NAME-$TARGET_BUILD_VERSION-$DATE.sha256
+    HASH=`sha256sum $SCRIPT_DIR/dist/$TARGET_BUSINESS_NAME-$TARGET_BUILD_VERSION-$LANG_MODE-$DATE.iso | cut -d ' ' -f 1`
+    echo "SHA256: $HASH" > $SCRIPT_DIR/dist/$TARGET_BUSINESS_NAME-$TARGET_BUILD_VERSION-$LANG_MODE-$DATE.sha256
     judge "Generate sha256 checksum"
 
     popd

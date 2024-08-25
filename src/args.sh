@@ -3,8 +3,25 @@
 #==========================
 # Basic Information
 #==========================
-export LC_ALL=C
-export LANG=en_US.UTF-8
+
+# Set the language environment. Can be: en_US, zh_CN, zh_TW, ja_JP, ko_KR, etc.
+export LANG_MODE="zh_CN"
+# Set the language pack code. Can be: zh, en, ja, ko, etc.
+export LANG_PACK_CODE="zh"
+
+export LC_ALL=$LANG_MODE.UTF-8
+export LC_TIME=$LANG_MODE.UTF-8
+export LANG=$LANG_MODE.UTF-8
+export LANGUAGE=$LANG_MODE:$LANG_PACK_CODE
+
+# language-pack-zh-hans   language-pack-zh-hans-base language-pack-gnome-zh-hans \
+# language-pack-zh-hant   language-pack-zh-hant-base language-pack-gnome-zh-hant \
+# language-pack-en        language-pack-en-base      language-pack-gnome-en \
+export LANGUAGE_PACKS="language-pack-$LANG_PACK_CODE* language-pack-gnome-$LANG_PACK_CODE*"
+
+# Continue with the rest of the script
+echo "Language environment has been set to $LANG_MODE"
+
 export DEBIAN_FRONTEND=noninteractive
 export SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 export HOME=/root
