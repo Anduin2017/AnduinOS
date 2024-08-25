@@ -15,10 +15,6 @@ if [ "$LANG_MODE" == "zh_CN" ]; then
     rsync -Aavx --update --delete ./anduinos-rime-master/assets/ /etc/skel/.config/ibus/rime/
     rm -rf ./anduinos-rime-master/
     judge "Install Rime schema"
-
-    print_ok "Hold ibus-libpinyin to avoid installation of it..."
-    apt-mark hold ibus-libpinyin
-    judge "Hold ibus-libpinyin"
 else
     print_warn "Skipping input method installation for $LANG_MODE"
 fi
