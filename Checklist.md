@@ -12,7 +12,7 @@
 * Ensure if the device has a battery, battery is shown on the task bar. Otherwise, it's hidden.
 * Ensure sound theme, icon theme, shell theme are all set.
 * Ensure there will be a `DO` sound (Yaru) when typing tab on terminal.
-* Ensure when running `sudo apt update`, it's connecting to `http://mirrors.anduinos.com`
+* Ensure when running `sudo apt update`, it's connecting to `http://archive.ubuntu.com/ubuntu/`.
 * Ensure `lsb_release` with arg `-i -d -r -c -a` will show the correct information.
 * Ensure folders are sorted before files in nautilus.
 * Ensure `/opt` folder is empty.
