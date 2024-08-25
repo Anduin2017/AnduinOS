@@ -11,7 +11,7 @@ dconf write /org/gtk/settings/file-chooser/sort-directories-first true
 judge "Load dconf settings"
 
 if [ "$LANG_MODE" == "zh_CN" ]; then
-    print_ok "Installing on zh_CN mode, use ibus-rime as input method"
+    print_ok "Installing on zh_CN mode, patching dconf for ibus-rime..."
     dconf write /org/gnome/desktop/input-sources/mru-sources "[('xkb', 'us'), ('ibus', 'rime')]"
     dconf write /org/gnome/desktop/input-sources/sources "[('xkb', 'us'), ('ibus', 'rime')]"
     dconf write /org/gnome/desktop/input-sources/xkb-options "@as []"
