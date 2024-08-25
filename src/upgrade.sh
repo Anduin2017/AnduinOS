@@ -6,7 +6,7 @@ set -e                  # exit on error
 set -o pipefail         # exit on pipeline error
 set -u                  # treat unset variable as error
 export DEBIAN_FRONTEND=noninteractive
-export LATEST_VERSION="0.2.1-beta"
+export LATEST_VERSION="0.2.2-beta"
 export CURRENT_VERSION=$(cat /etc/lsb-release | grep DISTRIB_RELEASE | cut -d "=" -f 2)
 
 #==========================
@@ -316,6 +316,13 @@ function upgrade_020_to_021() {
     sleep 5
 }
 
+function upgrade_021_to_022() {
+    # Add your upgrade steps from 0.2.1 to 0.2.2 here
+    print_ok "Upgrading from 0.2.1 to 0.2.2"
+    print_ok "Upgrade to 0.2.2-beta succeeded"
+    sleep 5
+}
+
 function applyLsbRelease() {
     # Update /etc/lsb-release
     sudo sed -i "s/DISTRIB_RELEASE=.*/DISTRIB_RELEASE=${LATEST_VERSION}/" /etc/lsb-release
@@ -359,6 +366,7 @@ function main() {
             upgrade_013_to_014
             upgrade_014_to_020
             upgrade_020_to_021
+            upgrade_021_to_022
             ;;
         "0.1.1-beta")
             upgrade_011_to_012
@@ -366,26 +374,34 @@ function main() {
             upgrade_013_to_014
             upgrade_014_to_020
             upgrade_020_to_021
+            upgrade_021_to_022
             ;;
         "0.1.2-beta")
             upgrade_012_to_013
             upgrade_013_to_014
             upgrade_014_to_020
             upgrade_020_to_021
+            upgrade_021_to_022
             ;;
         "0.1.3-beta")
             upgrade_013_to_014
             upgrade_014_to_020
             upgrade_020_to_021
+            upgrade_021_to_022
             ;;
         "0.1.4-beta")
             upgrade_014_to_020
             upgrade_020_to_021
+            upgrade_021_to_022
             ;;
         "0.2.0-beta")
             upgrade_020_to_021
+            upgrade_021_to_022
             ;;
         "0.2.1-beta")
+            upgrade_021_to_022
+            ;;
+        "0.2.2-beta")
             print_ok "Your system is already up to date. No update available."
             exit 0
             ;;
