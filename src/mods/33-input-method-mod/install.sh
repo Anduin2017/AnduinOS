@@ -2,6 +2,7 @@ set -e                  # exit on error
 set -o pipefail         # exit on pipeline error
 set -u                  # treat unset variable as error
 
+# Can be: en_US, zh_CN, zh_TW, zh_HK, ja_JP, ko_KR, de_DE, fr_FR, es_ES, ru_RU, it_IT, pt_PT, vi_VN, th_TH, ar_SA, nl_NL, sv_SE, pl_PL, tr_TR
 if [ "$LANG_MODE" == "en_US" ]; then
     print_ok "United State users do not need to install input method."
 elif [ "$LANG_MODE" == "zh_CN" ]; then

@@ -15,6 +15,7 @@ dconf write /org/gtk/settings/file-chooser/sort-directories-first true
 dconf write /org/gnome/desktop/input-sources/xkb-options "@as []"
 judge "Load dconf settings"
 
+# Can be: en_US, zh_CN, zh_TW, zh_HK, ja_JP, ko_KR, de_DE, fr_FR, es_ES, ru_RU, it_IT, pt_PT, vi_VN, th_TH, ar_SA, nl_NL, sv_SE, pl_PL, tr_TR
 if [ "$LANG_MODE" == "en_US" ]; then
     print_ok "Skipping input method dconf patch for en_US"
 elif [ "$LANG_MODE" == "zh_CN" ]; then
@@ -58,18 +59,18 @@ elif [ "$LANG_MODE" == "pt_PT" ]; then
     print_ok "Skipping input method dconf patch for pt_PT"
 elif [ "$LANG_MODE" == "vi_VN" ]; then
     print_ok "Installing on vi_VN mode, patching dconf for ibus-unikey..."
-    dconf write /org/gnome/desktop/input-sources/mru-sources "[('xkb', 'us'), ('ibus', 'unikey')]"
-    dconf write /org/gnome/desktop/input-sources/sources "[('xkb', 'us'), ('ibus', 'unikey')]"
+    dconf write /org/gnome/desktop/input-sources/mru-sources "[('xkb', 'us'), ('ibus', 'Unikey')]"
+    dconf write /org/gnome/desktop/input-sources/sources "[('xkb', 'us'), ('ibus', 'Unikey')]"
     judge "Patch dconf for ibus-unikey"
 elif [ "$LANG_MODE" == "th_TH" ]; then
-    print_ok "Installing on th_TH mode, patching dconf for ibus-thai..."
-    dconf write /org/gnome/desktop/input-sources/mru-sources "[('xkb', 'us'), ('ibus', 'thai')]"
-    dconf write /org/gnome/desktop/input-sources/sources "[('xkb', 'us'), ('ibus', 'thai')]"
-    judge "Patch dconf for ibus-thai"
+    print_ok "Installing on th_TH mode, patching dconf for ibus-libthai..."
+    dconf write /org/gnome/desktop/input-sources/mru-sources "[('xkb', 'us'), ('ibus', 'libthai')]"
+    dconf write /org/gnome/desktop/input-sources/sources "[('xkb', 'us'), ('ibus', 'libthai')]"
+    judge "Patch dconf for ibus-libthai"
 elif [ "$LANG_MODE" == "ar_SA" ]; then
     print_ok "Installing on ar_SA mode, patching dconf for ibus-m17n..."
-    dconf write /org/gnome/desktop/input-sources/mru-sources "[('xkb', 'us'), ('ibus', 'm17n:ara:kbd')]"
-    dconf write /org/gnome/desktop/input-sources/sources "[('xkb', 'us'), ('ibus', 'm17n:ara:kbd')]"
+    dconf write /org/gnome/desktop/input-sources/mru-sources "[('xkb', 'us'), ('ibus', 'm17n:ar:kbd')]"
+    dconf write /org/gnome/desktop/input-sources/sources "[('xkb', 'us'), ('ibus', 'm17n:ar:kbd')]"
     dconf
 elif [ "$LANG_MODE" == "nl_NL" ]; then
     print_ok "Skipping input method dconf patch for nl_NL"

@@ -14,7 +14,6 @@ source /root/mods/args.sh
 print_ok "Building variables for mods:"
 echo $TARGET_UBUNTU_VERSION
 echo $BUILD_UBUNTU_MIRROR
-echo $TARGET_UBUNTU_MIRROR
 echo $TARGET_NAME
 echo $TARGET_BUSINESS_NAME
 echo $TARGET_BUILD_VERSION
