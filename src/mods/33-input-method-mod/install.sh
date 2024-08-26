@@ -21,13 +21,13 @@ elif [ "$LANG_MODE" == "zh_CN" ]; then
     rm -rf ./anduinos-rime-master/
     judge "Install Rime schema"
 elif [ "$LANG_MODE" == "zh_TW" ]; then
-    print_ok "Installing ibus-chewing and ibus-libzhuyin..."
+    print_ok "Installing ibus-cangjie and ibus-libzhuyin..."
     apt install ibus-table-cangjie ibus-libzhuyin -y
-    judge "Install ibus-chewing and ibus-libzhuyin"
+    judge "Install ibus-cangjie and ibus-libzhuyin"
 elif [ "$LANG_MODE" == "zh_HK" ]; then
-    print_ok "Installing ibus-chewing..."
+    print_ok "Installing ibus-cangjie..."
     apt install ibus-table-cangjie -y
-    judge "Install ibus-chewing"
+    judge "Install ibus-cangjie"
 elif [ "$LANG_MODE" == "ja_JP" ]; then
     print_ok "Installing ibus-anthy..."
     apt install ibus-anthy -y
@@ -55,9 +55,9 @@ elif [ "$LANG_MODE" == "vi_VN" ]; then
     apt install ibus-unikey -y
     judge "Install ibus-unikey"
 elif [ "$LANG_MODE" == "th_TH" ]; then
-    print_ok "Installing ibus-thai..."
-    apt install ibus-thai -y
-    judge "Install ibus-thai"
+    print_ok "Installing ibus-libthai..."
+    apt install ibus-libthai -y
+    judge "Install ibus-libthai"
 elif [ "$LANG_MODE" == "ar_SA" ]; then
     print_ok "Installing ibus-m17n..."
     apt install ibus-m17n -y
