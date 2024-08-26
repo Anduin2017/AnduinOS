@@ -1,3 +1,7 @@
+set -e                  # exit on error
+set -o pipefail         # exit on pipeline error
+set -u                  # treat unset variable as error
+
 print_ok "Removing the hint for sudo"
 if grep -q "sudo hint" /etc/bash.bashrc; then
     sed -i '43,54d' /etc/bash.bashrc

@@ -1,3 +1,7 @@
+set -e                  # exit on error
+set -o pipefail         # exit on pipeline error
+set -u                  # treat unset variable as error
+
 # Web with Mozila Firefox
 xdg-mime default firefox.desktop x-scheme-handler/http
 xdg-mime default firefox.desktop text/html

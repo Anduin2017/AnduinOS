@@ -1,3 +1,7 @@
+set -e                  # exit on error
+set -o pipefail         # exit on pipeline error
+set -u                  # treat unset variable as error
+
 print_ok "Setting up hostname..."
 echo "$TARGET_NAME" > /etc/hostname
 hostname "$TARGET_NAME"

@@ -1,3 +1,7 @@
+set -e                  # exit on error
+set -o pipefail         # exit on pipeline error
+set -u                  # treat unset variable as error
+
 print_ok "Customization complete. Updating lsb/os-release files"
 cat << EOF > /etc/lsb-release
 DISTRIB_ID=$TARGET_BUSINESS_NAME

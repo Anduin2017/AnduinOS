@@ -1,3 +1,7 @@
+set -e                  # exit on error
+set -o pipefail         # exit on pipeline error
+set -u                  # treat unset variable as error
+
 print_ok "Installing kernel package..."
 waitNetwork
 apt install -y \

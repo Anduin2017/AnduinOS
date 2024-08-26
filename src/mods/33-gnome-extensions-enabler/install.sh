@@ -1,3 +1,7 @@
+set -e                  # exit on error
+set -o pipefail         # exit on pipeline error
+set -u                  # treat unset variable as error
+
 print_ok "Enabling gnome extensions for root..."
 /usr/local/bin/gext -F enable arcmenu@arcmenu.com
 /usr/local/bin/gext -F enable audio-output-switcher@anduchs

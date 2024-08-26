@@ -1,3 +1,7 @@
+set -e                  # exit on error
+set -o pipefail         # exit on pipeline error
+set -u                  # treat unset variable as error
+
 # we need to install systemd first, to configure machine id
 print_ok "Installing systemd"
 

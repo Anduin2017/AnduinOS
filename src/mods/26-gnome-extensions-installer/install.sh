@@ -1,3 +1,7 @@
+set -e                  # exit on error
+set -o pipefail         # exit on pipeline error
+set -u                  # treat unset variable as error
+
 print_ok "Installing gnome extensions"
 /usr/bin/pip3 install --upgrade gnome-extensions-cli
 /usr/local/bin/gext -F install arcmenu@arcmenu.com

@@ -1,3 +1,7 @@
+set -e                  # exit on error
+set -o pipefail         # exit on pipeline error
+set -u                  # treat unset variable as error
+
 print_ok "Downloading Fluent icon theme"
 git clone https://git.aiursoft.cn/PublicVault/Fluent-icon-theme ./themes/Fluent-icon-theme
 judge "Download Fluent icon theme"

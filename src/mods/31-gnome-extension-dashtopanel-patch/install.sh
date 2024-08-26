@@ -1,3 +1,7 @@
+set -e                  # exit on error
+set -o pipefail         # exit on pipeline error
+set -u                  # treat unset variable as error
+
 print_ok "Patching Dash-to-panel"
 msgunfmt /usr/share/gnome-shell/extensions/dash-to-panel@jderose9.github.com/locale/zh_CN/LC_MESSAGES/dash-to-panel.mo -o /tmp/dash-to-panel.po
 sed -i "s/Dash to Panel 设置/任务栏设置/g" /tmp/dash-to-panel.po

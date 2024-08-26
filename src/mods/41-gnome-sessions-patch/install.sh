@@ -1,3 +1,7 @@
+set -e                  # exit on error
+set -o pipefail         # exit on pipeline error
+set -u                  # treat unset variable as error
+
 print_ok "Setting up /usr/share/gnome-sessions/sessions..."
 sed -i 's/Ubuntu/AnduinOS/g' /usr/share/gnome-session/sessions/ubuntu.session
 judge "Set up /usr/share/gnome-sessions/sessions"

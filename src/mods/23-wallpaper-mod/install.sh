@@ -1,3 +1,7 @@
+set -e                  # exit on error
+set -o pipefail         # exit on pipeline error
+set -u                  # treat unset variable as error
+
 print_ok "Cleaning and reinstalling wallpaper"
 rm /usr/share/gnome-background-properties/* -rf
 rm /usr/share/backgrounds/* -rf
