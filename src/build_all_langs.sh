@@ -1,7 +1,7 @@
 #!/bin/bash
 
-LANG_MODES=("en_US" "zh_CN" "zh_TW" "zh_HK" "ja_JP" "ko_KR" "de_DE" "fr_FR" "es_ES" "ru_RU" "it_IT" "pt_PT" "vi_VN" "th_TH" "ar_SA" "nl_NL" "sv_SE" "pl_PL" "tr_TR")
-LANG_PACK_CODES=("en" "zh" "ja" "ko" "de" "fr" "es" "ru" "it" "pt" "vi" "th" "ar" "nl" "sv" "pl" "tr")
+LANG_MODES=(     "en_US" "zh_CN" "zh_TW" "zh_HK" "ja_JP" "ko_KR" "de_DE" "fr_FR" "es_ES" "ru_RU" "it_IT" "pt_PT" "vi_VN" "th_TH" "ar_SA" "nl_NL" "sv_SE" "pl_PL" "tr_TR")
+LANG_PACK_CODES=("en"    "zh"     "zh"   "zh"    "ja"    "ko"    "de"    "fr"    "es"    "ru"    "it"    "pt"    "vi"    "th"    "ar"    "nl"    "sv"    "pl"    "tr")
 
 if [[ ! -f "args.sh" || ! -f "build.sh" ]]; then
   echo "Error: args.sh or build.sh not found."
