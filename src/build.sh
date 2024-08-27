@@ -114,14 +114,13 @@ function build_iso() {
     touch image/anduinos
     # The configurations are setup in new_building_os/usr/share/initramfs-tools/scripts/casper-bottom/25configure_init
     cat << EOF > image/isolinux/grub.cfg
+
 search --set=root --file /anduinos
 
 insmod all_video
 
 set default="0"
 set timeout=30
-
-menu title Welcome to AnduinOS $TARGET_BUILD_VERSION
 
 menuentry "Try AnduinOS" {
    linux /casper/vmlinuz boot=casper nopersistent quiet splash ---
