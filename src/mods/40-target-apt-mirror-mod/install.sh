@@ -12,7 +12,7 @@ elif [ "$LANG_MODE" == "zh_CN" ]; then
 elif [ "$LANG_MODE" == "zh_TW" ]; then
     MIRROR="https://mirror.twds.com.tw/ubuntu/"
 elif [ "$LANG_MODE" == "zh_HK" ]; then
-    MIRROR="https://mirror.xtom.com.hk/ubuntu/"
+    MIRROR="http://hk.mirrors.thegigabit.com/ubuntu/"
 elif [ "$LANG_MODE" == "ja_JP" ]; then
     MIRROR="https://ftp.udx.icscoe.jp/Linux/ubuntu/"
 elif [ "$LANG_MODE" == "ko_KR" ]; then
