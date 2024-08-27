@@ -44,3 +44,4 @@
 * Create the torrent file.
 * Update the website with the new version number.
 * Write the upgrade script for OTA updates.
+* Copy the OSS software lists.
