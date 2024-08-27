@@ -110,6 +110,9 @@ function build_iso() {
     sudo cp new_building_os/boot/initrd.img-**-**-generic image/casper/initrd
     judge "Copy kernel files"
 
+    print_ok "Copying splash.png..."
+    sudo cp $SCRIPT_DIR/assets/splash.png image/casper/splash.png
+
     # grub
     print_ok "Generating grub.cfg..."
     touch image/anduinos
@@ -145,6 +148,30 @@ function build_iso() {
     OME_INSTALL_TEXT="OEM install (for manufacturers)"
     VERIFY_CHECK_SUM_TEXT="Verify OS integrity and boot"
     cat << EOF > image/isolinux/grub.cfg
+
+timeout=30
+
+menu background splash.png
+menu title Welcome to AnduinOS
+
+menu color screen	37;40      #80ffffff #00000000 std
+MENU COLOR border       30;44   #40ffffff #a0000000 std
+MENU COLOR title        1;36;44 #ffffffff #a0000000 std
+MENU COLOR sel          7;37;40 #e0ffffff #20ffffff all
+MENU COLOR unsel        37;44   #50ffffff #a0000000 std
+MENU COLOR help         37;40   #c0ffffff #a0000000 std
+MENU COLOR timeout_msg  37;40   #80ffffff #00000000 std
+MENU COLOR timeout      1;37;40 #c0ffffff #00000000 std
+MENU COLOR msg07        37;40   #90ffffff #a0000000 std
+MENU COLOR tabmsg       31;40   #ffDEDEDE #00000000 std
+MENU WIDTH 78
+MENU MARGIN 15
+MENU ROWS 6
+MENU VSHIFT 10
+MENU TABMSGROW 12
+MENU CMDLINEROW 12
+MENU HELPMSGROW 16
+MENU HELPMSGENDROW 29
 
 search --set=root --file /anduinos
 
