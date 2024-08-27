@@ -205,6 +205,38 @@ EOF
 EOF
     judge "Generate README.diskdefines"
 
+    DATE=`TZ="UTC" date +"%y%m%d%H%M"`
+    cat << EOF > image/README.md
+# AnduinOS $TARGET_BUILD_VERSION
+
+AnduinOS is a custom Debian-based Linux distribution that aims to facilitate users transitioning from Windows to Ubuntu by maintaining familiar operational habits and workflows.
+
+This image is built with the following configurations:
+
+- **Language**: $LANG_MODE
+- **Version**: $TARGET_BUILD_VERSION
+- **Date**: $DATE
+
+AnduinOS is distributed with GPLv3 license. You can find the license on [GPL-v3](https://gitlab.aiursoft.cn/anduin/anduinos/-/blob/master/LICENSE).
+
+## How to use
+
+Before starting, please turn off Secure Boot in your BIOS settings.
+
+Press F12 to enter the boot menu when you start your computer. Select the USB drive to boot from.
+
+You will see two options:
+
+1. **Try AnduinOS**: Boot into AnduinOS without installing it. This is a good way to test the system before installing it.
+2. **Install AnduinOS**: Install AnduinOS on your computer. This will erase all data on the target disk.
+
+Select the option you want and press Enter.
+
+## More information
+
+For detailed instructions, please visit [AnduinOS Document](https://docs.anduinos.com/Install/System-Requirements.html).
+EOF
+
     print_ok "Copying boot files..."
     pushd $SCRIPT_DIR/image
     grub-mkstandalone \
@@ -274,7 +306,6 @@ EOF
            "."
     judge "Create iso image"
 
-    DATE=`TZ="UTC" date +"%y%m%d%H%M"`
     print_ok "Moving iso image to $SCRIPT_DIR/dist/$TARGET_BUSINESS_NAME-$TARGET_BUILD_VERSION-$LANG_MODE-$DATE.iso..."
     mkdir -p $SCRIPT_DIR/dist
     mv $SCRIPT_DIR/$TARGET_NAME.iso $SCRIPT_DIR/dist/$TARGET_BUSINESS_NAME-$TARGET_BUILD_VERSION-$LANG_MODE-$DATE.iso
