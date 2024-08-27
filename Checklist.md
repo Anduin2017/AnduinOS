@@ -4,6 +4,7 @@
 * Ensure the image can be installed with both BIOS and UEFI.
 * Ensure there is no overview on startup.
 * Ensure the cursor theme is applied.
+* Ensure the timezone and language is localized.
 * Ensure right clicking the desktop can open console here.
 * Ensure user can configure desktop icons when right click the desktop.
 * Ensure there is start button on the task bar with the logo of our distro.
@@ -12,7 +13,7 @@
 * Ensure if the device has a battery, battery is shown on the task bar. Otherwise, it's hidden.
 * Ensure sound theme, icon theme, shell theme are all set.
 * Ensure there will be a `DO` sound (Yaru) when typing tab on terminal.
-* Ensure when running `sudo apt update`, it's connecting to `http://archive.ubuntu.com/ubuntu/`.
+* Ensure when running `sudo apt update`, it's connecting to localized apt source.
 * Ensure `lsb_release` with arg `-i -d -r -c -a` will show the correct information.
 * Ensure folders are sorted before files in nautilus.
 * Ensure `/opt` folder is empty.
