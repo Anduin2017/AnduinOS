@@ -4,5 +4,4 @@ stages:
 build:
   stage: build
   script:
-    - cd ./src
-    - ./build.sh -
+    - echo "Mock script. This is because AnduinOS can't be built in Docker."
