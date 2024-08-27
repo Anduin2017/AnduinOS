@@ -110,89 +110,41 @@ function build_iso() {
     sudo cp new_building_os/boot/initrd.img-**-**-generic image/casper/initrd
     judge "Copy kernel files"
 
-    print_ok "Copying splash.png..."
-    sudo cp $SCRIPT_DIR/assets/splash.png image/isolinux/splash.png
-
-    # grub
     print_ok "Generating grub.cfg..."
     touch image/anduinos
-    # TRY mode 
-    # (Add 'toram' to boot options will load the whole system into RAM)
-    # * Enfoce user name `ubuntu` and hostname `ubuntu`
-    # * Enforce X11
-    # * Couldn't logout
-    # * Couldn't lock screen
-    # * On the desktop there will be a "Install" icon for Ubiquity installer
-
-    # Install mode
-    # * Enfoce user name `ubuntu` and hostname `ubuntu`
-    # * Enforce X11
-    # * Couldn't logout
-    # * Couldn't lock screen
-    # * Desktop is enabled. All gnome extensions are disabled.
-    # * Will show Ubiquity installer by default
-    # * Ubiquity installer won't ask if you want to keep trying this OS
-
-    # After installation
-    # * Requires login. User name is set during installation
-    # * Nvidia users will enforce X11. Others will use Wayland
-    # * Can logout
-    # * Can lock screen
-    # * Desktop is enabled. All gnome extensions are enabled
-    # * No Ubiquity installer
-    # * No "Install" icon on the desktop
-
-    # Those configurations are setup in new_building_os/usr/share/initramfs-tools/scripts/casper-bottom/25configure_init
-    TRY_TEXT="Try AnduinOS"
-    INSTALL_TEXT="Install AnduinOS"
-    OME_INSTALL_TEXT="OEM install (for manufacturers)"
+    # The configurations are setup in new_building_os/usr/share/initramfs-tools/scripts/casper-bottom/25configure_init
     cat << EOF > image/isolinux/grub.cfg
-
-timeout=30
-
-menu background splash.png
-menu title Welcome to AnduinOS $TARGET_BUILD_VERSION
-
-menu color screen	37;40      #80ffffff #00000000 std
-MENU COLOR border       30;44   #40ffffff #a0000000 std
-MENU COLOR title        1;36;44 #ffffffff #a0000000 std
-MENU COLOR sel          7;37;40 #e0ffffff #20ffffff all
-MENU COLOR unsel        37;44   #50ffffff #a0000000 std
-MENU COLOR help         37;40   #c0ffffff #a0000000 std
-MENU COLOR timeout_msg  37;40   #80ffffff #00000000 std
-MENU COLOR timeout      1;37;40 #c0ffffff #00000000 std
-MENU COLOR msg07        37;40   #90ffffff #a0000000 std
-MENU COLOR tabmsg       31;40   #ffDEDEDE #00000000 std
-MENU WIDTH 78
-MENU MARGIN 15
-MENU ROWS 6
-MENU VSHIFT 10
-MENU TABMSGROW 12
-MENU CMDLINEROW 12
-MENU HELPMSGROW 16
-MENU HELPMSGENDROW 29
-
-search --set=root --file /anduinos
-
-insmod all_video
-
 set default="0"
 set timeout=30
 
-menuentry "$TRY_TEXT" {
+menu title Welcome to AnduinOS $TARGET_BUILD_VERSION
+
+search --set=root --file /anduinos
+
+menuentry "Try AnduinOS" {
    linux /casper/vmlinuz boot=casper nopersistent verify-checksums quiet splash ---
    initrd /casper/initrd
 }
 
-menuentry "$INSTALL_TEXT" {
+menuentry "Install AnduinOS" {
    linux /casper/vmlinuz boot=casper only-ubiquity verify-checksums quiet splash ---
    initrd /casper/initrd
 }
 
-menuentry "$OME_INSTALL_TEXT" {
+menuentry "OEM install (for manufacturers)" {
    linux /casper/vmlinuz boot=casper only-ubiquity verify-checksums quiet splash oem-config/enable=true username=anduinos hostname=anduinos ---
    initrd /casper/initrd
 }
+
+grub_platform
+if [ \$grub_platform = "efi" ]; then
+    menuentry "Boot from next volume" {
+        exit
+    }
+    menuentry "UEFI Firmware Settings" {
+        fwsetup
+    }
+fi
 EOF
     judge "Generate grub.cfg"
 
