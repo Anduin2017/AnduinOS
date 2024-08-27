@@ -142,6 +142,7 @@ function build_iso() {
     # Those configurations are setup in new_building_os/usr/share/initramfs-tools/scripts/casper-bottom/25configure_init
     TRY_TEXT="Try AnduinOS"
     INSTALL_TEXT="Install AnduinOS"
+    OME_INSTALL_TEXT="OEM install (for manufacturers)"
     cat << EOF > image/isolinux/grub.cfg
 
 search --set=root --file /anduinos
@@ -158,6 +159,11 @@ menuentry "$TRY_TEXT" {
 
 menuentry "$INSTALL_TEXT" {
    linux /casper/vmlinuz boot=casper only-ubiquity quiet splash ---
+   initrd /casper/initrd
+}
+
+menuentry "$OME_INSTALL_TEXT" {
+   linux /casper/vmlinuz boot=casper only-ubiquity quiet splash oem-config/enable=true username=anduinos hostname=anduinos ---
    initrd /casper/initrd
 }
 EOF
