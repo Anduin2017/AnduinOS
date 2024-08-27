@@ -84,7 +84,23 @@ else
     TIMEZONE="GMT"
 fi
 
+# This is actually setting on the system clock, not the timezone. Do not use this command:
+# > timedatectl set-timezone $TIMEZONE
+# To set the timezone for the new OS being built (In chroot environment), use the following command:
+
 print_ok "Configuring timezone to $TIMEZONE..."
-timedatectl set-timezone $TIMEZONE
-judge "Configure timezone to $TIMEZONE"
+if [ ! -f /usr/share/zoneinfo/$TIMEZONE ]; then
+    print_error "Error: /usr/share/zoneinfo/$TIMEZONE not found."
+    exit 1
+fi
+
+print_ok "Configuring /etc/timezone to $TIMEZONE..."
+echo $TIMEZONE > /etc/timezone
+judge "Configure /etc/timezone"
+
+print_ok "Configuring /etc/localtime to $TIMEZONE..."
+rm /etc/localtime
+ln -sf /usr/share/zoneinfo/$TIMEZONE /etc/localtime
+judge "Configure /etc/timezone and /etc/localtime"
+
 
