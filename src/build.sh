@@ -109,10 +109,38 @@ function build_iso() {
     sudo cp new_building_os/boot/vmlinuz-**-**-generic image/casper/vmlinuz
     sudo cp new_building_os/boot/initrd.img-**-**-generic image/casper/initrd
     judge "Copy kernel files"
-
+    
     print_ok "Generating grub.cfg..."
     touch image/anduinos
-    # The configurations are setup in new_building_os/usr/share/initramfs-tools/scripts/casper-bottom/25configure_init
+    # TRY mode 
+    # (Add 'toram' to boot options will load the whole system into RAM)
+    # * Enfoce user name `ubuntu` and hostname `ubuntu`
+    # * Enforce X11
+    # * Couldn't logout
+    # * Couldn't lock screen
+    # * On the desktop there will be a "Install" icon for Ubiquity installer
+
+    # Install mode
+    # * Enfoce user name `ubuntu` and hostname `ubuntu`
+    # * Enforce X11
+    # * Couldn't logout
+    # * Couldn't lock screen
+    # * Desktop is enabled. All gnome extensions are disabled.
+    # * Will show Ubiquity installer by default
+    # * Ubiquity installer won't ask if you want to keep trying this OS
+
+    # After installation
+    # * Requires login. User name is set during installation
+    # * Nvidia users will enforce X11. Others will use Wayland
+    # * Can logout
+    # * Can lock screen
+    # * Desktop is enabled. All gnome extensions are enabled
+    # * No Ubiquity installer
+    # * No "Install" icon on the desktop
+
+    # Those configurations are setup in new_building_os/usr/share/initramfs-tools/scripts/casper-bottom/25configure_init
+    TRY_TEXT="Try AnduinOS"
+    INSTALL_TEXT="Install AnduinOS"
     cat << EOF > image/isolinux/grub.cfg
 
 search --set=root --file /anduinos
@@ -122,12 +150,12 @@ insmod all_video
 set default="0"
 set timeout=30
 
-menuentry "Try AnduinOS" {
+menuentry "$TRY_TEXT" {
    linux /casper/vmlinuz boot=casper nopersistent quiet splash ---
    initrd /casper/initrd
 }
 
-menuentry "Install AnduinOS" {
+menuentry "$INSTALL_TEXT" {
    linux /casper/vmlinuz boot=casper only-ubiquity quiet splash ---
    initrd /casper/initrd
 }
