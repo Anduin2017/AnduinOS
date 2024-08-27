@@ -111,7 +111,7 @@ function build_iso() {
     judge "Copy kernel files"
 
     print_ok "Copying splash.png..."
-    sudo cp $SCRIPT_DIR/assets/splash.png image/casper/splash.png
+    sudo cp $SCRIPT_DIR/assets/splash.png image/isolinux/splash.png
 
     # grub
     print_ok "Generating grub.cfg..."
@@ -146,13 +146,12 @@ function build_iso() {
     TRY_TEXT="Try AnduinOS"
     INSTALL_TEXT="Install AnduinOS"
     OME_INSTALL_TEXT="OEM install (for manufacturers)"
-    VERIFY_CHECK_SUM_TEXT="Verify OS integrity and boot"
     cat << EOF > image/isolinux/grub.cfg
 
 timeout=30
 
 menu background splash.png
-menu title Welcome to AnduinOS
+menu title Welcome to AnduinOS $TARGET_BUILD_VERSION
 
 menu color screen	37;40      #80ffffff #00000000 std
 MENU COLOR border       30;44   #40ffffff #a0000000 std
@@ -181,22 +180,17 @@ set default="0"
 set timeout=30
 
 menuentry "$TRY_TEXT" {
-   linux /casper/vmlinuz boot=casper nopersistent quiet splash ---
+   linux /casper/vmlinuz boot=casper nopersistent verify-checksums quiet splash ---
    initrd /casper/initrd
 }
 
 menuentry "$INSTALL_TEXT" {
-   linux /casper/vmlinuz boot=casper only-ubiquity quiet splash ---
+   linux /casper/vmlinuz boot=casper only-ubiquity verify-checksums quiet splash ---
    initrd /casper/initrd
 }
 
 menuentry "$OME_INSTALL_TEXT" {
-   linux /casper/vmlinuz boot=casper only-ubiquity quiet splash oem-config/enable=true username=anduinos hostname=anduinos ---
-   initrd /casper/initrd
-}
-
-menuentry "$VERIFY_CHECK_SUM_TEXT" {
-   linux /casper/vmlinuz boot=casper nopersistent verify-checksums quiet splash ---
+   linux /casper/vmlinuz boot=casper only-ubiquity verify-checksums quiet splash oem-config/enable=true username=anduinos hostname=anduinos ---
    initrd /casper/initrd
 }
 EOF
