@@ -114,37 +114,24 @@ function build_iso() {
     touch image/anduinos
     # The configurations are setup in new_building_os/usr/share/initramfs-tools/scripts/casper-bottom/25configure_init
     cat << EOF > image/isolinux/grub.cfg
+search --set=root --file /anduinos
+
+insmod all_video
+
 set default="0"
 set timeout=30
 
 menu title Welcome to AnduinOS $TARGET_BUILD_VERSION
 
-search --set=root --file /anduinos
-
 menuentry "Try AnduinOS" {
-   linux /casper/vmlinuz boot=casper nopersistent verify-checksums quiet splash ---
+   linux /casper/vmlinuz boot=casper nopersistent quiet splash ---
    initrd /casper/initrd
 }
 
 menuentry "Install AnduinOS" {
-   linux /casper/vmlinuz boot=casper only-ubiquity verify-checksums quiet splash ---
+   linux /casper/vmlinuz boot=casper only-ubiquity quiet splash ---
    initrd /casper/initrd
 }
-
-menuentry "OEM install (for manufacturers)" {
-   linux /casper/vmlinuz boot=casper only-ubiquity verify-checksums quiet splash oem-config/enable=true username=anduinos hostname=anduinos ---
-   initrd /casper/initrd
-}
-
-grub_platform
-if [ \$grub_platform = "efi" ]; then
-    menuentry "Boot from next volume" {
-        exit
-    }
-    menuentry "UEFI Firmware Settings" {
-        fwsetup
-    }
-fi
 EOF
     judge "Generate grub.cfg"
 
