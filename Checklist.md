@@ -2,6 +2,7 @@
 
 * Ensure during boot, it shall show the logo of our distro.
 * Ensure the image can be installed with both BIOS and UEFI.
+* Boot the image with **UEFI**. (This is to test the UEFI grub installation)
 * Ensure there is no overview on startup.
 * Ensure the cursor theme is applied.
 * Ensure the timezone and language is localized.
