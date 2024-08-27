@@ -71,7 +71,6 @@ elif [ "$LANG_MODE" == "ar_SA" ]; then
     print_ok "Installing on ar_SA mode, patching dconf for ibus-m17n..."
     dconf write /org/gnome/desktop/input-sources/mru-sources "[('xkb', 'us'), ('ibus', 'm17n:ar:kbd')]"
     dconf write /org/gnome/desktop/input-sources/sources "[('xkb', 'us'), ('ibus', 'm17n:ar:kbd')]"
-    dconf
 elif [ "$LANG_MODE" == "nl_NL" ]; then
     print_ok "Skipping input method dconf patch for nl_NL"
 elif [ "$LANG_MODE" == "sv_SE" ]; then

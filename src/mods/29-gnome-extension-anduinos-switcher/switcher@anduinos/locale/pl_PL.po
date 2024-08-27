@@ -1,0 +1,12 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "Theme"
+msgstr "Temat"
+
+msgid "Light Theme"
+msgstr "Jasny temat"
+
+msgid "Dark Theme"
+msgstr "Ciemny temat"

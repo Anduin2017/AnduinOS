@@ -1,4 +1,7 @@
 #!/bin/bash
+set -e                  # exit on error
+set -o pipefail         # exit on pipeline error
+set -u                  # treat unset variable as error
 
 LANG_MODES=(     "en_US" "zh_CN" "zh_TW" "zh_HK" "ja_JP" "ko_KR" "de_DE" "fr_FR" "es_ES" "ru_RU" "it_IT" "pt_PT" "vi_VN" "th_TH" "ar_SA" "nl_NL" "sv_SE" "pl_PL" "tr_TR")
 LANG_PACK_CODES=("en"    "zh"     "zh"   "zh"    "ja"    "ko"    "de"    "fr"    "es"    "ru"    "it"    "pt"    "vi"    "th"    "ar"    "nl"    "sv"    "pl"    "tr")
