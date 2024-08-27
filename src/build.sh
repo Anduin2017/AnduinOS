@@ -169,7 +169,7 @@ menuentry "$OME_INSTALL_TEXT" {
 }
 
 menuentry "$VERIFY_CHECK_SUM_TEXT" {
-   linux /casper/vmlinuz boot=casper nopersistent integrity-check quiet splash ---
+   linux /casper/vmlinuz boot=casper nopersistent verify-checksums quiet splash ---
    initrd /casper/initrd
 }
 EOF
