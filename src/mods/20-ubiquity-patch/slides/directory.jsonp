@@ -10,5 +10,209 @@ ubiquitySlideshowDirectoryCb({
             "welcome.html"
         ],
         "media": []
+    },
+    "zh_TW": {
+        "slides": [
+            "apps.html",
+            "build.html",
+            "gaming.html",
+            "privacy.html",
+            "root.html",
+            "support.html",
+            "welcome.html"
+        ],
+        "media": []
+    },
+    "zh_HK": {
+        "slides": [
+            "apps.html",
+            "build.html",
+            "gaming.html",
+            "privacy.html",
+            "root.html",
+            "support.html",
+            "welcome.html"
+        ],
+        "media": []
+    },
+    "ja": {
+        "slides": [
+            "apps.html",
+            "build.html",
+            "gaming.html",
+            "privacy.html",
+            "root.html",
+            "support.html",
+            "welcome.html"
+        ],
+        "media": []
+    },
+    "ko": {
+        "slides": [
+            "apps.html",
+            "build.html",
+            "gaming.html",
+            "privacy.html",
+            "root.html",
+            "support.html",
+            "welcome.html"
+        ],
+        "media": []
+    },
+    "de": {
+        "slides": [
+            "apps.html",
+            "build.html",
+            "gaming.html",
+            "privacy.html",
+            "root.html",
+            "support.html",
+            "welcome.html"
+        ],
+        "media": []
+    },
+    "fr": {
+        "slides": [
+            "apps.html",
+            "build.html",
+            "gaming.html",
+            "privacy.html",
+            "root.html",
+            "support.html",
+            "welcome.html"
+        ],
+        "media": []
+    },
+    "es": {
+        "slides": [
+            "apps.html",
+            "build.html",
+            "gaming.html",
+            "privacy.html",
+            "root.html",
+            "support.html",
+            "welcome.html"
+        ],
+        "media": []
+    },
+    "ru": {
+        "slides": [
+            "apps.html",
+            "build.html",
+            "gaming.html",
+            "privacy.html",
+            "root.html",
+            "support.html",
+            "welcome.html"
+        ],
+        "media": []
+    },
+    "it": {
+        "slides": [
+            "apps.html",
+            "build.html",
+            "gaming.html",
+            "privacy.html",
+            "root.html",
+            "support.html",
+            "welcome.html"
+        ],
+        "media": []
+    },
+    "pt": {
+        "slides": [
+            "apps.html",
+            "build.html",
+            "gaming.html",
+            "privacy.html",
+            "root.html",
+            "support.html",
+            "welcome.html"
+        ],
+        "media": []
+    },
+    "vi": {
+        "slides": [
+            "apps.html",
+            "build.html",
+            "gaming.html",
+            "privacy.html",
+            "root.html",
+            "support.html",
+            "welcome.html"
+        ],
+        "media": []
+    },
+    "th": {
+        "slides": [
+            "apps.html",
+            "build.html",
+            "gaming.html",
+            "privacy.html",
+            "root.html",
+            "support.html",
+            "welcome.html"
+        ],
+        "media": []
+    },
+    "ar": {
+        "slides": [
+            "apps.html",
+            "build.html",
+            "gaming.html",
+            "privacy.html",
+            "root.html",
+            "support.html",
+            "welcome.html"
+        ],
+        "media": []
+    },
+    "nl": {
+        "slides": [
+            "apps.html",
+            "build.html",
+            "gaming.html",
+            "privacy.html",
+            "root.html",
+            "support.html",
+            "welcome.html"
+        ],
+        "media": []
+    },
+    "sv": {
+        "slides": [
+            "apps.html",
+            "build.html",
+            "gaming.html",
+            "privacy.html",
+            "root.html",
+            "support.html",
+            "welcome.html"
+        ],
+        "media": []
+    },
+    "pl": {
+        "slides": [
+            "apps.html",
+            "build.html",
+            "gaming.html",
+            "privacy.html",
+            "root.html",
+            "support.html",
+            "welcome.html"
+        ],
+        "media": []
+    },
+    "tr": {
+        "slides": [
+            "apps.html",
+            "build.html",
+            "gaming.html",
+            "privacy.html",
+            "root.html",
+            "support.html",
+            "welcome.html"
+        ],
+        "media": []
     }
 });
