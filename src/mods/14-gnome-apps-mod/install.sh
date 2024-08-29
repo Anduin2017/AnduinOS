@@ -11,7 +11,7 @@ apt install -y \
     gnome-shell gir1.2-gmenu-3.0 gnome-menus gnome-shell-extensions \
     nautilus usb-creator-gtk cheese baobab file-roller gnome-sushi ffmpegthumbnailer \
     gnome-calculator gnome-disk-utility gnome-control-center gnome-logs \
-    gnome-chess gnome-mines gnome-sudoku \
+    gnome-chess gnome-mines gnome-sudoku aisleriot \
     gnome-shell-extension-prefs gnome-shell-extension-desktop-icons-ng gnome-shell-extension-appindicator \
     gnome-screenshot gnome-system-monitor gnome-sound-recorder gnome-characters gnome-font-viewer \
     fonts-noto-cjk fonts-noto-core fonts-noto-mono fonts-noto-color-emoji \
@@ -34,16 +34,12 @@ apt install -y \
     git lsb-release coreutils \
     gnupg vim nano \
     wget curl \
-    httping nethogs net-tools iftop traceroute dnsutils iperf3 \
+    httping nethogs net-tools traceroute dnsutils \
     smartmontools \
-    htop iotop iftop \
-    tree ntp ntpdate ntpstat \
-    w3m sysbench \
-    zip unzip jq \
+    ntp ntpdate ntpstat \
+    zip unzip \
     cifs-utils \
-    aisleriot \
-    libsass1 sassc \
-    dmz-cursor-theme
+    libsass1 sassc
 judge "Install gnome-shell and other gnome applications"
 
 print_ok "Installing $LANGUAGE_PACKS language packs"
