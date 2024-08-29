@@ -103,7 +103,7 @@ judge "Install web browser"
 
 print_ok "Installing python3..."
 apt install -y \
-    python3 python3-pip python3-venv python3-dev python-is-python3
+    python3 python3-pip python-is-python3
 judge "Install python3"
 
 print_ok "Installing other libraries..."
@@ -112,7 +112,7 @@ apt install -y \
     vim nano \
     wget curl \
     httping net-tools traceroute dnsutils \
-    smartmontools \
+    smartmontools htop \
     ntp ntpdate ntpstat \
     zip unzip \
     cifs-utils \
