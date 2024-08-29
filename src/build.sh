@@ -219,6 +219,18 @@ This image is built with the following configurations:
 
 AnduinOS is distributed with GPLv3 license. You can find the license on [GPL-v3](https://gitlab.aiursoft.cn/anduin/anduinos/-/blob/master/LICENSE).
 
+## Please verify the checksum!!!
+
+To verify the integrity of the image, you can calculate the md5sum of the image and compare it with the value in the file \`md5sum.txt\`.
+
+To do this, run the following command in the terminal:
+
+\`\`\`
+md5sum -c md5sum.txt
+\`\`\`
+
+No output indicates that the image is correct.
+
 ## How to use
 
 Before starting, please turn off Secure Boot in your BIOS settings.
