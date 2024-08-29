@@ -10,7 +10,8 @@ apt install -y \
     plymouth plymouth-label plymouth-theme-spinner plymouth-theme-ubuntu-text plymouth-theme-ubuntu-logo \
     gnome-shell gir1.2-gmenu-3.0 gnome-menus gnome-shell-extensions \
     nautilus usb-creator-gtk cheese baobab file-roller gnome-sushi ffmpegthumbnailer \
-    gnome-calculator gnome-disk-utility gnome-control-center gnome-logs gnome-chess \
+    gnome-calculator gnome-disk-utility gnome-control-center gnome-logs \
+    gnome-chess gnome-mines gnome-sudoku \
     gnome-shell-extension-prefs gnome-shell-extension-desktop-icons-ng gnome-shell-extension-appindicator \
     gnome-screenshot gnome-system-monitor gnome-sound-recorder gnome-characters gnome-font-viewer \
     fonts-noto-cjk fonts-noto-core fonts-noto-mono fonts-noto-color-emoji \
