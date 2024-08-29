@@ -109,7 +109,7 @@ judge "Install python3"
 print_ok "Installing other libraries..."
 apt install -y \
     git lsb-release coreutils \
-    gnupg vim nano \
+    vim nano \
     wget curl \
     httping net-tools traceroute dnsutils \
     smartmontools \
