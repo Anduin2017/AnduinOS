@@ -4,43 +4,120 @@ set -u                  # treat unset variable as error
 
 print_ok "Installing gnome-shell and other gnome applications"
 waitNetwork
+
+print_ok "Installing basic packages..."
 apt install -y \
-    ca-certificates gpg apt-transport-https \
-    ubuntu-session yaru-theme-sound yaru-theme-gnome-shell \
-    plymouth plymouth-label plymouth-theme-spinner plymouth-theme-ubuntu-text plymouth-theme-ubuntu-logo \
-    gnome-shell gir1.2-gmenu-3.0 gnome-menus gnome-shell-extensions \
-    nautilus usb-creator-gtk cheese baobab file-roller gnome-sushi ffmpegthumbnailer \
-    gnome-calculator gnome-disk-utility gnome-control-center gnome-logs \
-    gnome-chess gnome-mines gnome-sudoku aisleriot \
-    gnome-shell-extension-prefs gnome-shell-extension-desktop-icons-ng gnome-shell-extension-appindicator \
-    gnome-screenshot gnome-system-monitor gnome-sound-recorder gnome-characters gnome-font-viewer \
-    fonts-noto-cjk fonts-noto-core fonts-noto-mono fonts-noto-color-emoji \
-    cups system-config-printer cups-bsd \
-    ubuntu-drivers-common alsa-utils \
+    ca-certificates gpg apt-transport-https gnupg software-properties-common
+judge "Install basic packages"
+
+print_ok "Installing gnome basic sessions..."
+apt install -y \
+    gnome-shell ubuntu-session yaru-theme-sound yaru-theme-gnome-shell gir1.2-gmenu-3.0 gnome-menus gnome-shell-extensions
+judge "Install gnome basic sessions"
+
+print_ok "Installing plymouth..."
+apt install -y \
+    plymouth plymouth-label plymouth-theme-spinner plymouth-theme-ubuntu-text plymouth-theme-ubuntu-logo
+judge "Install plymouth"
+
+print_ok "Installing gnome basic applications..."
+apt install -y \
+    nautilus \
+    usb-creator-gtk \
+    cheese \
+    baobab \
+    file-roller \
+    gnome-sushi \
+    gnome-calculator \
+    gnome-disk-utility \
+    gnome-control-center \
+    gnome-logs \
+    gnome-screenshot \
+    gnome-system-monitor \
+    gnome-sound-recorder \
+    gnome-characters \
+    gnome-font-viewer 
+judge "Install gnome basic applications"
+
+print_ok "Installing gnome games..."
+apt install -y \
+    gnome-chess \
+    gnome-mines \
+    gnome-sudoku \
+    aisleriot
+judge "Install gnome games"
+
+print_ok "Installing gnome extension utilities..."
+apt install -y \
+    gnome-shell-extension-prefs \
+    gnome-shell-extension-desktop-icons-ng \
+    gnome-shell-extension-appindicator 
+judge "Install gnome extension utilities"
+
+print_ok "Installing gnome additional applications..."
+apt install -y \
     gnome-clocks \
     gnome-weather \
-    gedit \
     gnome-nettool \
-    seahorse gdebi evince \
-    ibus \
+    gedit \
+    seahorse \
+    gdebi \
+    evince \
     shotwell \
     remmina remmina-plugin-rdp \
-    firefox \
-    totem totem-plugins gstreamer1.0-libav \
     rhythmbox rhythmbox-plugins \
+    totem totem-plugins gstreamer1.0-libav \
     transmission-gtk transmission-common \
-    gnome-console nautilus-extension-gnome-console \
-    python3-apt python3-pip python-is-python3 \
+    ffmpegthumbnailer
+judge "Install gnome additional applications"
+
+print_ok "Installing gnome console..."
+apt install -y \
+    gnome-console nautilus-extension-gnome-console
+judge "Install gnome console"
+
+print_ok "Installing gnome fonts..."
+apt install -y \
+    fonts-noto-cjk fonts-noto-core fonts-noto-mono fonts-noto-color-emoji
+judge "Install gnome fonts"
+
+print_ok "Installing gnome printer support..."
+apt install -y \
+    cups system-config-printer cups-bsd
+judge "Install gnome printer support"
+
+print_ok "Installing ubuntu drivers support..."
+apt install -y \
+    ubuntu-drivers-common alsa-utils
+judge "Install ubuntu drivers support"
+
+print_ok "Installing input method..."
+apt install -y \
+    ibus
+judge "Install input method"
+
+print_ok "Installing web browser..."
+apt install -y \
+    firefox
+judge "Install web browser"
+
+print_ok "Installing python3..."
+apt install -y \
+    python3 python3-pip python3-venv python3-dev python-is-python3
+judge "Install python3"
+
+print_ok "Installing other libraries..."
+apt install -y \
     git lsb-release coreutils \
     gnupg vim nano \
     wget curl \
-    httping nethogs net-tools traceroute dnsutils \
+    httping net-tools traceroute dnsutils \
     smartmontools \
     ntp ntpdate ntpstat \
     zip unzip \
     cifs-utils \
     libsass1 sassc
-judge "Install gnome-shell and other gnome applications"
+judge "Install other libraries"
 
 print_ok "Installing $LANGUAGE_PACKS language packs"
 apt install -y $LANGUAGE_PACKS
