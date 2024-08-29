@@ -225,8 +225,8 @@ To verify the integrity of the image, you can calculate the md5sum of the image 
 
 To do this, run the following command in the terminal:
 
-\`\`\`
-md5sum -c md5sum.txt
+\`\`\`bash
+md5sum -c md5sum.txt | grep -v 'OK'
 \`\`\`
 
 No output indicates that the image is correct.
