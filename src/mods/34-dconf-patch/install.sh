@@ -16,6 +16,7 @@ dconf write /org/gnome/desktop/input-sources/xkb-options "@as []"
 judge "Load dconf settings"
 
 print_ok "Patching global gdm3 dconf settings"
+cp ./anduinos_text_smaller.png /usr/share/pixmaps/anduinos_text_smaller.png
 cp ./greeter.dconf-defaults.ini /etc/gdm3/greeter.dconf-defaults
 dconf update
 judge "Patch global gdm3 dconf settings"
