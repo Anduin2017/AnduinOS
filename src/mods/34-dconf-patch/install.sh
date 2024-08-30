@@ -15,6 +15,11 @@ dconf write /org/gtk/settings/file-chooser/sort-directories-first true
 dconf write /org/gnome/desktop/input-sources/xkb-options "@as []"
 judge "Load dconf settings"
 
+print_ok "Patching global gdm3 dconf settings"
+cp ./greeter.dconf-defaults.ini /etc/gdm3/greeter.dconf-defaults
+dconf update
+judge "Patch global gdm3 dconf settings"
+
 # Can be: en_US, zh_CN, zh_TW, zh_HK, ja_JP, ko_KR, de_DE, fr_FR, es_ES, ru_RU, it_IT, pt_PT, vi_VN, th_TH, ar_SA, nl_NL, sv_SE, pl_PL, tr_TR
 if [ "$LANG_MODE" == "en_US" ]; then
     print_ok "Skipping input method dconf patch for en_US"
