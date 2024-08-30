@@ -43,8 +43,7 @@ print_ok "Installing gnome games..."
 apt install -y \
     gnome-chess \
     gnome-mines \
-    gnome-sudoku \
-    aisleriot
+    gnome-sudoku
 judge "Install gnome games"
 
 print_ok "Installing gnome extension utilities..."
