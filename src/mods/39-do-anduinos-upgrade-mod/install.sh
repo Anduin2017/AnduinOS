@@ -14,8 +14,8 @@ judge "Add new command do_anduinos_upgrade"
 print_ok "Adding new command to this OS: toggle_network_stats..."
 cat << EOF > /usr/local/bin/toggle_network_stats
 #!/bin/bash
-status=$(gnome-extensions show "network-stats@gnome.noroadsleft.xyz" | grep "State" | awk '{print $2}')
-if [ "$status" == "ENABLED" ]; then
+status=\$(gnome-extensions show "network-stats@gnome.noroadsleft.xyz" | grep "State" | awk '{print \$2}')
+if [ "\$status" == "ENABLED" ]; then
     gnome-extensions disable network-stats@gnome.noroadsleft.xyz
     echo "Disabled network state display"
 else
