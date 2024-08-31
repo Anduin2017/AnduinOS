@@ -6,7 +6,7 @@ print_ok "Setting up apt sources..."
 
 # Can be: en_US, zh_CN, zh_TW, zh_HK, ja_JP, ko_KR, de_DE, fr_FR, es_ES, ru_RU, it_IT, pt_PT, vi_VN, th_TH, ar_SA, nl_NL, sv_SE, pl_PL, tr_TR
 if [ "$LANG_MODE" == "en_US" ]; then
-    MIRROR="http://mirror.enzu.com/ubuntu/"
+    MIRROR="http://archive.ubuntu.com/ubuntu/"
 elif [ "$LANG_MODE" == "zh_CN" ]; then
     MIRROR="https://mirrors.tuna.tsinghua.edu.cn/ubuntu/"
 elif [ "$LANG_MODE" == "zh_TW" ]; then
