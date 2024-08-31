@@ -10,7 +10,8 @@
 * Ensure user can configure desktop icons when right click the desktop.
 * Ensure there is start button on the task bar with the logo of our distro.
 * Ensure Super + Tab, Alt + Tab, Super + I are functional. (Super + I is (UNDER DEVELOPMENT))
-* Ensure Super + Shift + S will take a screenshot. (UNDER DEVELOPMENT)
+* Ensure Super + Shift + S will take a screenshot.
+* Ensure Super + u will toggle network stat display.
 * Ensure if the device has a battery, battery is shown on the task bar. Otherwise, it's hidden.
 * Ensure sound theme, icon theme, shell theme are all set.
 * Ensure there will be a `DO` sound (Yaru) when typing tab on terminal.

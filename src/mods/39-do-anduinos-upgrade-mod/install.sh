@@ -10,3 +10,18 @@ curl -sSL https://gitlab.aiursoft.cn/anduin/anduinos/-/raw/master/src/upgrade.sh
 EOF
 chmod +x /usr/local/bin/do_anduinos_upgrade
 judge "Add new command do_anduinos_upgrade"
+
+print_ok "Adding new command to this OS: toggle_network_stats..."
+cat << EOF > /usr/local/bin/toggle_network_stats
+#!/bin/bash
+status=$(gnome-extensions show "network-stats@gnome.noroadsleft.xyz" | grep "State" | awk '{print $2}')
+if [ "$status" == "ENABLED" ]; then
+    gnome-extensions disable network-stats@gnome.noroadsleft.xyz
+    echo "Disabled network state display"
+else
+    gnome-extensions enable network-stats@gnome.noroadsleft.xyz
+    echo "Enabled network state display"
+fi
+EOF
+chmod +x /usr/local/bin/toggle_network_stats
+judge "Add new command toggle_network_stats"
