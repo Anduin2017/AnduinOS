@@ -6,7 +6,7 @@ set -e                  # exit on error
 set -o pipefail         # exit on pipeline error
 set -u                  # treat unset variable as error
 export DEBIAN_FRONTEND=noninteractive
-export LATEST_VERSION="0.3.0-rc"
+export LATEST_VERSION="0.3.1-rc"
 export CURRENT_VERSION=$(cat /etc/lsb-release | grep DISTRIB_RELEASE | cut -d "=" -f 2)
 
 #==========================
@@ -330,6 +330,38 @@ function upgrade_022_to_030() {
     sleep 5
 }
 
+function upgrade_030_to_031() {
+    print_ok "Loading new dconf settings..."
+    (
+        cd /tmp
+        sudo rm -rf /tmp/repo || true
+        mkdir -p /tmp/repo
+        git clone -b 0.3.1 https://gitlab.aiursoft.cn/anduin/anduinos.git /tmp/repo
+
+        print_ok "Applying new dconf settings..."
+        dconf load /org/gnome/ < /tmp/repo/src/mods/34-dconf-patch/dconf.ini
+        judge "Apply new dconf settings"
+
+        print_ok "Copying new files..."
+        sudo cp /tmp/repo/src/mods/34-dconf-patch/anduinos_text_smaller.png /usr/share/pixmaps/anduinos_text_smaller.png
+        sudo cp /tmp/repo/src/mods/34-dconf-patch/greeter.dconf-defaults.ini /etc/gdm3/greeter.dconf-defaults
+        judge "Copy new files"
+
+        print_ok "Updating dconf..."
+        sudo dconf update
+        judge "Update dconf"
+
+        rm -rf /tmp/repo
+    )
+
+    print_ok "Installing new apps..."
+    sudo apt install -y gnome-characters gnome-font-viewer gnome-chess
+    judge "Install new apps"
+
+    print_ok "Upgrade to 0.3.1-rc succeeded"
+    sleep 5
+}
+
 function applyLsbRelease() {
     # Update /etc/lsb-release
     sudo sed -i "s/DISTRIB_RELEASE=.*/DISTRIB_RELEASE=${LATEST_VERSION}/" /etc/lsb-release
@@ -375,6 +407,7 @@ function main() {
             upgrade_020_to_021
             upgrade_021_to_022
             upgrade_022_to_030
+            upgrade_030_to_031
             ;;
         "0.1.1-beta")
             upgrade_011_to_012
@@ -384,6 +417,7 @@ function main() {
             upgrade_020_to_021
             upgrade_021_to_022
             upgrade_022_to_030
+            upgrade_030_to_031
             ;;
         "0.1.2-beta")
             upgrade_012_to_013
@@ -392,6 +426,7 @@ function main() {
             upgrade_020_to_021
             upgrade_021_to_022
             upgrade_022_to_030
+            upgrade_030_to_031
             ;;
         "0.1.3-beta")
             upgrade_013_to_014
@@ -399,26 +434,34 @@ function main() {
             upgrade_020_to_021
             upgrade_021_to_022
             upgrade_022_to_030
+            upgrade_030_to_031
             ;;
         "0.1.4-beta")
             upgrade_014_to_020
             upgrade_020_to_021
             upgrade_021_to_022
             upgrade_022_to_030
+            upgrade_030_to_031
             ;;
         "0.2.0-beta")
             upgrade_020_to_021
             upgrade_021_to_022
             upgrade_022_to_030
+            upgrade_030_to_031
             ;;
         "0.2.1-beta")
             upgrade_021_to_022
             upgrade_022_to_030
+            upgrade_030_to_031
             ;;
         "0.2.2-beta")
             upgrade_022_to_030
+            upgrade_030_to_031
             ;;
         "0.3.0-rc")
+            upgrade_030_to_031
+            ;;
+        "0.3.1-rc")
             print_ok "Your system is already up to date. No update available."
             exit 0
             ;;
