@@ -36,7 +36,6 @@ elif [ "$LANG_MODE" == "zh_CN" ]; then
     judge "Patch openweather city for Suzhou, Jiangsu, China"
 elif [ "$LANG_MODE" == "zh_TW" ]; then
     print_ok "Installing on zh_TW mode, patching dconf for ibus-chewing..."
-    dconf write /org/gnome/desktop/input-sources/mru-sources "[('xkb', 'us'), ('ibus', 'chewing')]"
     dconf write /org/gnome/desktop/input-sources/sources "[('xkb', 'us'), ('ibus', 'chewing')]"
     judge "Patch dconf for ibus-chewing"
 
@@ -45,7 +44,6 @@ elif [ "$LANG_MODE" == "zh_TW" ]; then
     judge "Patch openweather city for Taipei, Taiwan"
 elif [ "$LANG_MODE" == "zh_HK" ]; then
     print_ok "Installing on zh_HK mode, patching dconf for ibus-cangjie..."
-    dconf write /org/gnome/desktop/input-sources/mru-sources "[('xkb', 'us'), ('ibus', 'table:cangjie-big')]"
     dconf write /org/gnome/desktop/input-sources/sources "[('xkb', 'us'), ('ibus', 'table:cangjie-big')]"
     judge "Patch dconf for ibus-cangjie"
 
@@ -54,7 +52,6 @@ elif [ "$LANG_MODE" == "zh_HK" ]; then
     judge "Patch openweather city for Hong Kong"
 elif [ "$LANG_MODE" == "ja_JP" ]; then
     print_ok "Installing on ja_JP mode, patching dconf for ibus-mozc-jp..."
-    dconf write /org/gnome/desktop/input-sources/mru-sources "[('xkb', 'us'), ('ibus', 'mozc-jp')]"
     dconf write /org/gnome/desktop/input-sources/sources "[('xkb', 'us'), ('ibus', 'mozc-jp')]"
     judge "Patch dconf for ibus-mozc-jp"
 
@@ -63,7 +60,6 @@ elif [ "$LANG_MODE" == "ja_JP" ]; then
     judge "Patch openweather city for Tokyo, Japan"
 elif [ "$LANG_MODE" == "ko_KR" ]; then
     print_ok "Installing on ko_KR mode, patching dconf for ibus-hangul..."
-    dconf write /org/gnome/desktop/input-sources/mru-sources "[('xkb', 'us'), ('ibus', 'hangul')]"
     dconf write /org/gnome/desktop/input-sources/sources "[('xkb', 'us'), ('ibus', 'hangul')]"
     judge "Patch dconf for ibus-hangul"
 
@@ -72,7 +68,6 @@ elif [ "$LANG_MODE" == "ko_KR" ]; then
     judge "Patch openweather city for Seoul, South Korea"
 elif [ "$LANG_MODE" == "vi_VN" ]; then
     print_ok "Installing on vi_VN mode, patching dconf for ibus-unikey..."
-    dconf write /org/gnome/desktop/input-sources/mru-sources "[('xkb', 'us'), ('ibus', 'Unikey')]"
     dconf write /org/gnome/desktop/input-sources/sources "[('xkb', 'us'), ('ibus', 'Unikey')]"
     judge "Patch dconf for ibus-unikey"
 
@@ -81,7 +76,6 @@ elif [ "$LANG_MODE" == "vi_VN" ]; then
     judge "Patch openweather city for Thành phố Hà Nội, Việt Nam"
 elif [ "$LANG_MODE" == "th_TH" ]; then
     print_ok "Installing on th_TH mode, patching dconf for ibus-libthai..."
-    dconf write /org/gnome/desktop/input-sources/mru-sources "[('xkb', 'us'), ('ibus', 'libthai')]"
     dconf write /org/gnome/desktop/input-sources/sources "[('xkb', 'us'), ('ibus', 'libthai')]"
     judge "Patch dconf for ibus-libthai"
 
