@@ -28,6 +28,7 @@
 * Open terminal and type `ubuntu-` with `Tab`. Ensure it can auto complete to `ubuntu-drivers`.
 * Ensure the printer tab in settings can show the printer.
 * Ensure the Chinese input can be switched by `Windows + Space` in gedit.
+* Ensure Chinese users won't see ibus-libpinyin.
 * Ensure the candidate words are shown correctly when typing in gedit.
 * Ensure the text `遍角次亮采之门` in gedit is shown correctly.
 * Ensure the text `http://` in gedit is shown correctly.
