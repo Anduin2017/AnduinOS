@@ -4,7 +4,6 @@ set -u                  # treat unset variable as error
 
 print_ok "Setting up apt sources..."
 
-# Can be: en_US, zh_CN, zh_TW, zh_HK, ja_JP, ko_KR, de_DE, fr_FR, es_ES, ru_RU, it_IT, pt_PT, vi_VN, th_TH, ar_SA, nl_NL, sv_SE, pl_PL, tr_TR
 if [ "$LANG_MODE" == "en_US" ]; then
     MIRROR="http://archive.ubuntu.com/ubuntu/"
 elif [ "$LANG_MODE" == "zh_CN" ]; then
@@ -17,6 +16,10 @@ elif [ "$LANG_MODE" == "ja_JP" ]; then
     MIRROR="https://ftp.udx.icscoe.jp/Linux/ubuntu/"
 elif [ "$LANG_MODE" == "ko_KR" ]; then
     MIRROR="https://ftp.kaist.ac.kr/ubuntu/"
+elif [ "$LANG_MODE" == "vi_VN" ]; then
+    MIRROR="https://mirror.bizflycloud.vn/ubuntu/"
+elif [ "$LANG_MODE" == "th_TH" ]; then
+    MIRROR="https://mirror.kku.ac.th/ubuntu/"
 elif [ "$LANG_MODE" == "de_DE" ]; then
     MIRROR="https://ftp.uni-stuttgart.de/ubuntu/"
 elif [ "$LANG_MODE" == "fr_FR" ]; then
@@ -29,10 +32,6 @@ elif [ "$LANG_MODE" == "it_IT" ]; then
     MIRROR="https://ubuntu.mirror.garr.it/ubuntu/"
 elif [ "$LANG_MODE" == "pt_PT" ]; then
     MIRROR="https://labs.eif.urjc.es/mirror/ubuntu/"
-elif [ "$LANG_MODE" == "vi_VN" ]; then
-    MIRROR="https://mirror.bizflycloud.vn/ubuntu/"
-elif [ "$LANG_MODE" == "th_TH" ]; then
-    MIRROR="https://mirror.kku.ac.th/ubuntu/"
 elif [ "$LANG_MODE" == "ar_SA" ]; then
     MIRROR="https://mirrors.isu.net.sa/apt-mirror/"
 elif [ "$LANG_MODE" == "nl_NL" ]; then

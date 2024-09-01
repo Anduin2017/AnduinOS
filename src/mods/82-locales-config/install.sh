@@ -36,9 +36,8 @@ judge "Configure /etc/default/locale"
 # EOF
 # judge "Configure /etc/skel/.pam_environment"
 
-# Set the language environment. Can be: en_US, zh_CN, zh_TW, zh_HK, ja_JP, ko_KR, de_DE, fr_FR, es_ES, ru_RU, it_IT, pt_PT, vi_VN, th_TH, ar_SA, nl_NL, sv_SE, pl_PL, tr_TR
 if [ "$LANG_MODE" == "en_US" ]; then
-    TIMEZONE="America/New_York"
+    TIMEZONE="America/Los_Angeles"
 elif [ "$LANG_MODE" == "zh_CN" ]; then
     TIMEZONE="Asia/Shanghai"
 elif [ "$LANG_MODE" == "zh_TW" ]; then
@@ -49,6 +48,10 @@ elif [ "$LANG_MODE" == "ja_JP" ]; then
     TIMEZONE="Asia/Tokyo"
 elif [ "$LANG_MODE" == "ko_KR" ]; then
     TIMEZONE="Asia/Seoul"
+elif [ "$LANG_MODE" == "vi_VN" ]; then
+    TIMEZONE="Asia/Ho_Chi_Minh"
+elif [ "$LANG_MODE" == "th_TH" ]; then
+    TIMEZONE="Asia/Bangkok"
 elif [ "$LANG_MODE" == "de_DE" ]; then
     TIMEZONE="Europe/Berlin"
 elif [ "$LANG_MODE" == "fr_FR" ]; then
@@ -61,10 +64,6 @@ elif [ "$LANG_MODE" == "it_IT" ]; then
     TIMEZONE="Europe/Rome"
 elif [ "$LANG_MODE" == "pt_PT" ]; then
     TIMEZONE="Europe/Lisbon"
-elif [ "$LANG_MODE" == "vi_VN" ]; then
-    TIMEZONE="Asia/Ho_Chi_Minh"
-elif [ "$LANG_MODE" == "th_TH" ]; then
-    TIMEZONE="Asia/Bangkok"
 elif [ "$LANG_MODE" == "ar_SA" ]; then
     TIMEZONE="Asia/Riyadh"
 elif [ "$LANG_MODE" == "nl_NL" ]; then
