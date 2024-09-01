@@ -118,6 +118,10 @@ apt install -y \
     libsass1 sassc
 judge "Install other libraries"
 
+print_ok "Remove the default htop.desktop file"
+rm /usr/share/applications/htop.desktop
+judge "Remove the default htop.desktop file"
+
 print_ok "Installing $LANGUAGE_PACKS language packs"
 apt install -y $LANGUAGE_PACKS
 judge "Install language packs"
