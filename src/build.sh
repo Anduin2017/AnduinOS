@@ -251,7 +251,6 @@ For detailed instructions, please visit [AnduinOS Document](https://docs.anduino
 EOF
 
     pushd $SCRIPT_DIR/image
-    
     print_ok "Creating EFI boot image on /isolinux/efiboot.img..."
     (
         cd isolinux && \
