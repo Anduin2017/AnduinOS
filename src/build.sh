@@ -162,6 +162,7 @@ menuentry "$INSTALL_TEXT" {
 EOF
     judge "Generate grub.cfg"
 
+
     # generate manifest
     print_ok "Generating manifes for filesystem..."
     sudo chroot new_building_os dpkg-query -W --showformat='${Package} ${Version}\n' | sudo tee image/casper/filesystem.manifest >/dev/null 2>&1
@@ -249,27 +250,34 @@ Select the option you want and press Enter.
 For detailed instructions, please visit [AnduinOS Document](https://docs.anduinos.com/Install/System-Requirements.html).
 EOF
 
-    print_ok "Copying boot files..."
-    pushd $SCRIPT_DIR/image
-    grub-mkstandalone \
-        --format=x86_64-efi \
-        --output=isolinux/bootx64.efi \
-        --locales="" \
-        --fonts="" \
-        "boot/grub/grub.cfg=isolinux/grub.cfg"
-    judge "Copy boot files"
 
-    print_ok "Creating EFI boot image on /isolinux/efiboot.img..."
+#========================================================
+# Now we have the grub.cfg at /image/isolinux/grub.cfg
+#========================================================
+
+    # pushd $SCRIPT_DIR/image
+    # grub-mkstandalone \
+    #     --format=x86_64-efi \
+    #     --output=isolinux/bootx64.efi \
+    #     --locales="" \
+    #     --fonts="" \
+    #     "boot/grub/grub.cfg=isolinux/grub.cfg"
+
+    wget https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/shim-signed/1.58/shim-signed_1.58.tar.xz -O shim-signed.tar.xz
+    tar -xvf shim-signed.tar.xz
+    cp ./shim-signed/microsoft-shimx64.efi isolinux/bootx64.efi
+    cp /usr/lib/grub/x86_64-efi-signed/grubx64.efi.signed isolinux/grubx64.efi
+
     (
         cd isolinux && \
         dd if=/dev/zero of=efiboot.img bs=1M count=10 && \
         sudo mkfs.vfat efiboot.img && \
         LC_CTYPE=C mmd -i efiboot.img efi efi/boot && \
-        LC_CTYPE=C mcopy -i efiboot.img ./bootx64.efi ::efi/boot/
+        LC_CTYPE=C mcopy -i efiboot.img ./bootx64.efi ::efi/boot/ && \
+        LC_CTYPE=C mcopy -i efiboot.img ./grubx64.efi ::efi/boot/ && \
+        LC_CTYPE=C mcopy -i efiboot.img ./grub.cfg ::efi/boot/
     )
-    judge "Create EFI boot image"
 
-    print_ok "Creating BIOS boot image on /isolinux/bios.img..."
     grub-mkstandalone \
         --format=i386-pc \
         --output=isolinux/core.img \
@@ -278,15 +286,14 @@ EOF
         --locales="" \
         --fonts="" \
         "boot/grub/grub.cfg=isolinux/grub.cfg"
-    judge "Create BIOS boot image"
 
-    print_ok "Creating hybrid boot image on /isolinux/bios.img..."
     cat /usr/lib/grub/i386-pc/cdboot.img isolinux/core.img > isolinux/bios.img
-    judge "Create hybrid boot image"
 
-    print_ok "Creating .disk/info..."
+#============================================
+# Now we have the following files:
+#============================================
+
     echo "$TARGET_BUSINESS_NAME $TARGET_BUILD_VERSION "Jammy Jellyfish" - Release amd64 ($(date +%Y%m%d))" | sudo tee .disk/info
-    judge "Create .disk/info"
 
     print_ok "Creating md5sum.txt..."
     sudo /bin/bash -c "(find . -type f -print0 | xargs -0 md5sum | grep -v -e 'md5sum.txt' -e 'bios.img' -e 'efiboot.img' > md5sum.txt)"
@@ -328,7 +335,7 @@ EOF
     echo "SHA256: $HASH" > $SCRIPT_DIR/dist/$TARGET_BUSINESS_NAME-$TARGET_BUILD_VERSION-$LANG_MODE-$DATE.sha256
     judge "Generate sha256 checksum"
 
-    popd
+    #popd
 
     # Play a sound to indicate the build is done
     if [ -x "$(command -v paplay)" ]; then
