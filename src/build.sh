@@ -39,7 +39,7 @@ function clean() {
 function setup_host() {
     print_ok "Setting up host environment..."
     sudo apt update
-    sudo apt install -y binutils debootstrap squashfs-tools xorriso grub-pc-bin grub-efi-amd64-bin mtools dosfstools unzip
+    sudo apt install -y binutils debootstrap squashfs-tools xorriso grub-pc-bin grub-efi-amd64-bin grub2-common mtools dosfstools unzip
     judge "Install required tools"
 
     print_ok "Creating new_building_os directory..."
@@ -255,28 +255,28 @@ EOF
 # Now we have the grub.cfg at /image/isolinux/grub.cfg
 #========================================================
 
-    # pushd $SCRIPT_DIR/image
-    # grub-mkstandalone \
-    #     --format=x86_64-efi \
-    #     --output=isolinux/bootx64.efi \
-    #     --locales="" \
-    #     --fonts="" \
-    #     "boot/grub/grub.cfg=isolinux/grub.cfg"
+    pushd $SCRIPT_DIR/image
+    
+    pushd ./isolinux
+    dd if=/dev/zero of=efiboot.img bs=1M count=10
+    sudo mkfs.vfat efiboot.img
+    mkdir ./efi
+    sudo mount ./efiboot.img ./efi
+    sudo grub-install --efi-directory=./efi --uefi-secure-boot --removable --no-nvram
+    sudo umount ./efi
+    rm -rf ./efi
+    popd
 
-    wget https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/shim-signed/1.58/shim-signed_1.58.tar.xz -O shim-signed.tar.xz
-    tar -xvf shim-signed.tar.xz
-    cp ./shim-signed/microsoft-shimx64.efi isolinux/bootx64.efi
-    cp /usr/lib/grub/x86_64-efi-signed/grubx64.efi.signed isolinux/grubx64.efi
+    # (
+    #     cd isolinux && \
+    #     dd if=/dev/zero of=efiboot.img bs=1M count=10 && \
+    #     sudo mkfs.vfat efiboot.img && \
 
-    (
-        cd isolinux && \
-        dd if=/dev/zero of=efiboot.img bs=1M count=10 && \
-        sudo mkfs.vfat efiboot.img && \
-        LC_CTYPE=C mmd -i efiboot.img efi efi/boot && \
-        LC_CTYPE=C mcopy -i efiboot.img ./bootx64.efi ::efi/boot/ && \
-        LC_CTYPE=C mcopy -i efiboot.img ./grubx64.efi ::efi/boot/ && \
-        LC_CTYPE=C mcopy -i efiboot.img ./grub.cfg ::efi/boot/
-    )
+    #     # LC_CTYPE=C mmd -i efiboot.img efi efi/boot && \
+    #     # LC_CTYPE=C mcopy -i efiboot.img ./bootx64.efi ::efi/boot/ && \
+    #     # LC_CTYPE=C mcopy -i efiboot.img ./grubx64.efi ::efi/boot/ && \
+    #     # LC_CTYPE=C mcopy -i efiboot.img ./grub.cfg ::efi/boot/
+    # )
 
     grub-mkstandalone \
         --format=i386-pc \
@@ -321,6 +321,7 @@ EOF
         -m "isolinux/bios.img" \
         -graft-points \
            "/EFI/efiboot.img=isolinux/efiboot.img" \
+           "/boot/grub/grub.cfg=isolinux/grub.cfg" \
            "/boot/grub/bios.img=isolinux/bios.img" \
            "."
     judge "Create iso image"
@@ -335,7 +336,7 @@ EOF
     echo "SHA256: $HASH" > $SCRIPT_DIR/dist/$TARGET_BUSINESS_NAME-$TARGET_BUILD_VERSION-$LANG_MODE-$DATE.sha256
     judge "Generate sha256 checksum"
 
-    #popd
+    popd
 
     # Play a sound to indicate the build is done
     if [ -x "$(command -v paplay)" ]; then
