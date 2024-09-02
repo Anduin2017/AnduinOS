@@ -257,27 +257,20 @@ EOF
 
     pushd $SCRIPT_DIR/image
     
-    pushd ./isolinux
-    dd if=/dev/zero of=efiboot.img bs=1M count=10
-    sudo mkfs.vfat efiboot.img
-    mkdir ./efi
-    sudo mount ./efiboot.img ./efi
-    sudo grub-install --efi-directory=./efi --uefi-secure-boot --removable --no-nvram
-    sudo umount ./efi
-    rm -rf ./efi
-    popd
+    print_ok "Creating efiboot.img for UEFI boot..."
+    (
+        cd isolinux && \
+        dd if=/dev/zero of=efiboot.img bs=1M count=10 && \
+        sudo mkfs.vfat efiboot.img && \
+        mkdir efi && \
+        sudo mount efiboot.img efi && \
+        sudo grub-install --efi-directory=efi --uefi-secure-boot --removable --no-nvram && \
+        sudo umount efi && \
+        rm -rf efi
+    )
+    judge "Create efiboot.img"
 
-    # (
-    #     cd isolinux && \
-    #     dd if=/dev/zero of=efiboot.img bs=1M count=10 && \
-    #     sudo mkfs.vfat efiboot.img && \
-
-    #     # LC_CTYPE=C mmd -i efiboot.img efi efi/boot && \
-    #     # LC_CTYPE=C mcopy -i efiboot.img ./bootx64.efi ::efi/boot/ && \
-    #     # LC_CTYPE=C mcopy -i efiboot.img ./grubx64.efi ::efi/boot/ && \
-    #     # LC_CTYPE=C mcopy -i efiboot.img ./grub.cfg ::efi/boot/
-    # )
-
+    print_ok "Creating boot.cat for BIOS boot..."
     grub-mkstandalone \
         --format=i386-pc \
         --output=isolinux/core.img \
@@ -286,14 +279,15 @@ EOF
         --locales="" \
         --fonts="" \
         "boot/grub/grub.cfg=isolinux/grub.cfg"
+    judge "Create boot.cat"
 
+    print_ok "Creating bios.img..."
     cat /usr/lib/grub/i386-pc/cdboot.img isolinux/core.img > isolinux/bios.img
+    judge "Create bios.img"
 
-#============================================
-# Now we have the following files:
-#============================================
-
+    print_ok "Creating .disk/info..."
     echo "$TARGET_BUSINESS_NAME $TARGET_BUILD_VERSION "Jammy Jellyfish" - Release amd64 ($(date +%Y%m%d))" | sudo tee .disk/info
+    judge "Create .disk/info"
 
     print_ok "Creating md5sum.txt..."
     sudo /bin/bash -c "(find . -type f -print0 | xargs -0 md5sum | grep -v -e 'md5sum.txt' -e 'bios.img' -e 'efiboot.img' > md5sum.txt)"
