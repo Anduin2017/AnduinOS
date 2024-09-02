@@ -39,7 +39,7 @@ function clean() {
 function setup_host() {
     print_ok "Setting up host environment..."
     sudo apt update
-    sudo apt install -y binutils debootstrap squashfs-tools xorriso grub-pc-bin grub-efi-amd64-bin mtools dosfstools unzip
+    sudo apt install -y binutils debootstrap squashfs-tools xorriso grub-pc-bin grub-efi-amd64-bin grub2-common mtools dosfstools unzip
     judge "Install required tools"
 
     print_ok "Creating new_building_os directory..."
@@ -162,6 +162,7 @@ menuentry "$INSTALL_TEXT" {
 EOF
     judge "Generate grub.cfg"
 
+
     # generate manifest
     print_ok "Generating manifes for filesystem..."
     sudo chroot new_building_os dpkg-query -W --showformat='${Package} ${Version}\n' | sudo tee image/casper/filesystem.manifest >/dev/null 2>&1
@@ -233,7 +234,7 @@ No output indicates that the image is correct.
 
 ## How to use
 
-Before starting, please turn off Secure Boot in your BIOS settings.
+Before starting, you **must** set Secure Boot to \`trust thrid-party CA UEFI Keys\` in the BIOS settings.
 
 Press F12 to enter the boot menu when you start your computer. Select the USB drive to boot from.
 
@@ -249,23 +250,17 @@ Select the option you want and press Enter.
 For detailed instructions, please visit [AnduinOS Document](https://docs.anduinos.com/Install/System-Requirements.html).
 EOF
 
-    print_ok "Copying boot files..."
     pushd $SCRIPT_DIR/image
-    grub-mkstandalone \
-        --format=x86_64-efi \
-        --output=isolinux/bootx64.efi \
-        --locales="" \
-        --fonts="" \
-        "boot/grub/grub.cfg=isolinux/grub.cfg"
-    judge "Copy boot files"
-
     print_ok "Creating EFI boot image on /isolinux/efiboot.img..."
     (
         cd isolinux && \
         dd if=/dev/zero of=efiboot.img bs=1M count=10 && \
         sudo mkfs.vfat efiboot.img && \
-        LC_CTYPE=C mmd -i efiboot.img efi efi/boot && \
-        LC_CTYPE=C mcopy -i efiboot.img ./bootx64.efi ::efi/boot/
+        mkdir efi && \
+        sudo mount efiboot.img efi && \
+        sudo grub-install --efi-directory=efi --uefi-secure-boot --removable --no-nvram && \
+        sudo umount efi && \
+        rm -rf efi
     )
     judge "Create EFI boot image"
 
@@ -314,6 +309,7 @@ EOF
         -m "isolinux/bios.img" \
         -graft-points \
            "/EFI/efiboot.img=isolinux/efiboot.img" \
+           "/boot/grub/grub.cfg=isolinux/grub.cfg" \
            "/boot/grub/bios.img=isolinux/bios.img" \
            "."
     judge "Create iso image"
