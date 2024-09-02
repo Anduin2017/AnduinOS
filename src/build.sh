@@ -234,7 +234,7 @@ No output indicates that the image is correct.
 
 ## How to use
 
-Before starting, please turn off Secure Boot in your BIOS settings.
+Before starting, you **must** set Secure Boot to \`trust thrid-party CA UEFI Keys\` in the BIOS settings.
 
 Press F12 to enter the boot menu when you start your computer. Select the USB drive to boot from.
 
@@ -250,14 +250,9 @@ Select the option you want and press Enter.
 For detailed instructions, please visit [AnduinOS Document](https://docs.anduinos.com/Install/System-Requirements.html).
 EOF
 
-
-#========================================================
-# Now we have the grub.cfg at /image/isolinux/grub.cfg
-#========================================================
-
     pushd $SCRIPT_DIR/image
     
-    print_ok "Creating efiboot.img for UEFI boot..."
+    print_ok "Creating EFI boot image on /isolinux/efiboot.img..."
     (
         cd isolinux && \
         dd if=/dev/zero of=efiboot.img bs=1M count=10 && \
@@ -268,9 +263,9 @@ EOF
         sudo umount efi && \
         rm -rf efi
     )
-    judge "Create efiboot.img"
+    judge "Create EFI boot image"
 
-    print_ok "Creating boot.cat for BIOS boot..."
+    print_ok "Creating BIOS boot image on /isolinux/bios.img..."
     grub-mkstandalone \
         --format=i386-pc \
         --output=isolinux/core.img \
@@ -279,11 +274,11 @@ EOF
         --locales="" \
         --fonts="" \
         "boot/grub/grub.cfg=isolinux/grub.cfg"
-    judge "Create boot.cat"
+    judge "Create BIOS boot image"
 
-    print_ok "Creating bios.img..."
+    print_ok "Creating hybrid boot image on /isolinux/bios.img..."
     cat /usr/lib/grub/i386-pc/cdboot.img isolinux/core.img > isolinux/bios.img
-    judge "Create bios.img"
+    judge "Create hybrid boot image"
 
     print_ok "Creating .disk/info..."
     echo "$TARGET_BUSINESS_NAME $TARGET_BUILD_VERSION "Jammy Jellyfish" - Release amd64 ($(date +%Y%m%d))" | sudo tee .disk/info
