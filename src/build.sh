@@ -254,13 +254,15 @@ EOF
     print_ok "Creating EFI boot image on /isolinux/efiboot.img..."
     (
         cd isolinux && \
-        dd if=/dev/zero of=efiboot.img bs=1M count=10 && \
-        sudo mkfs.vfat efiboot.img && \
-        mkdir efi && \
-        sudo mount efiboot.img efi && \
-        sudo grub-install --efi-directory=efi --uefi-secure-boot --removable --no-nvram && \
+        sudo dd if=/dev/zero of=efiboot.img bs=1M count=10 && \
+        LOOP_DEVICE=$(sudo losetup --show -f -P efiboot.img) && \
+        sudo mkfs.fat -n 'AnduinOS' -F 32 $LOOP_DEVICE && \
+        sudo mkdir -p efi && \
+        sudo mount $LOOP_DEVICE efi && \
+        sudo grub-install --target=x86_64-efi --efi-directory=efi --uefi-secure-boot --removable --no-nvram $LOOP_DEVICE && \
         sudo umount efi && \
-        rm -rf efi
+        sudo losetup --detach $LOOP_DEVICE && \
+        sudo rm -rf efi
     )
     judge "Create EFI boot image"
 
