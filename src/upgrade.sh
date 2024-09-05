@@ -6,7 +6,7 @@ set -e                  # exit on error
 set -o pipefail         # exit on pipeline error
 set -u                  # treat unset variable as error
 export DEBIAN_FRONTEND=noninteractive
-export LATEST_VERSION="0.3.1-rc"
+export LATEST_VERSION="1.0.0"
 export CURRENT_VERSION=$(cat /etc/lsb-release | grep DISTRIB_RELEASE | cut -d "=" -f 2)
 
 #==========================
@@ -362,6 +362,49 @@ function upgrade_030_to_031() {
     sleep 5
 }
 
+function upgrade_031_to_100() {
+    print_ok "Upgrading from 0.3.1 to 1.0.0"
+
+    print_ok "Remove the default htop.desktop file"
+    sudo rm /usr/share/applications/htop.desktop || print_warn "No htop.desktop file found"
+    judge "Remove the default htop.desktop file"
+
+    print_ok "Adding new command to this OS: toggle_network_stats..."
+    sudo tee /usr/local/bin/toggle_network_stats > /dev/null << 'EOF'
+#!/bin/bash
+status=\$(gnome-extensions show "network-stats@gnome.noroadsleft.xyz" | grep "State" | awk '{print \$2}')
+if [ "\$status" == "ENABLED" ]; then
+    gnome-extensions disable network-stats@gnome.noroadsleft.xyz
+    echo "Disabled network state display"
+else
+    gnome-extensions enable network-stats@gnome.noroadsleft.xyz
+    echo "Enabled network state display"
+fi
+EOF
+    sudo chmod +x /usr/local/bin/toggle_network_stats
+    judge "Add new command toggle_network_stats"
+
+    (
+        cd /tmp
+        sudo rm -rf /tmp/repo || true
+        mkdir -p /tmp/repo
+        git clone -b 1.0.0 https://gitlab.aiursoft.cn/anduin/anduinos.git /tmp/repo
+
+        print_ok "Applying new dconf settings..."
+        dconf load /org/gnome/ < /tmp/repo/src/mods/34-dconf-patch/dconf.ini
+        judge "Apply new dconf settings"
+
+        print_ok "Updating dconf..."
+        sudo dconf update
+        judge "Update dconf"
+
+        rm -rf /tmp/repo
+    )
+
+    print_ok "Upgrade to 1.0.0 succeeded"
+    sleep 5
+}
+
 function applyLsbRelease() {
     # Update /etc/lsb-release
     sudo sed -i "s/DISTRIB_RELEASE=.*/DISTRIB_RELEASE=${LATEST_VERSION}/" /etc/lsb-release
@@ -408,6 +451,7 @@ function main() {
             upgrade_021_to_022
             upgrade_022_to_030
             upgrade_030_to_031
+            upgrade_031_to_100
             ;;
         "0.1.1-beta")
             upgrade_011_to_012
@@ -418,6 +462,7 @@ function main() {
             upgrade_021_to_022
             upgrade_022_to_030
             upgrade_030_to_031
+            upgrade_031_to_100
             ;;
         "0.1.2-beta")
             upgrade_012_to_013
@@ -427,6 +472,7 @@ function main() {
             upgrade_021_to_022
             upgrade_022_to_030
             upgrade_030_to_031
+            upgrade_031_to_100
             ;;
         "0.1.3-beta")
             upgrade_013_to_014
@@ -435,6 +481,7 @@ function main() {
             upgrade_021_to_022
             upgrade_022_to_030
             upgrade_030_to_031
+            upgrade_031_to_100
             ;;
         "0.1.4-beta")
             upgrade_014_to_020
@@ -442,26 +489,34 @@ function main() {
             upgrade_021_to_022
             upgrade_022_to_030
             upgrade_030_to_031
+            upgrade_031_to_100
             ;;
         "0.2.0-beta")
             upgrade_020_to_021
             upgrade_021_to_022
             upgrade_022_to_030
             upgrade_030_to_031
+            upgrade_031_to_100
             ;;
         "0.2.1-beta")
             upgrade_021_to_022
             upgrade_022_to_030
             upgrade_030_to_031
+            upgrade_031_to_100
             ;;
         "0.2.2-beta")
             upgrade_022_to_030
             upgrade_030_to_031
+            upgrade_031_to_100
             ;;
         "0.3.0-rc")
             upgrade_030_to_031
+            upgrade_031_to_100
             ;;
         "0.3.1-rc")
+            upgrade_031_to_100
+            ;;
+        "1.0.0")
             print_ok "Your system is already up to date. No update available."
             exit 0
             ;;
