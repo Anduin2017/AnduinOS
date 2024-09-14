@@ -56,6 +56,8 @@ elif [ "$LANG_MODE" == "it_IT" ]; then
     print_ok "Italian users do not need to install input method."
 elif [ "$LANG_MODE" == "pt_PT" ]; then
     print_ok "Portuguese users do not need to install input method."
+elif [ "$LANG_MODE" == "pt_BR" ]; then
+    print_ok "Brazilian users do not need to install input method."
 elif [ "$LANG_MODE" == "ar_SA" ]; then
     print_ok "Arabic users do not need to install input method."
 elif [ "$LANG_MODE" == "nl_NL" ]; then

@@ -16,6 +16,7 @@ sed -i "/^Name=/a Name[es_ES]=Fotos" /usr/share/applications/shotwell.desktop
 sed -i "/^Name=/a Name[ru_RU]=Фотографии" /usr/share/applications/shotwell.desktop
 sed -i "/^Name=/a Name[it_IT]=Foto" /usr/share/applications/shotwell.desktop
 sed -i "/^Name=/a Name[pt_PT]=Fotos" /usr/share/applications/shotwell.desktop
+sed -i "/^Name=/a Name[pt_BR]=Fotos" /usr/share/applications/shotwell.desktop
 sed -i "/^Name=/a Name[ar_SA]=الصور" /usr/share/applications/shotwell.desktop
 sed -i "/^Name=/a Name[nl_NL]=Fotos" /usr/share/applications/shotwell.desktop
 sed -i "/^Name=/a Name[sv_SE]=Foton" /usr/share/applications/shotwell.desktop
@@ -34,6 +35,7 @@ sed -i "/^X-GNOME-FullName=/a X-GNOME-FullName[es_ES]=Fotos" /usr/share/applicat
 sed -i "/^X-GNOME-FullName=/a X-GNOME-FullName[ru_RU]=Фотографии" /usr/share/applications/shotwell.desktop
 sed -i "/^X-GNOME-FullName=/a X-GNOME-FullName[it_IT]=Foto" /usr/share/applications/shotwell.desktop
 sed -i "/^X-GNOME-FullName=/a X-GNOME-FullName[pt_PT]=Fotos" /usr/share/applications/shotwell.desktop
+sed -i "/^X-GNOME-FullName=/a X-GNOME-FullName[pt_BR]=Fotos" /usr/share/applications/shotwell.desktop
 sed -i "/^X-GNOME-FullName=/a X-GNOME-FullName[ar_SA]=الصور" /usr/share/applications/shotwell.desktop
 sed -i "/^X-GNOME-FullName=/a X-GNOME-FullName[nl_NL]=Fotos" /usr/share/applications/shotwell.desktop
 sed -i "/^X-GNOME-FullName=/a X-GNOME-FullName[sv_SE]=Foton" /usr/share/applications/shotwell.desktop
@@ -55,6 +57,7 @@ sed -i "/^Name=Rhythmbox/a Name[es_ES]=Música" /usr/share/applications/rhythmbo
 sed -i "/^Name=Rhythmbox/a Name[ru_RU]=Музыка" /usr/share/applications/rhythmbox.desktop
 sed -i "/^Name=Rhythmbox/a Name[it_IT]=Musica" /usr/share/applications/rhythmbox.desktop
 sed -i "/^Name=Rhythmbox/a Name[pt_PT]=Música" /usr/share/applications/rhythmbox.desktop
+sed -i "/^Name=Rhythmbox/a Name[pt_BR]=Música" /usr/share/applications/rhythmbox.desktop
 sed -i "/^Name=Rhythmbox/a Name[ar_SA]=الموسيقى" /usr/share/applications/rhythmbox.desktop
 sed -i "/^Name=Rhythmbox/a Name[nl_NL]=Muziek" /usr/share/applications/rhythmbox.desktop
 sed -i "/^Name=Rhythmbox/a Name[sv_SE]=Musik" /usr/share/applications/rhythmbox.desktop
@@ -73,6 +76,7 @@ sed -i "/^X-GNOME-FullName=/a X-GNOME-FullName[es_ES]=Música" /usr/share/applic
 sed -i "/^X-GNOME-FullName=/a X-GNOME-FullName[ru_RU]=Музыка" /usr/share/applications/rhythmbox.desktop
 sed -i "/^X-GNOME-FullName=/a X-GNOME-FullName[it_IT]=Musica" /usr/share/applications/rhythmbox.desktop
 sed -i "/^X-GNOME-FullName=/a X-GNOME-FullName[pt_PT]=Música" /usr/share/applications/rhythmbox.desktop
+sed -i "/^X-GNOME-FullName=/a X-GNOME-FullName[pt_BR]=Música" /usr/share/applications/rhythmbox.desktop
 sed -i "/^X-GNOME-FullName=/a X-GNOME-FullName[ar_SA]=الموسيقى" /usr/share/applications/rhythmbox.desktop
 sed -i "/^X-GNOME-FullName=/a X-GNOME-FullName[nl_NL]=Muziek" /usr/share/applications/rhythmbox.desktop
 sed -i "/^X-GNOME-FullName=/a X-GNOME-FullName[sv_SE]=Musik" /usr/share/applications/rhythmbox.desktop
@@ -94,6 +98,7 @@ sed -i "/^Name=/a Name[es_ES]=Analizador de uso de disco" /usr/share/application
 sed -i "/^Name=/a Name[ru_RU]=Анализ использования диска" /usr/share/applications/org.gnome.baobab.desktop
 sed -i "/^Name=/a Name[it_IT]=Analizzatore utilizzo disco" /usr/share/applications/org.gnome.baobab.desktop
 sed -i "/^Name=/a Name[pt_PT]=Analisador de uso de disco" /usr/share/applications/org.gnome.baobab.desktop
+sed -i "/^Name=/a Name[pt_BR]=Analisador de uso de disco" /usr/share/applications/org.gnome.baobab.desktop
 sed -i "/^Name=/a Name[ar_SA]=محلل استخدام القرص" /usr/share/applications/org.gnome.baobab.desktop
 sed -i "/^Name=/a Name[nl_NL]=Schijfgebruik" /usr/share/applications/org.gnome.baobab.desktop
 sed -i "/^Name=/a Name[sv_SE]=Diskanvändning" /usr/share/applications/org.gnome.baobab.desktop
@@ -112,6 +117,7 @@ sed -i "/^X-GNOME-FullName=/a X-GNOME-FullName[es_ES]=Analizador de uso de disco
 sed -i "/^X-GNOME-FullName=/a X-GNOME-FullName[ru_RU]=Анализ использования диска" /usr/share/applications/org.gnome.baobab.desktop
 sed -i "/^X-GNOME-FullName=/a X-GNOME-FullName[it_IT]=Analizzatore utilizzo disco" /usr/share/applications/org.gnome.baobab.desktop
 sed -i "/^X-GNOME-FullName=/a X-GNOME-FullName[pt_PT]=Analisador de uso de disco" /usr/share/applications/org.gnome.baobab.desktop
+sed -i "/^X-GNOME-FullName=/a X-GNOME-FullName[pt_BR]=Analisador de uso de disco" /usr/share/applications/org.gnome.baobab.desktop
 sed -i "/^X-GNOME-FullName=/a X-GNOME-FullName[ar_SA]=محلل استخدام القرص" /usr/share/applications/org.gnome.baobab.desktop
 sed -i "/^X-GNOME-FullName=/a X-GNOME-FullName[nl_NL]=Schijfgebruik" /usr/share/applications/org.gnome.baobab.desktop
 sed -i "/^X-GNOME-FullName=/a X-GNOME-FullName[sv_SE]=Diskanvändning" /usr/share/applications/org.gnome.baobab.desktop

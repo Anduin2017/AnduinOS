@@ -32,6 +32,8 @@ elif [ "$LANG_MODE" == "it_IT" ]; then
     MIRROR="https://ubuntu.mirror.garr.it/ubuntu/"
 elif [ "$LANG_MODE" == "pt_PT" ]; then
     MIRROR="https://labs.eif.urjc.es/mirror/ubuntu/"
+elif [ "$LANG_MODE" == "pt_BR" ]; then
+    MIRROR="https://mirror.uepg.br/ubuntu/"
 elif [ "$LANG_MODE" == "ar_SA" ]; then
     MIRROR="https://mirrors.isu.net.sa/apt-mirror/"
 elif [ "$LANG_MODE" == "nl_NL" ]; then

@@ -64,6 +64,8 @@ elif [ "$LANG_MODE" == "it_IT" ]; then
     TIMEZONE="Europe/Rome"
 elif [ "$LANG_MODE" == "pt_PT" ]; then
     TIMEZONE="Europe/Lisbon"
+elif [ "$LANG_MODE" == "pt_BR" ]; then
+    TIMEZONE="America/Sao_Paulo"
 elif [ "$LANG_MODE" == "ar_SA" ]; then
     TIMEZONE="Asia/Riyadh"
 elif [ "$LANG_MODE" == "nl_NL" ]; then

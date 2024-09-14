@@ -130,6 +130,15 @@ elif [ "$LANG_MODE" == "pt_PT" ]; then
     print_ok "Patching openweather city for Lisboa, Portugal"
     dconf write /org/gnome/shell/extensions/openweather/city "'38.7222524,-9.1393366>Lisboa, Portugal>0'"
     judge "Patch openweather city for Lisboa, Portugal"
+elif [ "$LANG_MODE" == "pt_BR" ]; then
+    print_ok "Installing on pt_BR mode, patching dconf for xkb-br..."
+    dconf write /org/gnome/desktop/input-sources/sources "[('xkb', 'us'), ('xkb', 'br')]"
+    judge "Patch dconf for xkb-br"
+
+    print_ok "Patching openweather city for São Paulo, Brasil"
+    dconf write /org/gnome/shell/extensions/openweather/city "'-23.5505199,-46.6333094>São Paulo, Brasil>0'"
+    judge "Patch openweather city for São Paulo, Brasil"
+
 elif [ "$LANG_MODE" == "ar_SA" ]; then
     print_ok "Installing on ar_SA mode, patching dconf for xkb-ara..."
     dconf write /org/gnome/desktop/input-sources/sources "[('xkb', 'us'), ('xkb', 'ara')]"
