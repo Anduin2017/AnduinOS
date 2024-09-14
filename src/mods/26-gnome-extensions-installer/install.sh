@@ -12,4 +12,5 @@ print_ok "Installing gnome extensions"
 /usr/local/bin/gext -F install dash-to-panel@jderose9.github.com
 /usr/local/bin/gext -F install network-stats@gnome.noroadsleft.xyz
 /usr/local/bin/gext -F install openweather-extension@jenslody.de
+/usr/local/bin/gext -F install rounded-window-corners@yilozt
 judge "Install gnome extensions"
