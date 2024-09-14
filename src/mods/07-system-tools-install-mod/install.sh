@@ -64,3 +64,9 @@ apt install -y \
     wireless-tools \
     xz-utils
 judge "Install basic system tool packages."
+
+print_ok "Fixing the package base-files to avoid system upgrading it."
+# Fix the package base-files to avoid system upgrading it. This is because Ubuntu may upgrade the package base-files and caused AnduinOS to be changed to Ubuntu.
+# This will edit the file /var/lib/dpkg/status and change the status of the package base-files to hold.
+apt-mark hold base-files
+judge "Fix the package base-files to avoid system upgrading it."
