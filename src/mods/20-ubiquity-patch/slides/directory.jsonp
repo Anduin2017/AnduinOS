@@ -119,7 +119,7 @@ ubiquitySlideshowDirectoryCb({
         ],
         "media": []
     },
-    "pt": {
+    "pt_BR": {
         "slides": [
             "apps.html",
             "build.html",
