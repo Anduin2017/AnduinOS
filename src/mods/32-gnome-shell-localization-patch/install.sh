@@ -40,70 +40,70 @@ elif [ "$LANG_MODE" == "zh_HK" ]; then
     msgfmt /tmp/gnome-shell.po -o /usr/share/locale-langpack/zh_HK/LC_MESSAGES/gnome-shell.mo
     judge "Patch Gnome Shell"
     rm /tmp/gnome-shell.po
-elif [ "$LANG_MODE" == "ja_JP" ]; then
+elif [ "$LANG_MODE" == "ja" ]; then
     print_ok "Patching Gnome Shell..."
     msgunfmt /usr/share/locale-langpack/ja_JP/LC_MESSAGES/gnome-shell.mo -o /tmp/gnome-shell.po
     sed -i "s/お気に入り/タスクバー/g" /tmp/gnome-shell.po
     msgfmt /tmp/gnome-shell.po -o /usr/share/locale-langpack/ja_JP/LC_MESSAGES/gnome-shell.mo
     judge "Patch Gnome Shell"
     rm /tmp/gnome-shell.po
-elif [ "$LANG_MODE" == "ko_KR" ]; then
+elif [ "$LANG_MODE" == "ko" ]; then
     print_ok "Patching Gnome Shell..."
     msgunfmt /usr/share/locale-langpack/ko_KR/LC_MESSAGES/gnome-shell.mo -o /tmp/gnome-shell.po
     sed -i "s/즐겨찾기/작업 표시줄/g" /tmp/gnome-shell.po
     msgfmt /tmp/gnome-shell.po -o /usr/share/locale-langpack/ko_KR/LC_MESSAGES/gnome-shell.mo
     judge "Patch Gnome Shell"
     rm /tmp/gnome-shell.po
-elif [ "$LANG_MODE" == "vi_VN" ]; then
+elif [ "$LANG_MODE" == "vi" ]; then
     print_ok "Patching Gnome Shell..."
     msgunfmt /usr/share/locale-langpack/vi_VN/LC_MESSAGES/gnome-shell.mo -o /tmp/gnome-shell.po
     sed -i "s/Yêu thích/Thanh tác vụ/g" /tmp/gnome-shell.po
     msgfmt /tmp/gnome-shell.po -o /usr/share/locale-langpack/vi_VN/LC_MESSAGES/gnome-shell.mo
     judge "Patch Gnome Shell"
     rm /tmp/gnome-shell.po
-elif [ "$LANG_MODE" == "th_TH" ]; then
+elif [ "$LANG_MODE" == "th" ]; then
     print_ok "Patching Gnome Shell..."
     msgunfmt /usr/share/locale-langpack/th_TH/LC_MESSAGES/gnome-shell.mo -o /tmp/gnome-shell.po
     sed -i "s/รายการโปรด/แถบงาน/g" /tmp/gnome-shell.po
     msgfmt /tmp/gnome-shell.po -o /usr/share/locale-langpack/th_TH/LC_MESSAGES/gnome-shell.mo
     judge "Patch Gnome Shell"
     rm /tmp/g
-elif [ "$LANG_MODE" == "de_DE" ]; then
+elif [ "$LANG_MODE" == "de" ]; then
     print_ok "Patching Gnome Shell..."
     msgunfmt /usr/share/locale-langpack/de_DE/LC_MESSAGES/gnome-shell.mo -o /tmp/gnome-shell.po
     sed -i "s/Favoriten/Taskleiste/g" /tmp/gnome-shell.po
     msgfmt /tmp/gnome-shell.po -o /usr/share/locale-langpack/de_DE/LC_MESSAGES/gnome-shell.mo
     judge "Patch Gnome Shell"
     rm /tmp/gnome-shell.po
-elif [ "$LANG_MODE" == "fr_FR" ]; then
+elif [ "$LANG_MODE" == "fr" ]; then
     print_ok "Patching Gnome Shell..."
     msgunfmt /usr/share/locale-langpack/fr_FR/LC_MESSAGES/gnome-shell.mo -o /tmp/gnome-shell.po
     sed -i "s/Favoris/Barre des tâches/g" /tmp/gnome-shell.po
     msgfmt /tmp/gnome-shell.po -o /usr/share/locale-langpack/fr_FR/LC_MESSAGES/gnome-shell.mo
     judge "Patch Gnome Shell"
     rm /tmp/gnome-shell.po
-elif [ "$LANG_MODE" == "es_ES" ]; then
+elif [ "$LANG_MODE" == "es" ]; then
     print_ok "Patching Gnome Shell..."
     msgunfmt /usr/share/locale-langpack/es_ES/LC_MESSAGES/gnome-shell.mo -o /tmp/gnome-shell.po
     sed -i "s/Favoritos/Barra de tareas/g" /tmp/gnome-shell.po
     msgfmt /tmp/gnome-shell.po -o /usr/share/locale-langpack/es_ES/LC_MESSAGES/gnome-shell.mo
     judge "Patch Gnome Shell"
     rm /tmp/gnome-shell.po
-elif [ "$LANG_MODE" == "ru_RU" ]; then
+elif [ "$LANG_MODE" == "ru" ]; then
     print_ok "Patching Gnome Shell..."
     msgunfmt /usr/share/locale-langpack/ru_RU/LC_MESSAGES/gnome-shell.mo -o /tmp/gnome-shell.po
     sed -i "s/Избранное/Панель задач/g" /tmp/gnome-shell.po
     msgfmt /tmp/gnome-shell.po -o /usr/share/locale-langpack/ru_RU/LC_MESSAGES/gnome-shell.mo
     judge "Patch Gnome Shell"
     rm /tmp/gnome-shell.po
-elif [ "$LANG_MODE" == "it_IT" ]; then
+elif [ "$LANG_MODE" == "it" ]; then
     print_ok "Patching Gnome Shell..."
     msgunfmt /usr/share/locale-langpack/it_IT/LC_MESSAGES/gnome-shell.mo -o /tmp/gnome-shell.po
     sed -i "s/Preferiti/Barra delle applicazioni/g" /tmp/gnome-shell.po
     msgfmt /tmp/gnome-shell.po -o /usr/share/locale-langpack/it_IT/LC_MESSAGES/gnome-shell.mo
     judge "Patch Gnome Shell"
     rm /tmp/gnome-shell.po
-elif [ "$LANG_MODE" == "pt_PT" ]; then
+elif [ "$LANG_MODE" == "pt" ]; then
     print_ok "Patching Gnome Shell..."
     msgunfmt /usr/share/locale-langpack/pt_PT/LC_MESSAGES/gnome-shell.mo -o /tmp/gnome-shell.po
     sed -i "s/Favoritos/Barra de tarefas/g" /tmp/gnome-shell.po
@@ -117,35 +117,35 @@ elif [ "$LANG_MODE" == "pt_BR" ]; then
     msgfmt /tmp/gnome-shell.po -o /usr/share/locale-langpack/pt_BR/LC_MESSAGES/gnome-shell.mo
     judge "Patch Gnome Shell"
     rm /tmp/gnome-shell.po
-elif [ "$LANG_MODE" == "ar_SA" ]; then
+elif [ "$LANG_MODE" == "ar" ]; then
     print_ok "Patching Gnome Shell..."
     msgunfmt /usr/share/locale-langpack/ar_SA/LC_MESSAGES/gnome-shell.mo -o /tmp/gnome-shell.po
     sed -i "s/المفضلة/شريط المهام/g" /tmp/gnome-shell.po
     msgfmt /tmp/gnome-shell.po -o /usr/share/locale-langpack/ar_SA/LC_MESSAGES/gnome-shell.mo
     judge "Patch Gnome Shell"
     rm /tmp/gnome-shell.po
-elif [ "$LANG_MODE" == "nl_NL" ]; then
+elif [ "$LANG_MODE" == "nl" ]; then
     print_ok "Patching Gnome Shell..."
     msgunfmt /usr/share/locale-langpack/nl_NL/LC_MESSAGES/gnome-shell.mo -o /tmp/gnome-shell.po
     sed -i "s/Favorieten/Taakbalk/g" /tmp/gnome-shell.po
     msgfmt /tmp/gnome-shell.po -o /usr/share/locale-langpack/nl_NL/LC_MESSAGES/gnome-shell.mo
     judge "Patch Gnome Shell"
     rm /tmp/gnome-shell.po
-elif [ "$LANG_MODE" == "sv_SE" ]; then
+elif [ "$LANG_MODE" == "sv" ]; then
     print_ok "Patching Gnome Shell..."
     msgunfmt /usr/share/locale-langpack/sv_SE/LC_MESSAGES/gnome-shell.mo -o /tmp/gnome-shell.po
     sed -i "s/Favoriter/Activitetsfält/g" /tmp/gnome-shell.po
     msgfmt /tmp/gnome-shell.po -o /usr/share/locale-langpack/sv_SE/LC_MESSAGES/gnome-shell.mo
     judge "Patch Gnome Shell"
     rm /tmp/gnome-shell.po
-elif [ "$LANG_MODE" == "pl_PL" ]; then
+elif [ "$LANG_MODE" == "pl" ]; then
     print_ok "Patching Gnome Shell..."
     msgunfmt /usr/share/locale-langpack/pl_PL/LC_MESSAGES/gnome-shell.mo -o /tmp/gnome-shell.po
     sed -i "s/Ulubione/Pasek zadań/g" /tmp/gnome-shell.po
     msgfmt /tmp/gnome-shell.po -o /usr/share/locale-langpack/pl_PL/LC_MESSAGES/gnome-shell.mo
     judge "Patch Gnome Shell"
     rm /tmp/gnome-shell.po
-elif [ "$LANG_MODE" == "tr_TR" ]; then
+elif [ "$LANG_MODE" == "tr" ]; then
     print_ok "Patching Gnome Shell..."
     msgunfmt /usr/share/locale-langpack/tr_TR/LC_MESSAGES/gnome-shell.mo -o /tmp/gnome-shell.po
     sed -i "s/Sık Kullanılanlar/Görev Çubuğu/g" /tmp/gnome-shell.po
