@@ -41,6 +41,7 @@
 
 ## Release steps
 
+* Build the code, test the image.
 * Checkout a new branch with the version number.
 * Write the release notes.
 * Build the image with the new version number.
@@ -49,3 +50,11 @@
 * Update the website with the new version number.
 * Write the upgrade script for OTA updates.
 * Copy the OSS software lists.
+
+## Helpfull commands
+
+To rename the built binary to release format:
+
+```bash
+for file in AnduinOS-1.0.1-*{.iso,.sha256}; do mv "$file" "$(echo "$file" | sed -E 's/-[0-9]{10}//')"; done
+```
