@@ -9,6 +9,8 @@
 * Ensure right clicking the desktop can open console here.
 * Ensure user can configure desktop icons when right click the desktop.
 * Ensure there is start button on the task bar with the logo of our distro.
+* Right click the icon on taskbar, ensure the menu is localized, shows `Unpin from taskbar`.
+* Right click the icon on start menu, ensure the menu is localized, shows `Pin to taskbar` and `Unpin from Start menu`.
 * Ensure Super + Tab, Alt + Tab, Super + I are functional. (Super + I is (UNDER DEVELOPMENT))
 * Ensure Super + U can toggle network stat display.
 * Ensure Super + Shift + S will take a screenshot.
