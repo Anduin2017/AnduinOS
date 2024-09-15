@@ -62,19 +62,24 @@ function download_base_system() {
     judge "Download base system"
 }
 
-function run_chroot() {
-    print_ok "Mounting /dev /run /proc /sys from host to new_building_os..."
+function mount_folers() {
+    print_ok "Mounting /dev /run from host to new_building_os..."
     sudo mount --bind /dev new_building_os/dev
     sudo mount --bind /run new_building_os/run
+    judge "Mount /dev /run"
+
+    print_ok "Mounting /proc /sys /dev/pts within chroot..."
     sudo chroot new_building_os mount none -t proc /proc
     sudo chroot new_building_os mount none -t sysfs /sys
     sudo chroot new_building_os mount none -t devpts /dev/pts
-    judge "Mount /dev /run /proc /sys"
+    judge "Mount /proc /sys /dev/pts"
 
     print_ok "Copying mods to new_building_os/root..."
     sudo cp -r $SCRIPT_DIR/mods new_building_os/root/mods
     sudo cp ./args.sh new_building_os/root/mods/args.sh
+}
 
+function run_chroot() {
     print_ok "Running install_all_mods.sh in new_building_os..."
     print_warn "============================================"
     print_warn "   The following will run in chroot ENV!"
@@ -85,17 +90,22 @@ function run_chroot() {
     print_warn "============================================"
     judge "Run install_all_mods.sh in new_building_os"
 
+    print_ok "Sleeping for 5 seconds to allow chroot to exit cleanly..."
+    sleep 5
+}
+
+function umount_folers() {
     print_ok "Cleaning mods from new_building_os/root..."
     sudo rm -rf new_building_os/root/mods
     judge "Clean up new_building_os /root/mods"
 
-    print_ok "Sleeping for 5 seconds to allow chroot to exit cleanly..."
-    sleep 5
-
-    print_ok "Unmounting /dev /run /proc /sys from new_building_os..."
+    print_ok "Unmounting /proc /sys from new_building_os..."
     sudo chroot new_building_os umount /proc || sudo chroot new_building_os umount -lf /proc
     sudo chroot new_building_os umount /sys || sudo chroot new_building_os umount -lf /sys
     sudo chroot new_building_os umount /dev/pts || sudo chroot new_building_os umount -lf /dev/pts
+    judge "Unmount /proc /sys /dev/pts"
+
+    print_ok "Unmounting /dev /run outside of chroot..."
     sudo umount new_building_os/dev || sudo umount -lf new_building_os/dev
     sudo umount new_building_os/run || sudo umount -lf new_building_os/run
     judge "Unmount /dev /run /proc /sys"
@@ -345,6 +355,8 @@ check_host
 clean
 setup_host
 download_base_system
+mount_folers
 run_chroot
+umount_folers
 build_iso
 echo "$0 - Initial build is done!"
