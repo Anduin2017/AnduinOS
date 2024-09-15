@@ -17,9 +17,17 @@ sed -i "s/_('Power Off...')/_('Power Off')/" /usr/share/gnome-shell/extensions/a
 judge "Patch Arc Menu text"
 
 print_ok "Patch Arc Menu localization..."
+# TODO: Localization for other languages
 msgunfmt /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/locale/zh_CN/LC_MESSAGES/arcmenu.mo -o /tmp/arcmenu.po
-cat ./arcmenu.po >> /tmp/arcmenu.po
-sed -i "s/新建/新增/g" /tmp/arcmenu.po
+cat << EOF >> /tmp/arcmenu.po
+msgid "Pin to Start menu"
+msgstr "固定到开始菜单"
+
+msgid "Unpin from Start menu"
+msgstr "从开始菜单取消固定"
+
+EOF
+sed -i "s/新建/新增/g" /tmp/arcmenu.po # Only zh_CN need this fix.
 msgfmt /tmp/arcmenu.po -o /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/locale/zh_CN/LC_MESSAGES/arcmenu.mo
 judge "Patch Arc Menu localization"
 
