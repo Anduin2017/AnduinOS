@@ -3,7 +3,23 @@ set -o pipefail         # exit on pipeline error
 set -u                  # treat unset variable as error
 
 # Can be: en_US, zh_CN, zh_TW, zh_HK, ja_JP, ko_KR, vi_VN, th_TH, de_DE, fr_FR, es_ES, ru_RU, it_IT, pt_BR, pt_PT, ar_SA, nl_NL, sv_SE, pl_PL, tr_TR
-if [ "$LANG_MODE" == "zh_CN" ]; then
+if [ "$LANG_MODE" == "en_US" ]; then
+    print_ok "Creating and Patching Gnome Shell for en_US..."
+    cat <<EOL > /tmp/gnome-shell.po
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "Add to Favorites"
+msgstr "Add to Taskbar"
+
+msgid "Remove from Favorites"
+msgstr "Remove from Taskbar"
+EOL
+    msgfmt /tmp/gnome-shell.po -o /usr/share/locale-langpack/en/LC_MESSAGES/gnome-shell.mo
+    judge "Patch Gnome Shell"
+    rm /tmp/gnome-shell.po
+elif [ "$LANG_MODE" == "zh_CN" ]; then
     print_ok "Patching Gnome Shell..."
     msgunfmt /usr/share/locale-langpack/zh_CN/LC_MESSAGES/gnome-shell.mo -o /tmp/gnome-shell.po
     sed -i "s/收藏夹/任务栏/g" /tmp/gnome-shell.po
