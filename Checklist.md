@@ -7,14 +7,13 @@
 * Ensure the cursor theme is applied.
 * Ensure the timezone and language is localized.
 * Ensure right clicking the desktop can open console here.
-* Ensure user can configure desktop icons when right click the desktop.
+* Ensure desktop icons are shown.
 * Ensure there is start button on the task bar with the logo of our distro.
 * Right click the icon on taskbar, ensure the menu is localized, shows `Unpin from taskbar`.
 * Right click the icon on start menu, ensure the menu is localized, shows `Pin to taskbar` and `Unpin from Start menu`.
 * Ensure Super + Tab, Alt + Tab, Super + I are functional. (Super + I is (UNDER DEVELOPMENT))
 * Ensure Super + U can toggle network stat display.
 * Ensure Super + Shift + S will take a screenshot.
-* Ensure Super + u will toggle network stat display.
 * Ensure if the device has a battery, battery is shown on the task bar. Otherwise, it's hidden.
 * Ensure sound theme, icon theme, shell theme are all set.
 * Ensure there will be a `DO` sound (Yaru) when typing tab on terminal.
