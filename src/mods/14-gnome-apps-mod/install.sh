@@ -28,7 +28,6 @@ apt install -y \
     baobab \
     file-roller \
     gnome-sushi \
-    #gnome-calculator \
     qalculate-gtk \
     gnome-disk-utility \
     gnome-control-center \
