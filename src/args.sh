@@ -5,9 +5,9 @@
 #==========================
 
 # Set the language environment. Can be: en_US, zh_CN, zh_TW, zh_HK, ja_JP, ko_KR, vi_VN, th_TH, de_DE, fr_FR, es_ES, ru_RU, it_IT, pt_BR, pt_PT, ar_SA, nl_NL, sv_SE, pl_PL, tr_TR
-export LANG_MODE="es_ES"
+export LANG_MODE="en_US"
 # Set the language pack code. Can be: zh, en, ja, ko, vi, th, de, fr, es, ru, it, pt, pt, ar, nl, sv, pl, tr
-export LANG_PACK_CODE="es"
+export LANG_PACK_CODE="en"
 
 export LC_ALL=$LANG_MODE.UTF-8
 export LC_CTYPE=$LANG_MODE.UTF-8
@@ -85,7 +85,7 @@ export TARGET_UBUNTU_VERSION="jammy"
 export BUILD_UBUNTU_MIRROR="http://mirror.aiursoft.cn/ubuntu/"
 export TARGET_NAME="anduinos"
 export TARGET_BUSINESS_NAME="AnduinOS"
-export TARGET_BUILD_VERSION="1.0.1"
+export TARGET_BUILD_VERSION="1.0.2"
 export TARGET_PACKAGE_REMOVE="
     ubiquity \
     casper \
