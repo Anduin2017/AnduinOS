@@ -36,6 +36,9 @@ apt install -y \
     gnome-system-monitor \
     gnome-sound-recorder \
     gnome-characters \
+    gnome-bluetooth \
+    gnome-power-manager \
+    gnome-maps \
     gnome-font-viewer 
 judge "Install gnome basic applications"
 
