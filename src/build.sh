@@ -225,7 +225,7 @@ EOF
     cat << EOF > image/README.md
 # AnduinOS $TARGET_BUILD_VERSION
 
-AnduinOS is a custom Debian-based Linux distribution that aims to facilitate users transitioning from Windows to Ubuntu by maintaining familiar operational habits and workflows.
+AnduinOS is a custom Debian-based Linux distribution that aims to facilitate developers transitioning from Windows to Ubuntu by maintaining familiar operational habits and workflows.
 
 This image is built with the following configurations:
 
