@@ -405,6 +405,45 @@ EOF
     sleep 5
 }
 
+function upgrade_100_to_101() {
+    # Add your upgrade steps from 1.0.0 to 1.0.1 here
+    print_ok "Upgrading from 1.0.0 to 1.0.1"
+
+    print_ok "Hold base-files"
+    sudo apt-mark hold base-files
+    judge "Hold base-files"
+
+    print_ok "Upgrade to 1.0.1 succeeded"
+    sleep 5
+}
+
+function upgrade_101_to_102() {
+    # Add your upgrade steps from 1.0.1 to 1.0.2 here
+    print_ok "Upgrading from 1.0.1 to 1.0.2"
+
+    print_ok "Installing new apps..."
+    sudo apt install -y qalculate-gtk
+    judge "Install new apps"
+
+    print_ok "Upgrade to 1.0.2 succeeded"
+    sleep 5
+}
+
+function upgrade_102_to_103() {
+    # Add your upgrade steps from 1.0.2 to 1.0.3 here
+    print_ok "Upgrading from 1.0.2 to 1.0.3"
+
+    print_ok "Installing new apps..."
+    sudo apt install -y \
+        gnome-bluetooth \
+        gnome-power-manager \
+        gnome-maps
+    judge "Install new apps"
+
+    print_ok "Upgrade to 1.0.3 succeeded"
+    sleep 5
+}
+
 function applyLsbRelease() {
     # Update /etc/lsb-release
     sudo sed -i "s/DISTRIB_RELEASE=.*/DISTRIB_RELEASE=${LATEST_VERSION}/" /etc/lsb-release
@@ -452,6 +491,9 @@ function main() {
             upgrade_022_to_030
             upgrade_030_to_031
             upgrade_031_to_100
+            upgrade_100_to_101
+            upgrade_101_to_102
+            upgrade_102_to_103
             ;;
         "0.1.1-beta")
             upgrade_011_to_012
@@ -463,6 +505,9 @@ function main() {
             upgrade_022_to_030
             upgrade_030_to_031
             upgrade_031_to_100
+            upgrade_100_to_101
+            upgrade_101_to_102
+            upgrade_102_to_103
             ;;
         "0.1.2-beta")
             upgrade_012_to_013
@@ -473,6 +518,9 @@ function main() {
             upgrade_022_to_030
             upgrade_030_to_031
             upgrade_031_to_100
+            upgrade_100_to_101
+            upgrade_101_to_102
+            upgrade_102_to_103
             ;;
         "0.1.3-beta")
             upgrade_013_to_014
@@ -482,6 +530,9 @@ function main() {
             upgrade_022_to_030
             upgrade_030_to_031
             upgrade_031_to_100
+            upgrade_100_to_101
+            upgrade_101_to_102
+            upgrade_102_to_103
             ;;
         "0.1.4-beta")
             upgrade_014_to_020
@@ -490,6 +541,9 @@ function main() {
             upgrade_022_to_030
             upgrade_030_to_031
             upgrade_031_to_100
+            upgrade_100_to_101
+            upgrade_101_to_102
+            upgrade_102_to_103
             ;;
         "0.2.0-beta")
             upgrade_020_to_021
@@ -497,26 +551,53 @@ function main() {
             upgrade_022_to_030
             upgrade_030_to_031
             upgrade_031_to_100
+            upgrade_100_to_101
+            upgrade_101_to_102
+            upgrade_102_to_103
             ;;
         "0.2.1-beta")
             upgrade_021_to_022
             upgrade_022_to_030
             upgrade_030_to_031
             upgrade_031_to_100
+            upgrade_100_to_101
+            upgrade_101_to_102
+            upgrade_102_to_103
             ;;
         "0.2.2-beta")
             upgrade_022_to_030
             upgrade_030_to_031
             upgrade_031_to_100
+            upgrade_100_to_101
+            upgrade_101_to_102
+            upgrade_102_to_103
             ;;
         "0.3.0-rc")
             upgrade_030_to_031
             upgrade_031_to_100
+            upgrade_100_to_101
+            upgrade_101_to_102
+            upgrade_102_to_103
             ;;
         "0.3.1-rc")
             upgrade_031_to_100
+            upgrade_100_to_101
+            upgrade_101_to_102
+            upgrade_102_to_103
             ;;
         "1.0.0")
+            upgrade_100_to_101
+            upgrade_101_to_102
+            upgrade_102_to_103
+            ;;
+        "1.0.1")
+            upgrade_101_to_102
+            upgrade_102_to_103
+            ;;
+        "1.0.2")
+            upgrade_102_to_103
+            ;;
+        "1.0.3")
             print_ok "Your system is already up to date. No update available."
             exit 0
             ;;
