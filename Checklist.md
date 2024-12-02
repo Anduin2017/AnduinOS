@@ -20,6 +20,7 @@
 * Ensure when running `sudo apt update`, it's connecting to localized apt source.
 * Ensure `lsb_release` with arg `-i -d -r -c -a` will show the correct information.
 * Ensure folders are sorted before files in nautilus.
+* Ensure the `help` in nautilus is working and localized.
 * Ensure `/opt` folder is empty.
 * Ensure double click a photo file is opened with shotwell.
 * Download a png file and a mp4 file. Ensure the photo and video files have previews on nautilus.
