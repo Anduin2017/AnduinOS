@@ -12,15 +12,11 @@ apt install -y \
     gnome-shell gnome-session yaru-theme-sound yaru-theme-gnome-shell gir1.2-gmenu-3.0 gnome-menus gnome-shell-extensions
 judge "Install gnome basic sessions"
 
-print_ok "Installing plymouth..."
-apt install -y \
-    plymouth plymouth-label plymouth-theme-spinner plymouth-theme-ubuntu-text plymouth-theme-ubuntu-logo
-judge "Install plymouth"
+
 
 print_ok "Installing gnome basic applications..."
 apt install -y \
     nautilus \
-    usb-creator-gtk \
     cheese \
     baobab \
     file-roller \
@@ -43,9 +39,7 @@ judge "Install gnome basic applications"
 
 print_ok "Installing gnome games..."
 apt install -y \
-    gnome-chess \
-    gnome-mines \
-    gnome-sudoku
+    gnome-chess
 judge "Install gnome games"
 
 print_ok "Installing gnome extension utilities..."
