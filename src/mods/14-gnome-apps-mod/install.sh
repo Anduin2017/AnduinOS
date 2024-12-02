@@ -29,6 +29,8 @@ apt install -y \
     file-roller \
     gnome-sushi \
     qalculate-gtk \
+    yelp \
+    gnome-user-docs \
     gnome-disk-utility \
     gnome-control-center \
     gnome-logs \
