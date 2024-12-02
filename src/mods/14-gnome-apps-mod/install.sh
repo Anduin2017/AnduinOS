@@ -5,14 +5,9 @@ set -u                  # treat unset variable as error
 print_ok "Installing gnome-shell and other gnome applications"
 waitNetwork
 
-print_ok "Installing basic packages..."
-apt install -y \
-    ca-certificates gpg apt-transport-https gnupg software-properties-common
-judge "Install basic packages"
-
 print_ok "Installing gnome basic sessions..."
 apt install -y \
-    gnome-shell ubuntu-session yaru-theme-sound yaru-theme-gnome-shell gir1.2-gmenu-3.0 gnome-menus gnome-shell-extensions
+    gnome-shell gnome-session yaru-theme-sound yaru-theme-gnome-shell gir1.2-gmenu-3.0 gnome-menus gnome-shell-extensions
 judge "Install gnome basic sessions"
 
 print_ok "Installing plymouth..."
@@ -90,20 +85,16 @@ apt install -y \
     cups system-config-printer cups-bsd
 judge "Install gnome printer support"
 
-print_ok "Installing ubuntu drivers support..."
-apt install -y \
-    ubuntu-drivers-common alsa-utils
-judge "Install ubuntu drivers support"
-
 print_ok "Installing input method..."
 apt install -y \
     ibus
 judge "Install input method"
 
-print_ok "Installing web browser..."
-apt install -y \
-    firefox
-judge "Install web browser"
+# TODO: Install Firefox via flatpak
+# print_ok "Installing web browser..."
+# apt install -y \
+#     firefox
+# judge "Install web browser"
 
 print_ok "Installing python3..."
 apt install -y \

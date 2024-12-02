@@ -12,6 +12,14 @@ export LANG_PACK_CODE="en"
 export LC_ALL=$LANG_MODE.UTF-8
 export LC_CTYPE=$LANG_MODE.UTF-8
 export LC_TIME=$LANG_MODE.UTF-8
+export LC_NAME=$LANG_MODE.UTF-8
+export LC_ADDRESS=$LANG_MODE.UTF-8
+export LC_TELEPHONE=$LANG_MODE.UTF-8
+export LC_MEASUREMENT=$LANG_MODE.UTF-8
+export LC_IDENTIFICATION=$LANG_MODE.UTF-8
+export LC_NUMERIC=$LANG_MODE.UTF-8
+export LC_PAPER=$LANG_MODE.UTF-8
+export LC_MONETARY=$LANG_MODE.UTF-8
 export LANG=$LANG_MODE.UTF-8
 export LANGUAGE=$LANG_MODE:$LANG_PACK_CODE
 
@@ -79,10 +87,72 @@ function waitNetwork() {
     print_ok "Network is online. Continue..."
 }
 
-export -f print_ok print_error print_warn judge waitNetwork
+function installUbuntuPackage() {
+    PACKAGE_NAME="$1"
+    FORCE_DEPENDS="${2:-false}"
+    ARCH="amd64"
+    WORK_DIR="/tmp/ubuntu-deb-download"
 
+    # If already installed, print warning:
+    if apt list --installed | grep -q "^$PACKAGE_NAME/"; then
+        print_warn "$PACKAGE_NAME is already installed. Skipping..."
+        return
+    fi
+
+    mkdir -p "$WORK_DIR"
+    (
+        cd "$WORK_DIR"
+
+        print_ok "Downloading $PACKAGE_NAME ($ARCH) from $BUILD_UBUNTU_MIRROR, with Ubuntu version $TARGET_UBUNTU_VERSION, package name $PACKAGE_NAME"
+
+        print_info "Updating package file list..."
+        wget -q "${BUILD_UBUNTU_MIRROR}/dists/${TARGET_UBUNTU_VERSION}/main/binary-${ARCH}/Packages.gz" -O Packages.gz
+        gzip -d Packages.gz
+
+        print_info "Finding download link for $PACKAGE_NAME..."
+        DEB_URL=$(awk -v pkg="$PACKAGE_NAME" '
+            $1 == "Package:" && $2 == pkg {found=1}
+            found && $1 == "Filename:" {print $2; exit}
+        ' Packages)
+
+        if [ -z "$DEB_URL" ]; then
+            print_error "Download link for $PACKAGE_NAME not found!"
+            exit 1
+        fi
+
+        DEB_URL="${BUILD_UBUNTU_MIRROR}/${DEB_URL}"
+        DEB_FILE="${DEB_URL##*/}"
+
+        print_info "Downloading .deb package: $DEB_URL"
+        wget -q "$DEB_URL" -O "$DEB_FILE"
+
+        print_info "Installing .deb package: $DEB_FILE"
+        if [ "$FORCE_DEPENDS" = "true" ]; then
+            print_warn "Forcing installation without dependency check..."
+            dpkg -i --force-depends "$DEB_FILE"
+            judge "Install $PACKAGE_NAME"
+        else
+            dpkg -i "$DEB_FILE" || apt-get -f install -y
+            judge "Install $PACKAGE_NAME"
+        fi
+        #dpkg -i "$DEB_FILE" || apt-get -f install -y
+
+        print_info "Cleaning up temporary files..."
+        cd /
+        rm -rf "$WORK_DIR"
+    )
+}
+
+export -f print_ok print_error print_info print_warn judge waitNetwork installUbuntuPackage
+
+# Some software may comes from Ubuntu jammy.
 export TARGET_UBUNTU_VERSION="jammy"
 export BUILD_UBUNTU_MIRROR="http://mirror.aiursoft.cn/ubuntu/"
+
+# Some software may comes from Debian bookworm.
+export TARGET_DEBIAN_VERSION="bookworm"
+export BUILD_DEBIAN_MIRROR="https://mirrors.tuna.tsinghua.edu.cn/debian"
+
 export TARGET_NAME="anduinos"
 export TARGET_BUSINESS_NAME="AnduinOS"
 export TARGET_BUILD_VERSION="1.1.0"

@@ -57,8 +57,8 @@ function setup_host() {
 }
 
 function download_base_system() {
-    print_ok "Calling debootstrap to download base debian system..."
-    sudo debootstrap  --arch=amd64 --variant=minbase $TARGET_UBUNTU_VERSION new_building_os $BUILD_UBUNTU_MIRROR
+    print_ok "Calling debootstrap to download base debian system from $BUILD_DEBIAN_MIRROR..."
+    sudo debootstrap  --arch=amd64 --variant=minbase $TARGET_DEBIAN_VERSION new_building_os $BUILD_DEBIAN_MIRROR
     judge "Download base system"
 }
 

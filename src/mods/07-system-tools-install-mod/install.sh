@@ -19,9 +19,9 @@ apt install -y \
     ed \
     file \
     firmware-sof-signed \
+    firmware-linux-nonfree \
     ftp \
     grub-common \
-    grub-gfxpayload-lists \
     grub-pc \
     grub-pc-bin \
     grub2-common \
@@ -32,7 +32,7 @@ apt install -y \
     iputils-tracepath \
     irqbalance \
     libpam-systemd \
-    linux-firmware \
+    firmware-linux firmware-misc-nonfree\
     locales \
     logrotate \
     lshw \
@@ -48,7 +48,6 @@ apt install -y \
     parted \
     pciutils \
     plymouth \
-    plymouth-theme-ubuntu-text \
     psmisc \
     resolvconf \
     rsync \
