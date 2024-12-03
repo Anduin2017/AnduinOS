@@ -87,7 +87,7 @@ function waitNetwork() {
     print_ok "Network is online. Continue..."
 }
 
-export -f print_ok print_error print_warn judge waitNetwork
+export -f print_ok print_error print_warn judge waitNetwork print_info
 
 export TARGET_UBUNTU_VERSION="jammy"
 export BUILD_UBUNTU_MIRROR="http://mirror.aiursoft.cn/ubuntu/"

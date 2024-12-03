@@ -4,13 +4,46 @@ set -u                  # treat unset variable as error
 
 print_ok "Installing gnome extensions"
 /usr/bin/pip3 install --upgrade gnome-extensions-cli
-/usr/local/bin/gext -F install arcmenu@arcmenu.com
-/usr/local/bin/gext -F install audio-output-switcher@anduchs
-/usr/local/bin/gext -F install proxyswitcher@flannaghan.com
-/usr/local/bin/gext -F install blur-my-shell@aunetx
-/usr/local/bin/gext -F install customize-ibus@hollowman.ml
-/usr/local/bin/gext -F install dash-to-panel@jderose9.github.com
-/usr/local/bin/gext -F install network-stats@gnome.noroadsleft.xyz
-/usr/local/bin/gext -F install openweather-extension@jenslody.de
-/usr/local/bin/gext -F install rounded-window-corners@yilozt
+
+install_extension() {
+    local extension_id=$1
+    local retries=5
+
+    for ((i=1; i<=retries; i++)); do
+        print_info "Attempting to install $extension_id (attempt $i/$retries)..."
+
+        output=$(/usr/local/bin/gext -F install "$extension_id" 2>&1)
+
+        echo "$output"
+
+        if echo "$output" | grep -q 'Error'; then
+            print_warn "$extension_id Failed to install, retrying in 2 seconds..."
+            sleep 2
+        else
+            print_ok "$extension_id Installed successfully"
+            return 0
+        fi
+    done
+
+    print_error "After $retries attempts, $extension_id failed to install"
+    exit 1
+}
+
+extensions=(
+    "arcmenu@arcmenu.com"
+    "audio-output-switcher@anduchs"
+    "proxyswitcher@flannaghan.com"
+    "blur-my-shell@aunetx"
+    "customize-ibus@hollowman.ml"
+    "dash-to-panel@jderose9.github.com"
+    "network-stats@gnome.noroadsleft.xyz"
+    "openweather-extension@jenslody.de"
+    "rounded-window-corners@yilozt"
+)
+
+# 遍历安装所有扩展
+for extension in "${extensions[@]}"; do
+    install_extension "$extension"
+done
+
 judge "Install gnome extensions"
