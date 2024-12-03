@@ -68,7 +68,7 @@ judge "Install gnome additional applications"
 
 print_ok "Installing gnome console..."
 apt install -y \
-    gnome-console nautilus-extension-gnome-console
+    gnome-console
 judge "Install gnome console"
 
 print_ok "Installing gnome fonts..."
