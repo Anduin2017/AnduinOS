@@ -12,7 +12,8 @@ apt update
 apt install -y locales resolvconf
 judge "Install locales and resolvconf"
 
-print_ok "Configuring locales and resolvconf to $LANG..."
-locale-gen $LANG
-update-locale LANG=$LANG
-judge "Configure locales and resolvconf"
+print_ok "Configuring locales..."
+echo "$LANG UTF-8" > /etc/locale.gen
+locale-gen
+update-locale LANG=$LANG LC_ALL=$LANG
+judge "Configure locales"

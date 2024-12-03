@@ -46,9 +46,7 @@ judge "Install gnome basic applications"
 
 print_ok "Installing gnome games..."
 apt install -y \
-    gnome-chess \
-    gnome-mines \
-    gnome-sudoku
+    gnome-chess
 judge "Install gnome games"
 
 print_ok "Installing gnome extension utilities..."
