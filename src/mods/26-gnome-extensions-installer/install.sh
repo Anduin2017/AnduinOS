@@ -7,7 +7,7 @@ print_ok "Installing gnome extensions"
 
 install_extension() {
     local extension_id=$1
-    local retries=5
+    local retries=8
 
     for ((i=1; i<=retries; i++)); do
         print_info "Attempting to install $extension_id (attempt $i/$retries)..."
@@ -19,8 +19,8 @@ install_extension() {
         echo "$output"
 
         if echo "$output" | grep -q 'Error'; then
-            print_warn "$extension_id Failed to install, retrying in 2 seconds..."
-            sleep 2
+            print_warn "$extension_id Failed to install, retrying in 10 seconds..."
+            sleep 10
         else
             print_ok "$extension_id Installed successfully"
             return 0
