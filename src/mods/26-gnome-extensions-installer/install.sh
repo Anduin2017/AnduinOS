@@ -12,7 +12,9 @@ install_extension() {
     for ((i=1; i<=retries; i++)); do
         print_info "Attempting to install $extension_id (attempt $i/$retries)..."
 
+        set +e
         output=$(/usr/local/bin/gext -F install "$extension_id" 2>&1)
+        set -e
 
         echo "$output"
 
