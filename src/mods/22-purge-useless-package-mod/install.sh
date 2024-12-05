@@ -10,7 +10,6 @@ apt purge -y \
     aisleriot \
     hitori \
     gnome-initial-setup \
-    gnome-maps \
     gnome-photos \
     eog \
     tilix \
