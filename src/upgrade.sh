@@ -6,7 +6,7 @@ set -e                  # exit on error
 set -o pipefail         # exit on pipeline error
 set -u                  # treat unset variable as error
 export DEBIAN_FRONTEND=noninteractive
-export LATEST_VERSION="1.0.3"
+export LATEST_VERSION="1.0.4"
 export CURRENT_VERSION=$(cat /etc/lsb-release | grep DISTRIB_RELEASE | cut -d "=" -f 2)
 
 #==========================
@@ -444,6 +444,19 @@ function upgrade_102_to_103() {
     sleep 5
 }
 
+function upgrade_103_to_104() {
+    # Add your upgrade steps from 1.0.3 to 1.0.4 here
+    print_ok "Upgrading from 1.0.3 to 1.0.4"
+
+    print_ok "Installing new apps..."
+    sudo apt install -y \
+        yelp gnome-user-docs
+    judge "Install new apps"
+
+    print_ok "Upgrade to 1.0.4 succeeded"
+    sleep 5
+}
+
 function applyLsbRelease() {
     # Update /etc/lsb-release
     sudo sed -i "s/DISTRIB_RELEASE=.*/DISTRIB_RELEASE=${LATEST_VERSION}/" /etc/lsb-release
@@ -494,6 +507,7 @@ function main() {
             upgrade_100_to_101
             upgrade_101_to_102
             upgrade_102_to_103
+            upgrade_103_to_104
             ;;
         "0.1.1-beta")
             upgrade_011_to_012
@@ -508,6 +522,7 @@ function main() {
             upgrade_100_to_101
             upgrade_101_to_102
             upgrade_102_to_103
+            upgrade_103_to_104
             ;;
         "0.1.2-beta")
             upgrade_012_to_013
@@ -521,6 +536,7 @@ function main() {
             upgrade_100_to_101
             upgrade_101_to_102
             upgrade_102_to_103
+            upgrade_103_to_104
             ;;
         "0.1.3-beta")
             upgrade_013_to_014
@@ -533,6 +549,7 @@ function main() {
             upgrade_100_to_101
             upgrade_101_to_102
             upgrade_102_to_103
+            upgrade_103_to_104
             ;;
         "0.1.4-beta")
             upgrade_014_to_020
@@ -544,6 +561,7 @@ function main() {
             upgrade_100_to_101
             upgrade_101_to_102
             upgrade_102_to_103
+            upgrade_103_to_104
             ;;
         "0.2.0-beta")
             upgrade_020_to_021
@@ -554,6 +572,7 @@ function main() {
             upgrade_100_to_101
             upgrade_101_to_102
             upgrade_102_to_103
+            upgrade_103_to_104
             ;;
         "0.2.1-beta")
             upgrade_021_to_022
@@ -563,6 +582,7 @@ function main() {
             upgrade_100_to_101
             upgrade_101_to_102
             upgrade_102_to_103
+            upgrade_103_to_104
             ;;
         "0.2.2-beta")
             upgrade_022_to_030
@@ -571,6 +591,7 @@ function main() {
             upgrade_100_to_101
             upgrade_101_to_102
             upgrade_102_to_103
+            upgrade_103_to_104
             ;;
         "0.3.0-rc")
             upgrade_030_to_031
@@ -578,26 +599,34 @@ function main() {
             upgrade_100_to_101
             upgrade_101_to_102
             upgrade_102_to_103
+            upgrade_103_to_104
             ;;
         "0.3.1-rc")
             upgrade_031_to_100
             upgrade_100_to_101
             upgrade_101_to_102
             upgrade_102_to_103
+            upgrade_103_to_104
             ;;
         "1.0.0")
             upgrade_100_to_101
             upgrade_101_to_102
             upgrade_102_to_103
+            upgrade_103_to_104
             ;;
         "1.0.1")
             upgrade_101_to_102
             upgrade_102_to_103
+            upgrade_103_to_104
             ;;
         "1.0.2")
             upgrade_102_to_103
+            upgrade_103_to_104
             ;;
         "1.0.3")
+            upgrade_103_to_104
+            ;;
+        "1.0.4")
             print_ok "Your system is already up to date. No update available."
             exit 0
             ;;
