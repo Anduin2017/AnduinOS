@@ -43,6 +43,7 @@ extensions=(
     "openweather-extension@jenslody.de"
     "rounded-window-corners@yilozt"
     "lockkeys@vaina.lt"
+    "tiling-assistant@leleat-on-github"
 )
 
 # 遍历安装所有扩展
