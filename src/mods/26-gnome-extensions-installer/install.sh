@@ -42,6 +42,7 @@ extensions=(
     "network-stats@gnome.noroadsleft.xyz"
     "openweather-extension@jenslody.de"
     "rounded-window-corners@yilozt"
+    "lockkeys@vaina.lt"
 )
 
 # 遍历安装所有扩展
