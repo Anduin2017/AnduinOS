@@ -13,4 +13,5 @@ print_ok "Enabling gnome extensions for root..."
 /usr/local/bin/gext -F enable openweather-extension@jenslody.de
 /usr/local/bin/gext -F enable switcher@anduinos
 /usr/local/bin/gext -F enable rounded-window-corners@yilozt
+/usr/local/bin/gext -F enable lockkeys@vaina.lt
 judge "Enable gnome extensions"
