@@ -4,7 +4,7 @@ set -u                  # treat unset variable as error
 
 print_ok "Enabling gnome extensions for root..."
 /usr/local/bin/gext -F enable arcmenu@arcmenu.com
-/usr/local/bin/gext -F enable audio-output-switcher@anduchs
+/usr/local/bin/gext -F enable sound-output-device-chooser@kgshank.net
 /usr/local/bin/gext -F enable proxyswitcher@flannaghan.com
 /usr/local/bin/gext -F enable blur-my-shell@aunetx
 /usr/local/bin/gext -F enable customize-ibus@hollowman.ml
