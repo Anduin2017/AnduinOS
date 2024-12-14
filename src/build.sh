@@ -126,7 +126,7 @@ function build_iso() {
     judge "Copy kernel files"
     
     print_ok "Generating grub.cfg..."
-    touch image/anduinos
+    touch image/$TARGET_NAME
     # TRY mode 
     # (Add 'toram' to boot options will load the whole system into RAM)
     # * Enfoce user name `ubuntu` and hostname `ubuntu`
@@ -154,11 +154,11 @@ function build_iso() {
     # * No "Install" icon on the desktop
 
     # Those configurations are setup in new_building_os/usr/share/initramfs-tools/scripts/casper-bottom/25configure_init
-    TRY_TEXT="Try AnduinOS"
-    INSTALL_TEXT="Install AnduinOS"
+    TRY_TEXT="Try $TARGET_BUSINESS_NAME"
+    INSTALL_TEXT="Install $TARGET_BUSINESS_NAME"
     cat << EOF > image/isolinux/grub.cfg
 
-search --set=root --file /anduinos
+search --set=root --file /$TARGET_NAME
 
 insmod all_video
 
@@ -209,7 +209,7 @@ EOF
 
     print_ok "Generating README.diskdefines..."
     cat << EOF > image/README.diskdefines
-#define DISKNAME  Try AnduinOS
+#define DISKNAME  Try $TARGET_BUSINESS_NAME
 #define TYPE  binary
 #define TYPEbinary  1
 #define ARCH  amd64
@@ -223,9 +223,9 @@ EOF
 
     DATE=`TZ="UTC" date +"%y%m%d%H%M"`
     cat << EOF > image/README.md
-# AnduinOS $TARGET_BUILD_VERSION
+# $TARGET_BUSINESS_NAME $TARGET_BUILD_VERSION
 
-AnduinOS is a custom Debian-based Linux distribution that aims to facilitate developers transitioning from Windows to Ubuntu by maintaining familiar operational habits and workflows.
+$TARGET_BUSINESS_NAME is a custom Debian-based Linux distribution that aims to facilitate developers transitioning from Windows to Ubuntu by maintaining familiar operational habits and workflows.
 
 This image is built with the following configurations:
 
@@ -233,7 +233,7 @@ This image is built with the following configurations:
 - **Version**: $TARGET_BUILD_VERSION
 - **Date**: $DATE
 
-AnduinOS is distributed with GPLv3 license. You can find the license on [GPL-v3](https://gitlab.aiursoft.cn/anduin/anduinos/-/blob/master/LICENSE).
+$TARGET_BUSINESS_NAME is distributed with GPLv3 license. You can find the license on [GPL-v3](https://gitlab.aiursoft.cn/anduin/anduinos/-/blob/master/LICENSE).
 
 ## Please verify the checksum!!!
 
@@ -255,14 +255,14 @@ Press F12 to enter the boot menu when you start your computer. Select the USB dr
 
 You will see two options:
 
-1. **Try AnduinOS**: Boot into AnduinOS without installing it. This is a good way to test the system before installing it.
-2. **Install AnduinOS**: Install AnduinOS on your computer. This will erase all data on the target disk.
+1. **Try $TARGET_BUSINESS_NAME**: Boot into $TARGET_BUSINESS_NAME without installing it. This is a good way to test the system before installing it.
+2. **Install $TARGET_BUSINESS_NAME**: Install $TARGET_BUSINESS_NAME on your computer. This will erase all data on the target disk.
 
 Select the option you want and press Enter.
 
 ## More information
 
-For detailed instructions, please visit [AnduinOS Document](https://docs.anduinos.com/Install/System-Requirements.html).
+For detailed instructions, please visit [$TARGET_BUSINESS_NAME Document](https://docs.anduinos.com/Install/System-Requirements.html).
 EOF
 
     pushd $SCRIPT_DIR/image
