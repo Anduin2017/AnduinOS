@@ -34,7 +34,7 @@ install_extension() {
 
 extensions=(
     "arcmenu@arcmenu.com"
-    "audio-output-switcher@anduchs"
+    "sound-output-device-chooser@kgshank.net"
     "proxyswitcher@flannaghan.com"
     "blur-my-shell@aunetx"
     "customize-ibus@hollowman.ml"
