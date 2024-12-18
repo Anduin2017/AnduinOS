@@ -340,13 +340,6 @@ EOF
     judge "Generate sha256 checksum"
 
     popd
-
-    # Play a sound to indicate the build is done
-    if [ -x "$(command -v paplay)" ]; then
-        print_ok "Playing sound to indicate build is done..."
-        paplay /usr/share/sounds/freedesktop/stereo/complete.oga
-        judge "Play sound"
-    fi
 }
 
 # =============   main  ================
