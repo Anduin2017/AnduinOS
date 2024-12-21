@@ -7,7 +7,7 @@ waitNetwork
 
 print_ok "Installing basic packages..."
 apt install -y \
-    ca-certificates gpg apt-transport-https gnupg software-properties-common
+    ca-certificates gpg apt-transport-https gnupg software-properties-common whiptail
 judge "Install basic packages"
 
 print_ok "Installing gnome basic sessions..."
@@ -79,7 +79,7 @@ judge "Install gnome additional applications"
 
 print_ok "Installing gnome console..."
 apt install -y \
-    gnome-console nautilus-extension-gnome-console
+    gnome-console #nautilus-extension-gnome-console
 judge "Install gnome console"
 
 print_ok "Installing gnome fonts..."
