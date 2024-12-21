@@ -3,7 +3,10 @@ set -o pipefail         # exit on pipeline error
 set -u                  # treat unset variable as error
 
 print_ok "Installing gnome extensions"
-/usr/bin/pip3 install --upgrade gnome-extensions-cli
+#/usr/bin/pip3 install --upgrade gnome-extensions-cli
+pipx install gnome-extensions-cli
+
+## TODO: Uninstall gnome-extensions-cli after installation
 
 install_extension() {
     local extension_id=$1
@@ -13,7 +16,7 @@ install_extension() {
         print_info "Attempting to install $extension_id (attempt $i/$retries)..."
 
         set +e
-        output=$(/usr/local/bin/gext -F install "$extension_id" 2>&1)
+        output=$(/root/.local/bin/gext -F install "$extension_id" 2>&1)
         set -e
 
         echo "$output"

@@ -109,7 +109,7 @@ judge "Install web browser"
 
 print_ok "Installing python3..."
 apt install -y \
-    python3 python3-pip python-is-python3
+    python3 python3-pip python-is-python3 pipx
 judge "Install python3"
 
 print_ok "Installing other libraries..."
