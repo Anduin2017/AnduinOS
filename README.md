@@ -9,7 +9,7 @@
 
 AnduinOS is a custom Debian-based Linux distribution that aims to facilitate developers transitioning from Windows to Ubuntu by maintaining familiar operational habits and workflows.
 
-AnduinOS is built on the Ubuntu Jammy package base.
+AnduinOS is built on the Ubuntu Noble package base.
 
 [Download AnduinOS](https://www.anduinos.com/)
 
