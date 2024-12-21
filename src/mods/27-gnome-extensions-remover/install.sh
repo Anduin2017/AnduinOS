@@ -15,5 +15,3 @@ rm /usr/share/gnome-shell/extensions/workspace-indicator* -rf
 rm /usr/share/gnome-shell/extensions/light-style* -rf
 rm /usr/share/gnome-shell/extensions/system-monitor* -rf
 judge "Remove GNOME extensions"
-
-# TODO FIXED PENDING CONFIRM: Remove more useless GNOME extensions

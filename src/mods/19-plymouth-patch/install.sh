@@ -2,8 +2,6 @@ set -e                  # exit on error
 set -o pipefail         # exit on pipeline error
 set -u                  # treat unset variable as error
 
-# TODO FIXED PENDING CONFIRM: Plymouth is not working properly 
-
 print_ok "Patch plymouth"
 cp ./logo_128.png      /usr/share/plymouth/themes/spinner/bgrt-fallback.png
 cp ./anduinos_text.png /usr/share/plymouth/ubuntu-logo.png

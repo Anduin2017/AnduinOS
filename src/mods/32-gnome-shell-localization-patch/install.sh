@@ -2,8 +2,6 @@ set -e                  # exit on error
 set -o pipefail         # exit on pipeline error
 set -u                  # treat unset variable as error
 
-# TODO FIXED PENDING CONFIRM: The pin to taskbar is not localized correctly.
-
 # Supported LANG_MODE can be: en_US, zh_CN, zh_TW, zh_HK, ja_JP, ko_KR, vi_VN, th_TH, de_DE, fr_FR, es_ES, ru_RU, it_IT, pt_BR, pt_PT, ar_SA, nl_NL, sv_SE, pl_PL, tr_TR
 # Patching Gnome Shell based on LANG_MODE
 if [ "$LANG_MODE" == "en_US" ]; then

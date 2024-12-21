@@ -22,5 +22,3 @@ network:
   renderer: NetworkManager
 EOF
 judge "Configure netplan"
-
-# TODO FIXED PENDING CONFIRM: Network is not available after reboot
