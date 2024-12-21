@@ -43,7 +43,7 @@ extensions=(
     "customize-ibus@hollowman.ml"
     "dash-to-panel@jderose9.github.com"
     "network-stats@gnome.noroadsleft.xyz"
-    "openweather-extension@jenslody.de"
+    "openweather-extension@penguin-teal.github.io"
     "rounded-window-corners@yilozt"
     "lockkeys@vaina.lt"
     "tiling-assistant@leleat-on-github"

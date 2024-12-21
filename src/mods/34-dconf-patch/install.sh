@@ -25,6 +25,7 @@ cp ./greeter.dconf-defaults.ini /etc/gdm3/greeter.dconf-defaults
 dconf update
 judge "Patch global gdm3 dconf settings"
 
+# TODO: Migrate to newer version of openweather-extension
 if [ "$LANG_MODE" == "en_US" ]; then
     print_ok "Patching openweather city for San Francisco, California, United States"
     dconf write /org/gnome/shell/extensions/openweather/city "'37.7749295,-122.4194155>San Francisco, California, United States>0'"
