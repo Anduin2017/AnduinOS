@@ -20,8 +20,7 @@ apt install -y \
     plymouth \
     plymouth-label \
     plymouth-theme-spinner \
-    plymouth-theme-ubuntu-text \
-    plymouth-theme-ubuntu-gnome-logo
+    plymouth-theme-ubuntu-text
 judge "Install plymouth"
 
 print_ok "Installing gnome basic applications..."
