@@ -10,7 +10,7 @@ set -u                  # treat unset variable as error
 print_ok "Loading dconf settings"
 export $(dbus-launch)
 
-# TODO: Overview was shown. Not working properly
+# TODO: Overview was shown. Not working properly. (Might be fixed. Might because too many buggy extensions)
 # Power button was shown, but not working properly
 
 dconf load /org/gnome/ < ./dconf.ini
