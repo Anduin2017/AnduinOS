@@ -193,8 +193,8 @@ EOF
     print_ok "Compressing rootfs as squashfs on /casper/filesystem.squashfs..."
     sudo mksquashfs new_building_os image/casper/filesystem.squashfs \
         -noappend -no-duplicates -no-recovery \
-        -wildcards \
-        -comp xz -b 1M -Xdict-size 100% \
+        -wildcards -b 1M \
+        -comp zstd -Xcompression-level 19 \
         -e "var/cache/apt/archives/*" \
         -e "root/*" \
         -e "root/.*" \
