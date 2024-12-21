@@ -47,8 +47,6 @@ apt install -y \
     openssh-client \
     parted \
     pciutils \
-    plymouth \
-    plymouth-theme-ubuntu-text \
     psmisc \
     resolvconf \
     rsync \

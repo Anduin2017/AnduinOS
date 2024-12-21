@@ -17,7 +17,11 @@ judge "Install gnome basic sessions"
 
 print_ok "Installing plymouth..."
 apt install -y \
-    plymouth plymouth-label plymouth-theme-spinner plymouth-theme-ubuntu-text plymouth-theme-ubuntu-logo
+    plymouth \
+    plymouth-label \
+    plymouth-theme-spinner \
+    plymouth-theme-ubuntu-text \
+    plymouth-theme-ubuntu-gnome-logo
 judge "Install plymouth"
 
 print_ok "Installing gnome basic applications..."
