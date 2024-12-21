@@ -10,8 +10,8 @@ set -u                  # treat unset variable as error
 print_ok "Loading dconf settings"
 export $(dbus-launch)
 
-# TODO: Overview was shown. Not working properly. (Might be fixed. Might because too many buggy extensions)
-# Power button was shown, but not working properly
+# TODO FIXED PENDING CONFIRM: Overview was shown. Not working properly.
+# TODO: Power button was shown, but not working properly
 
 dconf load /org/gnome/ < ./dconf.ini
 dconf write /org/gtk/settings/file-chooser/sort-directories-first true

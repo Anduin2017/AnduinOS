@@ -23,4 +23,4 @@ network:
 EOF
 judge "Configure netplan"
 
-# TODO: Network is not available after reboot
+# TODO FIXED PENDING CONFIRM: Network is not available after reboot

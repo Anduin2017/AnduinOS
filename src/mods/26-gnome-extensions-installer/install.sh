@@ -6,7 +6,7 @@ print_ok "Installing gnome extensions"
 #/usr/bin/pip3 install --upgrade gnome-extensions-cli
 pipx install gnome-extensions-cli
 
-## TODO: Uninstall gnome-extensions-cli after installation
+# TODO FIXED PENDING CONFIRM: Uninstall gnome-extensions-cli after installation
 
 install_extension() {
     local extension_id=$1

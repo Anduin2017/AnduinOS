@@ -3,7 +3,7 @@ viewport > clamp > box > preferencesgroup:nth-child(1) {
     margin-top: -999px;
 }
 
-viewport > clamp > box > image {
+viewport > clamp > box > preferencesgroup > box > box > clamp > picture {
     opacity: 0;
     margin-top: -999px;
 }
