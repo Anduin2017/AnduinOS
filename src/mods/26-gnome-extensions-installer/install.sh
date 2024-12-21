@@ -21,7 +21,7 @@ install_extension() {
 
         echo "$output"
 
-        if echo "$output" | grep -q 'Error'; then
+        if echo "$output" | grep -q -e 'Error' -e 'Cannot'; then
             print_warn "$extension_id Failed to install, retrying in 10 seconds..."
             # Every time fail, sleep more time
             sleep $((i * 20))
