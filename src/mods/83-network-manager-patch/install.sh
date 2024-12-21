@@ -14,3 +14,5 @@ managed=false
 EOF
 dpkg-reconfigure network-manager
 judge "Configure network manager"
+
+# TODO: Network is not available after reboot

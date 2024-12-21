@@ -32,9 +32,3 @@ The open-source software included in AnduinOS is distributed in the hope that it
 For community support and discussion, please join our [AnduinOS Discussions](https://github.com/Anduin2017/AnduinOS/discussions).
 
 For bug reports and feature requests, please use the [Issues](https://github.com/Anduin2017/AnduinOS/issues) page.
-
-<!-- TODO
-www.anduinos.com       # Homepage
-docs.anduinos.com      # MkDocs
-downloads.anduinos.com # ISO Download
- -->
