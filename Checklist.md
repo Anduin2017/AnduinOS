@@ -22,7 +22,7 @@
 * Ensure folders are sorted before files in nautilus.
 * Ensure the `help` in nautilus is working and localized.
 * Ensure `/opt` folder is empty.
-* Ensure double click a photo file is opened with shotwell.
+* Ensure double click a photo file is opened with shotwell; double click a video file is opened with totem; double click a music file is opened with rhythmbox.
 * Download a png file and a mp4 file. Ensure the photo and video files have previews on nautilus.
 * Ensure double clicking a .deb file will open gdebi.
 * Try start instllation (Ubiquty) and ensure all language texts are shown correctly. (Without square boxes)
