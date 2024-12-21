@@ -10,6 +10,9 @@ set -u                  # treat unset variable as error
 print_ok "Loading dconf settings"
 export $(dbus-launch)
 
+# TODO: Overview was shown. Not working properly
+# Power button was shown, but not working properly
+
 dconf load /org/gnome/ < ./dconf.ini
 dconf write /org/gtk/settings/file-chooser/sort-directories-first true
 dconf write /org/gnome/desktop/input-sources/xkb-options "@as []"
