@@ -9,4 +9,4 @@ judge "Remove bash history and temporary files"
 # Disable history in bash to avoid saving commands
 export HISTSIZE=0
 
-# TODO: after build, if run apt update, will get error that duplicate sources
+# TODO PENDING VERIFY: after build, if run apt update, will get error that duplicate sources

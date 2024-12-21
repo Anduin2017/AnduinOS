@@ -5,10 +5,7 @@ set -u                  # treat unset variable as error
 print_ok "Adding Mozilla Firefox PPA"
 waitNetwork
 apt install -y software-properties-common
-add-apt-repository -y ppa:mozillateam/ppa -n
-# Replace the official PPA with the mirror PPA
-echo "deb https://mirror-ppa.aiursoft.cn/mozillateam/ppa/ubuntu/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/mozillateam-ubuntu-ppa-$(lsb_release -sc).list
-# Replace the .source file with the mirror endpoint
+add-apt-repository -y ppa:mozillateam/ppa
 sed -i 's/ppa.launchpadcontent.net/mirror-ppa.aiursoft.cn/g' /etc/apt/sources.list.d/mozillateam-ubuntu-ppa-$(lsb_release -sc).sources
 cat << EOF > /etc/apt/preferences.d/mozilla-firefox
 Package: *
