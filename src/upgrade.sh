@@ -239,8 +239,8 @@ function upgrade_014_to_020() {
     print_ok "Installing new kernel..."
     sudo apt update
     sudo apt install -y \
-        linux-headers-generic-hwe-22.04 \
-        linux-image-generic-hwe-22.04
+        linux-headers-generic-hwe-24.04 \
+        linux-image-generic-hwe-24.04
     judge "Install new kernel"
 
     print_ok "Installing new packages..."

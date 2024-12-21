@@ -10,5 +10,5 @@ apt install -y \
     laptop-detect \
     os-prober \
 
-apt install -y --no-install-recommends linux-generic-hwe-22.04
+apt install -y --no-install-recommends linux-generic-hwe-24.04
 judge "Install kernel package"
