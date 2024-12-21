@@ -62,6 +62,7 @@ apt install -y \
     uuid-runtime \
     wget \
     wireless-tools \
+    wpagui \
     xz-utils
 judge "Install basic system tool packages."
 

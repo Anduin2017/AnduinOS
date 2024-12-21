@@ -6,11 +6,18 @@ print_ok "Adding Mozilla Firefox PPA"
 waitNetwork
 apt install -y software-properties-common
 add-apt-repository -y ppa:mozillateam/ppa -n
+# Replace the official PPA with the mirror PPA
 echo "deb https://mirror-ppa.aiursoft.cn/mozillateam/ppa/ubuntu/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/mozillateam-ubuntu-ppa-$(lsb_release -sc).list
+# Replace the .source file with the mirror endpoint
+sed -i 's/ppa.launchpadcontent.net/mirror-ppa.aiursoft.cn/g' /etc/apt/sources.list.d/mozillateam-ubuntu-ppa-$(lsb_release -sc).sources
 cat << EOF > /etc/apt/preferences.d/mozilla-firefox
 Package: *
 Pin: release o=LP-PPA-mozillateam
-Pin-Priority: 1002
+Pin-Priority: 1001
+
+Package: firefox
+Pin: version 1:1snap*
+Pin-Priority: -1
 EOF
 chown root:root /etc/apt/preferences.d/mozilla-firefox
 judge "Add Mozilla Firefox PPA"
