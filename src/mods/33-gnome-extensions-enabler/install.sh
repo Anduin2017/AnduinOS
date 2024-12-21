@@ -16,3 +16,5 @@ print_ok "Enabling gnome extensions for root..."
 /root/.local/bin/gext -F enable lockkeys@vaina.lt
 /root/.local/bin/gext -F enable tiling-assistant@leleat-on-github
 judge "Enable gnome extensions"
+
+# TODO: Uninstall the new gnome system monitor extension
