@@ -16,6 +16,7 @@
 * Ensure Super + Shift + S will take a screenshot.
 * Ensure if the device has a battery, battery is shown on the task bar. Otherwise, it's hidden.
 * Ensure sound theme, icon theme, shell theme are all set.
+* Press `Alt + F2`, then type `r` and press `Enter`. Ensure the shell can be restarted successfully.
 * Ensure there will be a `DO` sound (Yaru) when typing tab on terminal.
 * Ensure when running `sudo apt update`, it's connecting to localized apt source.
 * Ensure `lsb_release` with arg `-i -d -r -c -a` will show the correct information.
@@ -36,7 +37,8 @@
 * Ensure the text `遍角次亮采之门` in gedit is shown correctly.
 * Ensure the text `http://` in gedit is shown correctly.
 * Try installing Motrix and see if it can be shown successfully on the tray.
-* Ensure the conor of the Motrix window is rounded.
+* Ensure the corners of the Motrix window is rounded.
+* Try installing VSCode and ensure it can be opened successfully, and the corners of the window is rounded.
 * Download a H264 video and try to play with `totem` and ensure it can play.
 * Try switching from dark and light theme in the bottom drop down menu. And the text should be localized. Both GTK and QT apps should be switched.
 * Try pressing `Ctrl + Alt + F6` and ensure it can switch to tty6. Message is `AnduinOS`.
