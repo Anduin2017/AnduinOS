@@ -27,7 +27,7 @@ install_extension() {
             print_ok "$extension_id Installed successfully"
 
             print_info "Compiling schemas for $extension_id..."
-            glib-compile-schemas /usr/share/gnome-shell/extensions/"$extension_id"/schemas
+            glib-compile-schemas /root/.local/share/gnome-shell/extensions/"$extension_id"/schemas
             judge "Compile schemas for $extension_id"
             return 0
         fi
