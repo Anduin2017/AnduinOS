@@ -12,7 +12,6 @@
 * [Gnome Extensions CLI](https://github.com/essembeh/gnome-extensions-cli)
 * [Arc Menu](https://github.com/fishears/Arc-Menu)
 * [proxyswitcher@flannaghan.com](https://github.com/tomflannaghan/proxy-switcher)
-* [Blur my shell](https://github.com/aunetx/blur-my-shell)
 * [Customize ibus](https://github.com/openSUSE/Customize-IBus)
 * [Dash to panel](https://github.com/home-sweet-gnome/dash-to-panel)
 * [Network Dtats](https://github.com/noroadsleft000/gnome-network-stats)

@@ -37,12 +37,11 @@ extensions=(
     "arcmenu@arcmenu.com"
     "sound-output-device-chooser@kgshank.net"
     "ProxySwitcher@flannaghan.com"
-    "blur-my-shell@aunetx"
     "customize-ibus@hollowman.ml"
     "dash-to-panel@jderose9.github.com"
     "network-stats@gnome.noroadsleft.xyz"
     "openweather-extension@penguin-teal.github.io"
-    "rounded-window-corners@yilozt"
+    "rounded-window-corners@fxgn"
     "lockkeys@vaina.lt"
     "tiling-assistant@leleat-on-github"
 )
