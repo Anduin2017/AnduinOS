@@ -25,6 +25,10 @@ install_extension() {
             sleep $((i * 20))
         else
             print_ok "$extension_id Installed successfully"
+
+            print_info "Compiling schemas for $extension_id..."
+            glib-compile-schemas /usr/share/gnome-shell/extensions/"$extension_id"/schemas
+            judge "Compile schemas for $extension_id"
             return 0
         fi
     done
@@ -46,7 +50,6 @@ extensions=(
     "tiling-assistant@leleat-on-github"
 )
 
-# 遍历安装所有扩展
 for extension in "${extensions[@]}"; do
     install_extension "$extension"
 done
