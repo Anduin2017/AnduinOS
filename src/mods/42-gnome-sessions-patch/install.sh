@@ -23,3 +23,8 @@ mv /usr/share/wayland-sessions/ubuntu-wayland.desktop /usr/share/wayland-session
 sed -i 's/Name=Ubuntu/Name=AnduinOS/g' /usr/share/wayland-sessions/anduinos.desktop
 sed -i 's/Name=Ubuntu/Name=AnduinOS/g' /usr/share/wayland-sessions/anduinos-wayland.desktop
 judge "Set up /usr/share/wayland-sessions"
+
+print_ok "Setting up apparmor..."
+echo 'kernel.apparmor_restrict_unprivileged_userns = 0' | 
+  sudo tee /etc/sysctl.d/20-apparmor-donotrestrict.conf
+judge "Set up apparmor"

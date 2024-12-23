@@ -48,7 +48,6 @@ extensions=(
     "dash-to-panel@jderose9.github.com"
     "network-stats@gnome.noroadsleft.xyz"
     "openweather-extension@penguin-teal.github.io"
-    "rounded-window-corners@fxgn"
     "lockkeys@vaina.lt"
     "tiling-assistant@leleat-on-github"
 )
