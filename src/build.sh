@@ -353,6 +353,3 @@ run_chroot
 umount_folers
 build_iso
 echo "$0 - Initial build is done!"
-
-# TODO: Visual Studio Code can not be started after installation
-# TODO: Motrix can not be started after installation
