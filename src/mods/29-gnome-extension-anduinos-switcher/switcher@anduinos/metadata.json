@@ -1,8 +1,7 @@
 {
   "uuid": "switcher@anduinos",
   "name": "Light/Dark Theme Switcher",
-  "description": "Button in panel: switch between global dark and light themes. Also hides power icon if there's no battery present.",
+  "description": "Automatically syncs system color-scheme with a custom set of light/dark theme settings, and hides power icon if there's no battery.",
   "shell-version": ["45", "46", "47"],
-  "url": "https://gitlab.aiursoft.cn/anduin/anduinos",
   "version": 2
 }
