@@ -8,7 +8,7 @@ cat << EOF > /etc/casper.conf
 # Supported variables are:
 # USERNAME, USERFULLNAME, HOST, BUILD_SYSTEM, FLAVOUR
 
-export USERNAME="try-user"
+export USERNAME="live"
 export USERFULLNAME="$TARGET_BUSINESS_NAME Live session user"
 export HOST="$TARGET_NAME"
 export BUILD_SYSTEM="Ubuntu"
