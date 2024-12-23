@@ -1,21 +1,17 @@
-/* extension.js
- * GNOME 45+ / 46+ style extension
- */
-import Gio from 'gi://Gio';
-import GLib from 'gi://GLib';
+'use strict';
+
 import GObject from 'gi://GObject';
-
+import Gio from 'gi://Gio';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
-import * as PopupMenu from 'resource:///org/gnome/shell/ui/popupMenu.js';
 import * as QuickSettings from 'resource:///org/gnome/shell/ui/quickSettings.js';
-import {Extension} from 'resource:///org/gnome/shell/extensions/extension.js';
+import {Extension, gettext as _} from 'resource:///org/gnome/shell/extensions/extension.js';
 
-/* =============== 常量 & 工具函数 =============== */
-const LIGHT_SCHEME_NAME = "prefer-light";
-const DARK_SCHEME_NAME = "prefer-dark";
-
-const LIGHT_SCHEME_ICON = "weather-clear-symbolic";
-const DARK_SCHEME_ICON  = "weather-clear-night-symbolic";
+/** 常量定义 **/
+const DEFAULT_SCHEME_NAME = 'default';
+const LIGHT_SCHEME_NAME = 'prefer-light';
+const DARK_SCHEME_NAME = 'prefer-dark';
+const LIGHT_SCHEME_ICON = 'weather-clear-symbolic';
+const DARK_SCHEME_ICON = 'weather-clear-night-symbolic';
 
 const LIGHT_THEME_SETTINGS = {
     "org.gnome.desktop.interface": {
@@ -41,19 +37,20 @@ const DARK_THEME_SETTINGS = {
     },
 };
 
-function applySettings(settingsObj) {
-    for (let schemaId in settingsObj) {
+/** 应用主题设置的小工具函数 **/
+function applySettings(settingsMap) {
+    for (let schemaId in settingsMap) {
         let schema = new Gio.Settings({ schema: schemaId });
-        let keyValues = settingsObj[schemaId];
+        let keyValues = settingsMap[schemaId];
         for (let key in keyValues) {
             schema.set_string(key, keyValues[key]);
-            log(`Setting ${schemaId} ${key} to ${keyValues[key]}`);
+            log(`LightDarkSwitcher: Setting ${schemaId}::${key} to ${keyValues[key]}`);
         }
     }
 }
 
-// 小工具：检测是否有电池
-function deviceHasBattery() {
+/** 检查是否有电池 **/
+function hasBattery() {
     try {
         let dir = Gio.File.new_for_path('/sys/class/power_supply');
         let enumerator = dir.enumerate_children('standard::name', Gio.FileQueryInfoFlags.NONE, null);
@@ -69,128 +66,107 @@ function deviceHasBattery() {
     return false;
 }
 
-/* =============== Toggle 实现 =============== */
-const ThemeToggle = GObject.registerClass(
-class ThemeToggle extends QuickSettings.QuickMenuToggle {
+/**
+ * 自定义的 LightDarkToggle，继承 QuickSettings.QuickMenuToggle
+ * 并监听外部系统主题变化。
+ */
+const LightDarkToggle = GObject.registerClass(
+class LightDarkToggle extends QuickSettings.QuickMenuToggle {
     _init() {
         super._init({
-            title: "Theme",
-            iconName: LIGHT_SCHEME_ICON, // 初始图标
+            title: _("Theme"),
+            iconName: LIGHT_SCHEME_ICON,  // 默认先设为亮
         });
 
-        // 在面板下拉时会展示一个带标题的头部
-        this.menu.setHeader(LIGHT_SCHEME_ICON, "Theme Switcher", "Switch between Light/Dark theme");
-
-        // 放一个区块，里面添加“Light Theme”和“Dark Theme”按钮
-        let itemsSection = new PopupMenu.PopupMenuSection();
-        this._lightItem = itemsSection.addAction("Light Theme", () => {
-            applySettings(LIGHT_THEME_SETTINGS);
-            this._setIcon(LIGHT_SCHEME_ICON);
-        });
-        this._darkItem = itemsSection.addAction("Dark Theme", () => {
-            applySettings(DARK_THEME_SETTINGS);
-            this._setIcon(DARK_SCHEME_ICON);
-        });
-
-        // 将该区块添加到子菜单
-        this.menu.addMenuItem(itemsSection);
-
-        // 若需要分割线、或再加“打开设置”也可以：
-        this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
-        this.menu.addSettingsAction(
-            "GNOME Appearance Settings", 'gnome-appearance-panel.desktop'
-        );
-
-        // 点击主按钮（外面的开关）时，做一个简单地在 Light / Dark 之间切换的逻辑
-        this.connect('clicked', this._onClicked.bind(this));
-    }
-
-    // 更新图标
-    _setIcon(iconName) {
-        this.iconName = iconName;
-        this.subtitle = (iconName === LIGHT_SCHEME_ICON) ? "Light" : "Dark";
-    }
-
-    // 点击时切换
-    _onClicked() {
-        if (this.checked) {
-            // 如果从未切换过，可视为“关 -> 开”，那就用 Dark
-            applySettings(DARK_THEME_SETTINGS);
-            this._setIcon(DARK_SCHEME_ICON);
-        } else {
-            // 反之用 Light
-            applySettings(LIGHT_THEME_SETTINGS);
-            this._setIcon(LIGHT_SCHEME_ICON);
-        }
-    }
-
-    // 从系统当前设置检测颜色模式，更新图标/checked
-    reflectSystemScheme() {
-        let ifaceSettings = new Gio.Settings({ schema: "org.gnome.desktop.interface" });
-        let currentScheme = ifaceSettings.get_string("color-scheme");
-
-        // 当 color-scheme 是 "prefer-dark" 就是暗色，否则当作亮色
-        if (currentScheme === DARK_SCHEME_NAME) {
-            this._setIcon(DARK_SCHEME_ICON);
-            this.checked = true;
-        } else {
-            this._setIcon(LIGHT_SCHEME_ICON);
-            this.checked = false;
-        }
-    }
-});
-
-export default class ThemeSwitcherExtension extends Extension {
-    constructor(metadata) {
-        super(metadata);
-    }
-
-    enable() {
-        // 1. 如果没有电池，则隐藏电源图标（注意此处字段名在不同 GNOME 版本可能不同）
-        if (!deviceHasBattery()) {
-            let powerIndicator = Main.panel.statusArea.quickSettings._power;
-            if (powerIndicator) {
-                powerIndicator.visible = false;
+        // 如果没有电池，就隐藏电源按钮（不同版本 GNOME 可能字段略不同）
+        if (!hasBattery()) {
+            let systemIndicator = Main.panel.statusArea.quickSettings._system;
+            if (systemIndicator?._powerToggle) {
+                systemIndicator._powerToggle.hide();
             }
         }
 
-        // 2. 创建一个自定义 Toggle，并加到 QuickSettings 面板
-        this._toggle = new ThemeToggle();
-        this._indicator = new QuickSettings.SystemIndicator();
-        this._indicator.quickSettingsItems.push(this._toggle);
+        // 创建对 interface 的 GSettings 引用，用于监听 color-scheme
+        this._interfaceSettings = new Gio.Settings({ schema: 'org.gnome.desktop.interface' });
+        // 同步初始状态
+        this._syncFromSystem();
 
-        // 把我们自定义的 Indicator（里含 toggle）放进面板
-        Main.panel.statusArea.quickSettings.addExternalIndicator(this._indicator);
-
-        // 3. 监听系统 color-scheme 改变，以便动态更新图标
-        this._settings = new Gio.Settings({ schema: "org.gnome.desktop.interface" });
-        this._settingsSignalId = this._settings.connect("changed::color-scheme",
-            () => this._toggle.reflectSystemScheme()
+        // 监听 color-scheme 改变，如果从外部切换主题，这里会被触发
+        this._settingsSignalId = this._interfaceSettings.connect(
+            'changed::color-scheme',
+            () => this._syncFromSystem()
         );
 
-        // 初始化时也同步一次
-        this._toggle.reflectSystemScheme();
+        // 当按钮被点击时，手动在扩展内执行切换
+        this.connect('clicked', () => {
+            this._onToggle();
+        });
+    }
+
+    /**
+     * _syncFromSystem()
+     * 从系统设置中读取当前 color-scheme，更新图标和 checked 状态
+     */
+    _syncFromSystem() {
+        let scheme = this._interfaceSettings.get_string('color-scheme');
+        if (scheme === DARK_SCHEME_NAME) {
+            this.iconName = DARK_SCHEME_ICON;
+            this.checked = true;
+        } else {
+            // 包含 'default'、'prefer-light' 都视作亮
+            this.iconName = LIGHT_SCHEME_ICON;
+            this.checked = false;
+        }
+    }
+
+    /**
+     * _onToggle()
+     * 当用户点击时（即 toggle 状态变动），执行明暗切换
+     */
+    _onToggle() {
+        if (!this.checked) {
+            // 由亮切到暗
+            applySettings(DARK_THEME_SETTINGS);
+            this.iconName = DARK_SCHEME_ICON;
+            this.checked = true;
+        } else {
+            // 由暗切回亮
+            applySettings(LIGHT_THEME_SETTINGS);
+            this.iconName = LIGHT_SCHEME_ICON;
+            this.checked = false;
+        }
+    }
+
+    /**
+     * 如果我们要在 disable() 时确保断开信号
+     */
+    destroy() {
+        if (this._settingsSignalId) {
+            this._interfaceSettings.disconnect(this._settingsSignalId);
+            this._settingsSignalId = null;
+        }
+        super.destroy();
+    }
+});
+
+
+export default class LightDarkSwitcherExtension extends Extension {
+    enable() {
+        // 建立一个 SystemIndicator（GNOME 45+）
+        this._indicator = new QuickSettings.SystemIndicator();
+        this._toggle = new LightDarkToggle();
+
+        // 将 toggle 插入到 indicator 的列表里
+        this._indicator.quickSettingsItems.push(this._toggle);
+
+        // 把这个 indicator 注册到 quick settings 面板里
+        Main.panel.statusArea.quickSettings.addExternalIndicator(this._indicator);
     }
 
     disable() {
-        // 断开 signal
-        if (this._settingsSignalId) {
-            this._settings.disconnect(this._settingsSignalId);
-            this._settingsSignalId = null;
-        }
-        this._settings = null;
-
-        // 把之前隐藏的电源图标恢复可见（如果需要）
-        let powerIndicator = Main.panel.statusArea.quickSettings._power;
-        if (powerIndicator)
-            powerIndicator.visible = true;
-
-        // 销毁 UI
-        if (this._toggle) {
-            this._toggle.destroy();
-            this._toggle = null;
-        }
+        // 在 disable() 时销毁组件
         if (this._indicator) {
+            this._indicator.quickSettingsItems.forEach(item => item.destroy());
             this._indicator.destroy();
             this._indicator = null;
         }
