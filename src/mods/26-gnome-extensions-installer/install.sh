@@ -27,6 +27,7 @@ install_extension() {
             print_ok "$extension_id Installed successfully"
 
             print_info "Compiling schemas for $extension_id..."
+            mkdir -p /root/.local/share/gnome-shell/extensions/"$extension_id"/schemas
             glib-compile-schemas /root/.local/share/gnome-shell/extensions/"$extension_id"/schemas
             judge "Compile schemas for $extension_id"
             return 0
@@ -37,9 +38,10 @@ install_extension() {
     exit 1
 }
 
+# TODO: "sound-output-device-chooser@kgshank.net" is not supported.
+
 extensions=(
     "arcmenu@arcmenu.com"
-    "sound-output-device-chooser@kgshank.net"
     "ProxySwitcher@flannaghan.com"
     "customize-ibus@hollowman.ml"
     "dash-to-panel@jderose9.github.com"
