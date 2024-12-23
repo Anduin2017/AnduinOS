@@ -47,6 +47,7 @@ extensions=(
     "customize-ibus@hollowman.ml"
     "dash-to-panel@jderose9.github.com"
     "network-stats@gnome.noroadsleft.xyz"
+    "rounded-window-corners@fxgn"
     "openweather-extension@penguin-teal.github.io"
     "lockkeys@vaina.lt"
     "tiling-assistant@leleat-on-github"
