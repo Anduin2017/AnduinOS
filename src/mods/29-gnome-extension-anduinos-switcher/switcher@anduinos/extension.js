@@ -8,11 +8,16 @@ import {Extension, gettext as _} from 'resource:///org/gnome/shell/extensions/ex
 
 /** 常量定义 **/
 const DEFAULT_SCHEME_NAME = 'default';
-const LIGHT_SCHEME_NAME = 'prefer-light';
-const DARK_SCHEME_NAME = 'prefer-dark';
-const LIGHT_SCHEME_ICON = 'weather-clear-symbolic';
-const DARK_SCHEME_ICON = 'weather-clear-night-symbolic';
+const LIGHT_SCHEME_NAME   = 'prefer-light';
+const DARK_SCHEME_NAME    = 'prefer-dark';
 
+const LIGHT_SCHEME_ICON   = 'weather-clear-symbolic';
+const DARK_SCHEME_ICON    = 'weather-clear-night-symbolic';
+
+/**
+ * 我们希望不仅仅修改 color-scheme，还要同步修改 gtk-theme, icon-theme 等。
+ * 这里是两组示例设置。可根据你自己的主题名称进行调整。
+ */
 const LIGHT_THEME_SETTINGS = {
     "org.gnome.desktop.interface": {
         "color-scheme": LIGHT_SCHEME_NAME,
@@ -37,7 +42,9 @@ const DARK_THEME_SETTINGS = {
     },
 };
 
-/** 应用主题设置的小工具函数 **/
+/**
+ * 批量设置若干 GSettings key
+ */
 function applySettings(settingsMap) {
     for (let schemaId in settingsMap) {
         let schema = new Gio.Settings({ schema: schemaId });
@@ -49,7 +56,9 @@ function applySettings(settingsMap) {
     }
 }
 
-/** 检查是否有电池 **/
+/**
+ * 判断是否有电池，以便隐藏电源图标
+ */
 function hasBattery() {
     try {
         let dir = Gio.File.new_for_path('/sys/class/power_supply');
@@ -67,18 +76,19 @@ function hasBattery() {
 }
 
 /**
- * 自定义的 LightDarkToggle，继承 QuickSettings.QuickMenuToggle
- * 并监听外部系统主题变化。
+ * 自定义的单一 “明暗模式” 开关，继承自 QuickSettings.QuickMenuToggle
  */
 const LightDarkToggle = GObject.registerClass(
 class LightDarkToggle extends QuickSettings.QuickMenuToggle {
     _init() {
+        // 调用父类构造
         super._init({
             title: _("Theme"),
             iconName: LIGHT_SCHEME_ICON,  // 默认先设为亮
         });
 
-        // 如果没有电池，就隐藏电源按钮（不同版本 GNOME 可能字段略不同）
+        // 如果机器没有电池，则隐藏电源图标
+        // （GNOME 45+ 里常见为 Main.panel.statusArea.quickSettings._system._powerToggle）
         if (!hasBattery()) {
             let systemIndicator = Main.panel.statusArea.quickSettings._system;
             if (systemIndicator?._powerToggle) {
@@ -86,51 +96,38 @@ class LightDarkToggle extends QuickSettings.QuickMenuToggle {
             }
         }
 
-        // 创建对 interface 的 GSettings 引用，用于监听 color-scheme
+        // 准备一个 GSettings，用于监听“color-scheme”外部变动
         this._interfaceSettings = new Gio.Settings({ schema: 'org.gnome.desktop.interface' });
+
         // 同步初始状态
         this._syncFromSystem();
 
-        // 监听 color-scheme 改变，如果从外部切换主题，这里会被触发
+        // 如果用户外部切换了 color-scheme，这里就会触发
         this._settingsSignalId = this._interfaceSettings.connect(
             'changed::color-scheme',
             () => this._syncFromSystem()
         );
 
-        // 当按钮被点击时，手动在扩展内执行切换
+        // 点击开关时，手动在扩展内切换
         this.connect('clicked', () => {
             this._onToggle();
         });
     }
 
     /**
-     * _syncFromSystem()
-     * 从系统设置中读取当前 color-scheme，更新图标和 checked 状态
+     * 当从外部或通过系统设置改了 color-scheme 时调用
+     * 我们在这里**重新应用**整套主题设置（LIGHT_THEME_SETTINGS / DARK_THEME_SETTINGS）
      */
     _syncFromSystem() {
         let scheme = this._interfaceSettings.get_string('color-scheme');
-        if (scheme === DARK_SCHEME_NAME) {
-            this.iconName = DARK_SCHEME_ICON;
-            this.checked = true;
-        } else {
-            // 包含 'default'、'prefer-light' 都视作亮
-            this.iconName = LIGHT_SCHEME_ICON;
-            this.checked = false;
-        }
-    }
 
-    /**
-     * _onToggle()
-     * 当用户点击时（即 toggle 状态变动），执行明暗切换
-     */
-    _onToggle() {
-        if (!this.checked) {
-            // 由亮切到暗
+        if (scheme === DARK_SCHEME_NAME) {
+            // 外部已切到 dark，我们也再度应用我们的 dark 设定
             applySettings(DARK_THEME_SETTINGS);
             this.iconName = DARK_SCHEME_ICON;
             this.checked = true;
         } else {
-            // 由暗切回亮
+            // 其余情况(包含 'default', 'prefer-light') 归为 light
             applySettings(LIGHT_THEME_SETTINGS);
             this.iconName = LIGHT_SCHEME_ICON;
             this.checked = false;
@@ -138,7 +135,24 @@ class LightDarkToggle extends QuickSettings.QuickMenuToggle {
     }
 
     /**
-     * 如果我们要在 disable() 时确保断开信号
+     * 当用户手动点击这个开关时
+     */
+    _onToggle() {
+        if (!this.checked) {
+            // 当前是亮 -> 切到暗
+            applySettings(DARK_THEME_SETTINGS);
+            this.iconName = DARK_SCHEME_ICON;
+            this.checked = true;
+        } else {
+            // 当前是暗 -> 切到亮
+            applySettings(LIGHT_THEME_SETTINGS);
+            this.iconName = LIGHT_SCHEME_ICON;
+            this.checked = false;
+        }
+    }
+
+    /**
+     * 清理：断开 GSettings 信号
      */
     destroy() {
         if (this._settingsSignalId) {
@@ -150,21 +164,25 @@ class LightDarkToggle extends QuickSettings.QuickMenuToggle {
 });
 
 
+/**
+ * 整个扩展入口类
+ */
 export default class LightDarkSwitcherExtension extends Extension {
     enable() {
-        // 建立一个 SystemIndicator（GNOME 45+）
+        // 在 GNOME 45+ 中，我们先创建一个 SystemIndicator
         this._indicator = new QuickSettings.SystemIndicator();
+        // 再创建一个自定义的 Toggle
         this._toggle = new LightDarkToggle();
 
-        // 将 toggle 插入到 indicator 的列表里
+        // 将 toggle 放进 indicator 的按钮列表
         this._indicator.quickSettingsItems.push(this._toggle);
 
-        // 把这个 indicator 注册到 quick settings 面板里
+        // 最后把这个 indicator 挂到系统的 quickSettings 面板里
         Main.panel.statusArea.quickSettings.addExternalIndicator(this._indicator);
     }
 
     disable() {
-        // 在 disable() 时销毁组件
+        // 清理
         if (this._indicator) {
             this._indicator.quickSettingsItems.forEach(item => item.destroy());
             this._indicator.destroy();
