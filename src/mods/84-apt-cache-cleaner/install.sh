@@ -4,4 +4,6 @@ set -u                  # treat unset variable as error
 
 print_ok "Cleaning up apt cache..."
 apt clean -y
+rm -rf /var/cache/apt/archives/*
+rm -rf /var/lib/apt/lists/*
 judge "Clean up apt cache"
