@@ -10,7 +10,6 @@ set -u                  # treat unset variable as error
 print_ok "Loading dconf settings"
 export $(dbus-launch)
 
-# TODO FIXED PENDING CONFIRM: Overview was shown. Not working properly.
 # TODO: Power button was shown, but not working properly
 
 dconf load /org/gnome/ < ./dconf.ini
