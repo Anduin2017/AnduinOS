@@ -69,7 +69,7 @@ export default class LightDarkSwitcherExtension extends Extension {
         // 如果设备无电池，则隐藏电源图标
         // (GNOME 45+ 中通常在 quickSettings._system._powerToggle)
         if (!hasBattery()) {
-            let systemIndicator = Main.panel.statusArea.quickSettings._system;
+            let systemIndicator = Main.panel.statusArea.quickSettings._system._systemitem;
             if (systemIndicator?._powerToggle) {
                 systemIndicator._powerToggle.hide();
             }
