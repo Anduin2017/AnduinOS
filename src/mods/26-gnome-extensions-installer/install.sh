@@ -42,6 +42,7 @@ install_extension() {
 
 extensions=(
     "arcmenu@arcmenu.com"
+    "blur-my-shell@aunetx"
     "ProxySwitcher@flannaghan.com"
     "customize-ibus@hollowman.ml"
     "dash-to-panel@jderose9.github.com"
