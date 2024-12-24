@@ -21,12 +21,15 @@ apt install -y \
     firmware-sof-signed \
     ftp \
     grub-common \
+    grub-efi-amd64 \
     grub-gfxpayload-lists \
     grub-pc \
     grub-pc-bin \
     grub2-common \
     hdparm \
+    hwdata \
     info \
+    init \
     iproute2 \
     iptables \
     iputils-ping \

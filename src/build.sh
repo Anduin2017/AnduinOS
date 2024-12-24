@@ -44,7 +44,7 @@ function clean() {
 function setup_host() {
     print_ok "Setting up host environment..."
     sudo apt update
-    sudo apt install -y binutils debootstrap squashfs-tools xorriso grub-pc-bin grub-efi-amd64-bin grub2-common mtools dosfstools unzip
+    sudo apt install -y binutils debootstrap squashfs-tools xorriso grub-pc-bin grub-efi-amd64 grub2-common mtools dosfstools unzip
     judge "Install required tools"
 
     print_ok "Creating new_building_os directory..."

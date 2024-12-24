@@ -7,7 +7,7 @@ waitNetwork
 
 print_ok "Installing basic packages..."
 apt install -y \
-    ca-certificates gpg apt-transport-https gnupg software-properties-common whiptail
+    ca-certificates gpg apt-transport-https gnupg software-properties-common whiptail squashfs-tools squashfs-tools sysstat thermald
 judge "Install basic packages"
 
 print_ok "Installing gnome basic sessions..."
@@ -93,7 +93,7 @@ judge "Install gnome printer support"
 
 print_ok "Installing ubuntu drivers support..."
 apt install -y \
-    ubuntu-drivers-common alsa-utils
+    ubuntu-drivers-common alsa-utils alsa-base fprintd
 judge "Install ubuntu drivers support"
 
 print_ok "Installing web browser..."
