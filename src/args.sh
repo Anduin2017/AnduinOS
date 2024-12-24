@@ -89,13 +89,13 @@ function waitNetwork() {
 
 export -f print_ok print_error print_warn judge waitNetwork print_info
 
-export TARGET_UBUNTU_VERSION="oracular"
-export BUILD_UBUNTU_MIRROR="http://ftp.sjtu.edu.cn/ubuntu/"
+export TARGET_UBUNTU_VERSION="noble"
+export BUILD_UBUNTU_MIRROR="http://mirror.aiursoft.cn/ubuntu/"
 export TARGET_NAME="anduinos"
 export TARGET_BUSINESS_NAME="AnduinOS"
 export TARGET_BUILD_VERSION="1.1.0"
-export TARGET_KERNEL_PACKAGE="linux-generic-hwe-24.10"
-export FIREFOX_MIRROR=""
+export TARGET_KERNEL_PACKAGE="linux-generic-hwe-24.04"
+export FIREFOX_MIRROR="mirror-ppa.aiursoft.cn"
 export TARGET_PACKAGE_REMOVE="
     ubiquity \
     casper \
