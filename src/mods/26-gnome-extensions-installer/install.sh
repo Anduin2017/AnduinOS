@@ -38,8 +38,6 @@ install_extension() {
     exit 1
 }
 
-# TODO: "sound-output-device-chooser@kgshank.net" is not supported.
-
 extensions=(
     "arcmenu@arcmenu.com"
     "blur-my-shell@aunetx"
