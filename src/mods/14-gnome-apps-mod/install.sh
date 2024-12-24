@@ -23,6 +23,15 @@ apt install -y \
     plymouth-theme-ubuntu-text
 judge "Install plymouth"
 
+print_ok "Installing network manager vpn packages..."
+apt install -y \
+    wireless-tools \
+    openvpn \
+    network-manager-openvpn \
+    network-manager-openvpn-gnome \
+    network-manager-pptp-gnome
+judge "Install network manager vpn packages"
+
 print_ok "Installing gnome basic applications..."
 apt install -y \
     nautilus \
