@@ -94,6 +94,8 @@ export BUILD_UBUNTU_MIRROR="http://mirror.aiursoft.cn/ubuntu/"
 export TARGET_NAME="anduinos"
 export TARGET_BUSINESS_NAME="AnduinOS"
 export TARGET_BUILD_VERSION="1.1.0"
+export TARGET_KERNEL_PACKAGE="linux-generic-hwe-24.04"
+export FIREFOX_MIRROR="mirror-ppa.aiursoft.cn"
 export TARGET_PACKAGE_REMOVE="
     ubiquity \
     casper \

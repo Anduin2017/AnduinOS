@@ -6,7 +6,11 @@ print_ok "Adding Mozilla Firefox PPA"
 waitNetwork
 apt install -y software-properties-common
 add-apt-repository -y ppa:mozillateam/ppa
-sed -i 's/ppa.launchpadcontent.net/mirror-ppa.aiursoft.cn/g' /etc/apt/sources.list.d/mozillateam-ubuntu-ppa-$(lsb_release -sc).sources
+if [ -n "$FIREFOX_MIRROR" ]; then
+  print_ok "Replace ppa.launchpadcontent.net with $FIREFOX_MIRROR to get faster download speed"
+  sed -i "s/ppa.launchpadcontent.net/$FIREFOX_MIRROR/g" \
+    /etc/apt/sources.list.d/mozillateam-ubuntu-ppa-$(lsb_release -sc).sources
+fi
 cat << EOF > /etc/apt/preferences.d/mozilla-firefox
 Package: *
 Pin: release o=LP-PPA-mozillateam
