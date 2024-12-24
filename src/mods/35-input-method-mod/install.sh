@@ -6,7 +6,7 @@ if [ "$LANG_MODE" == "en_US" ]; then
     print_ok "United State users do not need to install input method."
 elif [ "$LANG_MODE" == "zh_CN" ]; then
     print_ok "Installing ibus-rime..."
-    apt install ibus-rime -y
+    apt install ibus ibus-rime -y
     judge "Install ibus-rime"
 
     print_ok "Setting up ibus..."
@@ -22,27 +22,27 @@ elif [ "$LANG_MODE" == "zh_CN" ]; then
     judge "Install Rime schema"
 elif [ "$LANG_MODE" == "zh_TW" ]; then
     print_ok "Installing ibus-chewing..."
-    apt install ibus-chewing -y
+    apt install ibus ibus-chewing -y
     judge "Install ibus-chewing"
 elif [ "$LANG_MODE" == "zh_HK" ]; then
     print_ok "Installing ibus-cangjie..."
-    apt install ibus-table-cangjie -y
+    apt install ibus ibus-table-cangjie -y
     judge "Install ibus-cangjie"
 elif [ "$LANG_MODE" == "ja_JP" ]; then
     print_ok "Installing ibus-mozc..."
-    apt install ibus-mozc -y
+    apt install ibus ibus-mozc -y
     judge "Install ibus-mozc"
 elif [ "$LANG_MODE" == "ko_KR" ]; then
     print_ok "Installing ibus-hangul..."
-    apt install ibus-hangul -y
+    apt install ibus ibus-hangul -y
     judge "Install ibus-hangul"
 elif [ "$LANG_MODE" == "vi_VN" ]; then
     print_ok "Installing ibus-unikey..."
-    apt install ibus-unikey -y
+    apt install ibus ibus-unikey -y
     judge "Install ibus-unikey"
 elif [ "$LANG_MODE" == "th_TH" ]; then
     print_ok "Installing ibus-libthai..."
-    apt install ibus-libthai -y
+    apt install ibus ibus-libthai -y
     judge "Install ibus-libthai"
 elif [ "$LANG_MODE" == "de_DE" ]; then
     print_ok "German users do not need to install input method."

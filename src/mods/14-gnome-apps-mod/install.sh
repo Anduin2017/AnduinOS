@@ -96,11 +96,6 @@ apt install -y \
     ubuntu-drivers-common alsa-utils
 judge "Install ubuntu drivers support"
 
-print_ok "Installing input method..."
-apt install -y \
-    ibus
-judge "Install input method"
-
 print_ok "Installing web browser..."
 apt install -y \
     firefox
