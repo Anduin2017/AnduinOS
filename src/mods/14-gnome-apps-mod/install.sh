@@ -39,6 +39,7 @@ apt install -y \
     cheese \
     baobab \
     file-roller \
+    ibus \
     gnome-sushi \
     qalculate-gtk \
     yelp \
