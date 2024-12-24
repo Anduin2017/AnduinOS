@@ -22,9 +22,6 @@ apt install -y \
     ftp \
     grub-common \
     grub-efi-amd64 \
-    grub-gfxpayload-lists \
-    grub-pc \
-    grub-pc-bin \
     grub2-common \
     hdparm \
     hwdata \
