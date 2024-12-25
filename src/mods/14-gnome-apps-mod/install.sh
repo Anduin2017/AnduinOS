@@ -88,10 +88,20 @@ apt install -y \
     shotwell \
     remmina remmina-plugin-rdp \
     rhythmbox rhythmbox-plugins \
-    totem totem-plugins gstreamer1.0-libav \
+    totem totem-plugins \
     transmission-gtk transmission-common \
     ffmpegthumbnailer
 judge "Install gnome additional applications"
+
+print_ok "Installing gnome multimedia support..."
+apt install -y \
+    gstreamer1.0-libav \
+    gstreamer1.0-alsa \
+    gstreamer1.0-vaapi \
+    gstreamer1.0-tools \
+    gstreamer1.0-packagekit \
+    gstreamer1.0-plugins-base-apps \
+judge "Install gstreamer"
 
 print_ok "Installing gnome console..."
 apt install -y \

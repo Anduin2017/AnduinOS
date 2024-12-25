@@ -13,7 +13,9 @@ apt install -y \
     command-not-found \
     coreutils \
     cpio \
+    crash \
     cron \
+    debconf-i18n \
     dmidecode \
     dosfstools \
     ed \
