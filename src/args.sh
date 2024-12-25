@@ -99,10 +99,10 @@ export TARGET_NAME="anduinos"
 export TARGET_BUSINESS_NAME="AnduinOS"
 # Version number
 export TARGET_BUILD_VERSION="1.2.0"
-# linux-generic for latest
 # linux-generic-hwe-22.04 for jammy
 # linux-generic-hwe-24.04 for noble
-export TARGET_KERNEL_PACKAGE="linux-generic"
+# linux-generic-hwe-24.04 for oracular
+export TARGET_KERNEL_PACKAGE="linux-generic-hwe-24.04"
 # Set to mirror-ppa.aiursoft.cn to use that as mirror. Set to empty to disable
 export FIREFOX_MIRROR=""
 # Packages will be uninstalled during the installation process
