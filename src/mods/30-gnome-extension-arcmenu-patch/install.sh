@@ -9,7 +9,6 @@ mv ./logo.svg /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/icons/anduin
 judge "Patch Arc Menu logo"
 
 print_ok "Patch Arc Menu text..."
-# TODO: The text was not localized
 sed -i 's/Unpin from ArcMenu/Unpin from Start menu/g' /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/appMenu.js
 sed -i 's/Pin to ArcMenu/Pin to Start menu/g' /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/appMenu.js
 judge "Patch Arc Menu text"
