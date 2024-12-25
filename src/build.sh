@@ -13,7 +13,7 @@ function check_host() {
     local os_ver
     os_ver=`lsb_release -i | grep -E "(Ubuntu|Debian|AnduinOS)"`
     if [[ -z "$os_ver" ]]; then
-        print_warn "This script is only supported on Ubuntu/Debian"
+        print_warn "This script is only supported on Ubuntu, Debian or AnduinOS."
         areYouSure
     fi
 
