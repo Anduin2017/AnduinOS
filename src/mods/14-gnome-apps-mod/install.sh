@@ -24,8 +24,15 @@ apt install -y \
 judge "Install plymouth"
 
 print_ok "Installing network manager vpn packages..."
+case $TARGET_UBUNTU_VERSION in
+    "focal" | "bionic" | "noble")
+        apt-get install -y wireless-tools
+        ;;
+    *)
+        print_warn "Package wireless-tools is not available for $TARGET_UBUNTU_VERSION"
+        ;;
+esac
 apt install -y \
-    wireless-tools \
     openvpn \
     network-manager-openvpn \
     network-manager-openvpn-gnome \
