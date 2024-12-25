@@ -31,11 +31,11 @@
 * After installation, ensure the start menu apps' names are localized.
 * Open terminal and type `ubuntu-` with `Tab`. Ensure it can auto complete to `ubuntu-drivers`.
 * Ensure the printer tab in settings can show the printer.
-* Ensure the Chinese input can be switched by `Windows + Space` in gedit.
+* Ensure the Chinese input can be switched by `Windows + Space` in org.gnome.TextEditor.desktop.
 * Ensure Chinese users won't see ibus-libpinyin.
-* Ensure the candidate words are shown correctly when typing in gedit.
-* Ensure the text `遍角次亮采之门` in gedit is shown correctly.
-* Ensure the text `http://` in gedit is shown correctly.
+* Ensure the candidate words are shown correctly when typing in org.gnome.TextEditor.desktop.
+* Ensure the text `遍角次亮采之门` in org.gnome.TextEditor.desktop is shown correctly.
+* Ensure the text `http://` in org.gnome.TextEditor.desktop is shown correctly.
 * Try installing Motrix and see if it can be shown successfully on the tray.
 * Ensure the corners of the Motrix window is rounded.
 * Try installing VSCode and ensure it can be opened successfully, and the corners of the window is rounded.

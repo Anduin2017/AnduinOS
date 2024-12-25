@@ -134,8 +134,8 @@ xdg-mime default org.gnome.FileRoller.desktop application/x-7z-compressed
 xdg-mime default org.gnome.FileRoller.desktop application/x-rar
 xdg-mime default org.gnome.FileRoller.desktop application/x-tar
 xdg-mime default org.gnome.FileRoller.desktop application/gzip
-# txt with gedit
-xdg-mime default org.gnome.gedit.desktop text/plain
+# txt with gnome-text-editor
+xdg-mime default org.gnome.TextEditor.desktop text/plain
 # torrent with transmission-gtk
 xdg-mime default transmission-gtk.desktop application/x-bittorrent
 xdg-mime default transmission-gtk.desktop application/x-utorrent

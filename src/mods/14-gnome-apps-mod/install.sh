@@ -81,7 +81,7 @@ apt install -y \
     gnome-clocks \
     gnome-weather \
     gnome-nettool \
-    gedit \
+    gnome-text-editor \
     seahorse \
     gdebi \
     evince \
