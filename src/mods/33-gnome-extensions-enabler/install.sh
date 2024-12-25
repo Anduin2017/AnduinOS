@@ -11,6 +11,7 @@ print_ok "Enabling gnome extensions for root..."
 /root/.local/bin/gext -F enable network-stats@gnome.noroadsleft.xyz
 /root/.local/bin/gext -F enable openweather-extension@penguin-teal.github.io
 /root/.local/bin/gext -F enable switcher@anduinos
+/root/.local/bin/gext -F enable noti-bottom-right@anduinos
 /root/.local/bin/gext -F enable lockkeys@vaina.lt
 /root/.local/bin/gext -F enable tiling-assistant@leleat-on-github
 judge "Enable gnome extensions"
