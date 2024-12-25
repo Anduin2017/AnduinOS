@@ -17,6 +17,7 @@ apt install -y \
     dmidecode \
     dosfstools \
     ed \
+    fdisk \
     file \
     firmware-sof-signed \
     ftp \
@@ -45,6 +46,7 @@ apt install -y \
     net-tools \
     network-manager \
     nftables \
+    numactl \
     openssh-client \
     parted \
     pciutils \
