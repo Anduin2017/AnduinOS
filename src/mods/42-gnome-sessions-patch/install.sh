@@ -32,6 +32,5 @@ print_ok "Setting up apparmor to allow user namespaces..."
 # untrusted apps at all, and not give your password to them. Other distributions like Mint and Solus are reverting this change
 # in apparmor. Other distributions like Debian, Fedora, or Arch don't have this restriction at all. Also, Ubuntu 22.04 and prior
 # versions did not have this apparmor policy, and your system would be no more insecure than Ubuntu 22.04.
-echo 'kernel.apparmor_restrict_unprivileged_userns = 0' | 
-  sudo tee /etc/sysctl.d/20-apparmor-donotrestrict.conf
+echo 'kernel.apparmor_restrict_unprivileged_userns = 0' | tee /etc/sysctl.d/20-apparmor-donotrestrict.conf
 judge "Set up apparmor"
