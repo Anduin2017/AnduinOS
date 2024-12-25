@@ -25,7 +25,7 @@ judge "Install plymouth"
 
 print_ok "Installing network manager vpn packages..."
 case $TARGET_UBUNTU_VERSION in
-    "focal" | "bionic" | "noble")
+    "jammy" | "noble")
         apt-get install -y wireless-tools
         ;;
     *)
