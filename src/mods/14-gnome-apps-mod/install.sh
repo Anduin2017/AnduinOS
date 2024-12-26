@@ -15,12 +15,13 @@ apt install -y \
     squashfs-tools \
     sysstat \
     cloud-init \
-    thermald
+    thermald \
+    gvfs-fuse
 judge "Install basic packages"
 
 print_ok "Installing gnome basic sessions..."
 apt install -y \
-    gnome-shell ubuntu-session yaru-theme-sound yaru-theme-gnome-shell gir1.2-gmenu-3.0 gnome-menus gnome-shell-extensions gvfs-fuse
+    gnome-shell ubuntu-session yaru-theme-sound yaru-theme-gnome-shell gir1.2-gmenu-3.0 gnome-menus gnome-shell-extensions
 judge "Install gnome basic sessions"
 
 print_ok "Installing plymouth..."
