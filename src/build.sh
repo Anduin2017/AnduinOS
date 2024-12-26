@@ -17,11 +17,6 @@ function check_host() {
         areYouSure
     fi
 
-    if ! grep -q "DISTRIB_ID=AnduinOS" /etc/lsb-release; then
-        print_error "This script can only be run on AnduinOS."
-        exit 1
-    fi
-
     if [ $(id -u) -eq 0 ]; then
         print_error "This script should not be run as 'root'"
         exit 1

@@ -92,7 +92,7 @@ export -f print_ok print_error print_warn judge waitNetwork print_info
 # Can be: jammy noble oracular
 export TARGET_UBUNTU_VERSION="oracular"
 # See https://docs.anduinos.com/Install/Select-Best-Apt-Source.html
-export BUILD_UBUNTU_MIRROR="http://ftp.sjtu.edu.cn/ubuntu/"
+export BUILD_UBUNTU_MIRROR="http://mirror.aiursoft.cn/ubuntu/"
 # Must be lowercase without special characters and spaces
 export TARGET_NAME="anduinos"
 # Business name
