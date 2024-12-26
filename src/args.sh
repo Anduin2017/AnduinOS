@@ -104,7 +104,7 @@ export TARGET_BUILD_VERSION="1.2.0"
 # linux-generic-hwe-24.04 for oracular
 export TARGET_KERNEL_PACKAGE="linux-generic-hwe-24.04"
 # Set to mirror-ppa.aiursoft.cn to use that as mirror. Set to empty to disable
-export FIREFOX_MIRROR=""
+export FIREFOX_MIRROR="mirror-ppa.aiursoft.cn"
 # Packages will be uninstalled during the installation process
 export TARGET_PACKAGE_REMOVE="
     ubiquity \
