@@ -48,6 +48,7 @@ extensions=(
     "openweather-extension@penguin-teal.github.io"
     "lockkeys@vaina.lt"
     "tiling-assistant@leleat-on-github"
+    "mediacontrols@cliffniff.github.com"
 )
 
 for extension in "${extensions[@]}"; do
