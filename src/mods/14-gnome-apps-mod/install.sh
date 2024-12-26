@@ -7,7 +7,15 @@ waitNetwork
 
 print_ok "Installing basic packages..."
 apt install -y \
-    ca-certificates gpg apt-transport-https gnupg software-properties-common whiptail squashfs-tools squashfs-tools sysstat thermald
+    ca-certificates \
+    gpg \
+    apt-transport-https \
+    gnupg software-properties-common \
+    whiptail \
+    squashfs-tools \
+    sysstat \
+    cloud-init \
+    thermald
 judge "Install basic packages"
 
 print_ok "Installing gnome basic sessions..."
