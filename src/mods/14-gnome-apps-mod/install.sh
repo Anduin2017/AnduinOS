@@ -7,16 +7,38 @@ waitNetwork
 
 print_ok "Installing basic packages..."
 apt install -y \
-    ca-certificates \
-    gpg \
     apt-transport-https \
-    gnupg software-properties-common \
-    whiptail \
+    ca-certificates \
+    cifs-utils \
+    cloud-init \
+    coreutils \
+    curl \
+    dnsutils \
+    git \
+    gnupg \
+    gpg \
+    gvfs-fuse \
+    htop \
+    httping \
+    libsass1 \
+    lsb-release \
+    nano \
+    net-tools \
+    ntp \
+    ntpdate \
+    ntpstat \
+    sassc \
+    smartmontools \
+    software-properties-common \
     squashfs-tools \
     sysstat \
-    cloud-init \
     thermald \
-    gvfs-fuse
+    traceroute \
+    unzip \
+    vim \
+    wget \
+    whiptail \
+    zip
 judge "Install basic packages"
 
 print_ok "Installing gnome basic sessions..."
@@ -141,19 +163,6 @@ print_ok "Installing python3..."
 apt install -y \
     python3 python3-pip python-is-python3 pipx
 judge "Install python3"
-
-print_ok "Installing other libraries..."
-apt install -y \
-    git lsb-release coreutils \
-    vim nano \
-    wget curl \
-    httping net-tools traceroute dnsutils \
-    smartmontools htop \
-    ntp ntpdate ntpstat \
-    zip unzip \
-    cifs-utils \
-    libsass1 sassc
-judge "Install other libraries"
 
 print_ok "Remove the default htop.desktop file"
 rm /usr/share/applications/htop.desktop
