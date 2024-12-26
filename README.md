@@ -17,7 +17,11 @@ AnduinOS is built on the Ubuntu Noble package base.
 
 ## How to build
 
-To build this OS, you MUST install AnduinOS first. And run the following command:
+You MUST install AnduinOS first.
+
+To edit the build parameters, modify the `./src/args.sh` file.
+
+To build the OS, run the following command:
 
 ```bash
 cd ./src
