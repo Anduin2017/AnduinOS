@@ -16,7 +16,6 @@ apt purge -y \
     gnome-contacts \
     gnome-terminal \
     zutty \
-    gnome-text-editor \
     update-manager-core \
     gnome-shell-extension-ubuntu-dock \
     libreoffice-* \
