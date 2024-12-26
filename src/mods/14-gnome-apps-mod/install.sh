@@ -74,7 +74,6 @@ print_ok "Installing gnome basic applications..."
 apt install -y \
     nautilus \
     usb-creator-gtk \
-    cheese \
     baobab \
     file-roller \
     ibus \
@@ -91,6 +90,7 @@ apt install -y \
     gnome-characters \
     gnome-bluetooth \
     gnome-power-manager \
+    gnome-snapshot \
     gnome-maps \
     gnome-font-viewer 
 judge "Install gnome basic applications"
