@@ -131,7 +131,7 @@ apt install -y \
     gstreamer1.0-vaapi \
     gstreamer1.0-tools \
     gstreamer1.0-packagekit \
-    gstreamer1.0-plugins-base-apps
+    gstreamer1.0-plugins-base-apps --no-install-recommends
 judge "Install gstreamer"
 
 print_ok "Installing gnome console..."
