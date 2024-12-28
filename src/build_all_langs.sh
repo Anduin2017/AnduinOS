@@ -10,7 +10,7 @@ LANG_PACK_CODES=("en"    "zh"     "zh"   "zh"    "ja"    "ko"    "vi"    "th"   
 # Define versions, code names, and kernels
 VERSIONS=(  "1.1.0"                    "1.2.0")
 CODE_NAME=( "noble"                    "oracular")
-KERNELS=(   "linux-generic-hwe-24.04"  "linux-generic-hwe-24.10")
+KERNELS=(   "linux-generic-hwe-24.04"  "linux-generic-hwe-24.04")
 
 # Check if required files exist
 if [[ ! -f "args.sh" || ! -f "build.sh" ]]; then
