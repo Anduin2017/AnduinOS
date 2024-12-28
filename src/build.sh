@@ -6,6 +6,7 @@
 set -e                  # exit on error
 set -o pipefail         # exit on pipeline error
 set -u                  # treat unset variable as error
+source ./shared.sh
 source ./args.sh
 
 function check_host() {
@@ -72,7 +73,8 @@ function mount_folers() {
 
     print_ok "Copying mods to new_building_os/root..."
     sudo cp -r $SCRIPT_DIR/mods new_building_os/root/mods
-    sudo cp ./args.sh new_building_os/root/mods/args.sh
+    sudo cp ./args.sh   new_building_os/root/mods/args.sh
+    sudo cp ./shared.sh new_building_os/root/mods/shared.sh
 }
 
 function run_chroot() {
