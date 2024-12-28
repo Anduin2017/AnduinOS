@@ -2,7 +2,7 @@ set -e                  # exit on error
 set -o pipefail         # exit on pipeline error
 set -u                  # treat unset variable as error
 
-print_info "Installing live-boot..."
+print_ok "Installing live-boot..."
 waitNetwork
 apt install -y \
     casper \
