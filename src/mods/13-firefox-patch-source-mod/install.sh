@@ -5,12 +5,20 @@ set -u                  # treat unset variable as error
 print_ok "Adding Mozilla Firefox PPA"
 waitNetwork
 apt install -y software-properties-common
-add-apt-repository -y ppa:mozillateam/ppa -n
-echo "deb https://mirror-ppa.aiursoft.cn/mozillateam/ppa/ubuntu/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/mozillateam-ubuntu-ppa-$(lsb_release -sc).list
+add-apt-repository -y ppa:mozillateam/ppa
+if [ -n "$FIREFOX_MIRROR" ]; then
+  print_ok "Replace ppa.launchpadcontent.net with $FIREFOX_MIRROR to get faster download speed"
+  sed -i "s/ppa.launchpadcontent.net/$FIREFOX_MIRROR/g" \
+    /etc/apt/sources.list.d/mozillateam-ubuntu-ppa-$(lsb_release -sc).sources
+fi
 cat << EOF > /etc/apt/preferences.d/mozilla-firefox
 Package: *
 Pin: release o=LP-PPA-mozillateam
-Pin-Priority: 1002
+Pin-Priority: 1001
+
+Package: firefox
+Pin: version 1:1snap*
+Pin-Priority: -1
 EOF
 chown root:root /etc/apt/preferences.d/mozilla-firefox
 judge "Add Mozilla Firefox PPA"

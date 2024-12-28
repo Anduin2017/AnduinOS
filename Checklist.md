@@ -16,13 +16,14 @@
 * Ensure Super + Shift + S will take a screenshot.
 * Ensure if the device has a battery, battery is shown on the task bar. Otherwise, it's hidden.
 * Ensure sound theme, icon theme, shell theme are all set.
+* Press `Alt + F2`, then type `r` and press `Enter`. Ensure the shell can be restarted successfully.
 * Ensure there will be a `DO` sound (Yaru) when typing tab on terminal.
 * Ensure when running `sudo apt update`, it's connecting to localized apt source.
 * Ensure `lsb_release` with arg `-i -d -r -c -a` will show the correct information.
 * Ensure folders are sorted before files in nautilus.
 * Ensure the `help` in nautilus is working and localized.
 * Ensure `/opt` folder is empty.
-* Ensure double click a photo file is opened with shotwell.
+* Ensure double click a photo file is opened with shotwell; double click a video file is opened with totem; double click a music file is opened with rhythmbox.
 * Download a png file and a mp4 file. Ensure the photo and video files have previews on nautilus.
 * Ensure double clicking a .deb file will open gdebi.
 * Try start instllation (Ubiquty) and ensure all language texts are shown correctly. (Without square boxes)
@@ -30,13 +31,14 @@
 * After installation, ensure the start menu apps' names are localized.
 * Open terminal and type `ubuntu-` with `Tab`. Ensure it can auto complete to `ubuntu-drivers`.
 * Ensure the printer tab in settings can show the printer.
-* Ensure the Chinese input can be switched by `Windows + Space` in gedit.
+* Ensure the Chinese input can be switched by `Windows + Space` in org.gnome.TextEditor.desktop.
 * Ensure Chinese users won't see ibus-libpinyin.
-* Ensure the candidate words are shown correctly when typing in gedit.
-* Ensure the text `遍角次亮采之门` in gedit is shown correctly.
-* Ensure the text `http://` in gedit is shown correctly.
+* Ensure the candidate words are shown correctly when typing in org.gnome.TextEditor.desktop.
+* Ensure the text `遍角次亮采之门` in org.gnome.TextEditor.desktop is shown correctly.
+* Ensure the text `http://` in org.gnome.TextEditor.desktop is shown correctly.
 * Try installing Motrix and see if it can be shown successfully on the tray.
-* Ensure the conor of the Motrix window is rounded.
+* Ensure the corners of the Motrix window is rounded.
+* Try installing VSCode and ensure it can be opened successfully, and the corners of the window is rounded.
 * Download a H264 video and try to play with `totem` and ensure it can play.
 * Try switching from dark and light theme in the bottom drop down menu. And the text should be localized. Both GTK and QT apps should be switched.
 * Try pressing `Ctrl + Alt + F6` and ensure it can switch to tty6. Message is `AnduinOS`.

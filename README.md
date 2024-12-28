@@ -9,11 +9,28 @@
 
 AnduinOS is a custom Debian-based Linux distribution that aims to facilitate developers transitioning from Windows to Ubuntu by maintaining familiar operational habits and workflows.
 
-AnduinOS is built on the Ubuntu Jammy package base.
+AnduinOS is built on the Ubuntu Noble package base.
 
 [Download AnduinOS](https://www.anduinos.com/)
 
 ![Screenshot](./screenshot.png)
+
+## How to build
+
+You MUST install AnduinOS first.
+
+To edit the build parameters, modify the `./src/args.sh` file.
+
+To build the OS, run the following command:
+
+```bash
+cd ./src
+./build.sh
+```
+
+That's it. The built file will be an ISO file in the `./src/dist` directory.
+
+Simply mount the built ISO file to an virtual machine, and you can install it.
 
 ## Document
 
@@ -32,9 +49,3 @@ The open-source software included in AnduinOS is distributed in the hope that it
 For community support and discussion, please join our [AnduinOS Discussions](https://github.com/Anduin2017/AnduinOS/discussions).
 
 For bug reports and feature requests, please use the [Issues](https://github.com/Anduin2017/AnduinOS/issues) page.
-
-<!-- TODO
-www.anduinos.com       # Homepage
-docs.anduinos.com      # MkDocs
-downloads.anduinos.com # ISO Download
- -->

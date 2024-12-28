@@ -89,11 +89,31 @@ function waitNetwork() {
 
 export -f print_ok print_error print_warn judge waitNetwork print_info
 
-export TARGET_UBUNTU_VERSION="jammy"
+# Can be: jammy noble oracular
+export TARGET_UBUNTU_VERSION="oracular"
+
+# See https://docs.anduinos.com/Install/Select-Best-Apt-Source.html
 export BUILD_UBUNTU_MIRROR="http://mirror.aiursoft.cn/ubuntu/"
+
+# Must be lowercase without special characters and spaces
 export TARGET_NAME="anduinos"
+
+# Business name. No special characters or spaces
 export TARGET_BUSINESS_NAME="AnduinOS"
-export TARGET_BUILD_VERSION="1.0.5"
+
+# Version number. Must be in the format of x.y.z
+export TARGET_BUILD_VERSION="1.2.0"
+
+# The kernel package to install. Can be:
+# linux-generic-hwe-22.04 for jammy
+# linux-generic-hwe-24.04 for noble
+# linux-generic-hwe-24.04 for oracular
+export TARGET_KERNEL_PACKAGE="linux-generic-hwe-24.04"
+
+# Set to mirror-ppa.aiursoft.cn to use that as mirror. Set to empty to disable
+export FIREFOX_MIRROR="mirror-ppa.aiursoft.cn"
+
+# Packages will be uninstalled during the installation process
 export TARGET_PACKAGE_REMOVE="
     ubiquity \
     casper \

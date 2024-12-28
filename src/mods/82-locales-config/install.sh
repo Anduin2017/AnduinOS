@@ -2,10 +2,9 @@ set -e                  # exit on error
 set -o pipefail         # exit on pipeline error
 set -u                  # treat unset variable as error
 
-print_ok "Configuring locales and resolvconf..."
+print_ok "Configuring locales..."
 dpkg-reconfigure locales
-dpkg-reconfigure resolvconf
-judge "Configure locales and resolvconf"
+judge "Configure locales"
 
 print_ok "Configuring locales to $LANG..."
 

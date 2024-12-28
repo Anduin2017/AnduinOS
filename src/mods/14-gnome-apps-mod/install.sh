@@ -7,7 +7,38 @@ waitNetwork
 
 print_ok "Installing basic packages..."
 apt install -y \
-    ca-certificates gpg apt-transport-https gnupg software-properties-common
+    apt-transport-https \
+    ca-certificates \
+    cifs-utils \
+    cloud-init \
+    coreutils \
+    curl \
+    dnsutils \
+    git \
+    gnupg \
+    gpg \
+    gvfs-fuse \
+    htop \
+    httping \
+    libsass1 \
+    lsb-release \
+    nano \
+    net-tools \
+    ntp \
+    ntpdate \
+    ntpstat \
+    sassc \
+    smartmontools \
+    software-properties-common \
+    squashfs-tools \
+    sysstat \
+    thermald \
+    traceroute \
+    unzip \
+    vim \
+    wget \
+    whiptail \
+    zip
 judge "Install basic packages"
 
 print_ok "Installing gnome basic sessions..."
@@ -17,16 +48,35 @@ judge "Install gnome basic sessions"
 
 print_ok "Installing plymouth..."
 apt install -y \
-    plymouth plymouth-label plymouth-theme-spinner plymouth-theme-ubuntu-text plymouth-theme-ubuntu-logo
+    plymouth \
+    plymouth-label \
+    plymouth-theme-spinner \
+    plymouth-theme-ubuntu-text
 judge "Install plymouth"
+
+print_ok "Installing network manager vpn packages..."
+case $TARGET_UBUNTU_VERSION in
+    "jammy" | "noble")
+        apt-get install -y wireless-tools
+        ;;
+    *)
+        print_warn "Package wireless-tools is not available for $TARGET_UBUNTU_VERSION"
+        ;;
+esac
+apt install -y \
+    openvpn \
+    network-manager-openvpn \
+    network-manager-openvpn-gnome \
+    network-manager-pptp-gnome
+judge "Install network manager vpn packages"
 
 print_ok "Installing gnome basic applications..."
 apt install -y \
     nautilus \
     usb-creator-gtk \
-    cheese \
     baobab \
     file-roller \
+    ibus \
     gnome-sushi \
     qalculate-gtk \
     yelp \
@@ -40,6 +90,7 @@ apt install -y \
     gnome-characters \
     gnome-bluetooth \
     gnome-power-manager \
+    gnome-snapshot \
     gnome-maps \
     gnome-font-viewer 
 judge "Install gnome basic applications"
@@ -61,21 +112,31 @@ apt install -y \
     gnome-clocks \
     gnome-weather \
     gnome-nettool \
-    gedit \
+    gnome-text-editor \
     seahorse \
     gdebi \
     evince \
     shotwell \
     remmina remmina-plugin-rdp \
     rhythmbox rhythmbox-plugins \
-    totem totem-plugins gstreamer1.0-libav \
+    totem totem-plugins \
     transmission-gtk transmission-common \
     ffmpegthumbnailer
 judge "Install gnome additional applications"
 
+print_ok "Installing gnome multimedia support..."
+apt install -y \
+    gstreamer1.0-libav \
+    gstreamer1.0-alsa \
+    gstreamer1.0-vaapi \
+    gstreamer1.0-tools \
+    gstreamer1.0-packagekit \
+    gstreamer1.0-plugins-base-apps --no-install-recommends
+judge "Install gstreamer"
+
 print_ok "Installing gnome console..."
 apt install -y \
-    gnome-console nautilus-extension-gnome-console
+    gnome-console #nautilus-extension-gnome-console
 judge "Install gnome console"
 
 print_ok "Installing gnome fonts..."
@@ -90,13 +151,8 @@ judge "Install gnome printer support"
 
 print_ok "Installing ubuntu drivers support..."
 apt install -y \
-    ubuntu-drivers-common alsa-utils
+    ubuntu-drivers-common alsa-utils alsa-base fprintd
 judge "Install ubuntu drivers support"
-
-print_ok "Installing input method..."
-apt install -y \
-    ibus
-judge "Install input method"
 
 print_ok "Installing web browser..."
 apt install -y \
@@ -105,21 +161,8 @@ judge "Install web browser"
 
 print_ok "Installing python3..."
 apt install -y \
-    python3 python3-pip python-is-python3
+    python3 python3-pip python-is-python3 pipx
 judge "Install python3"
-
-print_ok "Installing other libraries..."
-apt install -y \
-    git lsb-release coreutils \
-    vim nano \
-    wget curl \
-    httping net-tools traceroute dnsutils \
-    smartmontools htop \
-    ntp ntpdate ntpstat \
-    zip unzip \
-    cifs-utils \
-    libsass1 sassc
-judge "Install other libraries"
 
 print_ok "Remove the default htop.desktop file"
 rm /usr/share/applications/htop.desktop

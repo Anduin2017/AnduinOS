@@ -1,17 +1,11 @@
-const Main = imports.ui.main;
-const Gio = imports.gi.Gio;
-const GLib = imports.gi.GLib;
-const PopupMenu = imports.ui.popupMenu;
-const ExtensionUtils = imports.misc.extensionUtils;
-const Me = ExtensionUtils.getCurrentExtension();
-const Gettext = imports.gettext.domain(Me.metadata.uuid);
+'use strict';
 
-const _ = Gettext.gettext;
-const DEFAULT_SCHEME_NAME = "default";
-const LIGHT_SCHEME_NAME = "prefer-light";
-const DARK_SCHEME_NAME = "prefer-dark";
-const LIGHT_SCHEME_ICON = "weather-clear-symbolic";
-const DARK_SCHEME_ICON = "weather-clear-night-symbolic";
+import Gio from 'gi://Gio';
+import * as Main from 'resource:///org/gnome/shell/ui/main.js';
+import {Extension} from 'resource:///org/gnome/shell/extensions/extension.js';
+
+const LIGHT_SCHEME_NAME   = 'prefer-light';
+const DARK_SCHEME_NAME    = 'prefer-dark';
 
 const LIGHT_THEME_SETTINGS = {
     "org.gnome.desktop.interface": {
@@ -37,104 +31,65 @@ const DARK_THEME_SETTINGS = {
     },
 };
 
-let switcherMenu;
-let settings;
-
-function applySettings(settings) {
-    for (let schemaId in settings) {
+function applySettings(settingsMap) {
+    for (let schemaId in settingsMap) {
         let schema = new Gio.Settings({ schema: schemaId });
-        let keyValues = settings[schemaId];
+        let keyValues = settingsMap[schemaId];
         for (let key in keyValues) {
             schema.set_string(key, keyValues[key]);
-            log(`Setting ${schemaId} ${key} to ${keyValues[key]}`);
+            log(`LightDarkSwitcher: Setting ${schemaId}::${key} to ${keyValues[key]}`);
         }
     }
 }
 
-class ThemeMenuToggle {
-    constructor() {
-        this._init();
-    }
-
-    // Function to check if the device has a battery
-    hasBattery() {
-        try {
-            let dir = Gio.File.new_for_path('/sys/class/power_supply');
-            let enumerator = dir.enumerate_children('standard::name', Gio.FileQueryInfoFlags.NONE, null);
-            let info;
-            while ((info = enumerator.next_file(null)) !== null) {
-                if (info.get_name().startsWith('BAT')) {
-                    return true;
-                }
+function hasBattery() {
+    try {
+        let dir = Gio.File.new_for_path('/sys/class/power_supply');
+        let enumerator = dir.enumerate_children('standard::name', Gio.FileQueryInfoFlags.NONE, null);
+        let info;
+        while ((info = enumerator.next_file(null)) !== null) {
+            if (info.get_name().startsWith('BAT')) {
+                return true;
             }
-        } catch (e) {
-            logError(e);
         }
-        return false;
+    } catch (e) {
+        logError(e);
     }
-    
-    _init() {
-        // Hide the power button if the device does not have a battery
-        let hasBattery = this.hasBattery();
-        if (!hasBattery) {
-            let powerButton = Main.panel.statusArea['aggregateMenu']._power.indicators;
-            if (powerButton) {
-                powerButton.hide();
+    return false;
+}
+
+export default class LightDarkSwitcherExtension extends Extension {
+    enable() {
+        if (!hasBattery()) {
+            let systemIndicator = Main.panel.statusArea.quickSettings._system;
+            if (systemIndicator) {
+                systemIndicator.hide();
             }
         }
 
-        this.menu = new PopupMenu.PopupSubMenuMenuItem(_("Theme"), true);
-        this.menu.icon.icon_name = LIGHT_SCHEME_ICON;
-        this._createMenuItems();
-        this._reflectSettings();
+        this._interfaceSettings = new Gio.Settings({ schema: 'org.gnome.desktop.interface' });
+        this._settingsSignalId = this._interfaceSettings.connect(
+            'changed::color-scheme',
+            () => this._syncTheme()
+        );
+
+        this._syncTheme();
     }
 
-    _createMenuItems() {
-        let itemsSection = new PopupMenu.PopupMenuSection();
-        this._lightItem = new PopupMenu.PopupMenuItem(_("Light Theme"));
-        this._lightItem.connect("activate", () => {
-            applySettings(LIGHT_THEME_SETTINGS);
-            this.menu.icon.icon_name = LIGHT_SCHEME_ICON;
-        });
-        itemsSection.addMenuItem(this._lightItem);
+    disable() {
+        if (this._settingsSignalId && this._interfaceSettings) {
+            this._interfaceSettings.disconnect(this._settingsSignalId);
+            this._settingsSignalId = null;
+        }
+        this._interfaceSettings = null;
+    }
 
-        this._darkItem = new PopupMenu.PopupMenuItem(_("Dark Theme"));
-        this._darkItem.connect("activate", () => {
+    _syncTheme() {
+        let scheme = this._interfaceSettings.get_string('color-scheme');
+        if (scheme === DARK_SCHEME_NAME) {
             applySettings(DARK_THEME_SETTINGS);
-            this.menu.icon.icon_name = DARK_SCHEME_ICON;
-        });
-        itemsSection.addMenuItem(this._darkItem);
-
-        this.menu.menu.addMenuItem(itemsSection);
-    }
-
-    _reflectSettings() {
-        const scheme = settings.get_string("color-scheme");
-        if (scheme === LIGHT_SCHEME_NAME || scheme === DEFAULT_SCHEME_NAME) {
-            this.menu.icon.icon_name = LIGHT_SCHEME_ICON;
-        } else if (scheme === DARK_SCHEME_NAME) {
-            this.menu.icon.icon_name = DARK_SCHEME_ICON;
+        } else {
+            applySettings(LIGHT_THEME_SETTINGS);
         }
-    }
-
-    destroy() {
-        this.menu.destroy();
-    }
-}
-
-function init() {
-    ExtensionUtils.initTranslations(Me.metadata.uuid);
-}
-
-function enable() {
-    settings = new Gio.Settings({ schema: "org.gnome.desktop.interface" });
-    switcherMenu = new ThemeMenuToggle();
-    Main.panel.statusArea.aggregateMenu.menu.addMenuItem(switcherMenu.menu, 3);
-}
-
-function disable() {
-    if (switcherMenu) {
-        switcherMenu.destroy();
-        switcherMenu = null;
     }
 }

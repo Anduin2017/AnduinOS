@@ -15,7 +15,7 @@ apt purge -y \
     tilix \
     gnome-contacts \
     gnome-terminal \
-    gnome-text-editor \
+    zutty \
     update-manager-core \
     gnome-shell-extension-ubuntu-dock \
     libreoffice-* \

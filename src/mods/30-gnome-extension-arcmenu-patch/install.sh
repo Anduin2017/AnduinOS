@@ -11,9 +11,6 @@ judge "Patch Arc Menu logo"
 print_ok "Patch Arc Menu text..."
 sed -i 's/Unpin from ArcMenu/Unpin from Start menu/g' /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/appMenu.js
 sed -i 's/Pin to ArcMenu/Pin to Start menu/g' /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/appMenu.js
-sed -i "s/_('Log Out...')/_('Log Out')/" /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/constants.js
-sed -i "s/_('Restart...')/_('Restart')/" /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/constants.js
-sed -i "s/_('Power Off...')/_('Power Off')/" /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/constants.js
 judge "Patch Arc Menu text"
 
 print_ok "Patch Arc Menu localization..."

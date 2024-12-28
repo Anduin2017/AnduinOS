@@ -7,6 +7,7 @@ set -o pipefail         # exit on pipeline error
 set -u                  # treat unset variable as error
 export DEBIAN_FRONTEND=noninteractive
 export LATEST_VERSION="1.0.4"
+export OS_ID="AnduinOS"
 export CURRENT_VERSION=$(cat /etc/lsb-release | grep DISTRIB_RELEASE | cut -d "=" -f 2)
 
 #==========================
@@ -238,8 +239,8 @@ function upgrade_014_to_020() {
     print_ok "Installing new kernel..."
     sudo apt update
     sudo apt install -y \
-        linux-headers-generic-hwe-22.04 \
-        linux-image-generic-hwe-22.04
+        linux-headers-generic-hwe-24.04 \
+        linux-image-generic-hwe-24.04
     judge "Install new kernel"
 
     print_ok "Installing new packages..."
@@ -464,7 +465,8 @@ function applyLsbRelease() {
     
     # Update /etc/os-release
     sudo sed -i "s/VERSION_ID=.*/VERSION_ID=\"${LATEST_VERSION}\"/" /etc/os-release
-    sudo sed -i "s/VERSION=.*/VERSION=\"${LATEST_VERSION} (jammy)\"/" /etc/os-release
+    sudo sed -i "s/ID=.*/ID=\"${OS_ID}\"/" /etc/os-release
+    sudo sed -i "s/VERSION=.*/VERSION=\"${LATEST_VERSION} (noble)\"/" /etc/os-release
     sudo sed -i "s/PRETTY_NAME=.*/PRETTY_NAME=\"AnduinOS ${LATEST_VERSION}\"/" /etc/os-release
 
     # Update /etc/issue

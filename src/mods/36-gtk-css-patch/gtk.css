@@ -1,9 +1,5 @@
-viewport > clamp > box > preferencesgroup:nth-child(1) {
-    opacity: 0;
-    margin-top: -999px;
-}
-
-viewport > clamp > box > image {
+viewport > clamp > box > preferencesgroup > box > box > clamp > picture {
+    /* Hide the Ubuntu Logo because this confuses users */
     opacity: 0;
     margin-top: -999px;
 }

@@ -9,16 +9,12 @@ set -u                  # treat unset variable as error
 source ./args.sh
 
 function check_host() {
-    local os_ver
-    os_ver=`lsb_release -i | grep -E "(Ubuntu|Debian)"`
-    if [[ -z "$os_ver" ]]; then
-        print_warn "This script is only supported on Ubuntu/Debian"
-        areYouSure
-    fi
 
-    if ! grep -q "DISTRIB_ID=AnduinOS" /etc/lsb-release; then
-        print_error "This script can only be run on AnduinOS."
-        exit 1
+    local os_ver
+    os_ver=`lsb_release -i | grep -E "(Ubuntu|Debian|AnduinOS)"`
+    if [[ -z "$os_ver" ]]; then
+        print_warn "This script is only supported on Ubuntu, Debian or AnduinOS."
+        areYouSure
     fi
 
     if [ $(id -u) -eq 0 ]; then
@@ -44,7 +40,7 @@ function clean() {
 function setup_host() {
     print_ok "Setting up host environment..."
     sudo apt update
-    sudo apt install -y binutils debootstrap squashfs-tools xorriso grub-pc-bin grub-efi-amd64-bin grub2-common mtools dosfstools unzip
+    sudo apt install -y binutils debootstrap squashfs-tools xorriso grub-pc-bin grub-efi-amd64 grub2-common mtools dosfstools unzip
     judge "Install required tools"
 
     print_ok "Creating new_building_os directory..."
@@ -193,8 +189,8 @@ EOF
     print_ok "Compressing rootfs as squashfs on /casper/filesystem.squashfs..."
     sudo mksquashfs new_building_os image/casper/filesystem.squashfs \
         -noappend -no-duplicates -no-recovery \
-        -wildcards \
-        -comp xz -b 1M -Xdict-size 100% \
+        -wildcards -b 1M \
+        -comp zstd -Xcompression-level 19 \
         -e "var/cache/apt/archives/*" \
         -e "root/*" \
         -e "root/.*" \
@@ -295,7 +291,7 @@ EOF
     judge "Create hybrid boot image"
 
     print_ok "Creating .disk/info..."
-    echo "$TARGET_BUSINESS_NAME $TARGET_BUILD_VERSION "Jammy Jellyfish" - Release amd64 ($(date +%Y%m%d))" | sudo tee .disk/info
+    echo "$TARGET_BUSINESS_NAME $TARGET_BUILD_VERSION "Noble Numbat" - Release amd64 ($(date +%Y%m%d))" | sudo tee .disk/info
     judge "Create .disk/info"
 
     print_ok "Creating md5sum.txt..."

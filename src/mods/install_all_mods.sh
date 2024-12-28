@@ -12,11 +12,12 @@ source /root/mods/args.sh
 # Variables for mods
 #==========================
 print_ok "Building variables for mods:"
-echo $TARGET_UBUNTU_VERSION
-echo $BUILD_UBUNTU_MIRROR
-echo $TARGET_NAME
-echo $TARGET_BUSINESS_NAME
-echo $TARGET_BUILD_VERSION
+
+echo "TARGET_UBUNTU_VERSION=$TARGET_UBUNTU_VERSION"
+echo "BUILD_UBUNTU_MIRROR=$BUILD_UBUNTU_MIRROR"
+echo "TARGET_NAME=$TARGET_NAME"
+echo "TARGET_BUSINESS_NAME=$TARGET_BUSINESS_NAME"
+echo "TARGET_BUILD_VERSION=$TARGET_BUILD_VERSION"
 
 #==========================
 # Execute mods

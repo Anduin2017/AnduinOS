@@ -14,3 +14,11 @@ managed=false
 EOF
 dpkg-reconfigure network-manager
 judge "Configure network manager"
+
+print_ok "Configuring netplan..."
+cat << EOF > /etc/netplan/01-network-manager-all.yaml
+network:
+  version: 2
+  renderer: NetworkManager
+EOF
+judge "Configure netplan"

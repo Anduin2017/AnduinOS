@@ -9,7 +9,7 @@ judge "Set up hostname to $TARGET_NAME"
 
 print_ok "Configuring locales and resolvconf..."
 apt update
-apt install -y locales resolvconf
+apt install -y locales resolvconf apt-utils
 judge "Install locales and resolvconf"
 
 print_ok "Configuring locales..."
