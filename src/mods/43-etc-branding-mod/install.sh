@@ -11,13 +11,14 @@ DISTRIB_DESCRIPTION="$TARGET_BUSINESS_NAME $TARGET_BUILD_VERSION"
 EOF
 judge "Update lsb-release"
 
+# Mark ID as ubuntu to support some Ubuntu features, like add-apt-repository
 cat << EOF > /etc/os-release
 PRETTY_NAME="$TARGET_BUSINESS_NAME $TARGET_BUILD_VERSION"
 NAME="$TARGET_BUSINESS_NAME"
 VERSION_ID="$TARGET_BUILD_VERSION"
 VERSION="$TARGET_BUILD_VERSION ($TARGET_UBUNTU_VERSION)"
 VERSION_CODENAME=$TARGET_UBUNTU_VERSION
-ID=$TARGET_NAME
+ID=ubuntu
 ID_LIKE=debian
 HOME_URL="https://www.anduinos.com/"
 SUPPORT_URL="https://github.com/Anduin2017/AnduinOS/discussions"
