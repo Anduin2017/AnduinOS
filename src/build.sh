@@ -125,35 +125,9 @@ function build_iso() {
     
     print_ok "Generating grub.cfg..."
     touch image/$TARGET_NAME
-    # TRY mode 
-    # (Add 'toram' to boot options will load the whole system into RAM)
-    # * Enfoce user name `ubuntu` and hostname `ubuntu`
-    # * Enforce X11
-    # * Couldn't logout
-    # * Couldn't lock screen
-    # * On the desktop there will be a "Install" icon for Ubiquity installer
 
-    # Install mode
-    # * Enfoce user name `ubuntu` and hostname `ubuntu`
-    # * Enforce X11
-    # * Couldn't logout
-    # * Couldn't lock screen
-    # * Desktop is enabled. All gnome extensions are disabled.
-    # * Will show Ubiquity installer by default
-    # * Ubiquity installer won't ask if you want to keep trying this OS
-
-    # After installation
-    # * Requires login. User name is set during installation
-    # * Nvidia users will enforce X11. Others will use Wayland
-    # * Can logout
-    # * Can lock screen
-    # * Desktop is enabled. All gnome extensions are enabled
-    # * No Ubiquity installer
-    # * No "Install" icon on the desktop
-
-    # Those configurations are setup in new_building_os/usr/share/initramfs-tools/scripts/casper-bottom/25configure_init
-    TRY_TEXT="Try $TARGET_BUSINESS_NAME"
-    INSTALL_TEXT="Install $TARGET_BUSINESS_NAME"
+    # Configurations are setup in new_building_os/usr/share/initramfs-tools/scripts/casper-bottom/25configure_init
+    TRY_TEXT="Install $TARGET_BUSINESS_NAME"
     cat << EOF > image/isolinux/grub.cfg
 
 search --set=root --file /$TARGET_NAME
@@ -161,15 +135,10 @@ search --set=root --file /$TARGET_NAME
 insmod all_video
 
 set default="0"
-set timeout=30
+set timeout=10
 
 menuentry "$TRY_TEXT" {
    linux /casper/vmlinuz boot=casper nopersistent quiet splash ---
-   initrd /casper/initrd
-}
-
-menuentry "$INSTALL_TEXT" {
-   linux /casper/vmlinuz boot=casper only-ubiquity quiet splash ---
    initrd /casper/initrd
 }
 EOF
@@ -247,16 +216,7 @@ No output indicates that the image is correct.
 
 ## How to use
 
-Before starting, you **must** set Secure Boot to \`trust thrid-party CA UEFI Keys\` in the BIOS settings.
-
 Press F12 to enter the boot menu when you start your computer. Select the USB drive to boot from.
-
-You will see two options:
-
-1. **Try $TARGET_BUSINESS_NAME**: Boot into $TARGET_BUSINESS_NAME without installing it. This is a good way to test the system before installing it.
-2. **Install $TARGET_BUSINESS_NAME**: Install $TARGET_BUSINESS_NAME on your computer. This will erase all data on the target disk.
-
-Select the option you want and press Enter.
 
 ## More information
 
