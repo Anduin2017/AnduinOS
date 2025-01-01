@@ -138,9 +138,26 @@ set default="0"
 set timeout=10
 
 menuentry "$TRY_TEXT" {
-   linux /casper/vmlinuz boot=casper nopersistent quiet splash ---
-   initrd /casper/initrd
+   set gfxpayload=keep
+   linux   /casper/vmlinuz boot=casper nopersistent quiet splash ---
+   initrd  /casper/initrd
 }
+
+menuentry "$TRY_TEXT (Safe Graphics)" {
+    set gfxpayload=keep
+    linux   /casper/vmlinuz boot=casper nopersistent nomodeset ---
+    initrd  /casper/initrd
+}
+
+if [ "\$grub_platform" == "efi" ]; then
+    menuentry "Boot from next volume" {
+        exit 1
+    }
+
+    menuentry "UEFI Firmware Settings" {
+        fwsetup
+    }
+fi
 EOF
     judge "Generate grub.cfg"
 
