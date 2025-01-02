@@ -67,7 +67,7 @@ function upgrade_010_to_011() {
     sudo bash -c 'cat << EOF > /usr/local/bin/do_anduinos_upgrade
 #!/bin/bash
 echo "Upgrading AnduinOS..."
-curl -sSL https://gitlab.aiursoft.cn/anduin/anduinos/-/raw/master/src/upgrade.sh | bash
+curl -sSL https://gitlab.aiursoft.cn/anduin/anduinos/-/raw/1.0/src/upgrade.sh | bash
 EOF
 '
     sudo chmod +x /usr/local/bin/do_anduinos_upgrade
@@ -134,7 +134,7 @@ function upgrade_012_to_013() {
         cd /tmp
         sudo rm -rf /tmp/repo || true
         mkdir -p /tmp/repo
-        git clone -b 0.1.3 https://gitlab.aiursoft.cn/anduin/anduinos.git /tmp/repo
+        git clone -b 1.0 https://gitlab.aiursoft.cn/anduin/anduinos.git /tmp/repo
         sudo rsync -Aavx --update --delete /tmp/repo/src/patches/switcher@anduinos/* /usr/share/gnome-shell/extensions/switcher@anduinos
 
         sudo cp /tmp/repo/src/patches/wallpaper/Fluent-building-light.png /usr/share/backgrounds/
@@ -169,7 +169,7 @@ function upgrade_013_to_014() {
         cd /tmp
         sudo rm -rf /tmp/repo || true
         mkdir -p /tmp/repo
-        git clone -b 0.1.4 https://gitlab.aiursoft.cn/anduin/anduinos.git /tmp/repo
+        git clone -b 1.0 https://gitlab.aiursoft.cn/anduin/anduinos.git /tmp/repo
         sudo rsync -Aavx --update --delete /tmp/repo/src/patches/switcher@anduinos/* /usr/share/gnome-shell/extensions/switcher@anduinos
 
         dconf load /org/gnome/ < /tmp/repo/src/patches/dconf/dconf.ini
@@ -229,7 +229,7 @@ function upgrade_014_to_020() {
         cd /tmp
         sudo rm -rf /tmp/repo || true
         mkdir -p /tmp/repo
-        git clone -b 0.2.0 https://gitlab.aiursoft.cn/anduin/anduinos.git /tmp/repo
+        git clone -b 1.0 https://gitlab.aiursoft.cn/anduin/anduinos.git /tmp/repo
         sudo rsync -Aavx --update --delete /tmp/repo/src/patches/switcher@anduinos/* /usr/share/gnome-shell/extensions/switcher@anduinos
         dconf load /org/gnome/ < /tmp/repo/src/patches/dconf/dconf.ini
     )
@@ -288,7 +288,7 @@ function upgrade_020_to_021() {
         cd /tmp
         sudo rm -rf /tmp/repo || true
         mkdir -p /tmp/repo
-        git clone -b 0.2.1 https://gitlab.aiursoft.cn/anduin/anduinos.git /tmp/repo
+        git clone -b 1.0 https://gitlab.aiursoft.cn/anduin/anduinos.git /tmp/repo
         dconf load /org/gnome/ < /tmp/repo/src/mods/34-dconf-patch/dconf.ini 
     )
     judge "Install new plugin"
@@ -336,7 +336,7 @@ function upgrade_030_to_031() {
         cd /tmp
         sudo rm -rf /tmp/repo || true
         mkdir -p /tmp/repo
-        git clone -b 0.3.1 https://gitlab.aiursoft.cn/anduin/anduinos.git /tmp/repo
+        git clone -b 1.0 https://gitlab.aiursoft.cn/anduin/anduinos.git /tmp/repo
 
         print_ok "Applying new dconf settings..."
         dconf load /org/gnome/ < /tmp/repo/src/mods/34-dconf-patch/dconf.ini
@@ -388,7 +388,7 @@ EOF
         cd /tmp
         sudo rm -rf /tmp/repo || true
         mkdir -p /tmp/repo
-        git clone -b 1.0.0 https://gitlab.aiursoft.cn/anduin/anduinos.git /tmp/repo
+        git clone -b 1.0 https://gitlab.aiursoft.cn/anduin/anduinos.git /tmp/repo
 
         print_ok "Applying new dconf settings..."
         dconf load /org/gnome/ < /tmp/repo/src/mods/34-dconf-patch/dconf.ini
