@@ -35,7 +35,7 @@ export DEBIAN_FRONTEND=noninteractive
 export SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 export HOME=/root
 # Can be: jammy noble oracular
-export TARGET_UBUNTU_VERSION="oracular"
+export TARGET_UBUNTU_VERSION="noble"
 
 # See https://docs.anduinos.com/Install/Select-Best-Apt-Source.html
 export BUILD_UBUNTU_MIRROR="http://mirror.aiursoft.cn/ubuntu/"
@@ -47,7 +47,7 @@ export TARGET_NAME="anduinos"
 export TARGET_BUSINESS_NAME="AnduinOS"
 
 # Version number. Must be in the format of x.y.z
-export TARGET_BUILD_VERSION="1.2.0"
+export TARGET_BUILD_VERSION="1.1.0"
 
 # Fork version. Must be in the format of x.y
 export TARGET_BUILD_BRANCH=$(git rev-parse --abbrev-ref HEAD)
