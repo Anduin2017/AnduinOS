@@ -224,23 +224,13 @@ export DEFAULT_APPS="
 "
 
 export DEFAULT_CLI_TOOLS="
-    curl \
-    vim \
-    nano \
-    git \
-    build-essential \
     make \
     gcc \
     g++ \
-    dpkg-dev \
-    net-tools \
-    htop \
     httping \
-    iputils-ping \
-    iputils-tracepath \
     dnsutils \
-    smartmontools \
     traceroute \
-    whois \
-    nmap
+    nmap \
+    console-data \
+    smartmontools
     "

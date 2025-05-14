@@ -72,7 +72,9 @@ function setup_host() {
 
 function download_base_system() {
     print_ok "Calling debootstrap to download base debian system..."
-    sudo debootstrap  --arch=amd64 --variant=minbase $TARGET_UBUNTU_VERSION new_building_os $BUILD_UBUNTU_MIRROR
+    local CLIENT_PKGS="build-essential,curl,dpkg-dev,git,htop,iputils-ping,iputils-tracepath,net-tools,ubuntu-pro-client,whois"
+    local CONSOLE_PKGS="console-setup-linux,console-setup,locales,tzdata"
+    sudo debootstrap --arch=amd64 --variant=minbase --include=${CONSOLE_PKGS},${CLIENT_PKGS} $TARGET_UBUNTU_VERSION new_building_os $BUILD_UBUNTU_MIRROR
     judge "Download base system"
 }
 
