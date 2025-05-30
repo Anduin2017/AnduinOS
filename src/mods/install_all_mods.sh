@@ -33,3 +33,8 @@ for mod in "$SCRIPT_DIR"/*; do
         )
     fi
 done
+
+# Install Firefox
+if [ "$INSTALL_FIREFOX_MOD" = "true" ]; then
+    $SCRIPT_DIR/18-firefox-mod/install.sh
+fi

@@ -90,6 +90,8 @@ function run_chroot() {
     print_warn "   The following will run in chroot ENV!"
     print_warn "============================================"
     sudo chroot new_building_os /usr/bin/env DEBIAN_FRONTEND=${DEBIAN_FRONTEND:-readline} /root/mods/install_all_mods.sh -
+    sudo chroot new_building_os apt clean
+    sudo chroot new_building_os rm -rf /var/log/*
     print_warn "============================================"
     print_warn "   chroot ENV execution completed!"
     print_warn "============================================"
@@ -187,7 +189,7 @@ EOF
     sudo mksquashfs new_building_os image/casper/filesystem.squashfs \
         -noappend -no-duplicates -no-recovery \
         -wildcards -b 1M \
-        -comp zstd -Xcompression-level 19 \
+        -comp zstd -Xcompression-level 10 \
         -e "var/cache/apt/archives/*" \
         -e "root/*" \
         -e "root/.*" \

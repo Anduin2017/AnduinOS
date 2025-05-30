@@ -133,6 +133,10 @@ if [[ "$FIREFOX_LOCALE_PACKAGE" != "" && "$FIREFOX_PROVIDER" != "deb" ]]; then
     exit 1
 fi
 
+# Whether to install the Firefox mod
+INSTALL_FIREFOX_MOD=${INSTALL_FIREFOX_MOD:-true}
+
+
 #============================
 # Input method configuration
 #============================
