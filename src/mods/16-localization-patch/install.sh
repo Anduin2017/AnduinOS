@@ -12,6 +12,7 @@ if [[ $DEFAULT_APPS =~ "shotwell" ]]; then
     sed -i "/^Name=/a Name[ko_KR]=사진" /usr/share/applications/org.gnome.Shotwell.desktop
     sed -i "/^Name=/a Name[vi_VN]=Ảnh" /usr/share/applications/org.gnome.Shotwell.desktop
     sed -i "/^Name=/a Name[th_TH]=รูปภาพ" /usr/share/applications/org.gnome.Shotwell.desktop
+    sed -i "/^Name=/a Name[da_DK]=Fotos" /usr/share/applications/org.gnome.Shotwell.desktop
     sed -i "/^Name=/a Name[de_DE]=Fotos" /usr/share/applications/org.gnome.Shotwell.desktop
     sed -i "/^Name=/a Name[fr_FR]=Photos" /usr/share/applications/org.gnome.Shotwell.desktop
     sed -i "/^Name=/a Name[es_ES]=Fotos" /usr/share/applications/org.gnome.Shotwell.desktop
@@ -55,6 +56,7 @@ if [[ $DEFAULT_APPS =~ "rhythmbox" ]]; then
     sed -i "/^Name=Rhythmbox/a Name[ko_KR]=음악" /usr/share/applications/org.gnome.Rhythmbox3.desktop
     sed -i "/^Name=Rhythmbox/a Name[vi_VN]=Âm nhạc" /usr/share/applications/org.gnome.Rhythmbox3.desktop
     sed -i "/^Name=Rhythmbox/a Name[th_TH]=เพลง" /usr/share/applications/org.gnome.Rhythmbox3.desktop
+    sed -i "/^Name=Rhythmbox/a Name[da_DK]=Musik" /usr/share/applications/org.gnome.Rhythmbox3.desktop
     sed -i "/^Name=Rhythmbox/a Name[de_DE]=Musik" /usr/share/applications/org.gnome.Rhythmbox3.desktop
     sed -i "/^Name=Rhythmbox/a Name[fr_FR]=Musique" /usr/share/applications/org.gnome.Rhythmbox3.desktop
     sed -i "/^Name=Rhythmbox/a Name[es_ES]=Música" /usr/share/applications/org.gnome.Rhythmbox3.desktop
@@ -98,6 +100,7 @@ if [ $DEFAULT_APPS =~ "baobab" ]; then
     sed -i "/^Name=/a Name[ko_KR]=디스크 사용량 분석" /usr/share/applications/org.gnome.baobab.desktop
     sed -i "/^Name=/a Name[vi_VN]=Phân tích đĩa" /usr/share/applications/org.gnome.baobab.desktop
     sed -i "/^Name=/a Name[th_TH]=วิเคราะห์การใช้งานดิสก์" /usr/share/applications/org.gnome.baobab.desktop
+    sed -i "/^Name=/a Name[da_DK]=Harddiskforbrug" /usr/share/applications/org.gnome.baobab.desktop
     sed -i "/^Name=/a Name[de_DE]=Festplattenbelegung" /usr/share/applications/org.gnome.baobab.desktop
     sed -i "/^Name=/a Name[fr_FR]=Analyseur d'utilisation des disques" /usr/share/applications/org.gnome.baobab.desktop
     sed -i "/^Name=/a Name[es_ES]=Analizador de uso de disco" /usr/share/applications/org.gnome.baobab.desktop
@@ -145,7 +148,8 @@ if [[ $DEFAULT_APPS =~ "qalculate" ]]; then
         [ko_KR]="계산기"
         [vi_VN]="Máy tính"
         [th_TH]="เครื่องคิดเลข"
-        [de_DE]="Taschenrechner"
+        [da_DK]="Regelommer"
+        [de_DE]="Lommeregner"
         [fr_FR]="Calculatrice"
         [es_ES]="Calculadora"
         [ru_RU]="Калькулятор"
