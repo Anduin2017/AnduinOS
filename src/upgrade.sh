@@ -311,10 +311,44 @@ function shift_screenshot_key() {
     print_ok "✔ Custom media-key bindings migrated: screenshot removed, keys shifted."
 }
 
+function patch_dash_to_panel() {
+    TARGET_FILE="/usr/share/gnome-shell/extensions/dash-to-panel@jderose9.github.com/panelPositions.js"
+
+    # --- Ensure target exists ---
+    if [[ ! -f "$TARGET_FILE" ]]; then
+        echo "[ERROR] Target file not found: $TARGET_FILE" >&2
+        exit 1
+    fi
+
+    print_ok "Applying new panel layout patch"
+    sudo sed -i '/export const defaults = \[/,/^\]$/c\
+    \/\/ AnduinOS custom default panel layout\
+    export const defaults = [\
+    { element: LEFT_BOX, visible: true, position: STACKED_TL },\
+    { element: CENTER_BOX, visible: true, position: CENTERED },\
+    { element: TASKBAR, visible: true, position: CENTERED },\
+    { element: RIGHT_BOX, visible: true, position: STACKED_BR },\
+    { element: SYSTEM_MENU, visible: true, position: STACKED_BR },\
+    { element: DATE_MENU, visible: true, position: STACKED_BR },\
+    { element: DESKTOP_BTN, visible: true, position: STACKED_BR },\
+    ];' \
+    "$TARGET_FILE"
+    judge "Apply new panel layout patch"
+
+    # --- Verify success ---
+    if ! grep -q "AnduinOS custom default panel layout" "$TARGET_FILE"; then
+        echo "[ERROR] Replacement verification failed" >&2
+        exit 1
+    fi
+    print_ok "Dash-to-panel patch applied successfully"
+}
+
 function upgrade_116_to_117() {
     print_ok "Upgrading from 1.1.6 to 1.1.7..."
     
     shift_screenshot_key
+
+    patch_dash_to_panel
 }
 
 function applyLsbRelease() {
