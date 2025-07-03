@@ -226,7 +226,6 @@ export DEFAULT_APPS="
     gnome-user-docs \
     gnome-disk-utility \
     gnome-logs \
-    gnome-screenshot \
     gnome-system-monitor \
     gnome-sound-recorder \
     gnome-characters \
