@@ -61,7 +61,6 @@ apt install $INTERACTIVE \
     gnome-menus \
     gnome-shell-extensions \
     spice-vdagent \
-    xclip \
     xserver-xorg-input-all \
     xserver-xorg \
     xserver-xorg-legacy \
