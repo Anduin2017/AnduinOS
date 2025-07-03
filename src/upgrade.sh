@@ -259,12 +259,62 @@ function upgrade_115_to_116() {
     judge "Upgrade from 1.1.5 to 1.1.6 completed"
 }
 
+function shift_screenshot_key() {
+    #!/usr/bin/env bash
+    #
+    # Remove the screenshot keybinding (custom3), shift custom4→custom3, custom5→custom4,
+    # and update the custom-keybindings list.
+
+    # dconf paths
+    BASE_SCHEMA="/org/gnome/settings-daemon/plugins/media-keys"
+    CUSTOM_BASE="${BASE_SCHEMA}/custom-keybindings"
+    OLD_COUNT=6
+    NEW_COUNT=5
+
+    # 1. Update the custom-keybindings list to only custom0–custom4
+    print_ok "Updating custom-keybindings list to custom0–custom4..."
+    dconf write "${BASE_SCHEMA}/custom-keybindings" "[
+    '${CUSTOM_BASE}/custom0/',
+    '${CUSTOM_BASE}/custom1/',
+    '${CUSTOM_BASE}/custom2/',
+    '${CUSTOM_BASE}/custom3/',
+    '${CUSTOM_BASE}/custom4/'
+    ]"
+    judge "Update custom-keybindings list to custom0–custom4"
+
+    # 2. Wipe out any old values under custom3–custom5
+    print_ok "Resetting custom3–custom5..."
+    dconf reset -f "${CUSTOM_BASE}/custom3/"
+    dconf reset -f "${CUSTOM_BASE}/custom4/"
+    dconf reset -f "${CUSTOM_BASE}/custom5/"
+    judge "Reset custom3–custom5"
+
+    # 3. Recreate custom3 with the former custom4 (“Toggle Network”)
+    print_ok "Recreating custom3 with former custom4 (Toggle Network)..."
+    dconf write "${CUSTOM_BASE}/custom3/binding"   "'<Super>u'"
+    dconf write "${CUSTOM_BASE}/custom3/command"   "'toggle_network_stats'"
+    dconf write "${CUSTOM_BASE}/custom3/name"      "'Toggle Network'"
+    judge "Recreate custom3 with former custom4 (Toggle Network)"
+
+    # 4. Recreate custom4 with the former custom5 (“Characters”)
+    print_ok "Recreating custom4 with former custom5 (Characters)..."
+    dconf write "${CUSTOM_BASE}/custom4/binding"   "'<Super>semicolon'"
+    dconf write "${CUSTOM_BASE}/custom4/command"   "'gnome-characters'"
+    dconf write "${CUSTOM_BASE}/custom4/name"      "'Characters'"
+    judge "Recreate custom4 with former custom5 (Characters)"
+
+    # 5. Add Super+Shift+s for screenshot
+    print_ok "Adding Super+Shift+s for screenshot..."
+    dconf write /org/gnome/shell/keybindings/show-screenshot-ui "['<Super><Shift>s', 'Print']"
+    judge "Add Super+Shift+s for screenshot"
+
+    print_ok "✔ Custom media-key bindings migrated: screenshot removed, keys shifted."
+}
+
 function upgrade_116_to_117() {
     print_ok "Upgrading from 1.1.6 to 1.1.7..."
-    sudo apt update
-    sudo apt install -y \
-      xclip
-      --no-install-recommends
+    
+    shift_screenshot_key
 }
 
 function applyLsbRelease() {
