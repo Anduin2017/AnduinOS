@@ -15,8 +15,8 @@ sed -i '/export const defaults = \[/,/^\]$/c\
 \/\/ AnduinOS custom default panel layout\
 export const defaults = [\
   { element: LEFT_BOX, visible: true, position: STACKED_TL },\
-  { element: CENTER_BOX, visible: true, position: CENTERED },\
-  { element: TASKBAR, visible: true, position: CENTERED },\
+  { element: CENTER_BOX, visible: true, position: CENTERED_MONITOR },\
+  { element: TASKBAR, visible: true, position: CENTERED_MONITOR },\
   { element: RIGHT_BOX, visible: true, position: STACKED_BR },\
   { element: SYSTEM_MENU, visible: true, position: STACKED_BR },\
   { element: DATE_MENU, visible: true, position: STACKED_BR },\
