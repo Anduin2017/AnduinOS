@@ -1,5 +1,15 @@
 #!/bin/bash
 
+#=================================================
+#           PLEASE READ THIS BEFORE EDITING
+#=================================================
+# This file is used to set the environment variables for the build process.
+# Before building AnduinOS, you should edit this file to customize the build process.
+# It is sourced by the build script and should not be executed directly.
+# You can edit this file to customize the build process.
+# However, you should not change the variable names or the structure of the file.
+# After editing this file, you can run the build script `make` to start the build process.
+
 #==========================
 # Builder Environment Variables
 #==========================
@@ -34,26 +44,41 @@ export LC_MONETARY=$LANG_MODE.UTF-8
 export LANG=$LANG_MODE.UTF-8
 export LANGUAGE=$LANG_MODE:$LANG_PACK_CODE
 
+# These are the language packs to be installed.
 # language-pack-zh-hans   language-pack-zh-hans-base language-pack-gnome-zh-hans \
 # language-pack-zh-hant   language-pack-zh-hant-base language-pack-gnome-zh-hant \
 # language-pack-en        language-pack-en-base      language-pack-gnome-en \
 export LANGUAGE_PACKS="language-pack-$LANG_PACK_CODE* language-pack-gnome-$LANG_PACK_CODE*"
 
-# Continue with the rest of the script
+# Just logging. Continue with the rest of the script
 echo "Language environment has been set to $LANG_MODE"
 
 #==========================
 # OS system information
 #==========================
+
+# This is the target Ubuntu version code name for the build.
+# It should match the Ubuntu version you are building against.
+# For example, if you are building against Ubuntu 22.04 LTS, this should be "jammy".
+# If you are building against Ubuntu 24.04 LTS, this should be "noble".
+# If you are building against Ubuntu 24.10, this should be "oracular".
+# If you are building against Ubuntu 25.04, this should be "plucky".
+# If you are building against Ubuntu 25.10, this should be "questing".
 # Can be: jammy noble oracular plucky questing
 export TARGET_UBUNTU_VERSION="plucky"
 
+# This is the apt source for the build.
+# It can be any Ubuntu mirror that you prefer.
+# The default is the Aiursoft mirror.
+# You can change it to any other mirror that you prefer.
 # See https://docs.anduinos.com/Install/Select-Best-Apt-Source.html
 export BUILD_UBUNTU_MIRROR="http://mirror.aiursoft.cn/ubuntu/"
 
+# This is the name of the target OS.
 # Must be lowercase without special characters and spaces
 export TARGET_NAME="anduinos"
 
+# This is the full display name of the target OS.
 # Business name. No special characters or spaces
 export TARGET_BUSINESS_NAME="AnduinOS"
 
@@ -61,11 +86,13 @@ export TARGET_BUSINESS_NAME="AnduinOS"
 export TARGET_BUILD_VERSION="1.3.4"
 
 # Fork version. Must be in the format of x.y
+# By default, it is the branch name of the git repository.
 export TARGET_BUILD_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 
 #===========================
 # Installer customization
 #===========================
+
 # Packages will be uninstalled during the installation process
 export TARGET_PACKAGE_REMOVE="
     ubiquity \
@@ -78,6 +105,7 @@ export TARGET_PACKAGE_REMOVE="
 #============================
 # Store experience customization
 #============================
+
 # How to install the store. Can be "none", "web", "flatpak", "snap"
 # none:     no app store
 # web:      use a web shortcut to browse the app store
@@ -102,6 +130,7 @@ fi
 #============================
 # Browser configuration
 #============================
+
 # How to install Firefox. Can be: "none", "deb", "flatpak", "snap"
 # none:     no firefox
 # deb:      install firefox from PPA with apt
@@ -144,6 +173,7 @@ fi
 #============================
 # Input method configuration
 #============================
+
 # Packages will be installed during the installation process
 # Can be:
 # * ibus-rime
@@ -170,7 +200,6 @@ fi
 # * [('xkb', 'us'), ('xkb', 'fr')]
 export CONFIG_INPUT_METHOD="[('xkb', 'us')]"
 
-
 #============================
 # Software properties configuration
 #============================
@@ -189,17 +218,23 @@ export TIMEZONE="America/Los_Angeles"
 #============================
 # Weather plugin configuration
 #============================
+
+# This will affect the default weather location in the weather plugin.
 export CONFIG_WEATHER_LOCATION="[(uint32 0, 'San Francisco, California, United States', uint32 0, '37.7749295,-122.4194155')]"
 
 #============================
 # Live system configuration
 #============================
+
+# This is the default apt server in the live system.
+# It can be any Ubuntu mirror that you prefer.
 export LIVE_UBUNTU_MIRROR="http://archive.ubuntu.com/ubuntu/"
 
 #============================
 # System apps configuration
 #============================
 # The default apps to be installed.
+# All those apps are optional. You can remove any of them if you don't need them.
 export DEFAULT_APPS="
     gnome-chess \
     gnome-clocks \
@@ -239,6 +274,8 @@ export DEFAULT_APPS="
     policykit-desktop-privileges
 "
 
+# The default CLI tools to be installed.
+# All those tools are optional. You can remove any of them if you don't need them.
 export DEFAULT_CLI_TOOLS="
     curl \
     vim \
@@ -261,6 +298,8 @@ export DEFAULT_CLI_TOOLS="
     nmap
     "
 
+# The default Flatpak tools to be installed.
+# All those tools are optional. You can remove any of them if you don't need them.
 export DEFAULT_FLATPAK_TOOLS=""
 # export DEFAULT_FLATPAK_TOOLS="
 #     chat.revolt.RevoltDesktop \
