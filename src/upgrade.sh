@@ -328,6 +328,10 @@ function upgrade_133_to_134() {
 
     shift_screenshot_key
     patch_dash_to_panel
+
+    print_ok "Disabling cache-images in clipboard-indicator extension for performance"
+    dconf write  /org/gnome/shell/extensions/clipboard-indicator/cache-images false
+    judge "Disable cache-images in clipboard-indicator extension"
 }
 
 
