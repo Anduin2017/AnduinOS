@@ -349,6 +349,12 @@ function upgrade_116_to_117() {
     shift_screenshot_key
 
     patch_dash_to_panel
+
+    print_ok "Disabling cache-images in clipboard-indicator extension for performance"
+    dconf write  /org/gnome/shell/extensions/clipboard-indicator/cache-images false
+    judge "Disable cache-images in clipboard-indicator extension"
+
+    print_ok "Upgrading from 1.1.6 to 1.1.7 completed"
 }
 
 function applyLsbRelease() {
