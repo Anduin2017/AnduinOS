@@ -299,6 +299,11 @@ function patch_dash_to_panel() {
         echo "[ERROR] Target file not found: $TARGET_FILE" >&2
         exit 1
     fi
+    # --- If target file already contains the patch, skip ---
+    if grep -q "AnduinOS custom default panel layout" "$TARGET_FILE"; then
+        print_ok "Dash-to-panel patch already applied. Skipping..."
+        return
+    fi
 
     print_ok "Applying new panel layout patch"
     sudo sed -i '/export const defaults = \[/,/^\]$/c\
@@ -332,6 +337,10 @@ function upgrade_133_to_134() {
     print_ok "Disabling cache-images in clipboard-indicator extension for performance"
     dconf write  /org/gnome/shell/extensions/clipboard-indicator/cache-images false
     judge "Disable cache-images in clipboard-indicator extension"
+
+    print_ok "Enabling show-favorites-all-monitors in dash-to-panel extension"
+    dconf write /org/gnome/shell/extensions/dash-to-panel/show-favorites-all-monitors true
+    judge "Enable show-favorites-all-monitors in dash-to-panel extension"
 }
 
 
