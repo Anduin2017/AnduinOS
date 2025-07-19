@@ -223,7 +223,7 @@ function upgrade_132_to_133() {
       --no-install-recommends
 
     # If ibus rime is installed, then install librime-plugin-lua
-    if dpkg -l | grep -q "ibus-rime"; then
+    if dpkg -s ibus-rime &>/dev/null; then
         print_ok "Installing librime-plugin-lua..."
         sudo apt install -y librime-plugin-lua --no-install-recommends
     else
