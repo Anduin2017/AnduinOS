@@ -306,16 +306,16 @@ function patch_dash_to_panel() {
     fi
 
     print_ok "Applying new panel layout patch"
-    sudo sed -i '/export const defaults = \[/,/\];/c\
-    // AnduinOS custom default panel layout\
+    sudo sed -i '/export const defaults = \[/,/^\]$/c\
+    \/\/ AnduinOS custom default panel layout\
     export const defaults = [\
-        { element: LEFT_BOX,    visible: true, position: STACKED_TL },\
-        { element: CENTER_BOX,  visible: true, position: CENTERED_MONITOR },\
-        { element: TASKBAR,     visible: true, position: CENTERED_MONITOR },\
-        { element: RIGHT_BOX,   visible: true, position: STACKED_BR },\
-        { element: SYSTEM_MENU, visible: true, position: STACKED_BR },\
-        { element: DATE_MENU,   visible: true, position: STACKED_BR },\
-        { element: DESKTOP_BTN, visible: true, position: STACKED_BR },\
+    { element: LEFT_BOX, visible: true, position: STACKED_TL },\
+    { element: CENTER_BOX, visible: true, position: CENTERED_MONITOR },\
+    { element: TASKBAR, visible: true, position: CENTERED_MONITOR },\
+    { element: RIGHT_BOX, visible: true, position: STACKED_BR },\
+    { element: SYSTEM_MENU, visible: true, position: STACKED_BR },\
+    { element: DATE_MENU, visible: true, position: STACKED_BR },\
+    { element: DESKTOP_BTN, visible: true, position: STACKED_BR },\
     ];' \
     "$TARGET_FILE"
     judge "Apply new panel layout patch"
