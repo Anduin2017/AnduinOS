@@ -57,8 +57,11 @@ usermod -aG systemd-journal gitlab-runner && \
 usermod -aG docker gitlab-runner && \
 usermod -aG sudo gitlab-runner
 
+chown gitlab-runner:gitlab-runner /home/gitlab-runner
+chown gitlab-runner:gitlab-runner /etc/gitlab-runner
 
-echo "damn!Ileakedmykey!!" > /etc/gitlab-runner/.secret
+
+echo "" > /etc/gitlab-runner/.secret
 echo "https://gitlab.aiursoft.cn" > /etc/gitlab-runner/.url
 
 cat << EOF > /usr/local/bin/runner-start.sh
@@ -69,6 +72,8 @@ gitlab-runner register \
     --token "\$(cat /etc/gitlab-runner/.secret)" \
     --executor "shell" \
     --custom_build_dir_enabled=true
+
+rm -f /etc/gitlab-runner/.secret
 
 gitlab-runner run --user=gitlab-runner --working-directory=/home/gitlab-runner
 EOF
