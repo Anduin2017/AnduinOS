@@ -104,4 +104,38 @@ systemctl enable gitlab-runner.service
 # Disable sleep
 systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
 
+# Enable UFW. This machine don't have to be able to be ssh-ed from outside.
 ufw enable
+
+# Join stathub
+curl -sL https://stathub.aiursoft.cn/install.sh | sudo bash
+
+# Auto restart server at 0 every day.
+cat << EOF > /etc/systemd/system/auto-restart.service
+[Unit]
+Description=Auto Restart Service
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/sbin/reboot --force
+RemainAfterExit=yes
+TimeoutStartSec=30
+
+[Install]
+WantedBy=multi-user.target
+EOF
+systemctl enable auto-restart.service
+
+cat << EOF > /etc/systemd/system/auto-restart.timer
+[Unit]
+Description=Auto Restart Timer
+
+[Timer]
+OnCalendar=*-*-* 00:00:00
+Unit=auto-restart.service
+
+[Install]
+WantedBy=timers.target
+EOF
+systemctl enable auto-restart.timer

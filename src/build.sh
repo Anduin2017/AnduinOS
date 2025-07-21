@@ -144,12 +144,18 @@ search --set=root --file /$TARGET_NAME
 insmod all_video
 
 set default="0"
-set timeout=10
+set timeout=3
 
-menuentry "$TRY_TEXT" {
-   set gfxpayload=keep
-   linux   /casper/vmlinuz boot=casper nopersistent quiet splash ---
-   initrd  /casper/initrd
+menuentry "Run with persistent" {
+    set gfxpayload=keep
+    linux   /casper/vmlinuz boot=casper persistent ---
+    initrd  /casper/initrd
+}
+
+menuentry "Run fresh" {
+    set gfxpayload=keep
+    linux   /casper/vmlinuz boot=casper nopersistent ---
+    initrd  /casper/initrd
 }
 
 menuentry "$TRY_TEXT (Safe Graphics)" {
