@@ -182,7 +182,6 @@ apt install $INTERACTIVE \
     python3 \
     python3-pip \
     python-is-python3 \
-    pipx \
     --no-install-recommends
 judge "Install python3"
 
