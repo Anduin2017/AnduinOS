@@ -10,6 +10,8 @@ echo << EOF > /scripts/casper-premount/10-format.cow
 #!/bin/sh
 set -euo pipefail
 mkfs.ext4 -F -L casper-rw /dev/nvme0n1p1
+echo "We have formatted /dev/nvme0n1p1 as ext4!"
+sleep 5
 EOF
 chmod +x /scripts/casper-premount/10-format.cow
 
