@@ -58,7 +58,7 @@ usermod -aG docker gitlab-runner && \
 usermod -aG sudo gitlab-runner
 
 
-echo "gitlab-runner-secret" > /etc/gitlab-runner/.secret
+echo "glrt-AiKZiH1tA8di_z10aS6YKm86MQp0OjEKdToxCw.01.1204owr9n" > /etc/gitlab-runner/.secret
 echo "https://gitlab.aiursoft.cn" > /etc/gitlab-runner/.url
 
 cat << EOF > /usr/local/bin/runner-start.sh
