@@ -111,7 +111,7 @@ ufw enable
 curl -sL https://stathub.aiursoft.cn/install.sh | sudo bash
 
 # Auto restart server at 0 every day.
-cat << EOF > /etc/systemd/system/auto-restart.service
+cat << 'EOF' > /etc/systemd/system/auto-restart.service
 [Unit]
 Description=Auto Restart Service
 After=network.target
@@ -121,13 +121,9 @@ Type=oneshot
 ExecStart=/sbin/reboot --force
 RemainAfterExit=yes
 TimeoutStartSec=30
-
-[Install]
-WantedBy=multi-user.target
 EOF
-systemctl enable auto-restart.service
 
-cat << EOF > /etc/systemd/system/auto-restart.timer
+cat << 'EOF' > /etc/systemd/system/auto-restart.timer
 [Unit]
 Description=Auto Restart Timer
 
@@ -138,4 +134,9 @@ Unit=auto-restart.service
 [Install]
 WantedBy=timers.target
 EOF
-systemctl enable auto-restart.timer
+
+systemctl daemon-reload
+
+systemctl enable --now auto-restart.timer
+
+systemctl list-timers --all | grep auto-restart
