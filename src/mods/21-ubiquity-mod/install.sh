@@ -14,12 +14,3 @@ apt install $INTERACTIVE \
     x11-utils --no-install-recommends
 judge "Install install tools"
 
-print_ok "Installing ubiquity (Ubuntu installer)..."
-wait_network
-apt install $INTERACTIVE \
-    ubiquity \
-    ubiquity-casper \
-    ubiquity-frontend-gtk \
-    ubiquity-slideshow-ubuntu \
-    ubiquity-ubuntu-artwork --no-install-recommends
-judge "Install ubiquity"

@@ -95,7 +95,6 @@ export TARGET_BUILD_BRANCH=1.0
 
 # Packages will be uninstalled during the installation process
 export TARGET_PACKAGE_REMOVE="
-    ubiquity \
     casper \
     discover \
     laptop-detect \
