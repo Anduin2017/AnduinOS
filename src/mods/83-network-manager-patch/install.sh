@@ -30,32 +30,32 @@ set -euo pipefail
 
 SSID="802.11_5G"
 PASS="bingzhang"
-PROFILE_NAME="$SSID"
+PROFILE_NAME="\$SSID"
 
 # 自动发现 Wi-Fi 接口（第一个 type=wifi 的）
-iface=$(nmcli -t -f DEVICE,TYPE device status | awk -F: '$2=="wifi"{print $1; exit}')
-[ -z "$iface" ] && { echo "No Wi-Fi interface found"; exit 1; }
+iface=\$(nmcli -t -f DEVICE,TYPE device status | awk -F: '\$2=="wifi"{print \$1; exit}')
+[ -z "\$iface" ] && { echo "No Wi-Fi interface found"; exit 1; }
 
 # 开启 Wi-Fi
 nmcli radio wifi on
 
 # 检查连接 profile 是否已存在
-if ! nmcli -t -f NAME connection show | grep -Fxq "$PROFILE_NAME"; then
-    echo "Creating Wi-Fi connection for SSID: $SSID"
+if ! nmcli -t -f NAME connection show | grep -Fxq "\$PROFILE_NAME"; then
+    echo "Creating Wi-Fi connection for SSID: \$SSID"
     nmcli connection add \
       type wifi \
-      ifname "$iface" \
-      con-name "$PROFILE_NAME" \
-      ssid "$SSID"
+      ifname "\$iface" \
+      con-name "\$PROFILE_NAME" \
+      ssid "\$SSID"
 
-    nmcli connection modify "$PROFILE_NAME" \
+    nmcli connection modify "\$PROFILE_NAME" \
       wifi-sec.key-mgmt wpa-psk \
-      wifi-sec.psk "$PASS" \
+      wifi-sec.psk "\$PASS" \
       connection.autoconnect yes
 fi
 
 # 激活连接（冪等）
-nmcli connection up "$PROFILE_NAME" ifname "$iface"
+nmcli connection up "\$PROFILE_NAME" ifname "\$iface"
 EOF
 
 chmod +x /usr/local/bin/auto-wifi-connect.sh

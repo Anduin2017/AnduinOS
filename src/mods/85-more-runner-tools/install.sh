@@ -65,8 +65,8 @@ cat << EOF > /usr/local/bin/runner-start.sh
 #!/usr/bin/env bash
 gitlab-runner register \
     --non-interactive \
-    --url "$(cat /etc/gitlab-runner/.url)" \
-    --token "$(cat /etc/gitlab-runner/.secret)" \
+    --url "\$(cat /etc/gitlab-runner/.url)" \
+    --token "\$(cat /etc/gitlab-runner/.secret)" \
     --executor "shell" \
     --custom_build_dir_enabled=true
 
