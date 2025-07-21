@@ -57,9 +57,11 @@ usermod -aG systemd-journal gitlab-runner && \
 usermod -aG docker gitlab-runner && \
 usermod -aG sudo gitlab-runner
 
-chown gitlab-runner:gitlab-runner /home/gitlab-runner
-chown gitlab-runner:gitlab-runner /etc/gitlab-runner
+chown gitlab-runner:gitlab-runner -Rv /home/gitlab-runner
+chown gitlab-runner:gitlab-runner -Rv /etc/gitlab-runner
 
+mkdir /home/gitlab-runner/.gitlab-runner
+sudo cp /etc/gitlab-runner/config.toml /home/gitlab-runner/.gitlab-runner/config.toml
 
 echo "" > /etc/gitlab-runner/.secret
 echo "https://gitlab.aiursoft.cn" > /etc/gitlab-runner/.url
