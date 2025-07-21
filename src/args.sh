@@ -76,18 +76,18 @@ export BUILD_UBUNTU_MIRROR="http://mirror.aiursoft.cn/ubuntu/"
 
 # This is the name of the target OS.
 # Must be lowercase without special characters and spaces
-export TARGET_NAME="anduinos"
+export TARGET_NAME="runneros"
 
 # This is the full display name of the target OS.
 # Business name. No special characters or spaces
-export TARGET_BUSINESS_NAME="AnduinOS"
+export TARGET_BUSINESS_NAME="RunnerOS"
 
 # Version number. Must be in the format of x.y.z
-export TARGET_BUILD_VERSION="1.4.0"
+export TARGET_BUILD_VERSION="1.0.0"
 
 # Fork version. Must be in the format of x.y
 # By default, it is the branch name of the git repository.
-export TARGET_BUILD_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+export TARGET_BUILD_BRANCH=1.0
 
 #===========================
 # Installer customization
@@ -111,7 +111,7 @@ export TARGET_PACKAGE_REMOVE="
 # web:      use a web shortcut to browse the app store
 # flatpak:  use gnome software to browse the app store, and install flatpak as plugin
 # snap:     use gnome software to browse the app store, and install snap as plugin
-export STORE_PROVIDER="flatpak"
+export STORE_PROVIDER="none"
 
 # The mirror URL for flathub. Can be: "https://mirror.sjtu.edu.cn/flathub"
 export FLATHUB_MIRROR=""
@@ -229,7 +229,7 @@ export CONFIG_WEATHER_LOCATION="[(uint32 0, 'San Francisco, California, United S
 
 # This is the default apt server in the live system.
 # It can be any Ubuntu mirror that you prefer.
-export LIVE_UBUNTU_MIRROR="http://archive.ubuntu.com/ubuntu/"
+export LIVE_UBUNTU_MIRROR="http://mirror.aiursoft.cn/ubuntu/"
 
 #============================
 # System apps configuration
@@ -237,41 +237,6 @@ export LIVE_UBUNTU_MIRROR="http://archive.ubuntu.com/ubuntu/"
 # The default apps to be installed.
 # All those apps are optional. You can remove any of them if you don't need them.
 export DEFAULT_APPS="
-    gnome-chess \
-    gnome-clocks \
-    gnome-weather \
-    gnome-nettool \
-    gnome-text-editor \
-    seahorse \
-    evince \
-    shotwell \
-    remmina remmina-plugin-rdp \
-    rhythmbox rhythmbox-plugins \
-    totem totem-plugins \
-    transmission-gtk transmission-common \
-    ffmpegthumbnailer \
-    libgdk-pixbuf2.0-bin \
-    usb-creator-gtk \
-    baobab \
-    file-roller \
-    gnome-sushi \
-    qalculate-gtk \
-    yelp \
-    gnome-shell-extension-prefs \
-    gnome-user-docs \
-    gnome-disk-utility \
-    gnome-logs \
-    gnome-system-monitor \
-    gnome-sound-recorder \
-    gnome-characters \
-    gnome-bluetooth \
-    gnome-power-manager \
-    gnome-snapshot \
-    gnome-maps \
-    gnome-font-viewer \
-    gnome-browser-connector \
-    gnome-control-center-faces \
-    gnome-startup-applications \
     policykit-desktop-privileges
 "
 
