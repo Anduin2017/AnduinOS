@@ -92,3 +92,6 @@ WorkingDirectory=/home/gitlab-runner
 WantedBy=multi-user.target
 EOF
 systemctl enable gitlab-runner.service
+
+# Disable sleep
+systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
