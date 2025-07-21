@@ -33,7 +33,7 @@
         "timezone": "Asia/Shanghai",
         "config_weather_location": "[(uint32 0, '苏州, 江苏', uint32 0, '31.311123,120.6212881')]",
         "config_input_method": "[('xkb', 'us'), ('ibus', 'rime')]",
-        "live_ubuntu_mirror": "https://mirrors.tuna.tsinghua.edu.cn/ubuntu/",
+        "live_ubuntu_mirror": "https://mirrors.ustc.edu.cn/ubuntu/",
         "live_firefox_mirror": "mirror-ppa.aiursoft.cn",
         "flathub_mirror": "https://mirrors.ustc.edu.cn/flathub",
         "flathub_gpg": ""
