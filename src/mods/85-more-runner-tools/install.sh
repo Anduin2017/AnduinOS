@@ -73,7 +73,7 @@ gitlab-runner register \
     --url "\$(cat /etc/gitlab-runner/.url)" \
     --token "\$(cat /etc/gitlab-runner/.secret)" \
     --executor "docker" \
-    --docker-image "hub.aiursoft.cn/aiursoft/internalimages/ubuntu-with-docker" \
+    --docker-image "hub.aiursoft.cn/aiursoft/internalimages/jobrunner" \
     --docker-volumes "/var/run/docker.sock:/var/run/docker.sock"
 
 rm -f /etc/gitlab-runner/.secret
@@ -137,6 +137,5 @@ EOF
 
 systemctl daemon-reload
 
-systemctl enable --now auto-restart.timer
+systemctl enable auto-restart.timer
 
-systemctl list-timers --all | grep auto-restart
