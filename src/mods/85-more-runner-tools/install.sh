@@ -72,7 +72,9 @@ gitlab-runner register \
     --non-interactive \
     --url "\$(cat /etc/gitlab-runner/.url)" \
     --token "\$(cat /etc/gitlab-runner/.secret)" \
-    --executor "shell"
+    --executor "docker" \
+    --docker-image "hub.aiursoft.cn/aiursoft/internalimages/ubuntu-with-docker" \
+    --docker-volumes "/var/run/docker.sock:/var/run/docker.sock"
 
 rm -f /etc/gitlab-runner/.secret
 
@@ -101,3 +103,5 @@ systemctl enable gitlab-runner.service
 
 # Disable sleep
 systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
+
+ufw enable
