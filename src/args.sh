@@ -65,7 +65,7 @@ echo "Language environment has been set to $LANG_MODE"
 # If you are building against Ubuntu 25.04, this should be "plucky".
 # If you are building against Ubuntu 25.10, this should be "questing".
 # Can be: jammy noble oracular plucky questing
-export TARGET_UBUNTU_VERSION="questing"
+export TARGET_UBUNTU_VERSION="plucky"
 
 # This is the apt source for the build.
 # It can be any Ubuntu mirror that you prefer.
