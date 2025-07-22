@@ -26,7 +26,7 @@ ALSA_UCM_CONF_LINK="https://git.aiursoft.cn/PublicVault/alsa-ucm-conf/archive/ma
     judge "Removed old SOF binaries"
 
     print_ok "Installing SOF binaries"
-    cd ./sof-bin-2025.01.1
+    cd ./sof-bin-2025.05
     ./install.sh
     judge "Installed SOF binaries"
     cd ..
