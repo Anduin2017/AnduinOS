@@ -328,11 +328,22 @@ function patch_dash_to_panel() {
     print_ok "Dash-to-panel patch applied successfully"
 }
 
+function patch_fix_toggle_network() {
+    print_ok "Patching toggle_network_stats script to ensure compatibility with gnome-extensions command"
+    sudo sed -i \
+        's|gnome-extensions show|LC_ALL=C &|' \
+        /usr/local/bin/toggle_network_stats
+    judge "Patch toggle_network_stats script"
+}
+
 function upgrade_133_to_134() {
     print_ok "Upgrading from 1.3.3 to 1.3.4..."
 
     shift_screenshot_key
+    
     patch_dash_to_panel
+
+    patch_fix_toggle_network
 
     print_ok "Disabling cache-images in clipboard-indicator extension for performance"
     dconf write  /org/gnome/shell/extensions/clipboard-indicator/cache-images false
