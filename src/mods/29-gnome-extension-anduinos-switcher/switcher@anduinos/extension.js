@@ -6,6 +6,20 @@ import {Extension} from 'resource:///org/gnome/shell/extensions/extension.js';
 
 const LIGHT_SCHEME_NAME   = 'prefer-light';
 const DARK_SCHEME_NAME    = 'prefer-dark';
+const GLib = imports.gi.GLib;
+
+function runCommand(command) {
+    try {
+        let [stdout, stderr, exit_status] = GLib.spawn_command_line_sync(command);
+        if (exit_status !== 0) {
+            global.log(`Error running command: ${stderr}`);
+        } else {
+            global.log(`Command output: ${stdout}`);
+        }
+    } catch (e) {
+        global.log(`Error running command: ${e}`);
+    }
+}
 
 const LIGHT_THEME_SETTINGS = {
     "org.gnome.desktop.interface": {
@@ -85,8 +99,12 @@ export default class LightDarkSwitcherExtension extends Extension {
     _syncTheme() {
         let scheme = this._interfaceSettings.get_string('color-scheme');
         if (scheme === DARK_SCHEME_NAME) {
+            GLib.spawn_async(null, ['sh', '-c', "rm -rf $HOME/.config/gtk-4.0/*"], null, GLib.SpawnFlags.SEARCH_PATH, null);
+	    GLib.spawn_async(null, ['sh', '-c', "ln -sf /usr/share/themes/Fluent-round-Dark/gtk-4.0/* $HOME/.config/gtk-4.0/"], null, GLib.SpawnFlags.SEARCH_PATH, null);
             applySettings(DARK_THEME_SETTINGS);
         } else {
+            GLib.spawn_async(null, ['sh', '-c', "rm -rf $HOME/.config/gtk-4.0/*"], null, GLib.SpawnFlags.SEARCH_PATH, null);
+	    GLib.spawn_async(null, ['sh', '-c', "ln -sf /usr/share/themes/Fluent-round-Light/gtk-4.0/* $HOME/.config/gtk-4.0/"], null, GLib.SpawnFlags.SEARCH_PATH, null);
             applySettings(LIGHT_THEME_SETTINGS);
         }
     }
