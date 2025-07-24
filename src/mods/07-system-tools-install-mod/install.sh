@@ -94,11 +94,20 @@ apt install $INTERACTIVE \
     gettext \
     cracklib-runtime \
     libfuse2t64 \
-    libfuse3-4 \
     libopengl0 \
     initramfs-tools \
     --no-install-recommends
 judge "Install basic system tool packages"
+
+print_ok "Installing libfuse for specific release..."
+case $TARGET_UBUNTU_VERSION in
+    "questing")
+        apt-get install $INTERACTIVE libfuse3-4 --no-install-recommends
+        ;;
+    *)
+        apt-get install $INTERACTIVE libfuse3-3 --no-install-recommends
+        ;;
+esac
 
 print_ok "Fixing the package base-files to avoid system upgrading it..."
 # Fix the package base-files to avoid system upgrading it. This is because Ubuntu may upgrade the package base-files and caused AnduinOS to be changed to Ubuntu.
