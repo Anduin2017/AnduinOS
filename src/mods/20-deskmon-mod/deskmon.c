@@ -1,7 +1,7 @@
 // ====================
 // File: deskmon.c
 // Daemon: watch ~/Desktop for new .desktop files, chmod +x and mark as trusted
-// Compile: gcc `pkg-config --cflags --libs gio-2.0 glib-2.0` -O2 -o deskmon deskmon.c
+// Compile: gcc `pkg-config --cflags gio-2.0 glib-2.0` -O2 -o deskmon deskmon.c `pkg-config --libs gio-2.0 glib-2.0`
 // Install to /usr/local/bin/deskmon and run via systemd user service
 
 #define _GNU_SOURCE
