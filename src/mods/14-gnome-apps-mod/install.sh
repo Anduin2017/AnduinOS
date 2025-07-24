@@ -174,7 +174,7 @@ judge "Install gnome printer support"
 
 print_ok "Installing ubuntu drivers support..."
 apt install $INTERACTIVE \
-    ubuntu-drivers-common alsa-utils alsa-base fprintd --no-install-recommends
+    ubuntu-drivers-common alsa-utils alsa-base fprintd printer-driver-all --no-install-recommends
 judge "Install ubuntu drivers support"
 
 print_ok "Installing python3..."
