@@ -120,7 +120,7 @@ function build_iso() {
     print_ok "Building ISO image..."
 
     print_ok "Creating image directory..."
-    rm -rf image
+    sudo rm -rf image
     mkdir -p image/{casper,isolinux,.disk}
     judge "Create image directory"
 
