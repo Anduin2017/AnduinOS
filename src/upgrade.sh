@@ -354,6 +354,24 @@ function upgrade_133_to_134() {
     judge "Enable show-favorites-all-monitors in dash-to-panel extension"
 }
 
+function upgrade_134_to_135() {
+    print_ok "Upgrading from 1.3.4 to 1.3.5..."
+
+    print_ok "Removing obsolete css file"
+    sudo rm /etc/skel/.config/gtk-4.0/gtk.css || true
+    sudo mv ~/.config/gtk-4.0/gtk.css ~/.config/gtk-4.0/gtk.css.bak || true
+    judge "Remove obsolete gtk.css file"
+
+    print_ok "Downloading new logo text images"
+    logo_light="https://gitlab.aiursoft.cn/anduin/anduinos/-/raw/1.4/src/mods/36-ubuntu-logo-text/ubuntu-logo-text.png?ref_type=heads&inline=false"
+    logo_dark="https://gitlab.aiursoft.cn/anduin/anduinos/-/raw/1.4/src/mods/36-ubuntu-logo-text/ubuntu-logo-text-dark.png?ref_type=heads&inline=false"
+    sudo wget -O /usr/share/pixmaps/ubuntu-logo-text.png "$logo_light"
+    sudo wget -O /usr/share/pixmaps/ubuntu-logo-text-dark.png "$logo_dark"
+    judge "Apply new logo text images"
+
+    judge "Upgrade from 1.3.4 to 1.3.5 completed"
+}
+
 
 function applyLsbRelease() {
 
