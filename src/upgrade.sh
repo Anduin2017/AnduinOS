@@ -369,6 +369,12 @@ function upgrade_134_to_135() {
     sudo wget -O /usr/share/pixmaps/ubuntu-logo-text-dark.png "$logo_dark"
     judge "Apply new logo text images"
 
+    print_ok "Fixing super+i to toggle settings by disabling intellihide of dash-to-panel extension"
+    dconf write /org/gnome/shell/extensions/dash-to-panel/intellihide false
+    dconf write /org/gnome/shell/extensions/dash-to-panel/intellihide-key-toggle "['<Alt><Super>i']"
+    dconf write /org/gnome/shell/extensions/dash-to-panel/intellihide-key-toggle-text "'<Alt><Super>i'"
+    judge "Fix super+i to toggle settings by disabling intellihide of dash-to-panel extension"
+
     judge "Upgrade from 1.3.4 to 1.3.5 completed"
 }
 
