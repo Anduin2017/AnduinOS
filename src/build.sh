@@ -257,7 +257,14 @@ EOF
         sudo mkfs.vfat efiboot.img && \
         mkdir efi && \
         sudo mount efiboot.img efi && \
-        sudo grub-install --efi-directory=efi --uefi-secure-boot --removable --no-nvram && \
+        sudo grub-install \
+            --target=x86_64-efi \
+            --boot-directory=efi/boot \
+            --efi-directory=efi \
+            --uefi-secure-boot \
+            --removable \
+            --no-nvram \
+            --bootloader-id=GRUB && \
         sudo umount efi && \
         rm -rf efi
     )
