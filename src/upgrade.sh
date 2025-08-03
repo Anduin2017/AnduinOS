@@ -115,28 +115,40 @@ function install_spg() {
         --no-install-recommends
     judge "Install python3-dateutil"
 
-    sudo apt-get download "software-properties-gtk"
+    # 先清掉残留避免歧义
+    rm -f software-properties-gtk_*.deb
+
+    sudo apt-get download software-properties-gtk
     judge "Download software-properties-gtk"
 
-    DEB_FILE=$(ls *.deb)
+    shopt -s nullglob
+    debs=(software-properties-gtk_*.deb)
+    if [ "${#debs[@]}" -eq 0 ]; then
+        echo "Can't find software-properties-gtk .deb file in current directory." >&2
+        return 1
+    elif [ "${#debs[@]}" -gt 1 ]; then
+        echo "Found multiple software-properties-gtk .deb files in current directory." >&2
+    fi
+    DEB_FILE="${debs[0]}"
     print_ok "Found $DEB_FILE"
-    sudo chown $USER:$USER "$DEB_FILE"
+
+    sudo chown "$USER:$USER" "$DEB_FILE"
 
     print_ok "Extracting $DEB_FILE..."
-    mkdir original
-    dpkg-deb -R "$DEB_FILE" original
+    mkdir -p original
+    sudo dpkg-deb -R "$DEB_FILE" original
     judge "Extract $DEB_FILE"
 
     print_ok "Patching control file..."
     sed -i \
-    '/^Depends:/s/, *ubuntu-pro-client//; /^Depends:/s/, *ubuntu-advantage-desktop-daemon//' \
-    original/DEBIAN/control
+        '/^Depends:/s/, *ubuntu-pro-client//; /^Depends:/s/, *ubuntu-advantage-desktop-daemon//' \
+        original/DEBIAN/control
     judge "Edit control file"
 
     MOD_DEB="modified.deb"
 
     print_ok "Repackaging $MOD_DEB..."
-    dpkg-deb -b original "$MOD_DEB"
+    sudo dpkg-deb -b original "$MOD_DEB"
     judge "Repackage $MOD_DEB"
 
     print_ok "Cleaning up temp folder..."
@@ -147,8 +159,7 @@ function install_spg() {
     judge "Install $MOD_DEB"
 
     print_ok "Cleaning up $MOD_DEB and $DEB_FILE..."
-    rm -f "$MOD_DEB"
-    rm -f "$DEB_FILE"
+    rm -f "$MOD_DEB" "$DEB_FILE"
     judge "Clean up $MOD_DEB and $DEB_FILE"
 
     FILE=/usr/lib/python3/dist-packages/softwareproperties/gtk/SoftwarePropertiesGtk.py
@@ -163,7 +174,6 @@ function install_spg() {
     print_ok "Marking software-properties-gtk as held..."
     sudo apt-mark hold software-properties-gtk
     judge "Mark software-properties-gtk as held"
-
 }
 
 function install_desktop_mon() {
