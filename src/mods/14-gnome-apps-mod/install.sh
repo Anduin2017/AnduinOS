@@ -71,6 +71,10 @@ apt install $INTERACTIVE \
     libpam-gnome-keyring \
     gnome-keyring \
     gnome-keyring-pkcs11 \
+    libcanberra-gtk3-0 \
+    libcanberra-gtk3-module \
+    libcanberra-pulse \
+    libcanberra0 \
     --no-install-recommends
 judge "Install gnome basic sessions"
 
