@@ -407,6 +407,15 @@ function upgrade_117_to_118() {
     dconf write /org/gnome/shell/extensions/dash-to-panel/intellihide-key-toggle-text "'<Alt><Super>i'"
     judge "Fix super+i to toggle settings by disabling intellihide of dash-to-panel extension"
 
+    print_ok "Installing missing dependencies for audio"
+    sudo apt update
+    sudo apt install -y \
+        libcanberra-gtk3-0 \
+        libcanberra-gtk3-module \
+        libcanberra-pulse \
+        libcanberra0
+    judge "Install missing dependencies for audio"
+
     judge "Upgrade from 1.1.7 to 1.1.8 completed"
 }
 
