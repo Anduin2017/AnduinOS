@@ -6,7 +6,7 @@ set -u                  # treat unset variable as error
 # https://raw.githubusercontent.com/Anduin2017/blur-my-shell/refs/heads/master/src/components/panel.js
 
 print_ok "Downloading Blur My Shell patch"
-URL="https://git.aiursoft.cn/Anduin/blur-my-shell/raw/branch/master/src/components/panel.js"
+URL="https://git.aiursoft.cn/Anduin/blur-my-shell/raw/branch/patch-1/src/components/panel.js"
 wget "$URL" -O /tmp/panel.js
 judge "Download Blur My Shell patch"
 
