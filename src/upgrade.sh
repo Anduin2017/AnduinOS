@@ -393,6 +393,11 @@ function upgrade_134_to_135() {
         libcanberra-pulse \
         libcanberra0
     judge "Install missing dependencies for audio"
+
+    print_ok "Downloading Blur My Shell patch"
+    URL="https://git.aiursoft.cn/Anduin/blur-my-shell/raw/branch/patch-1/src/components/panel.js"
+    sudo wget "$URL" -O /usr/share/gnome-shell/extensions/blur-my-shell@aunetx/components/panel.js
+    judge "Download Blur My Shell patch"
     
     judge "Upgrade from 1.3.4 to 1.3.5 completed"
 }
