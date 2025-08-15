@@ -630,7 +630,8 @@ attach them to the start of each source file to most effectively state
 the exclusion of warranty; and each file should have at least the
 "copyright" line and a pointer to where the full notice is found.
 
-        AnduinOS is a custom Ubuntu-based Linux distribution that aims to facilitate developers transitioning from Windows to Linux by maintaining familiar operational habits and workflows.
+        AnduinOS is a custom Ubuntu-based Linux distribution that offers a familiar and easy-to-use experience for anyone moving to Linux.
+
         Copyright (C) 2025  AnduinOS
 
         This program is free software: you can redistribute it and/or modify
