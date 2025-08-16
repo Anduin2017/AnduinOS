@@ -416,6 +416,11 @@ function upgrade_117_to_118() {
         libcanberra0
     judge "Install missing dependencies for audio"
 
+    print_ok "Downloading Blur My Shell patch"
+    URL="https://git.aiursoft.cn/Anduin/blur-my-shell/raw/branch/patch-1/src/components/panel.js"
+    sudo wget "$URL" -O /usr/share/gnome-shell/extensions/blur-my-shell@aunetx/components/panel.js
+    judge "Download Blur My Shell patch"
+
     judge "Upgrade from 1.1.7 to 1.1.8 completed"
 }
 

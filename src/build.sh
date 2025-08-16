@@ -226,7 +226,7 @@ EOF
     cat << EOF > image/README.md
 # $TARGET_BUSINESS_NAME $TARGET_BUILD_VERSION
 
-$TARGET_BUSINESS_NAME is a custom Ubuntu-based Linux distribution that aims to facilitate developers transitioning from Windows to Linux by maintaining familiar operational habits and workflows.
+$TARGET_BUSINESS_NAME is a custom Ubuntu-based Linux distribution that offers a familiar and easy-to-use experience for anyone moving to Linux.
 
 This image is built with the following configurations:
 
