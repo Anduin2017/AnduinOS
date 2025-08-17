@@ -24,17 +24,9 @@ msgid "Unpin from Start menu"
 msgstr "从开始菜单取消固定"
 
 EOF
+sed -i "s/新建/新增/g" /tmp/arcmenu.po # Only zh_CN need this fix.
 msgfmt /tmp/arcmenu.po -o /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/locale/zh_CN/LC_MESSAGES/arcmenu.mo
 judge "Patch Arc Menu localization"
 
 # Clean up
 rm /tmp/arcmenu.po
-
-URL="https://gitlab.com/Anduin2017/ArcMenu/-/raw/master/src/menuController.js?ref_type=heads"
-print_ok "Downloading Arc Menu patch"
-wget "$URL" -O /tmp/menuController.js
-judge "Download Arc Menu patch"
-
-print_ok "Installing Arc Menu patch"
-mv /tmp/menuController.js /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/menuController.js
-judge "Install Arc Menu patch"
