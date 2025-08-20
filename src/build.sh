@@ -195,6 +195,14 @@ EOF
         -e "tmp/.*" \
         -e "swapfile"
     judge "Compress rootfs"
+
+    print_ok "Verifying the integrity of filesystem.squashfs..."
+    if sudo unsquashfs -s image/casper/filesystem.squashfs; then
+        print_ok "Verification successful. The file appears to be valid."
+    else
+        print_err "Verification FAILED! The squashfs file is likely corrupt."
+        exit 1
+    fi
     
     print_ok "Generating filesystem.size on /casper/filesystem.size..."
     printf $(sudo du -sx --block-size=1 new_building_os | cut -f1) > image/casper/filesystem.size
