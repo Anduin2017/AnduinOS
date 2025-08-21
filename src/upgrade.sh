@@ -6,7 +6,7 @@ set -e                  # exit on error
 set -o pipefail         # exit on pipeline error
 set -u                  # treat unset variable as error
 export DEBIAN_FRONTEND=noninteractive
-export LATEST_VERSION="1.1.7"
+export LATEST_VERSION="1.1.8"
 export CODE_NAME="noble"
 export OS_ID="AnduinOS"
 export CURRENT_VERSION=$(cat /etc/lsb-release | grep DISTRIB_RELEASE | cut -d "=" -f 2)
@@ -484,6 +484,7 @@ function main() {
               upgrade_114_to_115
               upgrade_115_to_116
               upgrade_116_to_117
+              upgrade_117_to_118
               ;;
           "1.1.1")
               upgrade_111_to_112
@@ -492,6 +493,7 @@ function main() {
               upgrade_114_to_115
               upgrade_115_to_116
               upgrade_116_to_117
+              upgrade_117_to_118
               ;;
           "1.1.2")
               upgrade_112_to_113
@@ -499,26 +501,34 @@ function main() {
               upgrade_114_to_115
               upgrade_115_to_116
               upgrade_116_to_117
+              upgrade_117_to_118
               ;;
           "1.1.3")
               upgrade_113_to_114
               upgrade_114_to_115
               upgrade_115_to_116
               upgrade_116_to_117
+              upgrade_117_to_118
               ;;
           "1.1.4")
               upgrade_114_to_115
               upgrade_115_to_116
               upgrade_116_to_117
+              upgrade_117_to_118
               ;;
           "1.1.5")
               upgrade_115_to_116
               upgrade_116_to_117
+              upgrade_117_to_118
               ;;
           "1.1.6")
               upgrade_116_to_117
+              upgrade_117_to_118
               ;;
           "1.1.7")
+              upgrade_117_to_118
+              ;;
+          "1.1.8")
               print_ok "Your system is already up to date. No update available."
               exit 0
               ;;
