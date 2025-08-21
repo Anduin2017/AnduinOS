@@ -6,7 +6,7 @@ set -e                  # exit on error
 set -o pipefail         # exit on pipeline error
 set -u                  # treat unset variable as error
 export DEBIAN_FRONTEND=noninteractive
-export LATEST_VERSION="1.3.4"
+export LATEST_VERSION="1.3.5"
 export CODE_NAME="plucky"
 export OS_ID="AnduinOS"
 export CURRENT_VERSION=$(cat /etc/lsb-release | grep DISTRIB_RELEASE | cut -d "=" -f 2)
@@ -460,20 +460,27 @@ function main() {
               upgrade_131_to_132
               upgrade_132_to_133
               upgrade_133_to_134
+              upgrade_134_to_135
               ;;
           "1.3.1")
               upgrade_131_to_132
               upgrade_132_to_133
               upgrade_133_to_134
+              upgrade_134_to_135
               ;;
           "1.3.2")
               upgrade_132_to_133
               upgrade_133_to_134
+              upgrade_134_to_135
               ;;
           "1.3.3")
               upgrade_133_to_134
+              upgrade_134_to_135
               ;;
           "1.3.4")
+              upgrade_134_to_135
+              ;;
+          "1.3.5")
               print_ok "Your system is already up to date. No update available."
               exit 0
               ;;
