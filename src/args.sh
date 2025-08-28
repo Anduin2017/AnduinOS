@@ -266,7 +266,6 @@ export DEFAULT_APPS="
     gnome-bluetooth \
     gnome-power-manager \
     gnome-snapshot \
-    gnome-maps \
     gnome-font-viewer \
     gnome-browser-connector \
     gnome-control-center-faces \
