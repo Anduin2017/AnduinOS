@@ -37,6 +37,21 @@ else
     print_ok "No ibus-rime to install"
 fi
 
+# If installing wubi input method:
+if [[ "$INPUT_METHOD_INSTALL" == *"ibus-table-wubi"* ]]; then
+    print_ok "Installing Wubi input method..."
+    apt install $INTERACTIVE --no-install-recommends \
+        ibus-table-wubi
+    judge "Install Wubi input method"
+    
+    print_ok "Configuring Wubi input method..."
+    # Ensure Wubi input method is available in language selector
+    if ! grep -q "im:zh-hans::ibus-table-wubi" /usr/share/language-selector/data/pkg_depends; then
+        echo "im:zh-hans::ibus-table-wubi" >> /usr/share/language-selector/data/pkg_depends
+    fi
+    judge "Configure Wubi input method"
+fi
+
 print_ok "Patching language-selector to install input method packages"
 # Remove all lines in /usr/share/language-selector/data/pkg_depends that starts with 'im:'
 sed -i '/^im:/d' /usr/share/language-selector/data/pkg_depends

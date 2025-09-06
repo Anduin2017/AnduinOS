@@ -180,6 +180,7 @@ fi
 # * ibus-libpinyin
 # * ibus-chewing
 # * ibus-table-cangjie
+# * ibus-table-wubi
 # * ibus-mozc
 # * ibus-hangul
 # * ibus-unikey

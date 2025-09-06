@@ -24,5 +24,18 @@
         "live_firefox_mirror": "mirror-ppa.aiursoft.cn",
         "flathub_mirror": "https://mirrors.ustc.edu.cn/flathub",
         "flathub_gpg": ""
+    },
+    {
+        "lang_mode": "zh_CN_wubi",
+        "lang_pack_code": "zh",
+        "input_method_install": "ibus-table-wubi",
+        "config_ibus_rime": "false",
+        "timezone": "Asia/Shanghai",
+        "config_weather_location": "[(uint32 0, '苏州, 江苏', uint32 0, '31.311123,120.6212881')]",
+        "config_input_method": "[('xkb', 'us'), ('ibus', 'table:wubi')]",
+        "live_ubuntu_mirror": "https://mirrors.huaweicloud.com/ubuntu/",
+        "live_firefox_mirror": "mirror-ppa.aiursoft.cn",
+        "flathub_mirror": "https://mirrors.ustc.edu.cn/flathub",
+        "flathub_gpg": ""
     }
 ]
