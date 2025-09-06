@@ -424,6 +424,23 @@ function upgrade_117_to_118() {
     judge "Upgrade from 1.1.7 to 1.1.8 completed"
 }
 
+function upgrade_118_to_119() {
+    print_ok "Upgrading from 1.1.8 to 1.1.9..."
+    cat <<"EOF" | sudo tee /usr/local/bin/do_anduinos_upgrade > /dev/null
+#!/bin/bash
+echo "Upgrading AnduinOS..."
+
+VERSION=$(grep -oP "VERSION_ID=\"\\K\\d+\\.\\d+" /etc/os-release)
+
+echo "Current fork version is: $VERSION, running upgrade script..."
+
+wget -qO- "https://www.anduinos.com/upgrade/$VERSION" | bash
+EOF
+
+    sudo chmod +x /usr/local/bin/do_anduinos_upgrade
+    judge "Upgrade from 1.1.8 to 1.1.9 completed"
+}
+
 function applyLsbRelease() {
 
   # Update /etc/os-release
