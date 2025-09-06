@@ -402,6 +402,22 @@ function upgrade_134_to_135() {
     judge "Upgrade from 1.3.4 to 1.3.5 completed"
 }
 
+function upgrade_135_to_136() {
+    print_ok "Upgrading from 1.3.5 to 1.3.6..."
+    cat <<"EOF" | sudo tee /usr/local/bin/do_anduinos_upgrade > /dev/null
+#!/bin/bash
+echo "Upgrading AnduinOS..."
+
+VERSION=$(grep -oP "VERSION_ID=\"\\K\\d+\\.\\d+" /etc/os-release)
+
+echo "Current fork version is: $VERSION, running upgrade script..."
+
+wget -qO- "https://www.anduinos.com/upgrade/$VERSION" | bash
+EOF
+
+    sudo chmod +x /usr/local/bin/do_anduinos_upgrade
+    judge "Upgrade from 1.3.5 to 1.3.6 completed"
+}
 
 function applyLsbRelease() {
 
