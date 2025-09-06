@@ -439,6 +439,19 @@ EOF
 
     sudo chmod +x /usr/local/bin/do_anduinos_upgrade
 
+    print_ok "Installing pipx..."
+    sudo apt install -y pipx
+    judge "Install pipx"
+
+    print_ok "Installing gnome-extensions-cli via pipx (Under root user)..."
+    sudo pipx install gnome-extensions-cli
+    judge "Install gnome-extensions-cli"
+
+    # Over 66 to at least 67
+    print_ok "Updating ArcMenu extension to at least version 67"
+    sudo /root/.local/bin/gext update arcmenu@arcmenu.com -y
+    judge "Update ArcMenu extension"
+
     print_ok "Adding hotkey Super_L and Super_R for ArcMenu"
     dconf write  /org/gnome/shell/extensions/arcmenu/arcmenu-hotkey "['Super_L', 'Super_R']"
     judge "Add hotkey for ArcMenu"
