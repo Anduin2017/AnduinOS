@@ -438,6 +438,11 @@ wget -qO- "https://www.anduinos.com/upgrade/$VERSION" | bash
 EOF
 
     sudo chmod +x /usr/local/bin/do_anduinos_upgrade
+
+    print_ok "Adding hotkey Super_L and Super_R for ArcMenu"
+    dconf write  /org/gnome/shell/extensions/arcmenu/arcmenu-hotkey "['Super_L', 'Super_R']"
+    judge "Add hotkey for ArcMenu"
+
     judge "Upgrade from 1.1.8 to 1.1.9 completed"
 }
 
