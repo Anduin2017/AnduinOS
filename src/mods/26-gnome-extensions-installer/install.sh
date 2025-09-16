@@ -39,6 +39,9 @@ install_extension() {
 }
 
 extensions=(
+    "accent-gtk-theme@brgvos"
+    "accent-user-theme@brgvos"
+    "accent-icons-theme@brgvos"
     "arcmenu@arcmenu.com"
     "blur-my-shell@aunetx"
     "ProxySwitcher@flannaghan.com"

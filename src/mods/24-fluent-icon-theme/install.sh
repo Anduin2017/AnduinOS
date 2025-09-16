@@ -12,7 +12,7 @@ print_ok "Installing Fluent icon theme"
 (
     print_ok "Installing Fluent icon theme" && \
     cd ./themes/fluent-icon-theme/ && \
-    ./install.sh standard
+    ./install.sh --all
 )
 judge "Install Fluent icon theme"
 

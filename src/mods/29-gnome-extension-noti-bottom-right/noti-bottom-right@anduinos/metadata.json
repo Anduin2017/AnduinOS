@@ -2,7 +2,7 @@
     "uuid": "noti-bottom-right@anduinos",
     "name": "Notification Bottom Right",
     "description": "Moves notifications to the bottom right corner of the screen.",
-    "shell-version": ["45", "46", "47", "48"],
+    "shell-version": ["45", "46", "47", "48", "49"],
     "version": 2
   }
   

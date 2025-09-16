@@ -1,5 +1,7 @@
 # List of Third-party Software included in AnduinOS
 
+__Please note__: AnduinOS team is **Sponsoring** `vinceliuice` for his great work on the themes and icons used in AnduinOS.
+
 * [Linux](https://www.kernel.org/)
 * [Debian](https://www.debian.org/)
 * [Ubuntu](https://ubuntu.com/)
@@ -11,6 +13,7 @@
 * [Fluent gtk theme](https://github.com/vinceliuice/Fluent-gtk-theme)
 * [Gnome Extensions CLI](https://github.com/essembeh/gnome-extensions-cli)
 * [Arc Menu](https://github.com/fishears/Arc-Menu)
+* [Blur My Shell](https://github.com/aunetx/blur-my-shell)
 * [proxyswitcher@flannaghan.com](https://github.com/tomflannaghan/proxy-switcher)
 * [Customize ibus](https://github.com/openSUSE/Customize-IBus)
 * [Dash to panel](https://github.com/home-sweet-gnome/dash-to-panel)

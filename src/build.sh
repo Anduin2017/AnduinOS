@@ -120,7 +120,7 @@ function build_iso() {
     print_ok "Building ISO image..."
 
     print_ok "Creating image directory..."
-    rm -rf image
+    sudo rm -rf image
     mkdir -p image/{casper,isolinux,.disk}
     judge "Create image directory"
 
@@ -137,6 +137,7 @@ function build_iso() {
 
     # Configurations are setup in new_building_os/usr/share/initramfs-tools/scripts/casper-bottom/25configure_init
     TRY_TEXT="Try and Install $TARGET_BUSINESS_NAME"
+    TOGO_TEXT="$TARGET_BUSINESS_NAME To Go (Persistent on USB)"
     cat << EOF > image/isolinux/grub.cfg
 
 search --set=root --file /$TARGET_NAME
@@ -155,6 +156,18 @@ menuentry "$TRY_TEXT" {
 menuentry "$TRY_TEXT (Safe Graphics)" {
     set gfxpayload=keep
     linux   /casper/vmlinuz boot=casper nopersistent nomodeset ---
+    initrd  /casper/initrd
+}
+
+menuentry "$TOGO_TEXT" {
+   set gfxpayload=keep
+   linux   /casper/vmlinuz boot=casper persistent quiet splash ---
+   initrd  /casper/initrd
+}
+
+menuentry "$TOGO_TEXT (Safe Graphics)" {
+    set gfxpayload=keep
+    linux   /casper/vmlinuz boot=casper persistent nomodeset ---
     initrd  /casper/initrd
 }
 
@@ -195,6 +208,14 @@ EOF
         -e "tmp/.*" \
         -e "swapfile"
     judge "Compress rootfs"
+
+    print_ok "Verifying the integrity of filesystem.squashfs..."
+    if sudo unsquashfs -s image/casper/filesystem.squashfs; then
+        print_ok "Verification successful. The file appears to be valid."
+    else
+        print_err "Verification FAILED! The squashfs file is likely corrupt."
+        exit 1
+    fi
     
     print_ok "Generating filesystem.size on /casper/filesystem.size..."
     printf $(sudo du -sx --block-size=1 new_building_os | cut -f1) > image/casper/filesystem.size
@@ -218,7 +239,7 @@ EOF
     cat << EOF > image/README.md
 # $TARGET_BUSINESS_NAME $TARGET_BUILD_VERSION
 
-$TARGET_BUSINESS_NAME is a custom Ubuntu-based Linux distribution that aims to facilitate developers transitioning from Windows to Linux by maintaining familiar operational habits and workflows.
+$TARGET_BUSINESS_NAME is a custom Ubuntu-based Linux distribution that offers a familiar and easy-to-use experience for anyone moving to Linux.
 
 This image is built with the following configurations:
 
