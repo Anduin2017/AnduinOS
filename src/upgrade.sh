@@ -250,8 +250,6 @@ function upgrade_132_to_133() {
 }
 
 function shift_screenshot_key() {
-    #!/usr/bin/env bash
-    #
     # Remove the screenshot keybinding (custom3), shift custom4→custom3, custom5→custom4,
     # and update the custom-keybindings list.
 
@@ -442,6 +440,33 @@ EOF
     print_ok "Adding hotkey Super_L and Super_R for ArcMenu"
     dconf write  /org/gnome/shell/extensions/arcmenu/arcmenu-hotkey "['Super_L', 'Super_R']"
     judge "Add hotkey for ArcMenu"
+
+    SERVICE_FILE="/etc/systemd/user/deskmon.service"
+    if [ ! -f "${SERVICE_FILE}" ]; then
+        print_error "Deskmon service file not found at ${SERVICE_FILE}. Please ensure deskmon is installed."
+    else
+        print_ok "Deskmon service file found at ${SERVICE_FILE}."
+        cat <<"EOF" | sudo tee "${SERVICE_FILE}" > /dev/null
+[Unit]
+Description=Auto-trust .desktop files on Desktop (user scope) to make it easier for "Add to Desktop" functionality
+PartOf=graphical-session.target
+After=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=/bin/sh -c "sleep 5 && /usr/local/bin/deskmon"
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=graphical-session.target
+EOF
+        judge "Update deskmon.service file"
+        print_ok "Reloading and restarting deskmon service"
+        systemctl --user daemon-reload
+        systemctl --user restart deskmon.service
+        systemctl --user enable deskmon.service
+    fi
 
     judge "Upgrade from 1.3.5 to 1.3.6 completed"
 }
