@@ -1,13 +1,13 @@
 [Unit]
-Description=Auto-trust .desktop files on Desktop (user scope) to make it easier for "Add to Desktop" functionality
+ .desktop files on Desktop (user scope) to make it easier for "Add to Desktop" functionality
+PartOf=graphical-session.target
 After=graphical-session.target
 
 [Service]
 Type=simple
-ExecStart=/usr/local/bin/deskmon
+ExecStart=/bin/sh -c "sleep 5 && /usr/local/bin/deskmon"
 Restart=on-failure
 RestartSec=5s
-Environment=HOME=%h
 
 [Install]
-WantedBy=default.target
+WantedBy=graphical-session.target
