@@ -468,6 +468,10 @@ EOF
         systemctl --user enable deskmon.service
     fi
 
+    print_ok "Installing printer-driver-all to ensure printer compatibility"
+    sudo apt install printer-driver-all --no-install-recommends -y
+    judge "Install printer-driver-all"
+
     judge "Upgrade from 1.3.5 to 1.3.6 completed"
 }
 
