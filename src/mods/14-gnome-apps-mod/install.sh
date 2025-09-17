@@ -164,7 +164,7 @@ judge "Install ibus"
 
 print_ok "Installing gnome fonts..."
 apt install $INTERACTIVE \
-    fonts-noto-cjk fonts-noto-core fonts-noto-mono fonts-noto-color-emoji --no-install-recommends
+    fonts-noto-cjk fonts-noto-core fonts-noto-mono fonts-noto-color-emoji printer-driver-all --no-install-recommends
 judge "Install gnome fonts"
 
 print_ok "Installing gnome printer support..."
