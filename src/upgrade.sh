@@ -456,9 +456,10 @@ EOF
     sudo rm -rf /root/.local/share/gnome-shell/extensions/* || true
     judge "Clean up root's GNOME extensions"
 
-    print_ok "Adding hotkey Super_L and Super_R for ArcMenu"
-    dconf write  /org/gnome/shell/extensions/arcmenu/arcmenu-hotkey "['Super_L', 'Super_R']"
-    judge "Add hotkey for ArcMenu"
+    # 1.1 uses Gnome Shell 46 which doesn't support Super_R as hotkey for both ArcMenu and system.
+    # print_ok "Adding hotkey Super_L and Super_R for ArcMenu"
+    # dconf write  /org/gnome/shell/extensions/arcmenu/arcmenu-hotkey "['Super_L', 'Super_R']"
+    # judge "Add hotkey for ArcMenu"
 
     SERVICE_FILE="/etc/systemd/user/deskmon.service"
     if [ ! -f "${SERVICE_FILE}" ]; then
