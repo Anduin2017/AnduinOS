@@ -153,8 +153,8 @@ file-roller 44.3-0ubuntu1
 finalrd 9build1
 findutils 4.9.0-5build1
 finger 0.17-17
-firefox 141.0.3+build1-0ubuntu0.24.04.1~mt1
-firefox-locale-en 141.0.3+build1-0ubuntu0.24.04.1~mt1
+firefox 143.0.1+build1-0ubuntu0.24.04.1~mt1
+firefox-locale-en 143.0.1+build1-0ubuntu0.24.04.1~mt1
 firmware-sof-signed 2023.12.1-1ubuntu1.7
 fontconfig 2.15.0-1.1ubuntu2
 fontconfig-config 2.15.0-1.1ubuntu2
@@ -207,7 +207,6 @@ gir1.2-gdesktopenums-3.0 46.1-0ubuntu1
 gir1.2-gdkpixbuf-2.0 2.42.10+dfsg-3ubuntu3.2
 gir1.2-gdm-1.0 46.2-1ubuntu1~24.04.1
 gir1.2-geoclue-2.0 2.7.0-3ubuntu7
-gir1.2-geocodeglib-2.0 3.26.3-6build3
 gir1.2-girepository-2.0 1.80.1-1
 gir1.2-glib-2.0 2.80.0-6ubuntu3.4
 gir1.2-gmenu-3.0 3.36.0-1.1ubuntu3
@@ -241,10 +240,8 @@ gir1.2-pango-1.0 1.52.1+ds-1build1
 gir1.2-peas-1.0 1.36.0-3build4
 gir1.2-polkit-1.0 124-2ubuntu1.24.04.2
 gir1.2-rb-3.0 3.4.7-2ubuntu6
-gir1.2-rest-1.0 0.9.1-6build3
 gir1.2-rsvg-2.0 2.58.0+dfsg-1build1
 gir1.2-secret-1 0.21.4-1build3
-gir1.2-shumate-1.0 1.2~beta-3build3
 gir1.2-soup-3.0 3.4.4-5ubuntu0.5
 gir1.2-timezonemap-1.0 0.4.6-6ubuntu1
 gir1.2-totem-1.0 43.0-2ubuntu4
@@ -256,7 +253,6 @@ gir1.2-vte-2.91 0.76.0-1ubuntu0.1
 gir1.2-webkit-6.0 2.48.5-0ubuntu0.24.04.1
 gir1.2-webkit2-4.1 2.48.5-0ubuntu0.24.04.1
 gir1.2-wnck-3.0 43.0-3build4
-gir1.2-xdp-1.0 0.7.1-5build5
 gir1.2-xkl-1.0 5.4-5build2
 git 1:2.43.0-1ubuntu7.3
 git-man 1:2.43.0-1ubuntu7.3
@@ -281,7 +277,6 @@ gnome-font-viewer 46.0-1build1
 gnome-keyring 46.1-2build1
 gnome-keyring-pkcs11 46.1-2build1
 gnome-logs 45.0-1build1
-gnome-maps 46.0-1build1
 gnome-menus 3.36.0-1.1ubuntu3
 gnome-nettool 42.0-1build2
 gnome-power-manager 43.0-2build2
@@ -962,8 +957,6 @@ libsframe1 2.42-4ubuntu2.5
 libsharpyuv0 1.3.2-0.4build3
 libshine3 3.1.1-2build1
 libshout3 2.4.6-1build2
-libshumate-1.0-1 1.2~beta-3build3
-libshumate-common 1.2~beta-3build3
 libsigc++-3.0-0 3.6.0-2
 libslang2 2.3.3-3build2
 libsm6 2:1.2.3-1build3
@@ -1277,6 +1270,7 @@ power-profiles-daemon 0.21-1ubuntu1
 powermgmt-base 1.37ubuntu0.1
 ppp 2.4.9-1+1.1ubuntu4
 pptp-linux 1.10.0-1build4
+printer-driver-all 0.20210903
 procps 2:4.0.4-4ubuntu3.2
 psmisc 23.7-1build1
 publicsuffix 20231001.0357-0.1
