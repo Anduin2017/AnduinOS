@@ -159,8 +159,8 @@ file-roller 44.5-1
 finalrd 9build1
 findutils 4.10.0-3
 finger 0.17-17
-firefox 141.0.3+build1-0ubuntu0.25.04.1~mt1
-firefox-locale-en 141.0.3+build1-0ubuntu0.25.04.1~mt1
+firefox 143.0.1+build1-0ubuntu0.25.04.1~mt1
+firefox-locale-en 143.0.1+build1-0ubuntu0.25.04.1~mt1
 firmware-sof-signed 2025.01-1ubuntu1~25.04.2
 flatpak 1.16.0-2
 fontconfig 2.15.0-2.2ubuntu1
@@ -212,7 +212,6 @@ gir1.2-gdesktopenums-3.0 48.0-1ubuntu1
 gir1.2-gdkpixbuf-2.0 2.42.12+dfsg-2ubuntu0.1
 gir1.2-gdm-1.0 48.0-1ubuntu1
 gir1.2-geoclue-2.0 2.7.2-2ubuntu1
-gir1.2-geocodeglib-2.0 3.26.3-6build3
 gir1.2-girepository-2.0 1.84.0-1
 gir1.2-glib-2.0 2.84.1-1ubuntu0.1
 gir1.2-gmenu-3.0 3.36.0-1.1ubuntu3
@@ -245,10 +244,8 @@ gir1.2-pango-1.0 1.56.3-1
 gir1.2-peas-1.0 1.36.0-3build5
 gir1.2-polkit-1.0 126-2
 gir1.2-rb-3.0 3.4.8-1ubuntu1
-gir1.2-rest-1.0 0.9.1-6build3
 gir1.2-rsvg-2.0 2.60.0+dfsg-1
 gir1.2-secret-1 0.21.7-1
-gir1.2-shumate-1.0 1.4.0-1
 gir1.2-soup-3.0 3.6.5-1ubuntu0.2
 gir1.2-timezonemap-1.0 0.4.6-7
 gir1.2-totem-1.0 43.1-3ubuntu1
@@ -259,7 +256,6 @@ gir1.2-upowerglib-1.0 1.90.7-1build1
 gir1.2-vte-2.91 0.80.0-1
 gir1.2-webkit2-4.1 2.48.5-0ubuntu0.25.04.1
 gir1.2-wnck-3.0 43.2-1
-gir1.2-xdp-1.0 0.9.1-1
 gir1.2-xkl-1.0 5.4-5build2
 git 1:2.48.1-0ubuntu1.1
 git-man 1:2.48.1-0ubuntu1.1
@@ -284,7 +280,6 @@ gnome-font-viewer 48.0-1
 gnome-keyring 48.0-1
 gnome-keyring-pkcs11 48.0-1
 gnome-logs 45.0-1build1
-gnome-maps 48.1-1
 gnome-menus 3.36.0-1.1ubuntu3
 gnome-nettool 42.0-2.1
 gnome-online-accounts 3.54.1-1
@@ -1003,8 +998,6 @@ libsframe1 2.44-3ubuntu1
 libsharpyuv0 1.5.0-0.1
 libshine3 3.1.1-2build1
 libshout3 2.4.6-1build2
-libshumate-1.0-1 1.4.0-1
-libshumate-common 1.4.0-1
 libsigc++-3.0-0 3.6.0-2
 libslang2 2.3.3-5
 libsm6 2:1.2.4-1
@@ -1323,6 +1316,7 @@ power-profiles-daemon 0.30-1
 powermgmt-base 1.38ubuntu1~25.04.1
 ppp 2.5.2-1+1
 pptp-linux 1.10.0-2
+printer-driver-all 0.20210903
 procps 2:4.0.4-7ubuntu1
 psmisc 23.7-2
 publicsuffix 20250108.1153-0.1
