@@ -169,12 +169,16 @@ judge "Install gnome fonts"
 
 print_ok "Installing gnome printer support..."
 apt install $INTERACTIVE \
+    printer-driver-all # With recommends this time. Because only this way it installs the actual drivers
+judge "Install printer-driver-all"
+
+print_ok "Installing gnome printer support..."
+apt install $INTERACTIVE \
     cups \
     cups-bsd \
     cups-browsed \
     cups-pk-helper \
     ipp-usb \
-    printer-driver-all \
     --no-install-recommends
 judge "Install gnome printer support"
 
