@@ -423,30 +423,34 @@ EOF
     sudo pipx install gnome-extensions-cli
     judge "Install gnome-extensions-cli"
 
-    # Over 66 to at least 67
-    print_ok "Updating ArcMenu extension to at least version 67"
-    sudo /root/.local/bin/gext update arcmenu@arcmenu.com -y
-    judge "Update ArcMenu extension"
+    if gsettings list-schemas | grep -q "org.gnome.shell"; then
+      # Over 66 to at least 67
+      print_ok "Updating ArcMenu extension to at least version 67"
+      sudo /root/.local/bin/gext update arcmenu@arcmenu.com -y
+      judge "Update ArcMenu extension"
 
-    #mv /root/.local/share/gnome-shell/extensions/* /usr/share/gnome-shell/extensions/
-    print_ok "Archiving GNOME extensions to system level"
-    sudo rsync -Aavx --update --delete /root/.local/share/gnome-shell/extensions/arcmenu@arcmenu.com/ /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/
-    judge "Archive GNOME extensions"
+      #mv /root/.local/share/gnome-shell/extensions/* /usr/share/gnome-shell/extensions/
+      print_ok "Archiving GNOME extensions to system level"
+      sudo rsync -Aavx --update --delete /root/.local/share/gnome-shell/extensions/arcmenu@arcmenu.com/ /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/
+      judge "Archive GNOME extensions"
 
-    print_ok "Cleaning up root's GNOME extensions"
-    sudo rm -rf /root/.local/share/gnome-shell/extensions/* || true
-    judge "Clean up root's GNOME extensions"
+      print_ok "Cleaning up root's GNOME extensions"
+      sudo rm -rf /root/.local/share/gnome-shell/extensions/* || true
+      judge "Clean up root's GNOME extensions"
 
-    print_ok "Adding hotkey Super_L and Super_R for ArcMenu"
-    dconf write  /org/gnome/shell/extensions/arcmenu/arcmenu-hotkey "['Super_L', 'Super_R']"
-    judge "Add hotkey for ArcMenu"
+      print_ok "Adding hotkey Super_L and Super_R for ArcMenu"
+      dconf write  /org/gnome/shell/extensions/arcmenu/arcmenu-hotkey "['Super_L', 'Super_R']"
+      judge "Add hotkey for ArcMenu"
 
-    print_ok "Patch Arc Menu logo..."
-    wget -O ./logo.svg https://gitlab.aiursoft.cn/anduin/anduinos/-/raw/1.4/src/mods/30-gnome-extension-arcmenu-patch/logo.svg?ref_type=heads
-    sudo mv ./logo.svg /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/icons/anduinos-logo.svg
-    judge "Patch Arc Menu logo"
+      print_ok "Patch Arc Menu logo..."
+      wget -O ./logo.svg https://gitlab.aiursoft.cn/anduin/anduinos/-/raw/1.4/src/mods/30-gnome-extension-arcmenu-patch/logo.svg?ref_type=heads
+      sudo mv ./logo.svg /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/icons/anduinos-logo.svg
+      judge "Patch Arc Menu logo"
 
-    print_warn "You must sign out and sign in again to make the arcmenu patch taking effect."
+      print_warn "You must sign out and sign in again to make the arcmenu patch taking effect."
+    else
+      print_warn "GNOME Shell is not running. Skipping ArcMenu update and patch."
+    fi
 
     SERVICE_FILE="/etc/systemd/user/deskmon.service"
     if [ ! -f "${SERVICE_FILE}" ]; then
