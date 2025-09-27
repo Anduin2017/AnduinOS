@@ -486,6 +486,26 @@ EOF
     judge "Upgrade from 1.3.5 to 1.3.6 completed"
 }
 
+function upgrade_136_to_137() {
+    print_ok "Upgrading from 1.3.6 to 1.3.7..."
+
+    print_ok "Reinstalling printer-driver-all to ensure all drivers are present"
+    sudo apt remove -y printer-driver-all || true
+    sudo apt install printer-driver-all -y # With recommends this time. Because only this way it installs the actual drivers
+    judge "Reinstall printer-driver-all"
+
+    # Reinstall the kernel because 6.14.0-27 has a bug and was locked with 1.3.5. So users may be still on 6.14.0-27
+    TARGET_KERNEL_PACKAGE=$(apt search linux-generic-hwe-* | awk -F'/' '/linux-generic-hwe-/ {print $1}' | sort | head -n 1)
+    print_ok "Installing kernel package $TARGET_KERNEL_PACKAGE..."
+    sudo apt install $INTERACTIVE \
+        thermald \
+        $TARGET_KERNEL_PACKAGE \
+        --no-install-recommends
+    judge "Install kernel package $TARGET_KERNEL_PACKAGE"
+    
+    judge "Upgrade from 1.3.6 to 1.3.7 completed"
+}
+
 function applyLsbRelease() {
 
     # Update /etc/os-release
