@@ -504,6 +504,17 @@ EOF
     judge "Upgrade from 1.1.8 to 1.1.9 completed"
 }
 
+function upgrade_119_to_1110() {
+    print_ok "Upgrading from 1.1.9 to 1.1.10..."
+
+    print_ok "Reinstalling printer-driver-all to ensure all drivers are present"
+    sudo apt remove -y printer-driver-all || true
+    sudo apt install printer-driver-all -y # With recommends this time. Because only this way it installs the actual drivers
+    judge "Reinstall printer-driver-all"
+    
+    judge "Upgrade from 1.1.9 to 1.1.10 completed"
+}
+
 function applyLsbRelease() {
 
   # Update /etc/os-release
