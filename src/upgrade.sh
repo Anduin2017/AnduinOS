@@ -6,7 +6,7 @@ set -e                  # exit on error
 set -o pipefail         # exit on pipeline error
 set -u                  # treat unset variable as error
 export DEBIAN_FRONTEND=noninteractive
-export LATEST_VERSION="1.3.5"
+export LATEST_VERSION="1.3.6"
 export CODE_NAME="plucky"
 export OS_ID="AnduinOS"
 export CURRENT_VERSION=$(cat /etc/lsb-release | grep DISTRIB_RELEASE | cut -d "=" -f 2)
@@ -441,6 +441,8 @@ EOF
     dconf write  /org/gnome/shell/extensions/arcmenu/arcmenu-hotkey "['Super_L', 'Super_R']"
     judge "Add hotkey for ArcMenu"
 
+    print_warn "You must sign out and sign in again to make the arcmenu patch taking effect."
+
     SERVICE_FILE="/etc/systemd/user/deskmon.service"
     if [ ! -f "${SERVICE_FILE}" ]; then
         print_error "Deskmon service file not found at ${SERVICE_FILE}. Please ensure deskmon is installed."
@@ -533,26 +535,34 @@ function main() {
               upgrade_132_to_133
               upgrade_133_to_134
               upgrade_134_to_135
+              upgrade_135_to_136
               ;;
           "1.3.1")
               upgrade_131_to_132
               upgrade_132_to_133
               upgrade_133_to_134
               upgrade_134_to_135
+              upgrade_135_to_136
               ;;
           "1.3.2")
               upgrade_132_to_133
               upgrade_133_to_134
               upgrade_134_to_135
+              upgrade_135_to_136
               ;;
           "1.3.3")
               upgrade_133_to_134
               upgrade_134_to_135
+              upgrade_135_to_136
               ;;
           "1.3.4")
               upgrade_134_to_135
+              upgrade_135_to_136
               ;;
           "1.3.5")
+              upgrade_135_to_136
+              ;;
+          "1.3.6")
               print_ok "Your system is already up to date. No update available."
               exit 0
               ;;
