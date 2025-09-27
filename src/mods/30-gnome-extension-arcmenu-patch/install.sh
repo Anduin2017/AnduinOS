@@ -24,7 +24,6 @@ msgid "Unpin from Start menu"
 msgstr "从开始菜单取消固定"
 
 EOF
-sed -i "s/新建/新增/g" /tmp/arcmenu.po # Only zh_CN need this fix.
 msgfmt /tmp/arcmenu.po -o /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/locale/zh_CN/LC_MESSAGES/arcmenu.mo
 judge "Patch Arc Menu localization"
 
