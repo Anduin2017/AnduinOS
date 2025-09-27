@@ -446,26 +446,6 @@ EOF
     sudo mv ./logo.svg /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/icons/anduinos-logo.svg
     judge "Patch Arc Menu logo"
 
-    print_ok "Patch Arc Menu text..."
-    sudo sed -i 's/Unpin from ArcMenu/Unpin from Start menu/g' /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/appMenu.js
-    sudo sed -i 's/Pin to ArcMenu/Pin to Start menu/g' /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/appMenu.js
-    judge "Patch Arc Menu text"
-
-    print_ok "Patch Arc Menu localization..."
-    sudo msgunfmt /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/locale/zh_CN/LC_MESSAGES/arcmenu.mo -o /tmp/arcmenu.po
-    cat << EOF | sudo tee -a /tmp/arcmenu.po > /dev/null
-msgid "Pin to Start menu"
-msgstr "固定到开始菜单"
-
-msgid "Unpin from Start menu"
-msgstr "从开始菜单取消固定"
-EOF
-
-    sudo sed -i "s/新建/新增/g" /tmp/arcmenu.po # Only zh_CN need this fix.
-    sudo msgfmt /tmp/arcmenu.po -o /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/locale/zh_CN/LC_MESSAGES/arcmenu.mo
-    judge "Patch Arc Menu localization"
-
-
     print_warn "You must sign out and sign in again to make the arcmenu patch taking effect."
 
     SERVICE_FILE="/etc/systemd/user/deskmon.service"
