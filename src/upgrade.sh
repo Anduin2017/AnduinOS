@@ -476,10 +476,7 @@ RestartSec=5s
 WantedBy=graphical-session.target
 EOF
         judge "Update deskmon.service file"
-        print_ok "Reloading and restarting deskmon service"
-        systemctl --user daemon-reload
-        systemctl --user restart deskmon.service
-        systemctl --user enable deskmon.service
+        print_warn "Rebooting required for deskmon changes to take effect."
     fi
 
     print_ok "Installing printer-driver-all to ensure printer compatibility"
