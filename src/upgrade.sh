@@ -429,14 +429,17 @@ EOF
       sudo /root/.local/bin/gext update arcmenu@arcmenu.com -y
       judge "Update ArcMenu extension"
 
-      #mv /root/.local/share/gnome-shell/extensions/* /usr/share/gnome-shell/extensions/
-      print_ok "Archiving GNOME extensions to system level"
-      sudo rsync -Aavx --update --delete /root/.local/share/gnome-shell/extensions/arcmenu@arcmenu.com/ /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/
-      judge "Archive GNOME extensions"
+      if [ -d '/root/.local/share/gnome-shell/extensions/arcmenu@arcmenu.com' ]; then
+        print_ok "Archiving GNOME extensions to system level"
+        sudo rsync -Aavx --update --delete /root/.local/share/gnome-shell/extensions/arcmenu@arcmenu.com/ /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/
+        judge "Archive GNOME extensions"
 
-      print_ok "Cleaning up root's GNOME extensions"
-      sudo rm -rf /root/.local/share/gnome-shell/extensions/* || true
-      judge "Clean up root's GNOME extensions"
+        print_ok "Cleaning up root's GNOME extensions"
+        sudo rm -rf /root/.local/share/gnome-shell/extensions/* || true
+        judge "Clean up root's GNOME extensions"
+      else
+        print_warn "ArcMenu extension not found in root's GNOME extensions, might be already up to date. Skipping archiving."
+      fi
 
       print_ok "Adding hotkey Super_L and Super_R for ArcMenu"
       dconf write  /org/gnome/shell/extensions/arcmenu/arcmenu-hotkey "['Super_L', 'Super_R']"
