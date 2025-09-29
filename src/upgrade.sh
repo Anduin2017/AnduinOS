@@ -117,6 +117,7 @@ function install_spg() {
 
     # 先清掉残留避免歧义
     rm -f software-properties-gtk_*.deb
+    rm -rf original || true
 
     sudo apt-get download software-properties-gtk
     judge "Download software-properties-gtk"
