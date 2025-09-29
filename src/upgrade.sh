@@ -141,7 +141,7 @@ function install_spg() {
     judge "Extract $DEB_FILE"
 
     print_ok "Patching control file..."
-    sed -i \
+    sudo sed -i \
         '/^Depends:/s/, *ubuntu-pro-client//; /^Depends:/s/, *ubuntu-advantage-desktop-daemon//' \
         original/DEBIAN/control
     judge "Edit control file"
