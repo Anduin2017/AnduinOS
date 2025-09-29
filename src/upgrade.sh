@@ -497,7 +497,7 @@ function upgrade_136_to_137() {
     # Reinstall the kernel because 6.14.0-27 has a bug and was locked with 1.3.5. So users may be still on 6.14.0-27
     TARGET_KERNEL_PACKAGE=$(apt search linux-generic-hwe-* | awk -F'/' '/linux-generic-hwe-/ {print $1}' | sort | head -n 1)
     print_ok "Installing kernel package $TARGET_KERNEL_PACKAGE..."
-    sudo apt install $INTERACTIVE \
+    sudo apt install -y \
         thermald \
         $TARGET_KERNEL_PACKAGE \
         --no-install-recommends
