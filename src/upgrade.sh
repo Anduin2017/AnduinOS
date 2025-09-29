@@ -6,7 +6,7 @@ set -e                  # exit on error
 set -o pipefail         # exit on pipeline error
 set -u                  # treat unset variable as error
 export DEBIAN_FRONTEND=noninteractive
-export LATEST_VERSION="1.3.6"
+export LATEST_VERSION="1.3.7"
 export CODE_NAME="plucky"
 export OS_ID="AnduinOS"
 export CURRENT_VERSION=$(cat /etc/lsb-release | grep DISTRIB_RELEASE | cut -d "=" -f 2)
@@ -502,6 +502,12 @@ function upgrade_136_to_137() {
         $TARGET_KERNEL_PACKAGE \
         --no-install-recommends
     judge "Install kernel package $TARGET_KERNEL_PACKAGE"
+
+    # Update all packages because 1.3.6 made a mistake that some packages were not updated
+    print_ok "Performing a full upgrade to ensure all packages are up to date..."
+    sudo apt upgrade -y
+    sudo apt autoremove -y
+    judge "Full upgrade completed"
     
     judge "Upgrade from 1.3.6 to 1.3.7 completed"
 }
@@ -565,6 +571,7 @@ function main() {
               upgrade_133_to_134
               upgrade_134_to_135
               upgrade_135_to_136
+              upgrade_136_to_137
               ;;
           "1.3.1")
               upgrade_131_to_132
@@ -572,26 +579,34 @@ function main() {
               upgrade_133_to_134
               upgrade_134_to_135
               upgrade_135_to_136
+              upgrade_136_to_137
               ;;
           "1.3.2")
               upgrade_132_to_133
               upgrade_133_to_134
               upgrade_134_to_135
               upgrade_135_to_136
+              upgrade_136_to_137
               ;;
           "1.3.3")
               upgrade_133_to_134
               upgrade_134_to_135
               upgrade_135_to_136
+              upgrade_136_to_137
               ;;
           "1.3.4")
               upgrade_134_to_135
               upgrade_135_to_136
+              upgrade_136_to_137
               ;;
           "1.3.5")
               upgrade_135_to_136
+              upgrade_136_to_137
               ;;
           "1.3.6")
+              upgrade_136_to_137
+              ;;
+          "1.3.7")
               print_ok "Your system is already up to date. No update available."
               exit 0
               ;;
