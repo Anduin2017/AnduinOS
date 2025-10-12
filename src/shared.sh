@@ -47,8 +47,8 @@ function judge() {
 function wait_network() {
     local WGET_OPTS="--spider -q --timeout=5 --tries=1"
 
-    until wget $WGET_OPTS https://mirror.aiursoft.cn; do
-        echo "Waiting for registry (https://mirror.aiursoft.cn) to start... ETA: 25s"
+    until wget $WGET_OPTS https://www.anduinos.com; do
+        echo "Waiting for network (https://www.anduinos.com) ... ETA: 25s"
         sleep 1
     done
 
