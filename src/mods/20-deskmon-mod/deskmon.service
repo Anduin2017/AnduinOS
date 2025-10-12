@@ -1,5 +1,5 @@
 [Unit]
- .desktop files on Desktop (user scope) to make it easier for "Add to Desktop" functionality
+Description=Monitor .desktop files on the Desktop
 PartOf=graphical-session.target
 After=graphical-session.target
 
