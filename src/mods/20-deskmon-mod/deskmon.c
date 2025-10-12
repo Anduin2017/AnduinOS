@@ -62,11 +62,15 @@ static void initial_scan(const char *dir) {
     while ((ent = readdir(d))) {
         if (ent->d_type == DT_REG) {
             size_t len = strlen(ent->d_name);
-            if (len > 8 && strcmp(ent->d_name + len - 8, ".desktop") == 0) {
-                char *path = g_build_filename(dir, ent->d_name, NULL);
-                g_message("Initial scan found .desktop file: %s", path);
-                trust_file(path);
-                g_free(path);
+            if (len > 8) {
+                char *suffix = g_utf8_casefold(ent->d_name + len - 8, -1);
+                if (strcmp(suffix, ".desktop") == 0) {
+                    char *path = g_build_filename(dir, ent->d_name, NULL);
+                    g_message("Initial scan found .desktop file: %s", path);
+                    trust_file(path);
+                    g_free(path);
+                }
+                g_free(suffix);
             }
         }
     }
@@ -79,7 +83,12 @@ int main(void) {
         g_error("HOME environment variable not set");
         return EXIT_FAILURE;
     }
-    char *watch_dir = g_build_filename(home, "Desktop", NULL);
+    const char *desktop_dir = g_get_user_special_dir(G_USER_DIRECTORY_DESKTOP);
+    if (!desktop_dir) {
+        g_error("Could not determine user Desktop directory.");
+        return EXIT_FAILURE;
+    }
+    char *watch_dir = g_strdup(desktop_dir);
 
     struct sigaction sa = { .sa_handler = handle_signal };
     sigaction(SIGINT, &sa, NULL);
@@ -87,7 +96,7 @@ int main(void) {
 
     initial_scan(watch_dir);
 
-    int fd = inotify_init1(IN_NONBLOCK);
+    int fd = inotify_init();
     if (fd < 0) {
         g_error("inotify_init1 failed: %s", strerror(errno));
         g_free(watch_dir);
@@ -105,20 +114,28 @@ int main(void) {
     char buf[BUF_LEN];
     while (running) {
         int length = read(fd, buf, BUF_LEN);
-        if (length <= 0) {
-            usleep(200000);
+        if (length < 0 && errno == EINTR) {
             continue;
         }
+
+        if (length <= 0) {
+            break;
+        }
+
         int offset = 0;
         while (offset < length) {
             struct inotify_event *ev = (struct inotify_event *)(buf + offset);
             if (!(ev->mask & IN_ISDIR) && (ev->mask & (IN_CREATE | IN_MOVED_TO))) {
                 size_t name_len = strlen(ev->name);
-                if (name_len > 8 && strcmp(ev->name + name_len - 8, ".desktop") == 0) {
-                    char *path = g_build_filename(watch_dir, ev->name, NULL);
-                    g_message("Detected new .desktop file: %s", path);
-                    trust_file(path);
-                    g_free(path);
+                if (name_len > 8) {
+                    char *suffix = g_utf8_casefold(ev->name + name_len - 8, -1);
+                    if (strcmp(suffix, ".desktop") == 0) {
+                        char *path = g_build_filename(watch_dir, ev->name, NULL);
+                        g_message("Detected new .desktop file: %s", path);
+                        trust_file(path);
+                        g_free(path);
+                    }
+                    g_free(suffix);
                 }
             }
             offset += EVENT_SIZE + ev->len;
