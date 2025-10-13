@@ -512,6 +512,7 @@ function upgrade_136_to_137() {
 
     # Update all packages because 1.3.6 made a mistake that some packages were not updated
     print_ok "Performing a full upgrade to ensure all packages are up to date..."
+    sudo apt update
     sudo apt upgrade -y
     sudo apt autoremove -y
     judge "Full upgrade completed"
