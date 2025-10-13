@@ -155,6 +155,11 @@ function install_spg() {
     print_ok "Cleaning up temp folder..."
     sudo rm -rf original
 
+    print_ok "Installing python3-software-properties..."
+    sudo apt update
+    sudo apt install python3-software-properties -y
+    judge "Install python3-software-properties"
+
     print_ok "Installing $MOD_DEB..."
     sudo dpkg -i "$MOD_DEB"
     judge "Install $MOD_DEB"
