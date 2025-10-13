@@ -473,7 +473,7 @@ EOF
       # judge "Add hotkey for ArcMenu"
 
       print_ok "Patch Arc Menu logo..."
-      wget -O ./logo.svg https://gitlab.aiursoft.cn/anduin/anduinos/-/raw/1.4/src/mods/30-gnome-extension-arcmenu-patch/logo.svg?ref_type=heads
+      wget -O ./logo.svg "https://gitlab.aiursoft.cn/anduin/anduinos/-/raw/1.4/src/mods/30-gnome-extension-arcmenu-patch/logo.svg?ref_type=heads"
       sudo mv ./logo.svg /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/icons/anduinos-logo.svg
       judge "Patch Arc Menu logo"
     else
