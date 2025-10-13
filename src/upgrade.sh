@@ -131,7 +131,7 @@ function install_spg() {
     judge "Repackage $MOD_DEB"
 
     print_ok "Cleaning up temp folder..."
-    rm -rf original
+    sudo rm -rf original
 
     print_ok "Installing $MOD_DEB..."
     sudo dpkg -i "$MOD_DEB"
