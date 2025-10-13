@@ -496,6 +496,7 @@ function upgrade_136_to_137() {
     judge "Reinstall printer-driver-all"
 
     # Reinstall the kernel because 6.14.0-27 has a bug and was locked with 1.3.5. So users may be still on 6.14.0-27
+    sudo apt update
     TARGET_KERNEL_PACKAGE=$(apt search linux-generic-hwe-* | awk -F'/' '/linux-generic-hwe-/ {print $1}' | sort | head -n 1)
     print_ok "Installing kernel package $TARGET_KERNEL_PACKAGE..."
     sudo apt install -y \
