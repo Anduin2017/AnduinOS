@@ -104,14 +104,6 @@ function umount_folers() {
     sudo rm -rf new_building_os/root/mods
     judge "Clean up new_building_os /root/mods"
 
-    print_ok "Killing any remaining processes in chroot..."
-    # -k: kill processes, -m: on the specified mount, -v: verbose
-    sudo fuser -v -k -m new_building_os/dev  || true
-    sudo fuser -v -k -m new_building_os/run  || true
-    sudo fuser -v -k -m new_building_os/proc || true
-    sudo fuser -v -k -m new_building_os/sys  || true
-    sleep 2
-
     print_ok "Unmounting /proc /sys /dev/pts within chroot..."
     sudo chroot new_building_os umount /dev/pts || sudo chroot new_building_os umount -lf /dev/pts
     sudo chroot new_building_os umount /sys || sudo chroot new_building_os umount -lf /sys
