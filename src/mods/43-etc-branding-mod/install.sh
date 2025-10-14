@@ -28,3 +28,15 @@ UBUNTU_CODENAME=$TARGET_UBUNTU_VERSION
 EOF
 # The ID have to be ubuntu to support some Ubuntu features, like add-apt-repository
 judge "Update os-release"
+
+print_ok "Patching /etc/legal"
+cat << EOF > /etc/legal
+
+# The programs included with the $TARGET_BUSINESS_NAME system are free software;
+# the exact distribution terms for each program are described in the
+# individual files in /usr/share/doc/*/copyright.
+
+# $TARGET_BUSINESS_NAME comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
+# applicable law.
+EOF
+judge "Patch /etc/legal"
