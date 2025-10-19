@@ -271,18 +271,35 @@ For detailed instructions, please visit [$TARGET_BUSINESS_NAME Document](https:/
 EOF
 
     pushd $SCRIPT_DIR/image
-    print_ok "Creating EFI boot image on /isolinux/efiboot.img..."
-    (
-        cd isolinux && \
-        dd if=/dev/zero of=efiboot.img bs=1M count=10 && \
-        sudo mkfs.vfat efiboot.img && \
-        mkdir efi && \
-        sudo mount efiboot.img efi && \
-        sudo grub-install --efi-directory=efi --uefi-secure-boot --removable --no-nvram && \
-        sudo umount efi && \
-        rm -rf efi
-    )
-    judge "Create EFI boot image"
+    print_ok "Creating standard EFI boot structure..."
+    
+    mkdir -p image/EFI/BOOT
+    
+    SHIM_PATH=$(find new_building_os/usr/lib/shim -name "shimx64.efi" -type f | head -n 1)
+    GRUB_PATH=$(find new_building_os/usr/lib/grub -name "grubx64.efi" -type f | grep -i "signed" | head -n 1)
+
+    if [ -z "$SHIM_PATH" ]; then
+        print_err "未能在 'new_building_os/usr/lib/shim' 中找到 shimx64.efi"
+        print_err "请确保已在 chroot 环境中安装 'shim-signed'。"
+        exit 1
+    fi
+    
+    if [ -z "$GRUB_PATH" ]; then
+        print_err "未能在 'new_building_os/usr/lib/grub' 中找到 *signed* grubx64.efi"
+        print_err "请确保已在 chroot 环境中安装 'grub-efi-amd64-signed'。"
+        exit 1
+    fi
+
+    print_ok "找到 Shim: $SHIM_PATH"
+    print_ok "找到 GRUB: $GRUB_PATH"
+
+    sudo cp "$SHIM_PATH" image/EFI/BOOT/BOOTX64.EFI
+    sudo cp "$GRUB_PATH" image/EFI/BOOT/grubx64.efi
+    
+    cp image/isolinux/grub.cfg image/EFI/BOOT/grub.cfg
+    
+    judge "Create EFI boot structure"
+
 
     print_ok "Creating BIOS boot image on /isolinux/bios.img..."
     grub-mkstandalone \
@@ -304,15 +321,17 @@ EOF
     judge "Create .disk/info"
 
     print_ok "Creating md5sum.txt..."
-    sudo /bin/bash -c "(find . -type f -print0 | xargs -0 md5sum | grep -v -e 'md5sum.txt' -e 'bios.img' -e 'efiboot.img' > md5sum.txt)"
+    sudo /bin/bash -c "(find . -type f -print0 | xargs -0 md5sum | grep -v -e 'md5sum.txt' -e 'bios.img' -e 'EFI/' > md5sum.txt)"
     judge "Create md5sum.txt"
 
     print_ok "Creating iso image on $SCRIPT_DIR/$TARGET_NAME.iso..."
+    
     sudo xorriso \
         -as mkisofs \
         -iso-level 3 \
         -full-iso9660-filenames \
         -volid "$TARGET_NAME" \
+        \
         -eltorito-boot boot/grub/bios.img \
             -no-emul-boot \
             -boot-load-size 4 \
@@ -320,15 +339,18 @@ EOF
             --eltorito-catalog boot/grub/boot.cat \
             --grub2-boot-info \
             --grub2-mbr /usr/lib/grub/i386-pc/boot_hybrid.img \
+        \
         -eltorito-alt-boot \
-            -e EFI/efiboot.img \
+            -e --interval:appended_partition_2:all:: \
             -no-emul-boot \
-            -append_partition 2 0xef isolinux/efiboot.img \
+            -isohybrid-gpt-basdat \
+        -append_partition 2 0xef image/EFI \
+        \
         -output "$SCRIPT_DIR/$TARGET_NAME.iso" \
-        -m "isolinux/efiboot.img" \
+        \
         -m "isolinux/bios.img" \
+        \
         -graft-points \
-            "/EFI/efiboot.img=isolinux/efiboot.img" \
             "/boot/grub/grub.cfg=isolinux/grub.cfg" \
             "/boot/grub/bios.img=isolinux/bios.img" \
             "."
