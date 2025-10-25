@@ -64,8 +64,9 @@ echo "Language environment has been set to $LANG_MODE"
 # If you are building against Ubuntu 24.10, this should be "oracular".
 # If you are building against Ubuntu 25.04, this should be "plucky".
 # If you are building against Ubuntu 25.10, this should be "questing".
-# Can be: jammy noble oracular plucky questing
-export TARGET_UBUNTU_VERSION="questing"
+# If you are building against Ubuntu 26.04, this should be "resolute".
+# Can be: jammy noble oracular plucky questing resolute
+export TARGET_UBUNTU_VERSION="resolute"
 
 # This is the apt source for the build.
 # It can be any Ubuntu mirror that you prefer.
@@ -83,7 +84,7 @@ export TARGET_NAME="anduinos"
 export TARGET_BUSINESS_NAME="AnduinOS"
 
 # Version number. Must be in the format of x.y.z
-export TARGET_BUILD_VERSION="1.4.1"
+export TARGET_BUILD_VERSION="1.5.0"
 
 # Fork version. Must be in the format of x.y
 # By default, it is the branch name of the git repository.
