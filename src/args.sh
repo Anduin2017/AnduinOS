@@ -241,7 +241,6 @@ export DEFAULT_APPS="
     gnome-chess \
     gnome-clocks \
     gnome-weather \
-    gnome-nettool \
     gnome-calendar \
     gnome-text-editor \
     seahorse \
