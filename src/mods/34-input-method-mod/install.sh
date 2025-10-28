@@ -27,7 +27,7 @@ if [ "$CONFIG_IBUS_RIME" == "true" ]; then
     judge "Set up ibus"
 
     print_ok "Installing Rime schema..."
-    zip=https://gitlab.aiursoft.cn/anduin/anduinos-rime/-/archive/master/anduinos-rime-master.zip
+    zip=https://gitlab.aiursoft.com/anduin/anduinos-rime/-/archive/master/anduinos-rime-master.zip
     wget $zip -O anduinos-rime.zip && unzip -q -O UTF-8 anduinos-rime.zip && rm anduinos-rime.zip
     mkdir -p /etc/skel/.config/ibus/rime
     rsync -Aavx --update --delete ./anduinos-rime-master/assets/ /etc/skel/.config/ibus/rime/
