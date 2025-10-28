@@ -189,7 +189,7 @@ function install_desktop_mon() {
     sudo rm -f /etc/systemd/user/deskmon.service || true
     sudo rm -f /etc/systemd/user/default.target.wants/deskmon.service || true
 
-    link="https://gitlab.aiursoft.cn/anduin/anduinos/-/raw/1.4/src/mods/20-deskmon-mod/deskmon?ref_type=heads"
+    link="https://gitlab.aiursoft.com/anduin/anduinos/-/raw/1.4/src/mods/20-deskmon-mod/deskmon?ref_type=heads"
     print_ok "Downloading deskmon..."
     sudo rm -f /usr/local/bin/deskmon || true
     sudo wget -O /usr/local/bin/deskmon "$link"
@@ -197,7 +197,7 @@ function install_desktop_mon() {
     judge "Download deskmon"
 
     print_ok "Installing deskmon.service"
-    service_link="https://gitlab.aiursoft.cn/anduin/anduinos/-/raw/1.4/src/mods/20-deskmon-mod/deskmon.service?ref_type=heads"
+    service_link="https://gitlab.aiursoft.com/anduin/anduinos/-/raw/1.4/src/mods/20-deskmon-mod/deskmon.service?ref_type=heads"
     wget -O deskmon.service "$service_link"
     sudo install -D deskmon.service /etc/systemd/user/deskmon.service
     sudo mkdir -p /etc/systemd/user/default.target.wants
@@ -231,11 +231,11 @@ function upgrade_114_to_115() {
       xserver-xorg-video-qxl \
       --no-install-recommends
 
-    fonts_config="https://gitlab.aiursoft.cn/anduin/anduinos/-/raw/1.4/src/mods/15-fonts-mod/local.conf?ref_type=heads"
+    fonts_config="https://gitlab.aiursoft.com/anduin/anduinos/-/raw/1.4/src/mods/15-fonts-mod/local.conf?ref_type=heads"
     sudo wget -O /etc/fonts/local.conf $fonts_config
     fc-cache -f
 
-    ext_source="https://gitlab.aiursoft.cn/anduin/anduinos/-/raw/1.4/src/mods/29-gnome-extension-anduinos-switcher/switcher@anduinos/extension.js?ref_type=heads"
+    ext_source="https://gitlab.aiursoft.com/anduin/anduinos/-/raw/1.4/src/mods/29-gnome-extension-anduinos-switcher/switcher@anduinos/extension.js?ref_type=heads"
     sudo wget -O /usr/share/gnome-shell/extensions/switcher@anduinos/extension.js $ext_source
 
     apt list --installed | grep software-properties-gtk || install_spg
@@ -268,9 +268,9 @@ function upgrade_115_to_116() {
     fi
 
     if [ -f /etc/apt/sources.list.d/mozillateam-ubuntu-ppa-noble.sources ]; then
-        print_ok "Replacing mirror-ppa.aiursoft.cn with ppa.launchpadcontent.net in mozillateam-ubuntu-ppa-noble.sources"
-        sudo sed -i 's/mirror-ppa.aiursoft.cn/ppa.launchpadcontent.net/g' /etc/apt/sources.list.d/mozillateam-ubuntu-ppa-noble.sources
-        judge "Replace mirror-ppa.aiursoft.cn with ppa.launchpadcontent.net"
+        print_ok "Replacing mirror-ppa.aiursoft.com with ppa.launchpadcontent.net in mozillateam-ubuntu-ppa-noble.sources"
+        sudo sed -i 's/mirror-ppa.aiursoft.com/ppa.launchpadcontent.net/g' /etc/apt/sources.list.d/mozillateam-ubuntu-ppa-noble.sources
+        judge "Replace mirror-ppa.aiursoft.com with ppa.launchpadcontent.net"
     fi
     judge "Upgrade from 1.1.5 to 1.1.6 completed"
 }
@@ -396,8 +396,8 @@ function upgrade_117_to_118() {
     judge "Remove obsolete gtk.css file"
 
     print_ok "Downloading new logo text images"
-    logo_light="https://gitlab.aiursoft.cn/anduin/anduinos/-/raw/1.4/src/mods/36-ubuntu-logo-text/ubuntu-logo-text.png?ref_type=heads&inline=false"
-    logo_dark="https://gitlab.aiursoft.cn/anduin/anduinos/-/raw/1.4/src/mods/36-ubuntu-logo-text/ubuntu-logo-text-dark.png?ref_type=heads&inline=false"
+    logo_light="https://gitlab.aiursoft.com/anduin/anduinos/-/raw/1.4/src/mods/36-ubuntu-logo-text/ubuntu-logo-text.png?ref_type=heads&inline=false"
+    logo_dark="https://gitlab.aiursoft.com/anduin/anduinos/-/raw/1.4/src/mods/36-ubuntu-logo-text/ubuntu-logo-text-dark.png?ref_type=heads&inline=false"
     sudo wget -O /usr/share/pixmaps/ubuntu-logo-text.png "$logo_light"
     sudo wget -O /usr/share/pixmaps/ubuntu-logo-text-dark.png "$logo_dark"
     judge "Apply new logo text images"
@@ -418,7 +418,7 @@ function upgrade_117_to_118() {
     judge "Install missing dependencies for audio"
 
     print_ok "Downloading Blur My Shell patch"
-    URL="https://git.aiursoft.cn/Anduin/blur-my-shell/raw/branch/patch-1/src/components/panel.js"
+    URL="https://git.aiursoft.com/Anduin/blur-my-shell/raw/branch/patch-1/src/components/panel.js"
     sudo wget "$URL" -O /usr/share/gnome-shell/extensions/blur-my-shell@aunetx/components/panel.js
     judge "Download Blur My Shell patch"
 
@@ -473,7 +473,7 @@ EOF
       # judge "Add hotkey for ArcMenu"
 
       print_ok "Patch Arc Menu logo..."
-      wget -O ./logo.svg "https://gitlab.aiursoft.cn/anduin/anduinos/-/raw/1.4/src/mods/30-gnome-extension-arcmenu-patch/logo.svg?ref_type=heads"
+      wget -O ./logo.svg "https://gitlab.aiursoft.com/anduin/anduinos/-/raw/1.4/src/mods/30-gnome-extension-arcmenu-patch/logo.svg?ref_type=heads"
       sudo mv ./logo.svg /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/icons/anduinos-logo.svg
       judge "Patch Arc Menu logo"
     else
