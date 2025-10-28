@@ -34,7 +34,7 @@
         "config_weather_location": "['{\\\"name\\\":\\\"苏州, 江苏\\\",\\\"lat\\\":31.311123,\\\"lon\\\":120.6212881}']",
         "config_input_method": "[('xkb', 'us'), ('ibus', 'rime')]",
         "live_ubuntu_mirror": "https://mirrors.huaweicloud.com/ubuntu/",
-        "live_firefox_mirror": "mirror-ppa.aiursoft.cn",
+        "live_firefox_mirror": "mirror-ppa.aiursoft.com",
         "flathub_mirror": "https://mirrors.ustc.edu.cn/flathub",
         "flathub_gpg": ""
     },
