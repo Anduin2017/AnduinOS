@@ -4,7 +4,7 @@ set -u                  # treat unset variable as error
 
 print_ok "Installing Fluent theme"
 mkdir -p ./themes/
-wget https://git.aiursoft.cn/PublicVault/Fluent-gtk-theme/archive/master.zip -O ./themes/fluent-gtk-theme.zip
+wget https://git.aiursoft.com/PublicVault/Fluent-gtk-theme/archive/master.zip -O ./themes/fluent-gtk-theme.zip
 unzip -q -O UTF-8 ./themes/fluent-gtk-theme.zip -d ./themes/
 judge "Download Fluent theme"
 

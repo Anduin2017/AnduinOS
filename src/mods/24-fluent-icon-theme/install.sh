@@ -4,7 +4,7 @@ set -u                  # treat unset variable as error
 
 print_ok "Downloading Fluent icon theme"
 mkdir -p ./themes/
-wget https://git.aiursoft.cn/PublicVault/Fluent-icon-theme/archive/master.zip -O ./themes/fluent-icon-theme.zip
+wget https://git.aiursoft.com/PublicVault/Fluent-icon-theme/archive/master.zip -O ./themes/fluent-icon-theme.zip
 unzip -q -O UTF-8 ./themes/fluent-icon-theme.zip -d ./themes/
 judge "Download Fluent icon theme"
 

@@ -4,7 +4,7 @@ set -u                  # treat unset variable as error
 
 # This link needs to be updated regularly.
 SOF_BIN_LINK="https://github.com/thesofproject/sof-bin/releases/download/v2025.05.1/sof-bin-2025.05.1.tar.gz"
-ALSA_UCM_CONF_LINK="https://git.aiursoft.cn/PublicVault/alsa-ucm-conf/archive/master.zip"
+ALSA_UCM_CONF_LINK="https://git.aiursoft.com/PublicVault/alsa-ucm-conf/archive/master.zip"
 
 (
     print_ok "Installing Intel SOF Mod"
