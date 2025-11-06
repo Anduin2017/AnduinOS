@@ -164,6 +164,12 @@ apt install $INTERACTIVE \
     printer-driver-all # With recommends this time. Because only this way it installs the actual drivers
 judge "Install printer-driver-all"
 
+print_ok "Installing scanner support..."
+apt install $INTERACTIVE \
+    sane-airscan sane-utils simple-scan \
+    --no-install-recommends
+judge "Install scanner support"
+
 print_ok "Installing gnome printer support..."
 apt install $INTERACTIVE \
     cups \
