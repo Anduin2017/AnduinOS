@@ -8,7 +8,7 @@
         "config_weather_location": "['{\\\"name\\\":\\\"San Francisco, California, United States\\\",\\\"lat\\\":37.7749295,\\\"lon\\\":-122.4194155}']",
         "config_input_method": "[('xkb', 'us')]",
         "live_ubuntu_mirror": "http://archive.ubuntu.com/ubuntu/",
-        "live_firefox_mirror": "ppa.launchpadcontent.net",
+        "live_firefox_mirror": "",
         "flathub_mirror": "",
         "flathub_gpg": ""
     },
@@ -21,7 +21,7 @@
         "config_weather_location": "['{\\\"name\\\":\\\"苏州, 江苏\\\",\\\"lat\\\":31.311123,\\\"lon\\\":120.6212881}']",
         "config_input_method": "[('xkb', 'us'), ('ibus', 'rime')]",
         "live_ubuntu_mirror": "https://mirrors.huaweicloud.com/ubuntu/",
-        "live_firefox_mirror": "mirror-ppa.aiursoft.com",
+        "live_firefox_mirror": "",
         "flathub_mirror": "https://mirrors.ustc.edu.cn/flathub",
         "flathub_gpg": ""
     }

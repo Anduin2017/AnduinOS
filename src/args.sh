@@ -139,7 +139,7 @@ fi
 # snap:     install firefox from snap (Only available if STORE_PROVIDER is set to "snap")
 # official_apt: install firefox from the official Firefox apt source
 # TODO: Snap firefox seems to be broken. Investigation required.
-export FIREFOX_PROVIDER="deb"
+export FIREFOX_PROVIDER="official_apt"
 if [[ "$FIREFOX_PROVIDER" == "flatpak" && "$STORE_PROVIDER" != "flatpak" ]]; then
     echo "Error: FIREFOX_PROVIDER is set to flatpak, but STORE_PROVIDER is not set to flatpak"
     exit 1
@@ -152,7 +152,7 @@ fi
 # Whether to install firefox with apt. If set, it will be installed from the PPA. If empty, it will be installed from the default source
 # Must set FIREFOX_PROVIDER to "deb" before using this option
 # Sample: mirror-ppa.aiursoft.com
-export BUILD_FIREFOX_MIRROR="mirror-ppa.aiursoft.com"
+export BUILD_FIREFOX_MIRROR=""
 if [[ "$BUILD_FIREFOX_MIRROR" != "" && "$FIREFOX_PROVIDER" != "deb" ]]; then
     echo "Error: BUILD_FIREFOX_MIRROR is set, but FIREFOX_PROVIDER is not set to deb"
     exit 1
@@ -161,13 +161,13 @@ fi
 # The Firefox mirror for live system. If set, it will be used to replace the default PPA mirror.
 # This must be set if FIREFOX_PROVIDER is set to "deb"
 # Default: ppa.launchpadcontent.net
-export LIVE_FIREFOX_MIRROR="ppa.launchpadcontent.net"
+export LIVE_FIREFOX_MIRROR=""
 if [[ "$FIREFOX_PROVIDER" == "deb" && -z "$LIVE_FIREFOX_MIRROR" ]]; then
     echo "Error: FIREFOX_PROVIDER is deb, but didn't set LIVE_FIREFOX_MIRROR"
     exit 1
 fi
 
-export FIREFOX_LOCALE_PACKAGE="firefox-esr-locale-$LANG_PACK_CODE*"
+export FIREFOX_LOCALE_PACKAGE=""
 if [[ "$FIREFOX_LOCALE_PACKAGE" != "" && "$FIREFOX_PROVIDER" != "deb" ]]; then
     echo "Error: FIREFOX_LOCALE_PACKAGE is set, but FIREFOX_PROVIDER is not set to deb"
     exit 1
