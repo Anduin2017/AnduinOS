@@ -131,7 +131,7 @@ function build_iso() {
     judge "Copy kernel files"
 
     print_ok "Copying repair.sh to /REPAIR.sh in the image..."
-    suco cp $SCRIPT_DIR/mods/35-dconf-patch/dconf.ini image/casper/default-dconf.ini
+    sudo cp $SCRIPT_DIR/mods/35-dconf-patch/dconf.ini image/casper/default-dconf.ini
     sudo cp $SCRIPT_DIR/repair.sh image/REPAIR.sh
     judge "Copy repair.sh to image"
     
