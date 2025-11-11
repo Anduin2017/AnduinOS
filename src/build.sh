@@ -129,6 +129,11 @@ function build_iso() {
     sudo cp new_building_os/boot/vmlinuz-**-**-generic image/casper/vmlinuz
     sudo cp new_building_os/boot/initrd.img-**-**-generic image/casper/initrd
     judge "Copy kernel files"
+
+    print_ok "Copying repair.sh to /REPAIR.sh in the image..."
+    suco cp $SCRIPT_DIR/mods/35-dconf-patch/dconf.ini image/casper/default-dconf.ini
+    sudo cp $SCRIPT_DIR/repair.sh image/REPAIR.sh
+    judge "Copy repair.sh to image"
     
     print_ok "Generating grub.cfg..."
     touch image/$TARGET_NAME
