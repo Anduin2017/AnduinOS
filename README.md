@@ -5,6 +5,7 @@
 [![Join the AnduinOS Community on Revolt](https://img.shields.io/badge/Revolt-Join-fd6671?style=flat-square)](https://rvlt.gg/dPwPs8e6)
 [![Website](https://img.shields.io/website?url=https%3A%2F%2Fwww.anduinos.com%2F)](https://www.anduinos.com/)
 [![ManHours](https://manhours.aiursoft.com/r/gitlab.aiursoft.com/anduin/anduinos.svg)](https://gitlab.aiursoft.com/anduin/anduinos/-/commits/1.1?ref_type=heads)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FAnduin2017%2FAnduinOS.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FAnduin2017%2FAnduinOS?ref=badge_shield)
 
 <img align="right" width="100" height="100" src="./src/mods/30-gnome-extension-arcmenu-patch/logo.svg">
 
@@ -45,6 +46,9 @@ This project is licensed under the GNU GENERAL PUBLIC LICENSE - see the [LICENSE
 The open-source software included in AnduinOS is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY.
 
 [List of open-source software included in AnduinOS](OSS.md)
+
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FAnduin2017%2FAnduinOS.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FAnduin2017%2FAnduinOS?ref=badge_large)
 
 ## Support
 
