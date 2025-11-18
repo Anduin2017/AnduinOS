@@ -144,6 +144,19 @@ curl -L -o "$TORRENT_FILE" "$DOWNLOAD_URL"
 curl -L -o "$SHA256_FILE" "$HASH_URL"
 judge "Download torrents"
 
+REQUIRED_SPACE_KB=6291456 # 6GB in KiB (6 * 1024 * 1024)
+print_ok "Checking for at least 6GB of free space in /tmp..."
+# Get available space in /tmp in KiB
+AVAILABLE_SPACE_KB=$(df -P -k /tmp | awk 'NR==2 {print $4}')
+
+if (( AVAILABLE_SPACE_KB < REQUIRED_SPACE_KB )); then
+    print_error "Not enough free disk space in /tmp."
+    print_error "Required: ~6GB, Available: $(numfmt --to=iec-i --suffix=B ${AVAILABLE_SPACE_KB}K)"
+    print_error "Please free up disk space and try again."
+    exit 1
+fi
+judge "Disk space check"
+
 print_ok "Starting download via aria2 (ISO file)..."
 # Download to /tmp, allow overwrite, don't seed, use 16 connections
 aria2c --allow-overwrite=true --seed-ratio=0.0 --seed-time=0 -x 16 -s 16 -k 1M -d /tmp "$TORRENT_FILE"
