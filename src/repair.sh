@@ -282,11 +282,6 @@ sudo apt autoremove -y \
   kgx --allow-change-held-packages
 judge "Remove obsolete packages"
 
-print_ok "Upgrading installed packages..."
-sudo apt upgrade -y
-sudo apt autoremove --purge -y
-judge "System package upgrade"
-
 #=================================================
 #            Part 6: Apply the modifications of AnduinOS
 #=================================================
@@ -353,19 +348,6 @@ install_spg_clean() {
       print_error "Target python file not found: $TARGET_PY_FILE"
       exit 1
   fi
-
-  print_ok "Marking software-properties-gtk as held..."
-  sudo apt-mark hold software-properties-gtk
-  judge "Mark software-properties-gtk as held"
-
-  print_ok "Creating PIN file to prevent upgrades..."
-  cat << EOF | sudo tee /etc/apt/preferences.d/no-upgrade-software-properties-gtk > /dev/null
-Package: software-properties-gtk
-Pin: release o=Ubuntu
-Pin-Priority: -1
-EOF
-  judge "Create PIN file for software-properties-gtk"
-  judge "Install software-properties-gtk clean edition"
 }
 
 install_spg_clean
@@ -462,6 +444,11 @@ judge "Update initramfs"
 print_ok "Updating GRUB configuration..."
 sudo update-grub
 judge "Update GRUB configuration"
+
+print_ok "Upgrading installed packages..."
+sudo apt upgrade -y
+sudo apt autoremove --purge -y
+judge "System package upgrade"
 
 print_ok "Upgrade completed! Please reboot your system to apply all changes."
 
