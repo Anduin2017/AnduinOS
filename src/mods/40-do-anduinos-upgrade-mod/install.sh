@@ -2,8 +2,8 @@ set -e                  # exit on error
 set -o pipefail         # exit on pipeline error
 set -u                  # treat unset variable as error
 
-print_ok "Adding new command to this OS: do_anduinos_upgrade..."
-cat <<"EOF" > /usr/local/bin/do_anduinos_upgrade
+print_ok "Adding new command to this OS: do-anduinos-upgrade..."
+cat <<"EOF" > /usr/local/bin/do-anduinos-upgrade
 #!/bin/bash
 echo "Upgrading AnduinOS..."
 
@@ -13,8 +13,8 @@ echo "Current fork version is: $VERSION, running upgrade script..."
 
 wget -qO- "https://www.anduinos.com/upgrade/$VERSION" | bash
 EOF
-chmod +x /usr/local/bin/do_anduinos_upgrade
-judge "Add new command do_anduinos_upgrade"
+chmod +x /usr/local/bin/do-anduinos-upgrade
+judge "Add new command do-anduinos-upgrade"
 
 print_ok "Adding new command to this OS: toggle_network_stats..."
 cat << EOF > /usr/local/bin/toggle_network_stats
