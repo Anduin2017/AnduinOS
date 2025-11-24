@@ -17,6 +17,10 @@
 #    bash ./REPAIR.sh
 #=================================================
 
+
+#=================================================
+#            Part 1:  Helper Functions
+#=================================================
 set -e
 set -o pipefail
 set -u
@@ -68,6 +72,10 @@ function clean_up() {
   #sudo rm -rf /mnt/anduinos_iso >/dev/null 2>&1 || true
   judge "Cleanup"
 }
+
+#=================================================
+#            Part 2: Clean up and check
+#=================================================
 
 clean_up
 
@@ -167,6 +175,10 @@ if [[ "$(id -u)" -eq 0 ]]; then
     exit 1
 fi
 
+#=================================================
+#            Part 3: Verify content and mount
+#=================================================
+
 print_ok "Installing required packages (curl)..."
 sudo apt install -y curl || sudo apt update && sudo apt install -y curl
 judge "Install required packages (curl)"
@@ -179,6 +191,10 @@ print_ok "Mounting the filesystem.squashfs..."
 sudo mkdir -p /mnt/anduinos_squashfs
 sudo mount -o loop,ro "$SQUASH_FILE" /mnt/anduinos_squashfs
 judge "Mount filesystem.squashfs"
+
+#=================================================
+#            Part 4: Reset to a clean Ubuntu with Mozilla PPA
+#=================================================
 
 # backup
 print_ok "Backing up APT configuration files..."
@@ -202,6 +218,10 @@ sudo rsync -Aax /mnt/anduinos_squashfs/etc/apt/sources.list.d/mozillateam* /etc/
 sudo apt update
 judge "Update Mozilla Team PPA"
 
+#=================================================
+#            Part 5: Install all missing packages and remove obsolete packages
+#=================================================
+
 print_ok "Generating package list for upgrade..."
 MANIFEST_FILE="$SCRIPT_DIR/casper/filesystem.manifest-desktop"
 
@@ -209,7 +229,8 @@ cut -d' ' -f1 "$MANIFEST_FILE" \
   | grep -v '^linux-' \
   | grep -v '^lib' \
   | grep -v '^plymouth-' \
-  | grep -v '^software-properties-' > "$PKG_TEMP_FILE"
+  | grep -v '^software-properties-' \
+  | grep -v '=' > "$PKG_TEMP_FILE"
 
 if [ ! -s "$PKG_TEMP_FILE" ]; then
     print_ok "No missing packages to install."
@@ -258,13 +279,78 @@ sudo apt autoremove -y \
   update-notifier \
   ubuntu-release-upgrader-core \
   ubuntu-advantage-desktop-daemon \
-  kgx
+  kgx --allow-change-held-packages
 judge "Remove obsolete packages"
 
-print_ok "Upgrading installed packages..."
-sudo apt upgrade -y
-sudo apt autoremove --purge -y
-judge "System package cleanup"
+#=================================================
+#            Part 6: Apply the modifications of AnduinOS
+#=================================================
+install_spg_clean() {
+  print_ok "Installing software-properties-gtk clean edition..."
+
+  SP_BUILD_DIR=$(mktemp -d)
+  print_ok "Created temporary build directory: $SP_BUILD_DIR"
+
+  sudo apt install -y --no-install-recommends \
+      software-properties-common \
+      python3-dateutil \
+      gir1.2-handy-1 \
+      libgtk3-perl \
+      dpkg-dev
+  judge "Install build dependencies"
+
+  pushd "$SP_BUILD_DIR" > /dev/null
+      print_ok "Downloading software-properties-gtk..."
+      apt-get download "software-properties-gtk"
+      judge "Download software-properties-gtk"
+
+      DEB_FILE=$(ls *.deb | head -n 1)
+      if [ -z "$DEB_FILE" ]; then
+          print_error "No .deb file downloaded!"
+          exit 1
+      fi
+      print_ok "Found $DEB_FILE"
+
+      print_ok "Extracting $DEB_FILE..."
+      mkdir original
+      dpkg-deb -R "$DEB_FILE" original
+      judge "Extract $DEB_FILE"
+
+      print_ok "Patching control file..."
+      sed -i \
+        '/^Depends:/s/, *ubuntu-pro-client//; /^Depends:/s/, *ubuntu-advantage-desktop-daemon//' \
+        original/DEBIAN/control
+      judge "Edit control file"
+
+      MOD_DEB="modified-software-properties-gtk.deb"
+      print_ok "Repackaging into $MOD_DEB..."
+      dpkg-deb -b original "$MOD_DEB"
+      judge "Repackage $MOD_DEB"
+
+      print_ok "Installing modified package..."
+      sudo apt install -y "./$MOD_DEB"
+      judge "Install modified $MOD_DEB"
+
+  popd > /dev/null
+  rm -rf "$SP_BUILD_DIR"
+  judge "Cleanup temporary build directory"
+
+  TARGET_PY_FILE="/usr/lib/python3/dist-packages/softwareproperties/gtk/SoftwarePropertiesGtk.py"
+  if [ -f "$TARGET_PY_FILE" ]; then
+      print_ok "Patching UI logic in $TARGET_PY_FILE..."
+      sudo cp "$TARGET_PY_FILE" "${TARGET_PY_FILE}.bak"
+
+      sudo sed -i '/^from \.UbuntuProPage import UbuntuProPage$/d' "$TARGET_PY_FILE"
+      sudo sed -i '/^[[:space:]]*def init_ubuntu_pro/,/^[[:space:]]*$/d' "$TARGET_PY_FILE"
+      sudo sed -i '/^[[:space:]]*if is_current_distro_lts()/,/self.init_ubuntu_pro()/d' "$TARGET_PY_FILE"
+      judge "Edit $TARGET_PY_FILE"
+  else
+      print_error "Target python file not found: $TARGET_PY_FILE"
+      exit 1
+  fi
+}
+
+install_spg_clean
 
 print_ok "Upgrading GNOME Shell extensions..."
 sudo rsync -Aax --update --delete /mnt/anduinos_squashfs/usr/share/gnome-shell/extensions/ /usr/share/gnome-shell/extensions/
@@ -275,11 +361,7 @@ sudo rsync -Aax --update --delete /mnt/anduinos_squashfs/usr/share/icons/ /usr/s
 sudo rsync -Aax --update --delete /mnt/anduinos_squashfs/usr/share/themes/ /usr/share/themes/
 judge "Upgrade icon and theme files"
 
-# Intel SOF Mod installation
 print_ok "Installing Intel SOF Mod..."
-#/usr/local/bin/sof-*
-#/lib/firmware/intel/sof*
-#/usr/share/alsa/ucm2/
 sudo rsync -Aax --update /mnt/anduinos_squashfs/lib/firmware/intel/sof* /lib/firmware/intel/
 sudo rsync -Aax --update /mnt/anduinos_squashfs/usr/local/bin/sof-* /usr/local/bin/
 sudo rsync -Aax --update /mnt/anduinos_squashfs/usr/share/alsa/ucm2/ /usr/share/alsa/ucm2/
@@ -297,6 +379,8 @@ judge "Upgrade APT configuration files"
 print_ok "Upgrading APT preferences files..."
 sudo rsync -Aax --update --delete /mnt/anduinos_squashfs/etc/apt/preferences.d/ /etc/apt/preferences.d/
 judge "Upgrade APT preferences files"
+
+sudo apt-mark hold software-properties-gtk base-files plymouth-theme-spinner software-properties-common
 
 print_ok "Upgrading session files..."
 sudo rsync -Aax --update --delete /mnt/anduinos_squashfs/usr/share/gnome-session/sessions/ /usr/share/gnome-session/sessions/
@@ -349,6 +433,10 @@ print_ok "Applying dconf settings patch..."
 cat "$DCONF_FILE" | dconf load /org/gnome/
 judge "Apply dconf settings patch"
 
+#=================================================
+#            Part 7: Finalization
+#=================================================
+
 print_ok "Updating initramfs..."
 sudo update-initramfs -u -k all
 judge "Update initramfs"
@@ -356,6 +444,11 @@ judge "Update initramfs"
 print_ok "Updating GRUB configuration..."
 sudo update-grub
 judge "Update GRUB configuration"
+
+print_ok "Upgrading installed packages..."
+sudo apt upgrade -y
+sudo apt autoremove --purge -y
+judge "System package upgrade"
 
 print_ok "Upgrade completed! Please reboot your system to apply all changes."
 
