@@ -9,7 +9,6 @@ fi
 
 print_ok "Downloading software-properties-gtk..."
 apt install -y \
-  software-properties-common \
   python3-dateutil \
   gir1.2-handy-1 \
   libgtk3-perl \
