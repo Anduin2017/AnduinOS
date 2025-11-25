@@ -73,8 +73,10 @@
         "timezone": "Asia/Seoul",
         "config_weather_location": "[(uint32 0, '서울특별시, 대한민국', uint32 0, '37.566535,126.9779692')]",
         "config_input_method": "[('xkb', 'us'), ('ibus', 'hangul')]",
-        "live_ubuntu_mirror": "https://ftp.kaist.ac.kr/ubuntu/",
-        "live_firefox_mirror": "ppa.launchpadcontent.net"
+        "live_ubuntu_mirror": "https://mirror.kakao.com/ubuntu/",
+        "live_firefox_mirror": "ppa.launchpadcontent.net",
+        "flathub_mirror": "",
+        "flathub_gpg": ""
     },
     {
         "lang_mode": "vi_VN",
