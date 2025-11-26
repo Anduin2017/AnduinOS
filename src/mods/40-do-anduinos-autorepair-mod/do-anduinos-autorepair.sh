@@ -208,7 +208,7 @@ print_ok "Follow the prompts from the repair script."
 echo -e "${Yellow}======================================================${Font}"
 
 # Execute the script from the ISO
-if sudo "$REPAIR_SCRIPT_PATH"; then
+if "$REPAIR_SCRIPT_PATH"; then
     print_ok "REPAIR.sh script completed successfully."
 else
     print_error "REPAIR.sh script failed."
