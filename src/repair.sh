@@ -230,12 +230,13 @@ cut -d' ' -f1 "$MANIFEST_FILE" \
   | grep -v '^lib' \
   | grep -v '^plymouth-' \
   | grep -v '^software-properties-' \
+  | grep -v '^python3-software-properties-' \
   | grep -v '=' > "$PKG_TEMP_FILE"
 
 if [ ! -s "$PKG_TEMP_FILE" ]; then
     print_ok "No missing packages to install."
 else
-    if xargs sudo apt install --no-install-recommends -y < "$PKG_TEMP_FILE" > /tmp/anduinos-fast-install.log 2>&1; then
+    if xargs sudo apt install --no-install-recommends --allow-change-held-packages -y < "$PKG_TEMP_FILE" > /tmp/anduinos-fast-install.log 2>&1; then
         print_ok "Fast mode installation successful."
         rm -f /tmp/anduinos-fast-install.log
     
@@ -412,7 +413,7 @@ sudo rsync -Aax --update --delete /mnt/anduinos_squashfs/usr/share/wayland-sessi
 judge "Upgrade gnome-session and wayland session files"
 
 print_ok "Updating system version information..."
-sudo rsync -Aax /mnt/anduinos_squashfs/usr/local/bin/do_anduinos_upgrade /usr/local/bin/do_anduinos_upgrade
+sudo rsync -Aax /mnt/anduinos_squashfs/usr/local/bin/do-anduinos-upgrade /usr/local/bin/do-anduinos-upgrade
 sudo rsync -Aax /mnt/anduinos_squashfs/usr/local/bin/do-anduinos-autorepair /usr/local/bin/do-anduinos-autorepair
 sudo rsync -Aax /mnt/anduinos_squashfs/usr/local/bin/toggle_network_stats /usr/local/bin/toggle_network_stats
 sudo rsync -Aax /mnt/anduinos_squashfs/usr/bin/add-apt-repository /usr/bin/add-apt-repository
