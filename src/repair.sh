@@ -230,12 +230,13 @@ cut -d' ' -f1 "$MANIFEST_FILE" \
   | grep -v '^lib' \
   | grep -v '^plymouth-' \
   | grep -v '^software-properties-' \
+  | grep -v '^python3-software-properties-' \
   | grep -v '=' > "$PKG_TEMP_FILE"
 
 if [ ! -s "$PKG_TEMP_FILE" ]; then
     print_ok "No missing packages to install."
 else
-    if xargs sudo apt install --no-install-recommends -y < "$PKG_TEMP_FILE" > /tmp/anduinos-fast-install.log 2>&1; then
+    if xargs sudo apt install --no-install-recommends --allow-change-held-packages -y < "$PKG_TEMP_FILE" > /tmp/anduinos-fast-install.log 2>&1; then
         print_ok "Fast mode installation successful."
         rm -f /tmp/anduinos-fast-install.log
     
