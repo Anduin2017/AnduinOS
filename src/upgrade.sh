@@ -6,7 +6,7 @@ set -e                  # exit on error
 set -o pipefail         # exit on pipeline error
 set -u                  # treat unset variable as error
 export DEBIAN_FRONTEND=noninteractive
-export LATEST_VERSION="1.3.7"
+export LATEST_VERSION="1.3.8"
 export CODE_NAME="plucky"
 export OS_ID="AnduinOS"
 export CURRENT_VERSION=$(cat /etc/lsb-release | grep DISTRIB_RELEASE | cut -d "=" -f 2)
@@ -166,8 +166,9 @@ function install_desktop_mon() {
     sudo rm -f /usr/local/bin/deskmon.service || true
     sudo rm -f /etc/systemd/user/deskmon.service || true
     sudo rm -f /etc/systemd/user/default.target.wants/deskmon.service || true
+    BRANCH=$(grep -oP "VERSION_ID=\"\\K\\d+\\.\\d+" /etc/os-release)
 
-    link="https://gitlab.aiursoft.com/anduin/anduinos/-/raw/1.4/src/mods/20-deskmon-mod/deskmon?ref_type=heads"
+    link="https://gitlab.aiursoft.com/anduin/anduinos/-/raw/$BRANCH/src/mods/20-deskmon-mod/deskmon?ref_type=heads"
     print_ok "Downloading deskmon..."
     sudo rm -f /usr/local/bin/deskmon || true
     sudo wget -O /usr/local/bin/deskmon "$link"
@@ -175,7 +176,7 @@ function install_desktop_mon() {
     judge "Download deskmon"
 
     print_ok "Installing deskmon.service"
-    service_link="https://gitlab.aiursoft.com/anduin/anduinos/-/raw/1.4/src/mods/20-deskmon-mod/deskmon.service?ref_type=heads"
+    service_link="https://gitlab.aiursoft.com/anduin/anduinos/-/raw/$BRANCH/src/mods/20-deskmon-mod/deskmon.service?ref_type=heads"
     wget -O deskmon.service "$service_link"
     sudo install -D deskmon.service /etc/systemd/user/deskmon.service
     sudo mkdir -p /etc/systemd/user/default.target.wants
@@ -524,6 +525,37 @@ function upgrade_136_to_137() {
     judge "Upgrade from 1.3.6 to 1.3.7 completed"
 }
 
+function upgrade_137_to_138() {
+    print_ok "Upgrading from version 1.3.7 to 1.3.8..."
+    sudo apt-get update
+    sudo apt-get install sane-airscan sane-utils simple-scan -y --no-install-recommends
+    sudo apt-get install system-config-printer -y
+
+    print_ok "Installing anduinos-autorepair tool to /usr/local/bin/..."
+    BRANCH=$(grep -oP "VERSION_ID=\"\\K\\d+\\.\\d+" /etc/os-release)
+    sudo wget -O /usr/local/bin/anduinos-autorepair "https://gitlab.aiursoft.com/anduin/anduinos/-/raw/${BRANCH}/src/mods/40-do-anduinos-autorepair-mod/do-anduinos-autorepair.sh"
+    sudo chmod +x /usr/local/bin/anduinos-autorepair
+    judge "Install anduinos-autorepair tool"
+
+    print_ok "Reinstalling deskmon to ensure latest version is installed"
+    install_desktop_mon
+    judge "Reinstall deskmon completed"
+
+    print_ok "Patching /etc/legal file"
+    TARGET_BUSINESS_NAME="AnduinOS"
+    echo "
+# The programs included with the $TARGET_BUSINESS_NAME system are free software;
+# the exact distribution terms for each program are described in the
+# individual files in /usr/share/doc/*/copyright.
+
+# $TARGET_BUSINESS_NAME comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
+# applicable law.
+" | sudo tee /etc/legal > /dev/null
+    judge "Patch /etc/legal file"
+
+    judge "Upgrade from 1.3.7 to 1.3.8 completed"
+}
+
 function applyLsbRelease() {
 
     # Update /etc/os-release
@@ -586,6 +618,7 @@ function main() {
               upgrade_134_to_135
               upgrade_135_to_136
               upgrade_136_to_137
+              upgrade_137_to_138
               ;;
           "1.3.1")
               upgrade_131_to_132
@@ -594,6 +627,7 @@ function main() {
               upgrade_134_to_135
               upgrade_135_to_136
               upgrade_136_to_137
+              upgrade_137_to_138
               ;;
           "1.3.2")
               upgrade_132_to_133
@@ -601,26 +635,33 @@ function main() {
               upgrade_134_to_135
               upgrade_135_to_136
               upgrade_136_to_137
+              upgrade_137_to_138
               ;;
           "1.3.3")
               upgrade_133_to_134
               upgrade_134_to_135
               upgrade_135_to_136
               upgrade_136_to_137
+              upgrade_137_to_138
               ;;
           "1.3.4")
               upgrade_134_to_135
               upgrade_135_to_136
               upgrade_136_to_137
+              upgrade_137_to_138
               ;;
           "1.3.5")
               upgrade_135_to_136
               upgrade_136_to_137
+              upgrade_137_to_138
               ;;
           "1.3.6")
               upgrade_136_to_137
+              upgrade_137_to_138
               ;;
           "1.3.7")
+              upgrade_137_to_138
+          "1.3.8")
               print_ok "Your system is already up to date. No update available."
               exit 0
               ;;
