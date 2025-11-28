@@ -124,6 +124,7 @@ function install_spg() {
 
     shopt -s nullglob
     debs=(software-properties-gtk_*.deb)
+    shopt -u nullglob
     if [ "${#debs[@]}" -eq 0 ]; then
         echo "Can't find software-properties-gtk .deb file in current directory." >&2
         return 1
