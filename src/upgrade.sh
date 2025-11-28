@@ -661,6 +661,7 @@ function main() {
               ;;
           "1.3.7")
               upgrade_137_to_138
+              ;;
           "1.3.8")
               print_ok "Your system is already up to date. No update available."
               exit 0
