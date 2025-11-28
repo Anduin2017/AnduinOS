@@ -102,6 +102,7 @@ function install_spg() {
 
     shopt -s nullglob
     debs=(software-properties-gtk_*.deb)
+    shopt -u nullglob
     if [ "${#debs[@]}" -eq 0 ]; then
         echo "Can't find software-properties-gtk .deb file in current directory." >&2
         return 1
@@ -507,7 +508,8 @@ function upgrade_136_to_137() {
     judge "Apt update completed"
 
     print_ok "Querying latest HWE kernel package..."
-    TARGET_KERNEL_PACKAGE=$(apt search linux-generic-hwe-* | awk -F'/' '/linux-generic-hwe-/ {print $1}' | sort | head -n 1)
+    # Added quotes around "linux-generic-hwe-*"
+    TARGET_KERNEL_PACKAGE=$(apt search "linux-generic-hwe-*" | awk -F'/' '/linux-generic-hwe-/ {print $1}' | sort | head -n 1)
     print_ok "Installing kernel package $TARGET_KERNEL_PACKAGE..."
     sudo apt install -y \
         thermald \
