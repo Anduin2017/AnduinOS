@@ -6,7 +6,7 @@ set -e                  # exit on error
 set -o pipefail         # exit on pipeline error
 set -u                  # treat unset variable as error
 export DEBIAN_FRONTEND=noninteractive
-export LATEST_VERSION="1.1.10"
+export LATEST_VERSION="1.1.11"
 export CODE_NAME="noble"
 export OS_ID="AnduinOS"
 export CURRENT_VERSION=$(cat /etc/lsb-release | grep DISTRIB_RELEASE | cut -d "=" -f 2)
@@ -188,8 +188,9 @@ function install_desktop_mon() {
     sudo rm -f /usr/local/bin/deskmon.service || true
     sudo rm -f /etc/systemd/user/deskmon.service || true
     sudo rm -f /etc/systemd/user/default.target.wants/deskmon.service || true
+    BRANCH=$(grep -oP "VERSION_ID=\"\\K\\d+\\.\\d+" /etc/os-release)
 
-    link="https://gitlab.aiursoft.com/anduin/anduinos/-/raw/1.4/src/mods/20-deskmon-mod/deskmon?ref_type=heads"
+    link="https://gitlab.aiursoft.com/anduin/anduinos/-/raw/$BRANCH/src/mods/20-deskmon-mod/deskmon?ref_type=heads"
     print_ok "Downloading deskmon..."
     sudo rm -f /usr/local/bin/deskmon || true
     sudo wget -O /usr/local/bin/deskmon "$link"
@@ -197,7 +198,7 @@ function install_desktop_mon() {
     judge "Download deskmon"
 
     print_ok "Installing deskmon.service"
-    service_link="https://gitlab.aiursoft.com/anduin/anduinos/-/raw/1.4/src/mods/20-deskmon-mod/deskmon.service?ref_type=heads"
+    service_link="https://gitlab.aiursoft.com/anduin/anduinos/-/raw/$BRANCH/src/mods/20-deskmon-mod/deskmon.service?ref_type=heads"
     wget -O deskmon.service "$service_link"
     sudo install -D deskmon.service /etc/systemd/user/deskmon.service
     sudo mkdir -p /etc/systemd/user/default.target.wants
@@ -210,6 +211,7 @@ function install_desktop_mon() {
     systemctl --user enable deskmon.service
     judge "Install deskmon.service"
 }
+
 
 function upgrade_114_to_115() {
     print_ok "Upgrading from 1.1.4 to 1.1.5..."
@@ -522,6 +524,37 @@ function upgrade_119_to_1110() {
     judge "Upgrade from 1.1.9 to 1.1.10 completed"
 }
 
+function upgrade_1110_to_1111() {
+    print_ok "Upgrading from version 1.1.10 to 1.1.11..."
+    sudo apt-get update
+    sudo apt-get install sane-airscan sane-utils simple-scan -y --no-install-recommends
+    sudo apt-get install system-config-printer -y
+
+    print_ok "Installing anduinos-autorepair tool to /usr/local/bin/..."
+    BRANCH=$(grep -oP "VERSION_ID=\"\\K\\d+\\.\\d+" /etc/os-release)
+    sudo wget -O /usr/local/bin/anduinos-autorepair "https://gitlab.aiursoft.com/anduin/anduinos/-/raw/${BRANCH}/src/mods/40-do-anduinos-autorepair-mod/do-anduinos-autorepair.sh"
+    sudo chmod +x /usr/local/bin/anduinos-autorepair
+    judge "Install anduinos-autorepair tool"
+
+    print_ok "Reinstalling deskmon to ensure latest version is installed"
+    install_desktop_mon
+    judge "Reinstall deskmon completed"
+
+    print_ok "Patching /etc/legal file"
+    TARGET_BUSINESS_NAME="AnduinOS"
+    echo "
+# The programs included with the $TARGET_BUSINESS_NAME system are free software;
+# the exact distribution terms for each program are described in the
+# individual files in /usr/share/doc/*/copyright.
+
+# $TARGET_BUSINESS_NAME comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
+# applicable law.
+" | sudo tee /etc/legal > /dev/null
+    judge "Patch /etc/legal file"
+
+    judge "Upgrade from 1.1.10 to 1.1.11 completed"
+}
+
 function applyLsbRelease() {
 
   # Update /etc/os-release
@@ -585,6 +618,7 @@ function main() {
               upgrade_117_to_118
               upgrade_118_to_119
               upgrade_119_to_1110
+              upgrade_1110_to_1111
               ;;
           "1.1.1")
               upgrade_111_to_112
@@ -596,6 +630,7 @@ function main() {
               upgrade_117_to_118
               upgrade_118_to_119
               upgrade_119_to_1110
+              upgrade_1110_to_1111
               ;;
           "1.1.2")
               upgrade_112_to_113
@@ -606,6 +641,7 @@ function main() {
               upgrade_117_to_118
               upgrade_118_to_119
               upgrade_119_to_1110
+              upgrade_1110_to_1111
               ;;
           "1.1.3")
               upgrade_113_to_114
@@ -615,6 +651,7 @@ function main() {
               upgrade_117_to_118
               upgrade_118_to_119
               upgrade_119_to_1110
+              upgrade_1110_to_1111
               ;;
           "1.1.4")
               upgrade_114_to_115
@@ -623,6 +660,7 @@ function main() {
               upgrade_117_to_118
               upgrade_118_to_119
               upgrade_119_to_1110
+              upgrade_1110_to_1111
               ;;
           "1.1.5")
               upgrade_115_to_116
@@ -630,26 +668,34 @@ function main() {
               upgrade_117_to_118
               upgrade_118_to_119
               upgrade_119_to_1110
+              upgrade_1110_to_1111
               ;;
           "1.1.6")
               upgrade_116_to_117
               upgrade_117_to_118
               upgrade_118_to_119
               upgrade_119_to_1110
+              upgrade_1110_to_1111
               ;;
           "1.1.7")
               upgrade_117_to_118
               upgrade_118_to_119
               upgrade_119_to_1110
+              upgrade_1110_to_1111
               ;;
           "1.1.8")
               upgrade_118_to_119
               upgrade_119_to_1110
+              upgrade_1110_to_1111
               ;;
           "1.1.9")
               upgrade_119_to_1110
+              upgrade_1110_to_1111
               ;;
           "1.1.10")
+              upgrade_1110_to_1111
+              ;;
+          "1.1.11")
               print_ok "Your system is already up to date. No update available."
               exit 0
               ;;
