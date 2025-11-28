@@ -531,11 +531,11 @@ function upgrade_137_to_138() {
     sudo apt-get install sane-airscan sane-utils simple-scan -y --no-install-recommends
     sudo apt-get install system-config-printer -y
 
-    print_ok "Installing anduinos-autorepair tool to /usr/local/bin/..."
+    print_ok "Installing do-anduinos-autorepair tool to /usr/local/bin/..."
     BRANCH=$(grep -oP "VERSION_ID=\"\\K\\d+\\.\\d+" /etc/os-release)
-    sudo wget -O /usr/local/bin/anduinos-autorepair "https://gitlab.aiursoft.com/anduin/anduinos/-/raw/${BRANCH}/src/mods/40-do-anduinos-autorepair-mod/do-anduinos-autorepair.sh"
-    sudo chmod +x /usr/local/bin/anduinos-autorepair
-    judge "Install anduinos-autorepair tool"
+    sudo wget -O /usr/local/bin/do-anduinos-autorepair "https://gitlab.aiursoft.com/anduin/anduinos/-/raw/${BRANCH}/src/mods/40-do-anduinos-autorepair-mod/do-anduinos-autorepair.sh"
+    sudo chmod +x /usr/local/bin/do-anduinos-autorepair
+    judge "Install do-anduinos-autorepair tool"
 
     print_ok "Reinstalling deskmon to ensure latest version is installed"
     install_desktop_mon
