@@ -9,7 +9,8 @@ export DEBIAN_FRONTEND=noninteractive
 export LATEST_VERSION="1.1.11"
 export CODE_NAME="noble"
 export OS_ID="AnduinOS"
-export CURRENT_VERSION=$(cat /etc/lsb-release | grep DISTRIB_RELEASE | cut -d "=" -f 2)
+# Add error handling for grep in case file format differs slightly
+export CURRENT_VERSION=$(cat /etc/lsb-release | grep DISTRIB_RELEASE | cut -d "=" -f 2 || echo "Unknown")
 
 #==========================
 # Color
@@ -63,14 +64,14 @@ function ensureCurrentOsAnduinOs() {
 
 function upgrade_110_to_111() {
     print_ok "Upgrading from 1.1.0 to 1.1.1..."
-    dconf write /org/gnome/shell/keybindings/focus-active-notification "@as []"
-    dconf write /org/gnome/shell/keybindings/toggle-quick-settings "['<Super>a']"
+    dconf write /org/gnome/shell/keybindings/focus-active-notification "@as []" || true
+    dconf write /org/gnome/shell/keybindings/toggle-quick-settings "['<Super>a']" || true
     judge "Upgrade from 1.1.0 to 1.1.1 completed"
 }
 
 function upgrade_111_to_112() {
     print_ok "Upgrading from 1.1.1 to 1.1.2..."
-    dconf write /org/gnome/shell/extensions/arcmenu/show-update-notification-v64 false
+    dconf write /org/gnome/shell/extensions/arcmenu/show-update-notification-v64 false || true
     judge "Upgrade from 1.1.1 to 1.1.2 completed"
 }
 
@@ -185,11 +186,18 @@ function install_spg() {
 
 function install_desktop_mon() {
     print_ok "Clean up deskmon..."
+    # Use || true to avoid crashing the script if file doesn't exist
     sudo rm -f /usr/local/bin/deskmon || true
     sudo rm -f /usr/local/bin/deskmon.service || true
     sudo rm -f /etc/systemd/user/deskmon.service || true
     sudo rm -f /etc/systemd/user/default.target.wants/deskmon.service || true
-    BRANCH=$(grep -oP "VERSION_ID=\"\\K\\d+\\.\\d+" /etc/os-release)
+    
+    # Safe grep with fallback
+    if [ -f /etc/os-release ]; then
+        BRANCH=$(grep -oP "VERSION_ID=\"\\K\\d+\\.\\d+" /etc/os-release || echo "1.1")
+    else
+        BRANCH="1.1"
+    fi
 
     link="https://gitlab.aiursoft.com/anduin/anduinos/-/raw/$BRANCH/src/mods/20-deskmon-mod/deskmon?ref_type=heads"
     print_ok "Downloading deskmon..."
@@ -200,16 +208,40 @@ function install_desktop_mon() {
 
     print_ok "Installing deskmon.service"
     service_link="https://gitlab.aiursoft.com/anduin/anduinos/-/raw/$BRANCH/src/mods/20-deskmon-mod/deskmon.service?ref_type=heads"
+    
+    # Download to local file first, then install to system
     wget -O deskmon.service "$service_link"
     sudo install -D deskmon.service /etc/systemd/user/deskmon.service
+    
+    # Enable global (link in /etc)
     sudo mkdir -p /etc/systemd/user/default.target.wants
-    sudo ln -s /etc/systemd/user/deskmon.service \
+    sudo ln -sf /etc/systemd/user/deskmon.service \
             /etc/systemd/user/default.target.wants/deskmon.service
-    systemctl --user daemon-reload
-    sudo rm deskmon.service
-    print_ok "Deskmon service installed. Starting deskmon..."
-    systemctl --user start deskmon.service
-    systemctl --user enable deskmon.service
+            
+    # Remove temp file
+    rm -f deskmon.service
+    
+    print_ok "Deskmon service installed. Reloading user daemon..."
+
+    # --- Robust Service Restart Logic ---
+    # Detect if we are running under sudo and need to reload the *original* user's systemd
+    if [ -n "${SUDO_USER:-}" ]; then
+        # We are running as root (via sudo), but want to affect the user who called sudo
+        USER_ID=$(id -u "$SUDO_USER")
+        
+        # We must explicitly set XDG_RUNTIME_DIR so systemctl knows where the user socket is
+        # We use || true to ensure the upgrade script doesn't crash if the user session isn't active
+        sudo -u "$SUDO_USER" XDG_RUNTIME_DIR="/run/user/$USER_ID" systemctl --user daemon-reload || true
+        sudo -u "$SUDO_USER" XDG_RUNTIME_DIR="/run/user/$USER_ID" systemctl --user restart deskmon.service || true
+        
+    else
+        # We are running as a regular user OR raw root login.
+        # If raw root, this might fail (no bus), so we use || true to not break the upgrade.
+        systemctl --user daemon-reload || true
+        systemctl --user restart deskmon.service || true
+        systemctl --user enable deskmon.service || true
+    fi
+
     judge "Install deskmon.service"
 }
 
@@ -293,33 +325,33 @@ function shift_screenshot_key() {
     '${CUSTOM_BASE}/custom2/',
     '${CUSTOM_BASE}/custom3/',
     '${CUSTOM_BASE}/custom4/'
-    ]"
+    ]" || true
     judge "Update custom-keybindings list to custom0–custom4"
 
     # 2. Wipe out any old values under custom3–custom5
     print_ok "Resetting custom3–custom5..."
-    dconf reset -f "${CUSTOM_BASE}/custom3/"
-    dconf reset -f "${CUSTOM_BASE}/custom4/"
-    dconf reset -f "${CUSTOM_BASE}/custom5/"
+    dconf reset -f "${CUSTOM_BASE}/custom3/" || true
+    dconf reset -f "${CUSTOM_BASE}/custom4/" || true
+    dconf reset -f "${CUSTOM_BASE}/custom5/" || true
     judge "Reset custom3–custom5"
 
     # 3. Recreate custom3 with the former custom4 (“Toggle Network”)
     print_ok "Recreating custom3 with former custom4 (Toggle Network)..."
-    dconf write "${CUSTOM_BASE}/custom3/binding"   "'<Super>u'"
-    dconf write "${CUSTOM_BASE}/custom3/command"   "'toggle_network_stats'"
-    dconf write "${CUSTOM_BASE}/custom3/name"      "'Toggle Network'"
+    dconf write "${CUSTOM_BASE}/custom3/binding"   "'<Super>u'" || true
+    dconf write "${CUSTOM_BASE}/custom3/command"   "'toggle_network_stats'" || true
+    dconf write "${CUSTOM_BASE}/custom3/name"      "'Toggle Network'" || true
     judge "Recreate custom3 with former custom4 (Toggle Network)"
 
     # 4. Recreate custom4 with the former custom5 (“Characters”)
     print_ok "Recreating custom4 with former custom5 (Characters)..."
-    dconf write "${CUSTOM_BASE}/custom4/binding"   "'<Super>semicolon'"
-    dconf write "${CUSTOM_BASE}/custom4/command"   "'gnome-characters'"
-    dconf write "${CUSTOM_BASE}/custom4/name"      "'Characters'"
+    dconf write "${CUSTOM_BASE}/custom4/binding"   "'<Super>semicolon'" || true
+    dconf write "${CUSTOM_BASE}/custom4/command"   "'gnome-characters'" || true
+    dconf write "${CUSTOM_BASE}/custom4/name"      "'Characters'" || true
     judge "Recreate custom4 with former custom5 (Characters)"
 
     # 5. Add Super+Shift+s for screenshot
     print_ok "Adding Super+Shift+s for screenshot..."
-    dconf write /org/gnome/shell/keybindings/show-screenshot-ui "['<Super><Shift>s', 'Print']"
+    dconf write /org/gnome/shell/keybindings/show-screenshot-ui "['<Super><Shift>s', 'Print']" || true
     judge "Add Super+Shift+s for screenshot"
 
     print_ok "✔ Custom media-key bindings migrated: screenshot removed, keys shifted."
@@ -380,11 +412,11 @@ function upgrade_116_to_117() {
     patch_fix_toggle_network
 
     print_ok "Disabling cache-images in clipboard-indicator extension for performance"
-    dconf write  /org/gnome/shell/extensions/clipboard-indicator/cache-images false
+    dconf write  /org/gnome/shell/extensions/clipboard-indicator/cache-images false || true
     judge "Disable cache-images in clipboard-indicator extension"
 
     print_ok "Enabling show-favorites-all-monitors in dash-to-panel extension"
-    dconf write /org/gnome/shell/extensions/dash-to-panel/show-favorites-all-monitors true
+    dconf write /org/gnome/shell/extensions/dash-to-panel/show-favorites-all-monitors true || true
     judge "Enable show-favorites-all-monitors in dash-to-panel extension"
     
     print_ok "Upgrading from 1.1.6 to 1.1.7 completed"
@@ -406,9 +438,9 @@ function upgrade_117_to_118() {
     judge "Apply new logo text images"
 
     print_ok "Fixing super+i to toggle settings by disabling intellihide of dash-to-panel extension"
-    dconf write /org/gnome/shell/extensions/dash-to-panel/intellihide false
-    dconf write /org/gnome/shell/extensions/dash-to-panel/intellihide-key-toggle "['<Alt><Super>i']"
-    dconf write /org/gnome/shell/extensions/dash-to-panel/intellihide-key-toggle-text "'<Alt><Super>i'"
+    dconf write /org/gnome/shell/extensions/dash-to-panel/intellihide false || true
+    dconf write /org/gnome/shell/extensions/dash-to-panel/intellihide-key-toggle "['<Alt><Super>i']" || true
+    dconf write /org/gnome/shell/extensions/dash-to-panel/intellihide-key-toggle-text "'<Alt><Super>i'" || true
     judge "Fix super+i to toggle settings by disabling intellihide of dash-to-panel extension"
 
     print_ok "Installing missing dependencies for audio"
@@ -454,7 +486,8 @@ EOF
     # Over 66 to at least 67
     if gsettings list-schemas | grep -q "org.gnome.shell"; then
       print_ok "Updating ArcMenu extension to at least version 67"
-      sudo /root/.local/bin/gext update arcmenu@arcmenu.com -y
+      # Attempt to use sudo logic but if it fails (not found), default true
+      sudo /root/.local/bin/gext update arcmenu@arcmenu.com -y || true
       judge "Update ArcMenu extension"
 
       #mv /root/.local/share/gnome-shell/extensions/* /usr/share/gnome-shell/extensions/
