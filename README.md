@@ -16,7 +16,9 @@ AnduinOS is a custom Ubuntu-based Linux distribution that offers a familiar and 
 
 AnduinOS is funded by user donations. We are grateful for your support.
 
-<span class="paypal"><a href="https://www.paypal.com/paypalme/anduinxue2017" title="Donate to this project using Paypal"><img src="https://www.paypalobjects.com/webstatic/mktg/Logo/pp-logo-100px.png" alt="PayPal donate button" /></a></span>
+<a href="https://ko-fi.com/anduinxue/goal?g=0" target="_blank" title="Support AnduinOS on Ko-fi">
+  <img height="36" style="border:0px;height:36px;" src="https://storage.ko-fi.com/cdn/kofi3.png?v=3" border="0" alt="Support AnduinOS at ko-fi.com" />
+</a>
 
 ## How to build
 
