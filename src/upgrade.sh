@@ -167,7 +167,13 @@ function install_desktop_mon() {
     sudo rm -f /usr/local/bin/deskmon.service || true
     sudo rm -f /etc/systemd/user/deskmon.service || true
     sudo rm -f /etc/systemd/user/default.target.wants/deskmon.service || true
-    BRANCH=$(grep -oP "VERSION_ID=\"\\K\\d+\\.\\d+" /etc/os-release)
+    
+    # Safe grep with fallback
+    if [ -f /etc/os-release ]; then
+        BRANCH=$(grep -oP "VERSION_ID=\"\\K\\d+\\.\\d+" /etc/os-release || echo "1.1")
+    else
+        BRANCH="1.3"
+    fi
 
     link="https://gitlab.aiursoft.com/anduin/anduinos/-/raw/$BRANCH/src/mods/20-deskmon-mod/deskmon?ref_type=heads"
     print_ok "Downloading deskmon..."
@@ -179,17 +185,38 @@ function install_desktop_mon() {
     print_ok "Installing deskmon.service"
     service_link="https://gitlab.aiursoft.com/anduin/anduinos/-/raw/$BRANCH/src/mods/20-deskmon-mod/deskmon.service?ref_type=heads"
     
+    # Download to /tmp first to avoid permission denied error in restricted directories
     wget -O /tmp/deskmon.service "$service_link"
     sudo install -D /tmp/deskmon.service /etc/systemd/user/deskmon.service
 
     sudo mkdir -p /etc/systemd/user/default.target.wants
-    sudo ln -s /etc/systemd/user/deskmon.service \
+    # Use -sf to force link creation (overwrite if exists)
+    sudo ln -sf /etc/systemd/user/deskmon.service \
             /etc/systemd/user/default.target.wants/deskmon.service
-    systemctl --user daemon-reload
+    
+    # Clean up the temp file
     rm -f /tmp/deskmon.service
-    print_ok "Deskmon service installed. Starting deskmon..."
-    systemctl --user start deskmon.service
-    systemctl --user enable deskmon.service
+
+    print_ok "Deskmon service installed. Reloading user daemon..."
+
+    # --- Restored Logic: Handle sudo execution ---
+    if [ -n "${SUDO_USER:-}" ]; then
+        # If running as root (via sudo), we need to switch context to the original user
+        # to control their systemd user session.
+        print_warn "Running under sudo. Reloading service for user: $SUDO_USER"
+        USER_ID=$(id -u "$SUDO_USER")
+        
+        # We must explicitly set XDG_RUNTIME_DIR so systemctl knows where the user socket is
+        sudo -u "$SUDO_USER" XDG_RUNTIME_DIR="/run/user/$USER_ID" systemctl --user daemon-reload || true
+        sudo -u "$SUDO_USER" XDG_RUNTIME_DIR="/run/user/$USER_ID" systemctl --user restart deskmon.service || true
+        sudo -u "$SUDO_USER" XDG_RUNTIME_DIR="/run/user/$USER_ID" systemctl --user enable deskmon.service || true
+    else
+        # Standard execution (running as normal user)
+        systemctl --user daemon-reload || true
+        systemctl --user restart deskmon.service || true
+        systemctl --user enable deskmon.service || true
+    fi
+
     judge "Install deskmon.service"
 }
 
