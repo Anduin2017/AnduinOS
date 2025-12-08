@@ -178,13 +178,15 @@ function install_desktop_mon() {
 
     print_ok "Installing deskmon.service"
     service_link="https://gitlab.aiursoft.com/anduin/anduinos/-/raw/$BRANCH/src/mods/20-deskmon-mod/deskmon.service?ref_type=heads"
-    wget -O deskmon.service "$service_link"
-    sudo install -D deskmon.service /etc/systemd/user/deskmon.service
+    
+    wget -O /tmp/deskmon.service "$service_link"
+    sudo install -D /tmp/deskmon.service /etc/systemd/user/deskmon.service
+
     sudo mkdir -p /etc/systemd/user/default.target.wants
     sudo ln -s /etc/systemd/user/deskmon.service \
             /etc/systemd/user/default.target.wants/deskmon.service
     systemctl --user daemon-reload
-    sudo rm deskmon.service
+    rm -f /tmp/deskmon.service
     print_ok "Deskmon service installed. Starting deskmon..."
     systemctl --user start deskmon.service
     systemctl --user enable deskmon.service
