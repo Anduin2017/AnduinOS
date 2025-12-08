@@ -210,23 +210,22 @@ function install_desktop_mon() {
     service_link="https://gitlab.aiursoft.com/anduin/anduinos/-/raw/$BRANCH/src/mods/20-deskmon-mod/deskmon.service?ref_type=heads"
     
     # Download to local file first, then install to system
-    wget -O deskmon.service "$service_link"
-    sudo install -D deskmon.service /etc/systemd/user/deskmon.service
+    wget -O /tmp/deskmon.service "$service_link"
+    sudo install -D /tmp/deskmon.service /etc/systemd/user/deskmon.service
     
-    # Enable global (link in /etc)
     sudo mkdir -p /etc/systemd/user/default.target.wants
     sudo ln -sf /etc/systemd/user/deskmon.service \
             /etc/systemd/user/default.target.wants/deskmon.service
             
     # Remove temp file
-    rm -f deskmon.service
+    rm -f /tmp/deskmon.service
     
     print_ok "Deskmon service installed. Reloading user daemon..."
 
     # --- Robust Service Restart Logic ---
     # Detect if we are running under sudo and need to reload the *original* user's systemd
     if [ -n "${SUDO_USER:-}" ]; then
-        # We are running as root (via sudo), but want to affect the user who called sudo
+        print_warn "Running under sudo, attempting to reload service for user: $SUDO_USER"
         USER_ID=$(id -u "$SUDO_USER")
         
         # We must explicitly set XDG_RUNTIME_DIR so systemctl knows where the user socket is
