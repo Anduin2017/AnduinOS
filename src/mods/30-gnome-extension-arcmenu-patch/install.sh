@@ -5,6 +5,7 @@ set -u                  # treat unset variable as error
 print_ok "Patching Arc Menu..."
 
 print_ok "Patch Arc Menu logo..."
+sudo mkdir -p /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/icons/
 mv ./logo.svg /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/icons/anduinos-logo.svg
 judge "Patch Arc Menu logo"
 
