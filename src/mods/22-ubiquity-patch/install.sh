@@ -21,7 +21,7 @@ new_exec="sudo --preserve-env=DBUS_SESSION_BUS_ADDRESS,\
 XDG_DATA_DIRS,\
 XDG_RUNTIME_DIR,\
 GTK_THEME,\
-HOME sh -c 'NO_AT_BRIDGE=1 ubiquity gtk_ui'"
+HOME sh -c 'LIBGL_ALWAYS_SOFTWARE=1 NO_AT_BRIDGE=1 ubiquity gtk_ui'"
 
 sed -i \
   "s|Exec=${old_exec}|Exec=${new_exec}|" \
