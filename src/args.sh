@@ -248,7 +248,7 @@ export DEFAULT_APPS="
     shotwell \
     remmina remmina-plugin-rdp \
     rhythmbox rhythmbox-plugins \
-    totem totem-plugins \
+    showtime \
     transmission-gtk transmission-common \
     ffmpegthumbnailer \
     libgdk-pixbuf2.0-bin \
