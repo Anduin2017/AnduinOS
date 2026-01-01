@@ -70,7 +70,7 @@ function clean_up() {
   sudo rm -rf /mnt/anduinos_squashfs >/dev/null 2>&1 || true
   #sudo umount /mnt/anduinos_iso >/dev/null 2>&1 || true
   #sudo rm -rf /mnt/anduinos_iso >/dev/null 2>&1 || true
-  judge "Cleanup"
+  print_ok "Cleanup succeeded"
 }
 
 #=================================================
@@ -265,7 +265,7 @@ fi
 judge "Install missing packages"
 
 print_ok "Removing obsolete packages..."
-sudo apt autoremove -y \
+sudo apt purge -y \
   distro-info \
   software-properties-gtk \
   ubuntu-advantage-tools \
