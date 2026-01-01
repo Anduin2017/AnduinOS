@@ -381,7 +381,10 @@ print_ok "Upgrading APT preferences files..."
 sudo rsync -Aax --update --delete /mnt/anduinos_squashfs/etc/apt/preferences.d/ /etc/apt/preferences.d/
 judge "Upgrade APT preferences files"
 
-sudo apt-mark hold software-properties-gtk base-files plymouth-theme-spinner software-properties-common
+sudo apt-mark hold software-properties-gtk || true
+sudo apt-mark hold base-files || true
+sudo apt-mark hold plymouth-theme-spinner || true
+sudo apt-mark hold software-properties-common || true
 
 print_ok "Upgrading session files..."
 sudo rsync -Aax --update --delete /mnt/anduinos_squashfs/usr/share/gnome-session/sessions/ /usr/share/gnome-session/sessions/
