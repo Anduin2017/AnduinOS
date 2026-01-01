@@ -68,7 +68,7 @@ function clean_up() {
     print_ok "Removing ${DOWNLOAD_DIR}/${FILE_PREFIX}* ..."
     sudo rm -rf "$DOWNLOAD_DIR" >/dev/null 2>&1 || true
   fi
-  judge "Cleanup"
+  print_ok "Cleanup succeeded"
 }
 
 # --- Trap ---
@@ -210,7 +210,7 @@ print_ok "Follow the prompts from the repair script."
 echo -e "${Yellow}======================================================${Font}"
 
 # Execute the script from the ISO
-if "$REPAIR_SCRIPT_PATH"; then
+if bash "$REPAIR_SCRIPT_PATH"; then
     print_ok "REPAIR.sh script completed successfully."
 else
     print_error "REPAIR.sh script failed."
