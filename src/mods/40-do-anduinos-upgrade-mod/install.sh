@@ -11,7 +11,11 @@ VERSION=$(grep -oP "VERSION_ID=\"\\K\\d+\\.\\d+" /etc/os-release)
 
 echo "Current fork version is: $VERSION, running upgrade script..."
 
-wget -qO- "https://www.anduinos.com/upgrade/$VERSION" | bash
+if ! wget -qO- "https://www.anduinos.com/upgrade/$VERSION" | bash; then
+    echo "Error: Failed to download or execute upgrade script from server."
+    echo "The server might be down or the upgrade path for version $VERSION doesn't exist."
+    exit 1
+fi
 EOF
 chmod +x /usr/local/bin/do_anduinos_upgrade
 judge "Add new command do_anduinos_upgrade"
