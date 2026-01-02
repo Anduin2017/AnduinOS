@@ -3,7 +3,7 @@ set -o pipefail         # exit on pipeline error
 set -u                  # treat unset variable as error
 
 # This link needs to be updated regularly.
-SOF_BIN_LINK="https://github.com/thesofproject/sof-bin/releases/download/v2025.05.1/sof-bin-2025.05.1.tar.gz"
+SOF_BIN_LINK="https://github.com/thesofproject/sof-bin/releases/download/v2025.12/sof-bin-2025.12.tar.gz"
 ALSA_UCM_CONF_LINK="https://git.aiursoft.com/PublicVault/alsa-ucm-conf/archive/master.zip"
 
 (
@@ -27,7 +27,7 @@ ALSA_UCM_CONF_LINK="https://git.aiursoft.com/PublicVault/alsa-ucm-conf/archive/m
     judge "Removed old SOF binaries"
 
     print_ok "Installing SOF binaries"
-    cd ./sof-bin-2025.05.1
+    cd ./sof-bin-2025.12
     ./install.sh
     judge "Installed SOF binaries"
     cd ..
