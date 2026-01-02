@@ -175,6 +175,18 @@ if [[ "$(id -u)" -eq 0 ]]; then
     exit 1
 fi
 
+print_ok "Checking for incompatible initramfs system..."
+if command -v dracut &> /dev/null || dpkg -l dracut 2>/dev/null | grep -q "^ii"; then
+    print_error "This system is using dracut as the initramfs system."
+    print_error "AnduinOS cannot repair systems using dracut because:"
+    print_error "  - The repair process will attempt to install initramfs-tools"
+    print_error "  - This will conflict with dracut and may cause boot failure"
+    print_error ""
+    print_error "Please use a clean AnduinOS installation or manually resolve the conflict."
+    exit 1
+fi
+print_ok "No conflicting initramfs system detected."
+
 #=================================================
 #            Part 3: Verify content and mount
 #=================================================
