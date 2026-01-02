@@ -5,17 +5,25 @@ set -u                  # treat unset variable as error
 print_ok "Adding new command to this OS: do_anduinos_upgrade..."
 cat <<"EOF" > /usr/local/bin/do_anduinos_upgrade
 #!/bin/bash
+set -o pipefail
+
 echo "Upgrading AnduinOS..."
 
-VERSION=$(grep -oP "VERSION_ID=\"\\K\\d+\\.\\d+" /etc/os-release)
+VERSION=$(grep -oP "VERSION_ID=\"\K\d+\.\d+" /etc/os-release)
+URL="https://www.anduinos.com/upgrade/$VERSION"
 
 echo "Current fork version is: $VERSION, running upgrade script..."
 
-if ! wget -qO- "https://www.anduinos.com/upgrade/$VERSION" | bash; then
-    echo "Error: Failed to download or execute upgrade script from server."
+SCRIPT_CONTENT=$(wget -qO- "$URL")
+WGET_EXIT_CODE=$?
+
+if [ $WGET_EXIT_CODE -ne 0 ] || [ -z "$SCRIPT_CONTENT" ]; then
+    echo "Error: Failed to download upgrade script from server."
     echo "The server might be down or the upgrade path for version $VERSION doesn't exist."
     exit 1
 fi
+
+echo "$SCRIPT_CONTENT" | bash
 EOF
 chmod +x /usr/local/bin/do_anduinos_upgrade
 judge "Add new command do_anduinos_upgrade"
