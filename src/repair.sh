@@ -416,7 +416,7 @@ sudo rsync -Aax --update --delete /mnt/anduinos_squashfs/usr/share/wayland-sessi
 judge "Upgrade gnome-session and wayland session files"
 
 print_ok "Updating system version information..."
-sudo rsync -Aax /mnt/anduinos_squashfs/usr/local/bin/do-anduinos-upgrade /usr/local/bin/do-anduinos-upgrade
+sudo rsync -Aax /mnt/anduinos_squashfs/usr/local/bin/do_anduinos_upgrade /usr/local/bin/do_anduinos_upgrade
 sudo rsync -Aax /mnt/anduinos_squashfs/usr/local/bin/do-anduinos-autorepair /usr/local/bin/do-anduinos-autorepair
 sudo rsync -Aax /mnt/anduinos_squashfs/usr/local/bin/toggle_network_stats /usr/local/bin/toggle_network_stats
 sudo rsync -Aax /mnt/anduinos_squashfs/usr/bin/add-apt-repository /usr/bin/add-apt-repository
