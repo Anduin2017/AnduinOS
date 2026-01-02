@@ -233,38 +233,57 @@ cut -d' ' -f1 "$MANIFEST_FILE" \
   | grep -v '^python3-software-properties-' \
   | grep -v '=' > "$PKG_TEMP_FILE"
 
+PKG_COUNT=$(wc -l < "$PKG_TEMP_FILE")
+print_ok "Found ${Blue}${PKG_COUNT}${Font} packages in manifest to process."
+
 if [ ! -s "$PKG_TEMP_FILE" ]; then
     print_ok "No missing packages to install."
 else
+    print_ok "Starting fast mode installation (all packages at once)..."
+    print_ok "This may take 5-20 minutes depending on network speed and package count..."
+    print_ok "Detailed output is being logged to /tmp/anduinos-fast-install.log"
+    
     if xargs sudo apt install --no-install-recommends --allow-change-held-packages -y < "$PKG_TEMP_FILE" > /tmp/anduinos-fast-install.log 2>&1; then
-        print_ok "Fast mode installation successful."
+        print_ok "Fast mode installation successful - all ${PKG_COUNT} packages processed."
         rm -f /tmp/anduinos-fast-install.log
     
     else
-        print_warn "Fast mode failed. Retrying one by one (robust mode)..."
-        print_ok "This may take 5-30 minutes. Only errors will be displayed."
+        print_warn "Fast mode failed. Switching to robust mode (one-by-one installation)..."
+        print_warn "This will take longer but is more reliable."
+        print_ok "Processing ${PKG_COUNT} packages individually. Only errors will be displayed."
         
         PKG_INSTALL_LOG="/tmp/anduinos-pkg-install.log"
+        PKG_COUNTER=0
+        PKG_SUCCESS=0
+        PKG_FAILED=0
 
         while read -r pkg; do
             if [ -n "$pkg" ]; then
+                PKG_COUNTER=$((PKG_COUNTER + 1))
+                echo -ne "${Blue}[${PKG_COUNTER}/${PKG_COUNT}]${Font} Installing: ${Green}${pkg}${Font}...\r"
+                
                 if sudo apt install --no-install-recommends -y "$pkg" > "$PKG_INSTALL_LOG" 2>&1; then
-                    : # Bash的 "no-op" (空操作)
+                    PKG_SUCCESS=$((PKG_SUCCESS + 1))
+                    echo -ne "${Blue}[${PKG_COUNTER}/${PKG_COUNT}]${Font} ${Green}✓${Font} Installed: ${pkg}$(printf '%40s' '')\n"
                 else
-                    print_warn "Failed to install package: '$pkg'. Details:"
+                    PKG_FAILED=$((PKG_FAILED + 1))
+                    echo -ne "$(printf '%100s' '')\r" # Clear line
+                    print_warn "Failed to install package [${PKG_COUNTER}/${PKG_COUNT}]: '${pkg}'. Details:"
                     cat "$PKG_INSTALL_LOG"
                     echo -e "${Red}-----------------------------------------------------${Font}"
                 fi
             fi
         done < "$PKG_TEMP_FILE"
         
+        echo "" # New line after progress
         rm -f "$PKG_INSTALL_LOG"
-        print_ok "Robust missing package install mode finished."
+        print_ok "Robust mode finished: ${Green}${PKG_SUCCESS}${Font} succeeded, ${Red}${PKG_FAILED}${Font} failed out of ${PKG_COUNT} total."
     fi
 fi
 judge "Install missing packages"
 
 print_ok "Removing obsolete packages..."
+print_ok "This may take 1-3 minutes..."
 sudo apt purge -y \
   distro-info \
   software-properties-gtk \
@@ -288,6 +307,7 @@ judge "Remove obsolete packages"
 #=================================================
 install_spg_clean() {
   print_ok "Installing software-properties-gtk clean edition..."
+  print_ok "This involves downloading, patching, and repackaging - may take 2-5 minutes..."
 
   SP_BUILD_DIR=$(mktemp -d)
   print_ok "Created temporary build directory: $SP_BUILD_DIR"
@@ -354,11 +374,14 @@ install_spg_clean() {
 install_spg_clean
 
 print_ok "Upgrading GNOME Shell extensions..."
+print_ok "Syncing extension files..."
 sudo rsync -Aax --update --delete /mnt/anduinos_squashfs/usr/share/gnome-shell/extensions/ /usr/share/gnome-shell/extensions/
 judge "Upgrade GNOME Shell extensions"
 
 print_ok "Upgrading icon and theme files..."
+print_ok "Syncing icons..."
 sudo rsync -Aax --update --delete /mnt/anduinos_squashfs/usr/share/icons/ /usr/share/icons/
+print_ok "Syncing themes..."
 sudo rsync -Aax --update --delete /mnt/anduinos_squashfs/usr/share/themes/ /usr/share/themes/
 judge "Upgrade icon and theme files"
 
@@ -442,15 +465,19 @@ judge "Apply dconf settings patch"
 #=================================================
 
 print_ok "Updating initramfs..."
+print_ok "This may take 2-5 minutes depending on kernel count..."
 sudo update-initramfs -u -k all
 judge "Update initramfs"
 
 print_ok "Updating GRUB configuration..."
+print_ok "Scanning for kernels and generating GRUB menu..."
 sudo update-grub
 judge "Update GRUB configuration"
 
 print_ok "Upgrading installed packages..."
+print_ok "This may take 5-15 minutes depending on updates available..."
 sudo apt upgrade -y
+print_ok "Removing unnecessary packages..."
 sudo apt autoremove --purge -y
 judge "System package upgrade"
 
