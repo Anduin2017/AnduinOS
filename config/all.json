@@ -174,7 +174,7 @@
         "timezone": "America/Sao_Paulo",
         "config_weather_location": "[(uint32 0, 'São Paulo, Brasil', uint32 0, '-23.5505199,-46.6333094')]",
         "config_input_method": "[('xkb', 'us'), ('xkb', 'br')]",
-        "live_ubuntu_mirror": "https://mirror.uepg.br/ubuntu/",
+        "live_ubuntu_mirror": "https://ubuntu.mirror.letscloud.io/ubuntu/",
         "live_firefox_mirror": "ppa.launchpadcontent.net"
     },
     {
