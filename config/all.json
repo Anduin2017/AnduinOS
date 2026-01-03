@@ -202,7 +202,7 @@
         "timezone": "America/Sao_Paulo",
         "config_weather_location": "['{\\\"name\\\":\\\"São Paulo, Brasil\\\",\\\"lat\\\":-23.5505199,\\\"lon\\\":-46.6333094}']",
         "config_input_method": "[('xkb', 'us'), ('xkb', 'br')]",
-        "live_ubuntu_mirror": "https://mirror.uepg.br/ubuntu/",
+        "live_ubuntu_mirror": "https://ubuntu.mirror.letscloud.io/ubuntu/",
         "live_firefox_mirror": "ppa.launchpadcontent.net",
         "flathub_mirror": "",
         "flathub_gpg": ""
