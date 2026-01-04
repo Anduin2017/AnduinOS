@@ -6,7 +6,7 @@ set -e                  # exit on error
 set -o pipefail         # exit on pipeline error
 set -u                  # treat unset variable as error
 export DEBIAN_FRONTEND=noninteractive
-export LATEST_VERSION="1.3.8"
+export LATEST_VERSION="1.3.9"
 export CODE_NAME="plucky"
 export OS_ID="AnduinOS"
 export CURRENT_VERSION=$(cat /etc/lsb-release | grep DISTRIB_RELEASE | cut -d "=" -f 2)
@@ -587,6 +587,66 @@ function upgrade_137_to_138() {
     judge "Upgrade from 1.3.7 to 1.3.8 completed"
 }
 
+
+function upgrade_138_to_139() {
+    print_ok "Upgrading from version 1.3.8 to 1.3.9..."
+
+    # gstreamer plugins and tools
+    print_ok "Installing GStreamer plugins and tools..."
+    sudo apt-get update
+    sudo apt-get install \
+      gstreamer1.0-plugins-base \
+      gstreamer1.0-plugins-good \
+      gstreamer1.0-plugins-bad \
+      gstreamer1.0-plugins-ugly \
+      gstreamer1.0-libav \
+      libavcodec-extra \
+      gstreamer1.0-pipewire \
+      gstreamer1.0-alsa \
+      gstreamer1.0-gl \
+      gstreamer1.0-gtk3 \
+      gstreamer1.0-x \
+      gstreamer1.0-tools \
+      gstreamer1.0-packagekit \
+      gstreamer1.0-plugins-base-apps --no-install-recommends
+    judge "Install GStreamer plugins and tools"
+
+    #do-anduinos-autorepair
+    print_ok "Updating do-anduinos-autorepair tool to /usr/local/bin/..."
+    BRANCH=$(grep -oP "VERSION_ID=\"\\K\\d+\\.\\d+" /etc/os-release)
+    sudo wget -O /usr/local/bin/do-anduinos-autorepair "https://gitlab.aiursoft.com/anduin/anduinos/-/raw/${BRANCH}/src/mods/40-do-anduinos-autorepair-mod/do-anduinos-autorepair.sh"
+    sudo chmod +x /usr/local/bin/do-anduinos-autorepair
+    judge "Update do-anduinos-autorepair tool"
+
+    #do_anduinos_upgrade
+    print_ok "Updating do_anduinos tool to /usr/local/bin/..."
+    cat <<"EOF" | sudo tee /usr/local/bin/do_anduinos_upgrade > /dev/null
+#!/bin/bash
+set -o pipefail
+
+echo "Upgrading AnduinOS..."
+
+VERSION=$(grep -oP "VERSION_ID=\"\K\d+\.\d+" /etc/os-release)
+URL="https://www.anduinos.com/upgrade/$VERSION"
+
+echo "Current fork version is: $VERSION, running upgrade script..."
+
+SCRIPT_CONTENT=$(wget -qO- "$URL")
+WGET_EXIT_CODE=$?
+
+if [ $WGET_EXIT_CODE -ne 0 ] || [ -z "$SCRIPT_CONTENT" ]; then
+    echo "Error: Failed to download upgrade script from server."
+    echo "The server might be down or the upgrade path for version $VERSION doesn't exist."
+    exit 1
+fi
+
+echo "$SCRIPT_CONTENT" | bash
+EOF
+    sudo chmod +x /usr/local/bin/do_anduinos_upgrade
+    judge "Update do_anduinos tool"
+    print_ok "Successfully upgraded to version 1.3.9"
+}
+
 function applyLsbRelease() {
 
     # Update /etc/os-release
@@ -650,6 +710,7 @@ function main() {
               upgrade_135_to_136
               upgrade_136_to_137
               upgrade_137_to_138
+              upgrade_138_to_139
               ;;
           "1.3.1")
               upgrade_131_to_132
@@ -659,6 +720,7 @@ function main() {
               upgrade_135_to_136
               upgrade_136_to_137
               upgrade_137_to_138
+              upgrade_138_to_139
               ;;
           "1.3.2")
               upgrade_132_to_133
@@ -667,6 +729,7 @@ function main() {
               upgrade_135_to_136
               upgrade_136_to_137
               upgrade_137_to_138
+              upgrade_138_to_139
               ;;
           "1.3.3")
               upgrade_133_to_134
@@ -674,26 +737,34 @@ function main() {
               upgrade_135_to_136
               upgrade_136_to_137
               upgrade_137_to_138
+              upgrade_138_to_139
               ;;
           "1.3.4")
               upgrade_134_to_135
               upgrade_135_to_136
               upgrade_136_to_137
               upgrade_137_to_138
+              upgrade_138_to_139
               ;;
           "1.3.5")
               upgrade_135_to_136
               upgrade_136_to_137
               upgrade_137_to_138
+              upgrade_138_to_139
               ;;
           "1.3.6")
               upgrade_136_to_137
               upgrade_137_to_138
+              upgrade_138_to_139
               ;;
           "1.3.7")
               upgrade_137_to_138
+              upgrade_138_to_139
               ;;
           "1.3.8")
+              upgrade_138_to_139
+              ;;
+          "1.3.9")
               print_ok "Your system is already up to date. No update available."
               exit 0
               ;;
