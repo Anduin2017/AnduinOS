@@ -588,6 +588,67 @@ function upgrade_1110_to_1111() {
     judge "Upgrade from 1.1.10 to 1.1.11 completed"
 }
 
+
+function upgrade_1111_to_1112() {
+    print_ok "Upgrading from version 1.1.11 to 1.1.12..."
+
+    # gstreamer plugins and tools
+    print_ok "Installing GStreamer plugins and tools..."
+    sudo apt-get update
+    sudo apt-get install \
+      gstreamer1.0-plugins-base \
+      gstreamer1.0-plugins-good \
+      gstreamer1.0-plugins-bad \
+      gstreamer1.0-plugins-ugly \
+      gstreamer1.0-libav \
+      libavcodec-extra \
+      gstreamer1.0-pipewire \
+      gstreamer1.0-alsa \
+      gstreamer1.0-gl \
+      gstreamer1.0-gtk3 \
+      gstreamer1.0-x \
+      gstreamer1.0-tools \
+      gstreamer1.0-packagekit \
+      gstreamer1.0-plugins-base-apps --no-install-recommends
+    judge "Install GStreamer plugins and tools"
+
+    #do-anduinos-autorepair
+    print_ok "Updating do-anduinos-autorepair tool to /usr/local/bin/..."
+    BRANCH=$(grep -oP "VERSION_ID=\"\\K\\d+\\.\\d+" /etc/os-release)
+    sudo wget -O /usr/local/bin/do-anduinos-autorepair "https://gitlab.aiursoft.com/anduin/anduinos/-/raw/${BRANCH}/src/mods/40-do-anduinos-autorepair-mod/do-anduinos-autorepair.sh"
+    sudo chmod +x /usr/local/bin/do-anduinos-autorepair
+    judge "Update do-anduinos-autorepair tool"
+
+    #do_anduinos_upgrade
+    print_ok "Updating do_anduinos tool to /usr/local/bin/..."
+    cat <<"EOF" | sudo tee /usr/local/bin/do_anduinos_upgrade > /dev/null
+#!/bin/bash
+set -o pipefail
+
+echo "Upgrading AnduinOS..."
+
+VERSION=$(grep -oP "VERSION_ID=\"\K\d+\.\d+" /etc/os-release)
+URL="https://www.anduinos.com/upgrade/$VERSION"
+
+echo "Current fork version is: $VERSION, running upgrade script..."
+
+SCRIPT_CONTENT=$(wget -qO- "$URL")
+WGET_EXIT_CODE=$?
+
+if [ $WGET_EXIT_CODE -ne 0 ] || [ -z "$SCRIPT_CONTENT" ]; then
+    echo "Error: Failed to download upgrade script from server."
+    echo "The server might be down or the upgrade path for version $VERSION doesn't exist."
+    exit 1
+fi
+
+echo "$SCRIPT_CONTENT" | bash
+EOF
+    sudo chmod +x /usr/local/bin/do_anduinos_upgrade
+    judge "Update do_anduinos tool"
+    print_ok "Successfully upgraded to version 1.1.12"
+}
+
+
 function applyLsbRelease() {
 
   # Update /etc/os-release
@@ -652,6 +713,7 @@ function main() {
               upgrade_118_to_119
               upgrade_119_to_1110
               upgrade_1110_to_1111
+              upgrade_1111_to_1112
               ;;
           "1.1.1")
               upgrade_111_to_112
@@ -664,6 +726,7 @@ function main() {
               upgrade_118_to_119
               upgrade_119_to_1110
               upgrade_1110_to_1111
+              upgrade_1111_to_1112
               ;;
           "1.1.2")
               upgrade_112_to_113
@@ -675,6 +738,7 @@ function main() {
               upgrade_118_to_119
               upgrade_119_to_1110
               upgrade_1110_to_1111
+              upgrade_1111_to_1112
               ;;
           "1.1.3")
               upgrade_113_to_114
@@ -685,6 +749,7 @@ function main() {
               upgrade_118_to_119
               upgrade_119_to_1110
               upgrade_1110_to_1111
+              upgrade_1111_to_1112
               ;;
           "1.1.4")
               upgrade_114_to_115
@@ -694,6 +759,7 @@ function main() {
               upgrade_118_to_119
               upgrade_119_to_1110
               upgrade_1110_to_1111
+              upgrade_1111_to_1112
               ;;
           "1.1.5")
               upgrade_115_to_116
@@ -702,6 +768,7 @@ function main() {
               upgrade_118_to_119
               upgrade_119_to_1110
               upgrade_1110_to_1111
+              upgrade_1111_to_1112
               ;;
           "1.1.6")
               upgrade_116_to_117
@@ -709,26 +776,33 @@ function main() {
               upgrade_118_to_119
               upgrade_119_to_1110
               upgrade_1110_to_1111
+              upgrade_1111_to_1112
               ;;
           "1.1.7")
               upgrade_117_to_118
               upgrade_118_to_119
               upgrade_119_to_1110
               upgrade_1110_to_1111
+              upgrade_1111_to_1112
               ;;
           "1.1.8")
               upgrade_118_to_119
               upgrade_119_to_1110
               upgrade_1110_to_1111
+              upgrade_1111_to_1112
               ;;
           "1.1.9")
               upgrade_119_to_1110
               upgrade_1110_to_1111
+              upgrade_1111_to_1112
               ;;
           "1.1.10")
               upgrade_1110_to_1111
+              upgrade_1111_to_1112
               ;;
           "1.1.11")
+              upgrade_1111_to_1112
+          "1.1.12")
               print_ok "Your system is already up to date. No update available."
               exit 0
               ;;
