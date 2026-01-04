@@ -595,7 +595,7 @@ function upgrade_1111_to_1112() {
     # gstreamer plugins and tools
     print_ok "Installing GStreamer plugins and tools..."
     sudo apt-get update
-    sudo apt-get install \
+    sudo apt-get install -y \
       gstreamer1.0-plugins-base \
       gstreamer1.0-plugins-good \
       gstreamer1.0-plugins-bad \
