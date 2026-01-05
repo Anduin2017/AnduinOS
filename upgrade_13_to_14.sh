@@ -32,6 +32,9 @@ BACKUP_DIR="$BACKUP_ROOT/backup_$(date +%Y%m%d_%H%M%S)"
 PPA_BACKUP_DIR="$BACKUP_DIR/ppa"
 UBUNTU_SOURCE_BACKUP="$BACKUP_DIR/ubuntu_sources"
 
+# Auto-upgrade mode: Set ANDUINOS_AUTO_UPGRADE=Y to skip all interactive prompts
+AUTO_UPGRADE="${ANDUINOS_AUTO_UPGRADE:-N}"
+
 # --- 3. Helper Functions (Logging) ---
 
 function print_ok() {
@@ -68,6 +71,12 @@ function ensure_root() {
 # --- 4.5 SSH & Persistence Check ---
 
 function check_ssh_safeguard() {
+  # Skip check in auto-upgrade mode
+  if [[ "$AUTO_UPGRADE" == "Y" ]] || [[ "$AUTO_UPGRADE" == "y" ]]; then
+    print_ok "Auto-upgrade mode enabled, skipping SSH safeguard check."
+    return
+  fi
+  
   if [ -n "${SSH_CLIENT:-}" ] || [ -n "${SSH_TTY:-}" ]; then
     # Check for screen/tmux
     if [ -n "${STY:-}" ] || [ -n "${TMUX:-}" ] || [[ "${TERM:-}" == *"screen"* ]] || [[ "${TERM:-}" == *"tmux"* ]]; then
@@ -805,13 +814,15 @@ function main() {
   echo -e "${Yellow}WARNING: This script will upgrade your system from 1.3.9 (plucky) to 1.4.2 (questing).${Font}"
   echo -e "${Yellow}Please ensure you have backed up important data before proceeding.${Font}"
   
-  # Interactive check only if we have a terminal (TTY)
-  if [ -t 0 ]; then
+  # Interactive check only if we have a terminal (TTY) and not in auto mode
+  if [ -t 0 ] && [[ "$AUTO_UPGRADE" != "Y" ]] && [[ "$AUTO_UPGRADE" != "y" ]]; then
       read -p "Do you want to continue? (y/N): " confirm
       if [[ "$confirm" != "y" && "$confirm" != "Y" ]]; then
         print_error "Upgrade process aborted by user."
         exit 1
       fi
+  elif [[ "$AUTO_UPGRADE" == "Y" ]] || [[ "$AUTO_UPGRADE" == "y" ]]; then
+      print_ok "Auto-upgrade mode enabled, proceeding without confirmation."
   fi
   
   # Step 0: Check Safeguards
@@ -858,7 +869,12 @@ function main() {
   print_ok "Backup files are stored in: $BACKUP_DIR"
   print_warn "Please reboot your system to complete the upgrade."
 
-  if [ -t 0 ]; then
+  # In auto-upgrade mode, automatically reboot
+  if [[ "$AUTO_UPGRADE" == "Y" ]] || [[ "$AUTO_UPGRADE" == "y" ]]; then
+      print_ok "Auto-upgrade mode enabled, rebooting system automatically..."
+      sleep 3
+      reboot
+  elif [ -t 0 ]; then
       read -p "Do you want to reboot now? (y/N): " reboot_confirm
       if [[ "$reboot_confirm" == "y" || "$reboot_confirm" == "Y" ]]; then
           print_ok "Rebooting system..."
