@@ -35,6 +35,9 @@ UBUNTU_SOURCE_BACKUP="$BACKUP_DIR/ubuntu_sources"
 # Auto-upgrade mode: Set ANDUINOS_AUTO_UPGRADE=Y to skip all interactive prompts
 AUTO_UPGRADE="${ANDUINOS_AUTO_UPGRADE:-N}"
 
+# Current Upgrade Stage (plucky vs questing)
+CURRENT_STAGE="plucky"
+
 # --- 3. Helper Functions (Logging) ---
 
 function print_ok() {
@@ -199,16 +202,20 @@ function run_dpkg_repair() {
 function switch_to_official_mirror() {
   print_warn "Switching to official Ubuntu archive mirror..."
   
-  local codename=$(lsb_release -cs)
+  # Use the global CURRENT_STAGE variable to decide which codename to use (plucky vs questing)
+  # This prevents downgrading sources if fallback occurs during the upgrade phase.
+  local codename="${CURRENT_STAGE:-plucky}"
+  
+  print_warn "Targeting distribution codename: $codename"
   generate_new_format "http://archive.ubuntu.com/ubuntu/" "$codename"
   
-  print_ok "Switched to official mirror: archive.ubuntu.com"
+  print_ok "Switched to official mirror: archive.ubuntu.com ($codename)"
 }
 
 function apt_update_with_retry() {
-  local max_attempts=3
+  local max_attempts=10
   local attempt=1
-  local wait_time=5
+  local wait_time=3
   
   while [ $attempt -le $max_attempts ]; do
     print_ok "Attempting apt update (attempt $attempt/$max_attempts)..."
@@ -220,19 +227,22 @@ function apt_update_with_retry() {
     
     print_warn "apt update failed on attempt $attempt"
     
+    # Run repair immediately on failure
+    run_dpkg_repair
+    
+    # If this is the 2nd failure (or later), switch to official mirror to rule out bad mirrors early
+    if [ $attempt -eq 2 ]; then
+      print_warn "Repeat failure detected. Switching to official Ubuntu mirror as fallback..."
+      switch_to_official_mirror
+    fi
+    
     if [ $attempt -lt $max_attempts ]; then
-      # Run repair before retry
-      run_dpkg_repair
-      
-      # If this is the second attempt failure, switch to official mirror
-      if [ $attempt -eq 2 ]; then
-        print_warn "Multiple failures detected. Switching to official Ubuntu mirror as fallback..."
-        switch_to_official_mirror
-      fi
-      
       print_ok "Waiting ${wait_time}s before retry..."
       sleep $wait_time
-      wait_time=$((wait_time * 2))
+      # Cap wait time at 30s
+      if [ $wait_time -lt 30 ]; then
+        wait_time=$((wait_time * 2))
+      fi
     fi
     
     attempt=$((attempt + 1))
@@ -243,7 +253,7 @@ function apt_update_with_retry() {
 }
 
 function apt_upgrade_with_retry() {
-  local max_attempts=3
+  local max_attempts=10
   local attempt=1
   local wait_time=5
   
@@ -258,21 +268,20 @@ function apt_upgrade_with_retry() {
     
     print_warn "apt upgrade failed on attempt $attempt"
     
-    if [ $attempt -lt $max_attempts ]; then
-      # Run repair before retry
-      run_dpkg_repair
-      
-      # If this is the second attempt failure, switch to official mirror
-      if [ $attempt -eq 2 ]; then
-        print_warn "Multiple failures detected. Switching to official Ubuntu mirror as fallback..."
+    run_dpkg_repair
+    
+    if [ $attempt -eq 2 ]; then
+        print_warn "Switching to official Ubuntu mirror as fallback..."
         switch_to_official_mirror
-        # Update package lists with new mirror
         apt_update_with_retry || return 1
-      fi
-      
+    fi
+    
+    if [ $attempt -lt $max_attempts ]; then
       print_ok "Waiting ${wait_time}s before retry..."
       sleep $wait_time
-      wait_time=$((wait_time * 2))
+      if [ $wait_time -lt 60 ]; then
+          wait_time=$((wait_time * 2))
+      fi
     fi
     
     attempt=$((attempt + 1))
@@ -283,7 +292,7 @@ function apt_upgrade_with_retry() {
 }
 
 function apt_dist_upgrade_with_retry() {
-  local max_attempts=3
+  local max_attempts=20
   local attempt=1
   local wait_time=5
   
@@ -301,21 +310,24 @@ function apt_dist_upgrade_with_retry() {
     
     print_warn "apt dist-upgrade failed on attempt $attempt"
     
+    run_dpkg_repair
+    
+    # Fallback to official mirror early (attempt 2)
+    if [ $attempt -eq 2 ]; then
+      print_warn "Switching to official Ubuntu mirror as fallback..."
+      switch_to_official_mirror
+      apt_update_with_retry || return 1
+    fi
+
+    # Sometimes 404s are due to mirror sync delay, just waiting helps. 
+    # But aggressive retrying helps resume downloads.
+    
     if [ $attempt -lt $max_attempts ]; then
-      # Run repair before retry
-      run_dpkg_repair
-      
-      # If this is the second attempt failure, switch to official mirror
-      if [ $attempt -eq 2 ]; then
-        print_warn "Multiple failures detected. Switching to official Ubuntu mirror as fallback..."
-        switch_to_official_mirror
-        # Update package lists with new mirror
-        apt_update_with_retry || return 1
-      fi
-      
       print_ok "Waiting ${wait_time}s before retry..."
       sleep $wait_time
-      wait_time=$((wait_time * 2))
+      if [ $wait_time -lt 60 ]; then
+         wait_time=$((wait_time * 2))
+      fi
     fi
     
     attempt=$((attempt + 1))
@@ -625,6 +637,11 @@ function replace_plucky_with_questing() {
   fi
   
   sed -i 's/plucky/questing/g' /etc/apt/sources.list.d/ubuntu.sources
+  
+  # Update global stage so fallback works correctly from now on
+  CURRENT_STAGE="questing"
+  print_ok "System is now targeting: $CURRENT_STAGE"
+  
   judge "Replace plucky with questing"
   
   print_ok "Running apt update with questing repositories (with retry)..."
