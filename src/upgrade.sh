@@ -681,6 +681,20 @@ EOF"
     sudo cp /etc/os-release /usr/lib/os-release || true
 }
 
+function upgrade_139_to_142() {
+    print_ok "Upgrading from version 1.3.9 to 1.4.2..."
+    LINK=https://raw.githubusercontent.com/Anduin2017/AnduinOS/refs/heads/1.3/upgrade_13_to_14.sh
+
+    print_ok "Downloading upgrade script from $LINK ..."
+    wget -O /tmp/upgrade_13_to_14.sh "$LINK"
+    chmod +x /tmp/upgrade_13_to_14.sh
+    judge "Download upgrade script"
+
+    print_ok "Executing upgrade script..."
+    ANDUINOS_AUTO_UPGRADE=Y bash /tmp/upgrade_13_to_14.sh
+    judge "Execute upgrade script"
+}
+
 function main() {
     print_ok "Current version is: ${CURRENT_VERSION}. Checking for updates..."
 
@@ -796,6 +810,9 @@ function main() {
     # Apply updates to lsb-release, os-release, and issue files
     applyLsbRelease
     print_ok "System upgraded successfully to version ${LATEST_VERSION}"
+
+    print_ok "Upgrading to version 1.4.2... (1.3 will stop receiving updates on January 31, 2026)"
+    upgrade_139_to_142
 }
 
 main
