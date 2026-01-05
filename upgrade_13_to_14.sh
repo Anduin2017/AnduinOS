@@ -175,6 +175,147 @@ function judge() {
   fi
 }
 
+function run_dpkg_repair() {
+  print_ok "Running dpkg repair operations..."
+  
+  # Fix interrupted package installations
+  dpkg --configure -a || true
+  
+  # Fix broken dependencies
+  apt-get install -f -y || true
+  
+  print_ok "Repair operations completed"
+}
+
+function switch_to_official_mirror() {
+  print_warn "Switching to official Ubuntu archive mirror..."
+  
+  local codename=$(lsb_release -cs)
+  generate_new_format "http://archive.ubuntu.com/ubuntu/" "$codename"
+  
+  print_ok "Switched to official mirror: archive.ubuntu.com"
+}
+
+function apt_update_with_retry() {
+  local max_attempts=3
+  local attempt=1
+  local wait_time=5
+  
+  while [ $attempt -le $max_attempts ]; do
+    print_ok "Attempting apt update (attempt $attempt/$max_attempts)..."
+    
+    if apt update; then
+      print_ok "apt update succeeded"
+      return 0
+    fi
+    
+    print_warn "apt update failed on attempt $attempt"
+    
+    if [ $attempt -lt $max_attempts ]; then
+      # Run repair before retry
+      run_dpkg_repair
+      
+      # If this is the second attempt failure, switch to official mirror
+      if [ $attempt -eq 2 ]; then
+        print_warn "Multiple failures detected. Switching to official Ubuntu mirror as fallback..."
+        switch_to_official_mirror
+      fi
+      
+      print_ok "Waiting ${wait_time}s before retry..."
+      sleep $wait_time
+      wait_time=$((wait_time * 2))
+    fi
+    
+    attempt=$((attempt + 1))
+  done
+  
+  print_error "apt update failed after $max_attempts attempts"
+  return 1
+}
+
+function apt_upgrade_with_retry() {
+  local max_attempts=3
+  local attempt=1
+  local wait_time=5
+  
+  while [ $attempt -le $max_attempts ]; do
+    print_ok "Attempting apt upgrade (attempt $attempt/$max_attempts)..."
+    
+    # Use --fix-missing to skip unavailable packages
+    if DEBIAN_FRONTEND=noninteractive NEEDRESTART_MODE=a apt upgrade -y --fix-missing; then
+      print_ok "apt upgrade succeeded"
+      return 0
+    fi
+    
+    print_warn "apt upgrade failed on attempt $attempt"
+    
+    if [ $attempt -lt $max_attempts ]; then
+      # Run repair before retry
+      run_dpkg_repair
+      
+      # If this is the second attempt failure, switch to official mirror
+      if [ $attempt -eq 2 ]; then
+        print_warn "Multiple failures detected. Switching to official Ubuntu mirror as fallback..."
+        switch_to_official_mirror
+        # Update package lists with new mirror
+        apt_update_with_retry || return 1
+      fi
+      
+      print_ok "Waiting ${wait_time}s before retry..."
+      sleep $wait_time
+      wait_time=$((wait_time * 2))
+    fi
+    
+    attempt=$((attempt + 1))
+  done
+  
+  print_error "apt upgrade failed after $max_attempts attempts"
+  return 1
+}
+
+function apt_dist_upgrade_with_retry() {
+  local max_attempts=3
+  local attempt=1
+  local wait_time=5
+  
+  while [ $attempt -le $max_attempts ]; do
+    print_ok "Attempting apt dist-upgrade (attempt $attempt/$max_attempts)..."
+    
+    # Run dist-upgrade with --fix-missing
+    if bash -c 'DEBIAN_FRONTEND=noninteractive NEEDRESTART_MODE=a APT_LISTCHANGES_FRONTEND=none \
+    apt-get -y dist-upgrade --fix-missing \
+    -o Dpkg::Options::="--force-confdef" \
+    -o Dpkg::Options::="--force-confold"'; then
+      print_ok "apt dist-upgrade succeeded"
+      return 0
+    fi
+    
+    print_warn "apt dist-upgrade failed on attempt $attempt"
+    
+    if [ $attempt -lt $max_attempts ]; then
+      # Run repair before retry
+      run_dpkg_repair
+      
+      # If this is the second attempt failure, switch to official mirror
+      if [ $attempt -eq 2 ]; then
+        print_warn "Multiple failures detected. Switching to official Ubuntu mirror as fallback..."
+        switch_to_official_mirror
+        # Update package lists with new mirror
+        apt_update_with_retry || return 1
+      fi
+      
+      print_ok "Waiting ${wait_time}s before retry..."
+      sleep $wait_time
+      wait_time=$((wait_time * 2))
+    fi
+    
+    attempt=$((attempt + 1))
+  done
+  
+  print_error "apt dist-upgrade failed after $max_attempts attempts"
+  return 1
+}
+
 function check_disk_space() {
   print_ok "Checking available disk space..."
   
@@ -202,14 +343,14 @@ function check_disk_space() {
 function update_system() {
   print_ok "Ensuring current system (1.3 / Ubuntu 25.04) is fully updated..."
 
-  print_ok "Running apt update..."
-  apt update
-  judge "apt update"
+  print_ok "Running apt update with retry..."
+  apt_update_with_retry
+  judge "apt update with retry"
 
   print_ok "Installing any missing updates for the current version..."
-  # Use non-interactive flags to ensure current 1.3 packages are up-to-date
-  DEBIAN_FRONTEND=noninteractive NEEDRESTART_MODE=a apt upgrade -y
-  judge "apt upgrade"
+  # Use retry logic with --fix-missing
+  apt_upgrade_with_retry
+  judge "apt upgrade with retry"
 }
 
 function backup_ubuntu_sources() {
@@ -477,8 +618,8 @@ function replace_plucky_with_questing() {
   sed -i 's/plucky/questing/g' /etc/apt/sources.list.d/ubuntu.sources
   judge "Replace plucky with questing"
   
-  print_ok "Running apt update with questing repositories..."
-  apt update
+  print_ok "Running apt update with questing repositories (with retry)..."
+  apt_update_with_retry
   judge "apt update with questing"
 }
 
@@ -494,7 +635,7 @@ function run_dist_upgrade() {
   apt -s dist-upgrade > /dev/null
   judge "apt -s dist-upgrade"
 
-  print_ok "Running apt dist-upgrade in non-interactive mode..."
+  print_ok "Running apt dist-upgrade with retry logic..."
   
   # Configure dpkg to keep local versions by default
   bash -c 'cat > /etc/apt/apt.conf.d/99-local-versions <<EOF
@@ -504,14 +645,9 @@ Dpkg::Options {
 }
 EOF'
   
-  # Run dist-upgrade
-  # Combine variables: DEBIAN_FRONTEND, NEEDRESTART_MODE, APT_LISTCHANGES
-  bash -c 'DEBIAN_FRONTEND=noninteractive NEEDRESTART_MODE=a APT_LISTCHANGES_FRONTEND=none \
-  apt-get -y dist-upgrade \
-  -o Dpkg::Options::="--force-confdef" \
-  -o Dpkg::Options::="--force-confold"'
-
-  judge "apt dist-upgrade"
+  # Run dist-upgrade with retry and --fix-missing
+  apt_dist_upgrade_with_retry
+  judge "apt dist-upgrade with retry"
   
   # Remove temporary configuration
   rm -f /etc/apt/apt.conf.d/99-local-versions
@@ -622,8 +758,8 @@ function restore_and_upgrade_ppa_sources() {
       if [ "$upgraded_count" -eq 0 ]; then
         print_ok "No PPA files needed version upgrading."
       fi
-      print_ok "Running apt update with restored PPAs..."
-      apt update
+      print_ok "Running apt update with restored PPAs (with retry)..."
+      apt_update_with_retry
       judge "Restore and upgrade PPA sources"
     else
       print_ok "No PPA sources to restore"
