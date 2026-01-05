@@ -703,9 +703,8 @@ function main() {
 
     # Compare current version with latest version
     if [ "$CURRENT_VERSION" == "$LATEST_VERSION" ]; then
-        print_ok "Your system is already up to date. No update available."
-        print_ok "Please note: AnduinOS 1.3 will stop receiving updates on January 31, 2026."
-        print_ok "Starting January 1, 2026, a script will be added to upgrade this system to AnduinOS 1.4."
+        print_ok "Your system is already up to date. Upgrading to 1.4.2."
+        upgrade_139_to_142
         exit 0
     fi
 
