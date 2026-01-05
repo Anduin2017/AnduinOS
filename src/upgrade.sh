@@ -771,7 +771,7 @@ function main() {
         exit 0
     fi
 
-    print_ok "This script will upgrade your system to version ${LATEST_VERSION}..."
+    print_ok "This script will upgrade your system to version 1.4.2..."
     print_ok "Please press CTRL+C to cancel... Countdown will start in 5 seconds..."
     sleep 5
 
