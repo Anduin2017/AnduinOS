@@ -795,6 +795,21 @@ function cleanup_system() {
   fi
 }
 
+function auto_repair() {
+    print_ok "Running repair script to catch up 1.4.2 modifications..."
+    
+    # Install tmux if not already present
+    if ! command -v tmux &> /dev/null; then
+        print_ok "Installing tmux for interactive repair session..."
+        apt-get update && apt-get install -y tmux
+    fi
+    
+    # Run repair script in tmux session to provide TTY for interactive prompts
+    # The session will attach automatically and wait for user interaction
+    tmux new-session -s anduinos-repair "bash /usr/local/bin/do-anduinos-autorepair; echo 'Press Enter to close...'; read"
+    
+}
+
 function main() {
   # 1. Ensure we are root first
   ensure_root
@@ -863,7 +878,10 @@ function main() {
   
   # Step 11: Cleanup system
   cleanup_system
-  
+
+  # Step 12: Auto-repair to catch up modifications
+  auto_repair
+
   print_ok "Upgrade completed successfully!"
   print_ok "Your system has been upgraded to AnduinOS 1.4.2 (questing)"
   print_ok "Backup files are stored in: $BACKUP_DIR"

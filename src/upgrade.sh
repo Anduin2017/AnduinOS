@@ -745,30 +745,11 @@ function upgrade_139_to_142() {
 
     print_ok "Executing upgrade script..."
     ANDUINOS_AUTO_UPGRADE=Y bash "$DOWNLOAD_PATH"
-    judge "Upgrade all packages to 1.4.2. To toally upgrade, running repair script..."
 
-    print_ok "Running repair script to catch up 1.4.2 modifications..."
-    
-    # Install tmux if not already present
-    if ! command -v tmux &> /dev/null; then
-        print_ok "Installing tmux for interactive repair session..."
-        apt-get update && apt-get install -y tmux
-    fi
-    
-    # Run repair script in tmux session to provide TTY for interactive prompts
-    # The session will attach automatically and wait for user interaction
-    tmux new-session -s anduinos-repair "bash /usr/local/bin/do-anduinos-autorepair; echo 'Press Enter to close...'; read"
-    
-    # Check if repair was successful
-    if [ $? -eq 0 ]; then
-        print_ok "Repair script completed"
-    else
-        print_error "Repair script failed"
-        exit 1
-    fi
-    
+    print_ok "Upgraded to 1.4.2 successfully"
+
     # Clean up
-    rm -f "$DOWNLOAD_PATH"
+    rm -f "$DOWNLOAD_PATH" || true
 }
 
 function main() {
