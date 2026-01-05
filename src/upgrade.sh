@@ -802,6 +802,7 @@ function main() {
               ;;
           "1.1.11")
               upgrade_1111_to_1112
+              ;;
           "1.1.12")
               print_ok "Your system is already up to date. No update available."
               exit 0
