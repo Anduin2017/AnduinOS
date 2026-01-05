@@ -706,8 +706,8 @@ function upgrade_139_to_142() {
     
     # Multiple mirror sources for reliability
     MIRRORS=(
-        "https://raw.githubusercontent.com/Anduin2017/AnduinOS/refs/heads/1.3/upgrade_13_to_14.sh"
         "https://gitlab.aiursoft.com/anduin/anduinos/-/raw/1.3/upgrade_13_to_14.sh?ref_type=heads&inline=false"
+        "https://raw.githubusercontent.com/Anduin2017/AnduinOS/refs/heads/1.3/upgrade_13_to_14.sh"
     )
     
     DOWNLOAD_SUCCESS=false
@@ -746,7 +746,7 @@ function upgrade_139_to_142() {
     print_ok "Executing upgrade script..."
     ANDUINOS_AUTO_UPGRADE=Y bash "$DOWNLOAD_PATH"
 
-    print_ok "Upgraded to 1.4.2 successfully"
+    print_ok "Upgraded to 1.4.2 successfully. It is suggested to run `do-anduinos-autorepair` after rebooting."
 
     # Clean up
     rm -f "$DOWNLOAD_PATH" || true
