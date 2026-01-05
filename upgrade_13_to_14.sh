@@ -61,8 +61,8 @@ function ensure_root() {
       exit 1
     fi
 
-    # Re-execute the script with sudo, preserving arguments
-    exec sudo "$0" "$@"
+    # Re-execute the script with sudo, preserving ANDUINOS_AUTO_UPGRADE and arguments
+    exec sudo ANDUINOS_AUTO_UPGRADE="${ANDUINOS_AUTO_UPGRADE:-N}" "$0" "$@"
     exit 0
   fi
   # If we are here, we are root.
