@@ -868,19 +868,6 @@ function main() {
   print_ok "Your system has been upgraded to AnduinOS 1.4.2 (questing)"
   print_ok "Backup files are stored in: $BACKUP_DIR"
   print_warn "Please reboot your system to complete the upgrade."
-
-  # In auto-upgrade mode, automatically reboot
-  if [[ "$AUTO_UPGRADE" == "Y" ]] || [[ "$AUTO_UPGRADE" == "y" ]]; then
-      print_ok "Auto-upgrade mode enabled, rebooting system automatically..."
-      sleep 3
-      reboot
-  elif [ -t 0 ]; then
-      read -p "Do you want to reboot now? (y/N): " reboot_confirm
-      if [[ "$reboot_confirm" == "y" || "$reboot_confirm" == "Y" ]]; then
-          print_ok "Rebooting system..."
-          reboot
-      fi
-  fi
 }
 
 main

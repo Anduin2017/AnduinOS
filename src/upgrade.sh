@@ -61,6 +61,26 @@ function ensureCurrentOsAnduinOs() {
     fi
 }
 
+function check_disk_space() {
+    print_ok "Checking available disk space..."
+    
+    # Get available space in / (in KB)
+    local root_space=$(df / | awk 'NR==2 {print $4}')
+    # Convert to MB
+    local root_space_mb=$((root_space / 1024))
+    # Required space: 3GB for safe upgrade
+    local required_space=3072
+    
+    print_ok "Available space in /: ${root_space_mb}MB"
+    
+    if [ "$root_space_mb" -lt "$required_space" ]; then
+        print_error "Insufficient disk space in /. Required: ${required_space}MB, Available: ${root_space_mb}MB"
+        exit 1
+    fi
+    
+    print_ok "Disk space check passed"
+}
+
 function upgrade_130_to_131() {
     print_ok "Upgrading from 1.3.0 to 1.3.1..."
     sudo apt update
@@ -683,16 +703,56 @@ EOF"
 
 function upgrade_139_to_142() {
     print_ok "Upgrading from version 1.3.9 to 1.4.2..."
-    LINK=https://raw.githubusercontent.com/Anduin2017/AnduinOS/refs/heads/1.3/upgrade_13_to_14.sh
-
-    print_ok "Downloading upgrade script from $LINK ..."
-    wget -O /tmp/upgrade_13_to_14.sh "$LINK"
-    chmod +x /tmp/upgrade_13_to_14.sh
-    judge "Download upgrade script"
+    
+    # Multiple mirror sources for reliability
+    MIRRORS=(
+        "https://raw.githubusercontent.com/Anduin2017/AnduinOS/refs/heads/1.3/upgrade_13_to_14.sh"
+        "https://gitlab.aiursoft.com/anduin/anduinos/-/raw/1.3/upgrade_13_to_14.sh?ref_type=heads&inline=false"
+    )
+    
+    DOWNLOAD_SUCCESS=false
+    DOWNLOAD_PATH="/var/tmp/upgrade_13_to_14.sh"
+    
+    # Try each mirror with retry
+    for LINK in "${MIRRORS[@]}"; do
+        print_ok "Downloading upgrade script from: $LINK"
+        
+        # Use wget with retry and timeout parameters
+        if wget --retry-connrefused --waitretry=2 --read-timeout=30 --timeout=30 --tries=3 \
+               -O "$DOWNLOAD_PATH" "$LINK" 2>&1; then
+            # Verify the download is not empty and is a valid bash script
+            if [ -s "$DOWNLOAD_PATH" ] && head -n 1 "$DOWNLOAD_PATH" | grep -q "^#!/bin/bash"; then
+                DOWNLOAD_SUCCESS=true
+                print_ok "Successfully downloaded upgrade script from $LINK"
+                break
+            else
+                print_warn "Downloaded file is invalid or empty, trying next mirror..."
+                rm -f "$DOWNLOAD_PATH"
+            fi
+        else
+            print_warn "Failed to download from $LINK, trying next mirror..."
+        fi
+    done
+    
+    if [ "$DOWNLOAD_SUCCESS" = false ]; then
+        print_error "Failed to download upgrade script from all mirrors."
+        print_error "Please check your network connection and try again."
+        exit 1
+    fi
+    
+    chmod +x "$DOWNLOAD_PATH"
+    judge "Prepare upgrade script"
 
     print_ok "Executing upgrade script..."
-    ANDUINOS_AUTO_UPGRADE=Y bash /tmp/upgrade_13_to_14.sh
-    judge "Execute upgrade script"
+    ANDUINOS_AUTO_UPGRADE=Y bash "$DOWNLOAD_PATH"
+    judge "Upgrade all packages to 1.4.2. To toally upgrade, running repair script..."
+
+    print_ok "Running repair script to catch up 1.4.2 modifications..."
+    bash /usr/local/bin/do-anduinos-autorepair
+    judge "Running repair script"
+    
+    # Clean up
+    rm -f "$DOWNLOAD_PATH"
 }
 
 function main() {
@@ -700,6 +760,9 @@ function main() {
 
     # Ensure the current OS is AnduinOS
     ensureCurrentOsAnduinOs
+    
+    # Check disk space before proceeding
+    check_disk_space
 
     # Compare current version with latest version
     if [ "$CURRENT_VERSION" == "$LATEST_VERSION" ]; then
