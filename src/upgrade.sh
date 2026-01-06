@@ -651,8 +651,8 @@ EOF
 
 function applyLsbRelease() {
 
-  # Update /etc/os-release
-  sudo bash -c "cat > /etc/os-release <<EOF
+    # Update /etc/os-release
+    sudo bash -c "cat > /etc/os-release <<EOF
 PRETTY_NAME=\"AnduinOS $LATEST_VERSION\"
 NAME=\"AnduinOS\"
 VERSION_ID=\"$LATEST_VERSION\"
@@ -667,8 +667,8 @@ PRIVACY_POLICY_URL=\"https://www.ubuntu.com/legal/terms-and-policies/privacy-pol
 UBUNTU_CODENAME=$CODE_NAME
 EOF"
 
-  # Update /etc/lsb-release
-  sudo bash -c "cat > /etc/lsb-release <<EOF
+    # Update /etc/lsb-release
+    sudo bash -c "cat > /etc/lsb-release <<EOF
 DISTRIB_ID=AnduinOS
 DISTRIB_RELEASE=$LATEST_VERSION
 DISTRIB_CODENAME=$CODE_NAME
@@ -680,7 +680,11 @@ EOF"
 " | sudo tee /etc/issue
 
     # Update /usr/lib/os-release
-    sudo cp /etc/os-release /usr/lib/os-release || true
+    if ! [ "/etc/os-release" -ef "/usr/lib/os-release" ]; then
+        sudo cp /etc/os-release /usr/lib/os-release
+    else
+        print_warn "/etc/os-release is linked to /usr/lib/os-release, skipping copy."
+    fi
 }
 
 function main() {
