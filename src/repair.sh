@@ -462,7 +462,7 @@ sudo update-grub
 judge "Update GRUB configuration"
 
 print_ok "Upgrading installed packages..."
-sudo apt upgrade -y
+sudo apt upgrade -y --allow-downgrades --allow-remove-essential --allow-change-held-packages
 sudo apt autoremove --purge -y
 judge "System package upgrade"
 
