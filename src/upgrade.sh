@@ -6,7 +6,7 @@ set -e                  # exit on error
 set -o pipefail         # exit on pipeline error
 set -u                  # treat unset variable as error
 export DEBIAN_FRONTEND=noninteractive
-export LATEST_VERSION="1.1.11"
+export LATEST_VERSION="1.1.12"
 export CODE_NAME="noble"
 export OS_ID="AnduinOS"
 # Add error handling for grep in case file format differs slightly
