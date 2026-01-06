@@ -92,7 +92,11 @@ EOF"
 " | sudo tee /etc/issue
 
     # Update /usr/lib/os-release
-    sudo cp /etc/os-release /usr/lib/os-release
+    if ! [ "/etc/os-release" -ef "/usr/lib/os-release" ]; then
+        sudo cp /etc/os-release /usr/lib/os-release
+    else
+        print_warn "/etc/os-release is linked to /usr/lib/os-release, skipping copy."
+    fi
 }
 
 function main() {
