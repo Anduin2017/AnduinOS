@@ -1,0 +1,15 @@
+# AnduinOS Dynamic Configuration Template
+# This file will be processed during build to inject dynamic values
+# Variables: CONFIG_INPUT_METHOD, CONFIG_WEATHER_LOCATION
+
+# ============================================================================
+# Input Method Configuration
+# ============================================================================
+[org/gnome/desktop/input-sources]
+sources=CONFIG_INPUT_METHOD
+
+# ============================================================================
+# Weather Extension Location
+# ============================================================================
+[org/gnome/shell/extensions/simple-weather]
+locations=CONFIG_WEATHER_LOCATION

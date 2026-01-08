@@ -5,10 +5,10 @@ set -u                  # treat unset variable as error
 # Calendar with Gnome Calendar
 xdg-mime default org.gnome.Calendar.desktop text/calendar
 # Web with Mozila Firefox
-xdg-mime default firefox-esr.desktop x-scheme-handler/http
-xdg-mime default firefox-esr.desktop text/html
-xdg-mime default firefox-esr.desktop application/xhtml+xml
-xdg-mime default firefox-esr.desktop x-scheme-handler/https
+xdg-mime default firefox.desktop x-scheme-handler/http
+xdg-mime default firefox.desktop text/html
+xdg-mime default firefox.desktop application/xhtml+xml
+xdg-mime default firefox.desktop x-scheme-handler/https
 # images with shotwell
 xdg-mime default org.gnome.Shotwell-Viewer.desktop image/jpeg # jpeg
 xdg-mime default org.gnome.Shotwell-Viewer.desktop image/jpg

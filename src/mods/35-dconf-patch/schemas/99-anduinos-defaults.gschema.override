@@ -1,0 +1,213 @@
+# AnduinOS Default Settings
+# This file contains system-wide default settings for AnduinOS
+# Path: /usr/share/glib-2.0/schemas/99-anduinos-defaults.gschema.override
+
+# ============================================================================
+# Desktop Interface
+# ============================================================================
+[org.gnome.desktop.interface]
+color-scheme='prefer-dark'
+gtk-theme='Fluent-round-Dark'
+icon-theme='Fluent-dark'
+cursor-theme='Fluent-dark-cursors'
+cursor-size=32
+enable-hot-corners=false
+font-antialiasing='grayscale'
+font-hinting='slight'
+font-name='Sans 11'
+document-font-name='Ubuntu Mono 13'
+monospace-font-name='Monospace 11'
+clock-show-weekday=false
+clock-show-seconds=false
+clock-show-date=false
+
+# ============================================================================
+# Accessibility
+# ============================================================================
+[org.gnome.desktop.a11y]
+always-show-universal-access-status=false
+
+[org.gnome.desktop.a11y.applications]
+screen-magnifier-enabled=false
+
+# ============================================================================
+# Applications
+# ============================================================================
+[org.gnome.desktop.applications.terminal]
+exec='ptyxis'
+
+# ============================================================================
+# Desktop Background
+# ============================================================================
+[org.gnome.desktop.background]
+color-shading-type='solid'
+picture-options='zoom'
+picture-uri='file:///usr/share/backgrounds/Fluent-building-light.png'
+picture-uri-dark='file:///usr/share/backgrounds/Fluent-building-night.png'
+primary-color='#000000000000'
+secondary-color='#000000000000'
+
+# ============================================================================
+# Desktop Screensaver / Lock Screen
+# ============================================================================
+[org.gnome.desktop.screensaver]
+color-shading-type='solid'
+lock-delay=uint32 0
+lock-enabled=true
+logout-enabled=false
+picture-options='zoom'
+primary-color='#000000000000'
+secondary-color='#000000000000'
+ubuntu-lock-on-suspend=true
+
+# ============================================================================
+# Desktop Search Providers
+# ============================================================================
+[org.gnome.desktop.search-providers]
+enabled=['org.gnome.Software.desktop', 'org.gnome.Weather.desktop']
+sort-order=['org.gnome.Nautilus.desktop', 'org.gnome.clocks.desktop', 'org.gnome.Settings.desktop', 'org.gnome.Software.desktop', 'org.gnome.seahorse.Application.desktop', 'qalculate-gtk.desktop', 'org.gnome.Weather.desktop', 'org.gnome.Characters.desktop']
+
+# ============================================================================
+# Desktop Session
+# ============================================================================
+[org.gnome.desktop.session]
+idle-delay=uint32 900
+
+# ============================================================================
+# Desktop Sound
+# ============================================================================
+[org.gnome.desktop.sound]
+theme-name='Yaru'
+
+# ============================================================================
+# Window Manager Keybindings
+# ============================================================================
+[org.gnome.desktop.wm.keybindings]
+maximize=@as []
+minimize=['<Super>m']
+show-desktop=['<Super>d']
+switch-applications=@as []
+switch-applications-backward=@as []
+switch-to-workspace-left=['<Primary><Super>Left']
+switch-to-workspace-right=['<Primary><Super>Right']
+switch-windows=['<Alt>Tab']
+toggle-fullscreen=['<Super>F11']
+toggle-maximized=['<Super>Up']
+
+# ============================================================================
+# Window Manager Preferences
+# ============================================================================
+[org.gnome.desktop.wm.preferences]
+button-layout=':minimize,maximize,close'
+
+# ============================================================================
+# Peripherals - Keyboard
+# ============================================================================
+[org.gnome.desktop.peripherals.keyboard]
+numlock-state=true
+
+# ============================================================================
+# Peripherals - Mouse
+# ============================================================================
+[org.gnome.desktop.peripherals.mouse]
+accel-profile='flat'
+speed=0.0
+
+# ============================================================================
+# Peripherals - Touchpad
+# ============================================================================
+[org.gnome.desktop.peripherals.touchpad]
+two-finger-scrolling-enabled=true
+
+# ============================================================================
+# Evolution Data Server
+# ============================================================================
+[org.gnome.evolution-data-server]
+migrated=true
+network-monitor-gio-name=''
+
+# ============================================================================
+# Mutter (Window Manager)
+# ============================================================================
+[org.gnome.mutter]
+edge-tiling=false
+overlay-key='Super_L'
+
+[org.gnome.mutter.keybindings]
+toggle-tiled-left=@as []
+toggle-tiled-right=@as []
+
+# ============================================================================
+# Nautilus (File Manager)
+# ============================================================================
+[org.gnome.nautilus.compression]
+default-compression-format='zip'
+
+[org.gnome.nautilus.preferences]
+default-folder-viewer='list-view'
+migrated-gtk-settings=true
+search-filter-time-type='last_modified'
+search-view='list-view'
+
+# ============================================================================
+# Media Keys
+# ============================================================================
+[org.gnome.settings-daemon.plugins.media-keys]
+control-center=@as []
+magnifier=['<Super>BackSpace']
+magnifier-zoom-in=['<Super>equal']
+magnifier-zoom-out=['<Super>minus']
+search=['<Super>s']
+
+# ============================================================================
+# Power Settings
+# ============================================================================
+[org.gnome.settings-daemon.plugins.power]
+ambient-enabled=true
+idle-brightness=30
+idle-dim=true
+lid-close-ac-action='suspend'
+lid-close-suspend-with-external-monitor=false
+power-button-action='suspend'
+sleep-inactive-ac-timeout=1800
+sleep-inactive-ac-type='suspend'
+sleep-inactive-battery-timeout=1200
+sleep-inactive-battery-type='suspend'
+
+# ============================================================================
+# Gnome Shell
+# ============================================================================
+[org.gnome.shell]
+disable-user-extensions=false
+enabled-extensions=['user-theme@gnome-shell-extensions.gcampax.github.com', 'arcmenu@arcmenu.com', 'blur-my-shell@aunetx', 'simple-weather@romanlefler.com', 'customize-ibus@hollowman.ml', 'drive-menu@gnome-shell-extensions.gcampax.github.com', 'ding@rastersoft.com', 'dash-to-panel@jderose9.github.com', 'ProxySwitcher@flannaghan.com', 'switcher@anduinos', 'noti-bottom-right@anduinos', 'loc@anduinos.com', 'lockkeys@vaina.lt', 'tiling-assistant@leleat-on-github', 'mediacontrols@cliffniff.github.com', 'clipboard-indicator@tudmotu.com', 'accent-gtk-theme@brgvos', 'accent-user-theme@brgvos', 'accent-icons-theme@brgvos']
+favorite-apps=['firefox.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Software.desktop']
+welcome-dialog-last-shown-version='47.0'
+
+[org.gnome.shell.keybindings]
+focus-active-notification=@as []
+show-screen-recording-ui=['<Super>g']
+show-screenshot-ui=['<Super><Shift>s', 'Print']
+toggle-application-view=@as []
+toggle-message-tray=['<Super>n']
+toggle-overview=['<Super>Tab']
+toggle-quick-settings=['<Super>a']
+
+[org.gnome.shell.overrides]
+edge-tiling=false
+
+[org.gnome.shell.ubuntu]
+startup-sound=''
+
+# ============================================================================
+# Text Editor
+# ============================================================================
+[org.gnome.TextEditor]
+custom-font='Ubuntu Mono 13'
+spellcheck=false
+use-system-font=false
+
+# ============================================================================
+# GTK File Chooser
+# ============================================================================
+[org.gtk.Settings.FileChooser]
+sort-directories-first=true

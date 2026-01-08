@@ -28,7 +28,6 @@ set -u
 PKG_TEMP_FILE=$(mktemp)
 export SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 export SQUASH_FILE="$SCRIPT_DIR/casper/filesystem.squashfs"
-export DCONF_FILE="$SCRIPT_DIR/casper/default-dconf.ini"
 trap 'rm -f "$PKG_TEMP_FILE"' EXIT
 
 Green="\033[32m"
@@ -444,10 +443,6 @@ sudo rsync -Aax /mnt/anduinos_squashfs/usr/share/plymouth/themes/spinner/bgrt-fa
 sudo rsync -Aax /mnt/anduinos_squashfs/usr/share/plymouth/themes/spinner/watermark.png /usr/share/plymouth/themes/spinner/watermark.png
 sudo rsync -Aax /mnt/anduinos_squashfs/usr/share/plymouth/ubuntu-logo.png /usr/share/plymouth/ubuntu-logo.png
 judge "Update system version information"
-
-print_ok "Applying dconf settings patch..."
-cat "$DCONF_FILE" | dconf load /org/gnome/
-judge "Apply dconf settings patch"
 
 #=================================================
 #            Part 7: Finalization

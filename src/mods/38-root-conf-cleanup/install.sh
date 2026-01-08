@@ -5,7 +5,7 @@ set -u                  # treat unset variable as error
 print_ok "Cleaning up /root/.config/ and root's gnome-shell extensions"
 /usr/bin/pipx uninstall gnome-extensions-cli
 rm /root/.config/mimeapps.list
-rm /root/.config/dconf -rf
+# Note: No longer cleaning up /root/.config/dconf as we now use system-level configuration
 rm /root/.local/share/gnome-shell/extensions -rf
 /usr/bin/pipx uninstall-all
 PIPX_HOME=$(pipx environment --value PIPX_HOME)
