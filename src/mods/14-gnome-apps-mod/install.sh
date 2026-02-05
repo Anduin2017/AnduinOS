@@ -39,7 +39,6 @@ apt install $INTERACTIVE \
     upower \
     mdadm \
     appstream \
-    packagekit-tools \
     python3-babel \
     unattended-upgrades \
     exfatprogs \
