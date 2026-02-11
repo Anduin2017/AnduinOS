@@ -270,6 +270,7 @@ export DEFAULT_APPS="
     gnome-snapshot \
     gnome-font-viewer \
     gnome-browser-connector \
+    gnome-online-accounts \
     gnome-control-center-faces \
     policykit-desktop-privileges
 "
