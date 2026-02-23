@@ -265,7 +265,6 @@ export DEFAULT_APPS="
     gnome-system-monitor \
     gnome-sound-recorder \
     gnome-characters \
-    gnome-bluetooth \
     gnome-power-manager \
     gnome-snapshot \
     gnome-font-viewer \
