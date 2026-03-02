@@ -72,15 +72,15 @@ export TARGET_UBUNTU_VERSION="noble"
 # The default is the Aiursoft mirror.
 # You can change it to any other mirror that you prefer.
 # See https://docs.anduinos.com/Install/Select-Best-Apt-Source.html
-export BUILD_UBUNTU_MIRROR="http://archive.ubuntu.com/ubuntu/"
+export BUILD_UBUNTU_MIRROR="https://mirror.aiursoft.com/ubuntu/"
 
 # This is the name of the target OS.
 # Must be lowercase without special characters and spaces
-export TARGET_NAME="anduinos"
+export TARGET_NAME="anduinos-voxihost"
 
 # This is the full display name of the target OS.
 # Business name. No special characters or spaces
-export TARGET_BUSINESS_NAME="AnduinOS"
+export TARGET_BUSINESS_NAME="AnduinOS Voxihost Edition"
 
 # Version number. Must be in the format of x.y.z
 export TARGET_BUILD_VERSION="1.1.13"
@@ -111,7 +111,7 @@ export TARGET_PACKAGE_REMOVE="
 # web:      use a web shortcut to browse the app store
 # flatpak:  use gnome software to browse the app store, and install flatpak as plugin
 # snap:     use gnome software to browse the app store, and install snap as plugin
-export STORE_PROVIDER="web"
+export STORE_PROVIDER="none"
 
 # The mirror URL for flathub. Can be: "https://mirror.sjtu.edu.cn/flathub"
 export FLATHUB_MIRROR=""
@@ -137,39 +137,11 @@ fi
 # flatpak:  install firefox from flathub (Only available if STORE_PROVIDER is set to "flatpak")
 # snap:     install firefox from snap (Only available if STORE_PROVIDER is set to "snap")
 # TODO: Snap firefox seems to be broken. Investigation required.
-export FIREFOX_PROVIDER="deb"
-if [[ "$FIREFOX_PROVIDER" == "flatpak" && "$STORE_PROVIDER" != "flatpak" ]]; then
-    echo "Error: FIREFOX_PROVIDER is set to flatpak, but STORE_PROVIDER is not set to flatpak"
-    exit 1
-fi
-if [[ "$FIREFOX_PROVIDER" == "snap" && "$STORE_PROVIDER" != "snap" ]]; then
-    echo "Error: FIREFOX_PROVIDER is set to snap, but STORE_PROVIDER is not set to snap"
-    exit 1
-fi
-
-# Whether to install firefox with apt. If set, it will be installed from the PPA. If empty, it will be installed from the default source
-# Must set FIREFOX_PROVIDER to "deb" before using this option
-# Sample: mirror-ppa.aiursoft.com
-export BUILD_FIREFOX_MIRROR="mirror-ppa.aiursoft.com"
-if [[ "$BUILD_FIREFOX_MIRROR" != "" && "$FIREFOX_PROVIDER" != "deb" ]]; then
-    echo "Error: BUILD_FIREFOX_MIRROR is set, but FIREFOX_PROVIDER is not set to deb"
-    exit 1
-fi
-
-# The Firefox mirror for live system. If set, it will be used to replace the default PPA mirror.
-# This must be set if FIREFOX_PROVIDER is set to "deb"
-# Default: ppa.launchpadcontent.net
-export LIVE_FIREFOX_MIRROR="ppa.launchpadcontent.net"
-if [[ "$FIREFOX_PROVIDER" == "deb" && -z "$LIVE_FIREFOX_MIRROR" ]]; then
-    echo "Error: FIREFOX_PROVIDER is deb, but didn't set LIVE_FIREFOX_MIRROR"
-    exit 1
-fi
-
-export FIREFOX_LOCALE_PACKAGE="firefox-locale-$LANG_PACK_CODE*"
-if [[ "$FIREFOX_LOCALE_PACKAGE" != "" && "$FIREFOX_PROVIDER" != "deb" ]]; then
-    echo "Error: FIREFOX_LOCALE_PACKAGE is set, but FIREFOX_PROVIDER is not set to deb"
-    exit 1
-fi
+# Voxihost Edition: no browser
+export FIREFOX_PROVIDER="none"
+export BUILD_FIREFOX_MIRROR=""
+export LIVE_FIREFOX_MIRROR=""
+export FIREFOX_LOCALE_PACKAGE=""
 #============================
 # Input method configuration
 #============================
@@ -205,7 +177,7 @@ export CONFIG_INPUT_METHOD="[('xkb', 'us')]"
 #============================
 
 # To install software-properties-gtk, set to "true" or "false"
-export INSTALL_MODIFIED_SOFTWARE_PROPERTIES_GTK="true"
+export INSTALL_MODIFIED_SOFTWARE_PROPERTIES_GTK="false"
 
 #============================
 # Time zone configuration
@@ -235,68 +207,20 @@ export LIVE_UBUNTU_MIRROR="http://archive.ubuntu.com/ubuntu/"
 #============================
 # The default apps to be installed.
 # All those apps are optional. You can remove any of them if you don't need them.
+# Voxihost Edition: minimal app set — text editor, disk/system tools only
 export DEFAULT_APPS="
-    gdebi \
-    gnome-chess \
-    gnome-clocks \
-    gnome-weather \
-    gnome-nettool \
     gnome-text-editor \
-    seahorse \
-    evince \
-    shotwell \
-    remmina remmina-plugin-rdp \
-    rhythmbox rhythmbox-plugins \
-    totem totem-plugins \
-    transmission-gtk transmission-common \
-    ffmpegthumbnailer \
-    libgdk-pixbuf2.0-bin \
-    usb-creator-gtk \
-    baobab \
-    file-roller \
-    gnome-sushi \
-    qalculate-gtk \
-    yelp \
-    gnome-shell-extension-prefs \
-    gnome-user-docs \
     gnome-disk-utility \
     gnome-logs \
-    gnome-system-monitor \
-    gnome-sound-recorder \
-    gnome-characters \
-    gnome-bluetooth \
-    gnome-power-manager \
-    gnome-snapshot \
-    gnome-font-viewer \
-    gnome-browser-connector \
-    gnome-online-accounts \
-    gnome-control-center-faces \
-    gnome-startup-applications \
+    file-roller \
+    gnome-shell-extension-prefs \
     policykit-desktop-privileges
 "
 
 # The default CLI tools to be installed.
 # All those tools are optional. You can remove any of them if you don't need them.
 export DEFAULT_CLI_TOOLS="
-    curl \
-    vim \
-    nano \
-    git \
-    build-essential \
-    make \
-    gcc \
-    g++ \
-    dpkg-dev \
-    net-tools \
-    htop \
-    httping \
-    iputils-ping \
-    iputils-tracepath \
-    dnsutils \
-    smartmontools \
-    traceroute \
-    whois \
-    nmap
+    build-essential
     "
 
 # The default Flatpak tools to be installed.

@@ -58,7 +58,7 @@ function setup_host() {
 
 function download_base_system() {
     print_ok "Calling debootstrap to download base debian system..."
-    sudo debootstrap  --arch=amd64 --variant=minbase --include=git $TARGET_UBUNTU_VERSION new_building_os $BUILD_UBUNTU_MIRROR
+    sudo debootstrap  --arch=amd64 --variant=minbase --include=git,ca-certificates $TARGET_UBUNTU_VERSION new_building_os $BUILD_UBUNTU_MIRROR
     judge "Download base system"
 }
 
@@ -328,13 +328,13 @@ EOF
     judge "Create iso image"
 
     print_ok "Moving iso image to $SCRIPT_DIR/dist/$TARGET_BUSINESS_NAME-$TARGET_BUILD_VERSION-$LANG_MODE-$DATE.iso..."
-    mkdir -p $SCRIPT_DIR/dist
-    mv $SCRIPT_DIR/$TARGET_NAME.iso $SCRIPT_DIR/dist/$TARGET_BUSINESS_NAME-$TARGET_BUILD_VERSION-$LANG_MODE-$DATE.iso
+    mkdir -p "$SCRIPT_DIR/dist"
+    mv "$SCRIPT_DIR/$TARGET_NAME.iso" "$SCRIPT_DIR/dist/$TARGET_BUSINESS_NAME-$TARGET_BUILD_VERSION-$LANG_MODE-$DATE.iso"
     judge "Move iso image"
 
     print_ok "Generating sha256 checksum..."
-    HASH=`sha256sum $SCRIPT_DIR/dist/$TARGET_BUSINESS_NAME-$TARGET_BUILD_VERSION-$LANG_MODE-$DATE.iso | cut -d ' ' -f 1`
-    echo "SHA256: $HASH" > $SCRIPT_DIR/dist/$TARGET_BUSINESS_NAME-$TARGET_BUILD_VERSION-$LANG_MODE-$DATE.sha256
+    HASH=$(sha256sum "$SCRIPT_DIR/dist/$TARGET_BUSINESS_NAME-$TARGET_BUILD_VERSION-$LANG_MODE-$DATE.iso" | cut -d ' ' -f 1)
+    echo "SHA256: $HASH" > "$SCRIPT_DIR/dist/$TARGET_BUSINESS_NAME-$TARGET_BUILD_VERSION-$LANG_MODE-$DATE.sha256"
     judge "Generate sha256 checksum"
 
     popd

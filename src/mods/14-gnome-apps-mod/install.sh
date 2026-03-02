@@ -64,7 +64,6 @@ apt install $INTERACTIVE \
     xserver-xorg-input-all \
     xserver-xorg \
     xserver-xorg-legacy \
-    xserver-xorg-video-intel \
     xserver-xorg-video-qxl \
     xserver-xorg-video-all \
     gdm3 \
@@ -96,23 +95,6 @@ apt install $INTERACTIVE \
     plymouth-theme-ubuntu-text --no-install-recommends
 judge "Install plymouth"
 
-print_ok "Installing network manager vpn packages..."
-case $TARGET_UBUNTU_VERSION in
-    "jammy" | "noble")
-        apt-get install -y wireless-tools
-        ;;
-    *)
-        print_warn "Package wireless-tools is not available for $TARGET_UBUNTU_VERSION"
-        ;;
-esac
-apt install $INTERACTIVE \
-    openvpn \
-    network-manager-openvpn \
-    network-manager-openvpn-gnome \
-    network-manager-pptp \
-    network-manager-pptp-gnome \
-    --no-install-recommends
-judge "Install network manager vpn packages"
 
 print_ok "Installing nautilus..."
 apt install $INTERACTIVE nautilus --no-install-recommends
@@ -138,23 +120,6 @@ apt install $INTERACTIVE \
     --no-install-recommends
 judge "Install default cli applications"
 
-print_ok "Installing gnome multimedia support..."
-apt install $INTERACTIVE \
-    gstreamer1.0-plugins-base \
-    gstreamer1.0-plugins-good \
-    gstreamer1.0-plugins-bad \
-    gstreamer1.0-plugins-ugly \
-    gstreamer1.0-libav \
-    libavcodec-extra \
-    gstreamer1.0-pipewire \
-    gstreamer1.0-alsa \
-    gstreamer1.0-gl \
-    gstreamer1.0-gtk3 \
-    gstreamer1.0-x \
-    gstreamer1.0-tools \
-    gstreamer1.0-packagekit \
-    gstreamer1.0-plugins-base-apps --no-install-recommends
-judge "Install gstreamer"
 
 print_ok "Installing gnome console..."
 apt install $INTERACTIVE \
@@ -172,37 +137,16 @@ apt install $INTERACTIVE \
     fonts-noto-cjk fonts-noto-core fonts-noto-mono fonts-noto-color-emoji --no-install-recommends
 judge "Install gnome fonts"
 
-print_ok "Installing gnome printer support..."
-apt install $INTERACTIVE \
-    system-config-printer \
-    printer-driver-all # With recommends this time. Because only this way it installs the actual drivers
-judge "Install printer-driver-all"
 
-print_ok "Installing scanner support..."
-apt install $INTERACTIVE \
-    sane-airscan sane-utils simple-scan \
-    --no-install-recommends
-judge "Install scanner support"
-
-print_ok "Installing gnome printer support..."
-apt install $INTERACTIVE \
-    cups \
-    cups-bsd \
-    cups-browsed \
-    cups-pk-helper \
-    ipp-usb \
-    --no-install-recommends
-judge "Install gnome printer support"
-
-print_ok "Installing ubuntu drivers support..."
+print_ok "Installing audio support..."
 apt install $INTERACTIVE \
     ubuntu-drivers-common \
     alsa-utils \
     alsa-base \
     alsa-topology-conf \
     alsa-ucm-conf \
-    fprintd --no-install-recommends
-judge "Install ubuntu drivers support"
+    --no-install-recommends
+judge "Install audio support"
 
 print_ok "Installing python3..."
 apt install $INTERACTIVE \

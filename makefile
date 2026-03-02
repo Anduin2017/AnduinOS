@@ -31,7 +31,7 @@ bootstrap:
 	  echo "Error: Do not run as root"; \
 	  exit 1; \
 	fi
-	@if ! lsb_release -i | grep -qE "(Ubuntu|Debian|AnduinOS)"; then \
+	@if ! lsb_release -i | grep -qE "(Ubuntu|Debian|Anduin)"; then \
 	  echo "Error: Unsupported OS — only Ubuntu, Debian or AnduinOS allowed"; \
 	  exit 1; \
 	fi
