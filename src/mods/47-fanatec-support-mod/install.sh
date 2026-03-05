@@ -7,6 +7,8 @@ source /root/mods/args.sh
 
 print_ok "Starting SimRacing Wheels Integration (Fanatec udev rules)..."
 
+DEBIAN_FRONTEND=noninteractive apt-get install -y joystick
+
 # FANATEC: udev rules
 print_ok "Adding udev rules for Fanatec steering wheels..."
 cat << 'EOF' > /etc/udev/rules.d/99-fanatec.rules
@@ -45,5 +47,13 @@ KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="0eb7", ATTRS{idProduct
 KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="0eb7", ATTRS{idProduct}=="1a93", MODE="0666"
 EOF
 judge "Install Fanatec udev rules"
+
+# FANATEC: evdev-joystick deadzone fix (Left-turn bug)
+print_ok "Adding deadzone fix for Fanatec wheels..."
+cat << 'EOF' > /etc/udev/rules.d/99-fanatec-evdev.rules
+# Fix left-turn bug by zeroing deadzone and fuzz for Fanatec wheels
+ACTION=="add", KERNEL=="event*", SUBSYSTEM=="input", ATTRS{idVendor}=="0eb7", RUN+="/usr/bin/evdev-joystick --evdev /dev/%k --deadzone 0 --fuzz 0"
+EOF
+judge "Install Fanatec evdev deadzone fix rules"
 
 print_ok "SimRacing Wheels Integration completed!"
