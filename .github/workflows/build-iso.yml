@@ -1,0 +1,28 @@
+name: Build AnduinOS ISO
+
+on:
+  workflow_dispatch:
+  push:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y binutils debootstrap squashfs-tools xorriso grub-pc-bin grub-efi-amd64 grub2-common mtools dosfstools jq mktorrent curl
+
+      - name: Build AnduinOS
+        run: |
+          make fast
+
+      - name: Upload ISO Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: AnduinOS-ISO
+          path: src/dist/*.iso
+          retention-days: 7
