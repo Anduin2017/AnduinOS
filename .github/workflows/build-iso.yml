@@ -3,8 +3,6 @@ name: Build AnduinOS ISO
 on:
   workflow_dispatch:
   push:
-    branches:
-      - add-simracing-support
 
 jobs:
   build:
