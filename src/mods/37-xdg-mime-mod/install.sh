@@ -2,6 +2,9 @@ set -e                  # exit on error
 set -o pipefail         # exit on pipeline error
 set -u                  # treat unset variable as error
 
+# Ensure /root/.config exists for xdg-mime to write mimeapps.list
+mkdir -p /root/.config
+
 # Calendar with Gnome Calendar
 xdg-mime default org.gnome.Calendar.desktop text/calendar
 # Web with Mozila Firefox

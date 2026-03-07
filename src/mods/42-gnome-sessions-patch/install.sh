@@ -7,12 +7,17 @@ sed -i 's/Ubuntu/AnduinOS/g' /usr/share/gnome-session/sessions/ubuntu.session
 judge "Set up /usr/share/gnome-sessions/sessions"
 
 print_ok "Setting up /usr/share/wayland-sessions..."
-rm /usr/share/wayland-sessions/gnome* || true
+rm -f /usr/share/wayland-sessions/gnome* || true
 
-mv /usr/share/wayland-sessions/ubuntu.desktop /usr/share/wayland-sessions/anduinos.desktop
-mv /usr/share/wayland-sessions/ubuntu-wayland.desktop /usr/share/wayland-sessions/anduinos-wayland.desktop
-sed -i 's/Name=Ubuntu/Name=AnduinOS/g' /usr/share/wayland-sessions/anduinos.desktop
-sed -i 's/Name=Ubuntu/Name=AnduinOS/g' /usr/share/wayland-sessions/anduinos-wayland.desktop
+if [ -f /usr/share/wayland-sessions/ubuntu.desktop ]; then
+    mv /usr/share/wayland-sessions/ubuntu.desktop /usr/share/wayland-sessions/anduinos.desktop
+    sed -i 's/Name=Ubuntu/Name=AnduinOS/g' /usr/share/wayland-sessions/anduinos.desktop
+fi
+
+if [ -f /usr/share/wayland-sessions/ubuntu-wayland.desktop ]; then
+    mv /usr/share/wayland-sessions/ubuntu-wayland.desktop /usr/share/wayland-sessions/anduinos-wayland.desktop
+    sed -i 's/Name=Ubuntu/Name=AnduinOS/g' /usr/share/wayland-sessions/anduinos-wayland.desktop
+fi
 judge "Set up /usr/share/wayland-sessions"
 
 print_ok "Setting up apparmor to allow user namespaces..."
