@@ -509,6 +509,7 @@ EOF
 
       print_ok "Patch Arc Menu logo..."
       wget -O ./logo.svg "https://gitlab.aiursoft.com/anduin/anduinos/-/raw/1.4/src/mods/30-gnome-extension-arcmenu-patch/logo.svg?ref_type=heads"
+      sudo mkdir -p /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/icons
       sudo mv ./logo.svg /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/icons/anduinos-logo.svg
       judge "Patch Arc Menu logo"
     else
