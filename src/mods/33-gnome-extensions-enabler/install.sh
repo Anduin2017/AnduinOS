@@ -24,12 +24,12 @@ print_ok "Updating gnome extensions to force enable for gnome 49..."
 apt install $INTERACTIVE jq --no-install-recommends
 find /usr/share/gnome-shell/extensions -type f -name metadata.json | while IFS= read -r file; do
     if jq -e 'has("shell-version")' "$file" > /dev/null; then
-        if jq -e '.["shell-version"] | index("49")' "$file" > /dev/null; then
+        if jq -e '.["shell-version"] | index("50")' "$file" > /dev/null; then
             print_info "$file already supports gnome \"49\"."
         else
             print_warn "$file does not contain \"49\", updating file..."
             tmpfile=$(mktemp)
-            jq '.["shell-version"] += ["49"]' "$file" > "$tmpfile" && mv "$tmpfile" "$file"
+            jq '.["shell-version"] += ["50"]' "$file" > "$tmpfile" && mv "$tmpfile" "$file"
             chmod 644 "$file"
         fi
     else
