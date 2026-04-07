@@ -25,7 +25,7 @@ apt install $INTERACTIVE jq --no-install-recommends
 find /usr/share/gnome-shell/extensions -type f -name metadata.json | while IFS= read -r file; do
     if jq -e 'has("shell-version")' "$file" > /dev/null; then
         if jq -e '.["shell-version"] | index("50")' "$file" > /dev/null; then
-            print_info "$file already supports gnome \"49\"."
+            print_info "$file already supports gnome \"50\"."
         else
             print_warn "$file does not contain \"50\", updating file..."
             tmpfile=$(mktemp)

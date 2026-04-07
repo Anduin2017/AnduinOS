@@ -81,7 +81,7 @@ apt install $INTERACTIVE \
     dbus-user-session \
     dnsmasq-base \
     wpasupplicant \
-    python3-rich\
+    python3-rich \
     systemd-hwe-hwdb \
     efibootmgr \
     ibverbs-providers \
