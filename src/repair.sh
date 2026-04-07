@@ -106,6 +106,26 @@ SYS_VERSION=$DISTRIB_RELEASE
 SYS_CODENAME=$DISTRIB_CODENAME
 SYS_ARCH=$(dpkg --print-architecture)
 
+# 3. Compare compatibility (hard checks — no user prompt needed)
+if [[ "$SYS_PRODUCT" != "$ISO_PRODUCT" ]]; then
+    print_error "Product mismatch. System is '$SYS_PRODUCT', ISO is for '$ISO_PRODUCT'."
+    exit 1
+fi
+
+if [[ "$SYS_CODENAME" != "$ISO_CODENAME" ]]; then
+    print_error "Codename mismatch. System is '$SYS_CODENAME', ISO is for '$ISO_CODENAME'."
+    print_error "This ISO can only repair '$ISO_CODENAME' systems."
+    exit 1
+fi
+
+if [[ "$SYS_ARCH" != "$ISO_ARCH" ]]; then
+    print_error "Architecture mismatch. System is '$SYS_ARCH', ISO is for '$ISO_ARCH'."
+    exit 1
+fi
+
+print_ok "System is compatible with this repair ISO."
+judge "System compatibility check"
+
 # 4. Compare system vs ISO versions with new rules
   ISO_MAJOR_MINOR=$(echo "$ISO_VERSION" | cut -d'.' -f1-2)
   SYS_MAJOR_MINOR=$(echo "$SYS_VERSION" | cut -d'.' -f1-2)
@@ -134,26 +154,6 @@ SYS_ARCH=$(dpkg --print-architecture)
 
 print_ok "ISO target:   ${Blue}$ISO_PRODUCT $ISO_VERSION ($ISO_CODENAME) $ISO_ARCH${Font}"
 print_ok "System found: ${Blue}$SYS_PRODUCT $SYS_VERSION ($SYS_CODENAME) $SYS_ARCH${Font}"
-
-# 3. Compare compatibility
-if [[ "$SYS_PRODUCT" != "$ISO_PRODUCT" ]]; then
-    print_error "Product mismatch. System is '$SYS_PRODUCT', ISO is for '$ISO_PRODUCT'."
-    exit 1
-fi
-
-if [[ "$SYS_CODENAME" != "$ISO_CODENAME" ]]; then
-    print_error "Codename mismatch. System is '$SYS_CODENAME', ISO is for '$ISO_CODENAME'."
-    print_error "This ISO can only repair '$ISO_CODENAME' systems."
-    exit 1
-fi
-
-if [[ "$SYS_ARCH" != "$ISO_ARCH" ]]; then
-    print_error "Architecture mismatch. System is '$SYS_ARCH', ISO is for '$ISO_ARCH'."
-    exit 1
-fi
-
-print_ok "System is compatible with this repair ISO."
-judge "System compatibility check"
 
 echo -e "${Yellow}WARNING: This script is for repairing ${ISO_PRODUCT} ($ISO_CODENAME) systems.${Font}"
 echo -e "${Yellow}This ISO (${ISO_VERSION}) will be used to repair your installed system (${SYS_VERSION}).${Font}"
@@ -421,11 +421,6 @@ sudo rsync -Aax /mnt/anduinos_squashfs/usr/local/bin/deskmon /usr/local/bin/desk
 sudo rsync -Aax /mnt/anduinos_squashfs/etc/systemd/user/deskmon.service /etc/systemd/user/deskmon.service
 sudo rsync -Aax /mnt/anduinos_squashfs/etc/systemd/user/default.target.wants/deskmon.service /etc/systemd/user/default.target.wants/deskmon.service
 judge "Upgrade deskmon service"
-
-print_ok "Upgrading gnome-session and wayland session files..."
-sudo rsync -Aax --update --delete /mnt/anduinos_squashfs/usr/share/gnome-session/sessions/ /usr/share/gnome-session/sessions/
-sudo rsync -Aax --update --delete /mnt/anduinos_squashfs/usr/share/wayland-sessions/ /usr/share/wayland-sessions/
-judge "Upgrade gnome-session and wayland session files"
 
 print_ok "Updating system version information..."
 sudo rsync -Aax /mnt/anduinos_squashfs/usr/local/bin/do_anduinos_upgrade /usr/local/bin/do_anduinos_upgrade

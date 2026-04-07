@@ -19,3 +19,4 @@ export BUILD_SYSTEM="Ubuntu"
 
 export FLAVOUR="$TARGET_BUSINESS_NAME"
 EOF
+judge "Update /etc/casper.conf"

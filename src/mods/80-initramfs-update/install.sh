@@ -4,4 +4,4 @@ set -u                  # treat unset variable as error
 
 # Update initramfs
 update-initramfs -u -k all
-judge "Update /etc/casper.conf"
+judge "Update initramfs"
