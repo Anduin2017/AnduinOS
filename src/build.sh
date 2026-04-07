@@ -62,7 +62,7 @@ function download_base_system() {
     judge "Download base system"
 }
 
-function mount_folers() {
+function mount_folders() {
     print_ok "Reloading systemd daemon..."
     sudo systemctl daemon-reload
     judge "Reload systemd daemon"
@@ -99,7 +99,7 @@ function run_chroot() {
     sleep 5
 }
 
-function umount_folers() {
+function umount_folders() {
     print_ok "Cleaning mods from new_building_os/root..."
     sudo rm -rf new_building_os/root/mods
     judge "Clean up new_building_os /root/mods"
@@ -217,7 +217,7 @@ EOF
     if sudo unsquashfs -s image/casper/filesystem.squashfs; then
         print_ok "Verification successful. The file appears to be valid."
     else
-        print_err "Verification FAILED! The squashfs file is likely corrupt."
+        print_error "Verification FAILED! The squashfs file is likely corrupt."
         exit 1
     fi
     
@@ -368,8 +368,8 @@ bind_signal
 clean
 setup_host
 download_base_system
-mount_folers
+mount_folders
 run_chroot
-umount_folers
+umount_folders
 build_iso
 echo "$0 - Initial build is done!"
