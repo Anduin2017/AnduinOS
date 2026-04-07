@@ -262,7 +262,7 @@ export DEFAULT_APPS="
     gnome-user-docs \
     gnome-disk-utility \
     gnome-logs \
-    gnome-system-monitor \
+    resources \
     gnome-sound-recorder \
     gnome-characters \
     gnome-power-manager \
