@@ -93,7 +93,7 @@ if [[ $DEFAULT_APPS =~ "rhythmbox" ]]; then
     judge "Patch rhythmbox localization"
 fi
 
-if [ $DEFAULT_APPS =~ "baobab" ]; then
+if [[ $DEFAULT_APPS =~ "baobab" ]]; then
     print_ok "Patching baobab localization..."
     sed -i "/^Name=/a Name[zh_CN]=磁盘分析" /usr/share/applications/org.gnome.baobab.desktop
     sed -i "/^Name=/a Name[zh_TW]=磁碟分析" /usr/share/applications/org.gnome.baobab.desktop

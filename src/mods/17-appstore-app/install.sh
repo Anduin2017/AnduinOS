@@ -60,7 +60,6 @@ elif [ "$STORE_PROVIDER" == "snap" ]; then
     print_ok "Installing snap store..."
     apt install $INTERACTIVE \
         snapd \
-        snap \
         gnome-software \
         gnome-software-plugin-snap --no-install-recommends
     install_opt gnome-software-plugin-deb
