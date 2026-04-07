@@ -101,6 +101,7 @@ export TARGET_PACKAGE_REMOVE="
     discover \
     laptop-detect \
     os-prober \
+    gparted \
 "
 
 #============================
@@ -259,6 +260,7 @@ export DEFAULT_APPS="
     gnome-sushi \
     qalculate-gtk \
     yelp \
+    gparted \
     gnome-shell-extension-prefs \
     gnome-user-docs \
     gnome-disk-utility \
