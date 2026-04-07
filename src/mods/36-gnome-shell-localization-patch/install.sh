@@ -86,7 +86,7 @@ for lang_dir in /usr/share/locale-langpack/*/; do
     mo_file="$lang_dir/LC_MESSAGES/gnome-shell.mo"
     
     # Check if language has gnome-shell.mo file and if we have translations for it
-    if [ -f "$mo_file" ] && [ -n "${taskbar_add_strings[$lang]+isset}" ] || [ -n "${taskbar_add_strings[$lang]+isset}" ]; then
+    if [ -f "$mo_file" ] && [ -n "${taskbar_add_strings[$lang]+isset}" ]; then
         print_ok "Patching Gnome Shell for $lang..."
         msgunfmt "$mo_file" -o /tmp/gnome-shell.po
         

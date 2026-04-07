@@ -71,6 +71,7 @@ apt install $INTERACTIVE \
     --no-install-recommends
 judge "Install gnome basic sessions"
 
+print_ok "Installing accessibility packages..."
 apt install $INTERACTIVE \
     orca \
     speech-dispatcher-espeak-ng \
@@ -78,6 +79,7 @@ apt install $INTERACTIVE \
     speech-dispatcher \
     espeak-ng-data \
     --no-install-recommends
+judge "Install accessibility packages"
 
 print_ok "Installing plymouth..."
 apt install $INTERACTIVE \

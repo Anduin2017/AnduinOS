@@ -13,7 +13,7 @@ apt install $INTERACTIVE \
     --no-install-recommends
 judge "Install live-boot"
 
-TARGET_KERNEL_PACKAGE=$(apt search linux-generic-hwe-* | awk -F'/' '/linux-generic-hwe-/ {print $1}' | sort | head -n 1)
+TARGET_KERNEL_PACKAGE=$(apt search linux-generic-hwe-* | awk -F'/' '/linux-generic-hwe-/ {print $1}' | grep -v '\-edge$' | sort -V | tail -n 1)
 print_ok "Installing kernel package $TARGET_KERNEL_PACKAGE..."
 apt install $INTERACTIVE \
     thermald \
