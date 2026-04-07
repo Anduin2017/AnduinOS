@@ -14,4 +14,9 @@ rm /usr/share/gnome-shell/extensions/windowsNavigator* -rf
 rm /usr/share/gnome-shell/extensions/workspace-indicator* -rf
 rm /usr/share/gnome-shell/extensions/light-style* -rf
 rm /usr/share/gnome-shell/extensions/system-monitor* -rf
+rm /usr/share/gnome-shell/extensions/snapd-prompting* -rf
+rm /usr/share/gnome-shell/extensions/snapd-search-provider* -rf
+rm /usr/share/gnome-shell/extensions/ubuntu-dock* -rf
+rm /usr/share/gnome-shell/extensions/web-search-provider* -rf
+rm /usr/share/gnome-shell/extensions/tiling-assistant@ubuntu.com -rf
 judge "Remove GNOME extensions"
