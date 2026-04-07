@@ -246,6 +246,7 @@ export DEFAULT_APPS="
     seahorse \
     papers \
     shotwell \
+    sysprof \
     remmina remmina-plugin-rdp \
     rhythmbox rhythmbox-plugins \
     showtime \
