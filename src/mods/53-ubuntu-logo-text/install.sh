@@ -6,8 +6,6 @@ set -u                  # treat unset variable as error
 # Use ./ubuntu-logo-text-dark.png to replace /usr/share/pixmaps/ubuntu-logo-text-dark.png
 
 print_ok "Replacing Ubuntu logo text images"
-cp -f ./ubuntu-logo-text.png /usr/share/pixmaps/ubuntu-logo-text.png
-cp -f ./ubuntu-logo-text-dark.png /usr/share/pixmaps/ubuntu-logo-text-dark.png
 cp -f ./ubuntu-logo-text.svg /usr/share/pixmaps/ubuntu-logo-text.svg
 cp -f ./ubuntu-logo-text-dark.svg /usr/share/pixmaps/ubuntu-logo-text-dark.svg
 judge "Replace Ubuntu logo text images"

@@ -25,3 +25,13 @@ print_ok "Installing Fluent cursor theme"
     ./install.sh
 )
 judge "Install Fluent cursor theme"
+
+# Pre-generate icon caches to avoid live SVG rendering via bwrap.
+# This prevents both the rendering deadlock and AppArmor issues.
+print_ok "Updating icon cache for all themes..."
+for theme in /usr/share/icons/*; do
+    if [ -d "$theme" ]; then
+        gtk-update-icon-cache -f -t "$theme" || true
+    fi
+done
+judge "Update icon cache"

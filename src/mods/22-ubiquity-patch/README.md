@@ -25,11 +25,14 @@ We use a combination of five strategies to ensure stability:
     *   The UI has permission to draw on the Wayland/X server.
     *   The root user uses its own home (`/root`), satisfying `bwrap` sandbox requirements.
 2.  **Kernel Permission**: Enabling `kernel.apparmor_restrict_unprivileged_userns = 0` via the `43-gnome-sessions-patch` module.
-3.  **Icon Cache Pre-generation**: Running `gtk-update-icon-cache` during the icon theme installation (`25-fluent-icon-theme`). This allows GTK to load binary data directly, bypassing the need for sandboxed SVG rendering and avoiding the deadlock entirely.
+3.  **Icon Cache Pre-generation**: Running `gtk-update-icon-cache` during the icon theme installation (`25-fluent-icon-theme`) avoids most SVG rendering.
+4.  **Ephemeral Bwrap Wrapper**: To handle any remaining un-cached icons without leaving traces on the installed system, we inject an inline Bash string inside the `.desktop` file's `Exec` command. This dynamically replaces `/usr/bin/bwrap` in the Live RAM overlay, runs Ubiquity, and then restores it. Because Ubiquity copies the OS from the underlying pristine SquashFS (not the RAM overlay), the installed system gets the original, un-hacked `bwrap`, ensuring AppArmor security remains intact.
 
 ## Evolution of the Fix
 
-We previously experimented with a shell wrapper for `bwrap` to redirect `stderr`. While effective, we moved to the **Icon Cache** strategy as it is more elegant and industrially sound. The current combination of pre-generated caches and proper environment variables provides the most stable installation experience for AnduinOS.
+We previously experimented with placing a physical shell wrapper script at `/usr/local/bin/start-anduinos-installer`, and later with an unreadable Base64 inline string. Both proved flawed: the physical script left useless artifacts on the installed system, while the Base64 string was difficult to audit and maintain. 
+
+The current solution—an inline Bash command that patches the RAM overlay on-the-fly—achieves a 100% clean, "zero-trace" installation while maintaining code readability.
 
 ## Troubleshooting
 
