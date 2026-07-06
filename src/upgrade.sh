@@ -29,4 +29,3 @@ chmod +x "$UPGRADE_SCRIPT"
 ANDUINOS_AUTO_UPGRADE=Y bash "$UPGRADE_SCRIPT"
 rm -f "$UPGRADE_SCRIPT"
 
-echo "Upgrade complete. It is suggested to run \`do-anduinos-autorepair\` after rebooting."
