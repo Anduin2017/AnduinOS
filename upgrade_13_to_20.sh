@@ -1033,6 +1033,23 @@ function cleanup_system() {
     print_warn "apt autoremove failed, but upgrade was successful."
   fi
 
+  # ── Purge orphaned Ubuntu transitional packages ──
+  # These are packages that became orphans during the upgrade because their
+  # real dependencies (e.g., snap-based firefox) were replaced by AnduinOS
+  # equivalents (e.g., firefox-anduinos).  apt autoremove may not catch them
+  # if they were installed as part of language-packs or tasks.
+  print_ok "Purging orphaned Ubuntu transitional packages..."
+  # firefox-locale-* are transitional dummy packages for snap-based firefox
+  if dpkg -l 2>/dev/null | grep -q '^ii.*firefox-locale-'; then
+      dpkg -l | grep '^ii.*firefox-locale-' | awk '{print $2}' | xargs -r sudo apt-get purge -y
+      print_ok "Purged orphaned firefox-locale-* transitional packages"
+  fi
+  # tracker-extract is a transitional package replaced by localsearch (Ubuntu 26.04)
+  if dpkg -l 2>/dev/null | grep -q '^ii.*tracker-extract'; then
+      sudo apt-get purge -y tracker-extract
+      print_ok "Purged orphaned tracker-extract transitional package"
+  fi
+
   print_ok "Cleaning apt cache..."
   if apt clean; then
     print_ok "apt clean succeeded"
