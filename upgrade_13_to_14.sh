@@ -753,7 +753,7 @@ function restore_and_upgrade_ppa_sources() {
             
             # Extract URL (First valid HTTP/HTTPS URL)
             
-            local url=$(grep -E '^\s*deb' "$file" | grep -oE 'https?://[^ ]+' | head -n1)
+            local url=$(grep -E '^\s*(deb|URIs:)' "$file" | grep -oE 'https?://[^ ]+' | head -n1)
             local can_upgrade=false
 
             if [ -n "$url" ]; then
