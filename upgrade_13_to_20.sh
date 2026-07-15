@@ -1050,6 +1050,15 @@ function cleanup_system() {
       print_ok "Purged orphaned tracker-extract transitional package"
   fi
 
+  # ── Purge orphaned AnduinOS 1.3 ghost session files ──
+  # In 1.3, ubuntu.desktop was renamed to anduinos.desktop via bash script.
+  # Since dpkg never owned them, they are left behind after ubuntu-session is purged.
+  # GDM will display them, but they point to a missing ubuntu session, causing login loops.
+  print_ok "Removing orphaned ghost session files from AnduinOS 1.3..."
+  rm -f /usr/share/xsessions/anduinos*.desktop 2>/dev/null || true
+  rm -f /usr/share/wayland-sessions/anduinos*.desktop 2>/dev/null || true
+  print_ok "Removed orphaned ghost session files"
+
   print_ok "Cleaning apt cache..."
   if apt clean; then
     print_ok "apt clean succeeded"
