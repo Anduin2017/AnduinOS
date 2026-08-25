@@ -9,6 +9,7 @@ export DEBIAN_FRONTEND=noninteractive
 export LATEST_VERSION="1.1.12"
 export CODE_NAME="noble"
 export OS_ID="AnduinOS"
+readonly GITHUB_RAW_BASE="https://raw.githubusercontent.com/Anduin2017/AnduinOS"
 # Add error handling for grep in case file format differs slightly
 export CURRENT_VERSION=$(cat /etc/lsb-release | grep DISTRIB_RELEASE | cut -d "=" -f 2 || echo "Unknown")
 
@@ -199,7 +200,7 @@ function install_desktop_mon() {
         BRANCH="1.1"
     fi
 
-    link="https://gitlab.aiursoft.com/anduin/anduinos/-/raw/$BRANCH/src/mods/20-deskmon-mod/deskmon?ref_type=heads"
+    link="${GITHUB_RAW_BASE}/${BRANCH}/src/mods/20-deskmon-mod/deskmon"
     print_ok "Downloading deskmon..."
     sudo rm -f /usr/local/bin/deskmon || true
     sudo wget -O /usr/local/bin/deskmon "$link"
@@ -207,7 +208,7 @@ function install_desktop_mon() {
     judge "Download deskmon"
 
     print_ok "Installing deskmon.service"
-    service_link="https://gitlab.aiursoft.com/anduin/anduinos/-/raw/$BRANCH/src/mods/20-deskmon-mod/deskmon.service?ref_type=heads"
+    service_link="${GITHUB_RAW_BASE}/${BRANCH}/src/mods/20-deskmon-mod/deskmon.service"
     
     # Download to local file first, then install to system
     wget -O /tmp/deskmon.service "$service_link"
@@ -265,11 +266,11 @@ function upgrade_114_to_115() {
       xserver-xorg-video-qxl \
       --no-install-recommends
 
-    fonts_config="https://gitlab.aiursoft.com/anduin/anduinos/-/raw/1.4/src/mods/15-fonts-mod/local.conf?ref_type=heads"
+    fonts_config="${GITHUB_RAW_BASE}/1.4/src/mods/15-fonts-mod/local.conf"
     sudo wget -O /etc/fonts/local.conf $fonts_config
     fc-cache -f
 
-    ext_source="https://gitlab.aiursoft.com/anduin/anduinos/-/raw/1.4/src/mods/29-gnome-extension-anduinos-switcher/switcher@anduinos/extension.js?ref_type=heads"
+    ext_source="${GITHUB_RAW_BASE}/1.4/src/mods/29-gnome-extension-anduinos-switcher/switcher@anduinos/extension.js"
     sudo wget -O /usr/share/gnome-shell/extensions/switcher@anduinos/extension.js $ext_source
 
     apt list --installed | grep software-properties-gtk || install_spg
@@ -430,8 +431,8 @@ function upgrade_117_to_118() {
     judge "Remove obsolete gtk.css file"
 
     print_ok "Downloading new logo text images"
-    logo_light="https://gitlab.aiursoft.com/anduin/anduinos/-/raw/1.4/src/mods/36-ubuntu-logo-text/ubuntu-logo-text.png?ref_type=heads&inline=false"
-    logo_dark="https://gitlab.aiursoft.com/anduin/anduinos/-/raw/1.4/src/mods/36-ubuntu-logo-text/ubuntu-logo-text-dark.png?ref_type=heads&inline=false"
+    logo_light="${GITHUB_RAW_BASE}/1.4/src/mods/36-ubuntu-logo-text/ubuntu-logo-text.png"
+    logo_dark="${GITHUB_RAW_BASE}/1.4/src/mods/36-ubuntu-logo-text/ubuntu-logo-text-dark.png"
     sudo wget -O /usr/share/pixmaps/ubuntu-logo-text.png "$logo_light"
     sudo wget -O /usr/share/pixmaps/ubuntu-logo-text-dark.png "$logo_dark"
     judge "Apply new logo text images"
@@ -508,7 +509,7 @@ EOF
       # judge "Add hotkey for ArcMenu"
 
       print_ok "Patch Arc Menu logo..."
-      wget -O ./logo.svg "https://gitlab.aiursoft.com/anduin/anduinos/-/raw/1.4/src/mods/30-gnome-extension-arcmenu-patch/logo.svg?ref_type=heads"
+      wget -O ./logo.svg "${GITHUB_RAW_BASE}/1.4/src/mods/30-gnome-extension-arcmenu-patch/logo.svg"
       sudo mkdir -p /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/icons
       sudo mv ./logo.svg /usr/share/gnome-shell/extensions/arcmenu@arcmenu.com/icons/anduinos-logo.svg
       judge "Patch Arc Menu logo"
@@ -566,7 +567,7 @@ function upgrade_1110_to_1111() {
 
     print_ok "Installing do-anduinos-autorepair tool to /usr/local/bin/..."
     BRANCH=$(grep -oP "VERSION_ID=\"\\K\\d+\\.\\d+" /etc/os-release)
-    sudo wget -O /usr/local/bin/do-anduinos-autorepair "https://gitlab.aiursoft.com/anduin/anduinos/-/raw/${BRANCH}/src/mods/40-do-anduinos-autorepair-mod/do-anduinos-autorepair.sh"
+    sudo wget -O /usr/local/bin/do-anduinos-autorepair "${GITHUB_RAW_BASE}/${BRANCH}/src/mods/40-do-anduinos-autorepair-mod/do-anduinos-autorepair.sh"
     sudo chmod +x /usr/local/bin/do-anduinos-autorepair
     judge "Install do-anduinos-autorepair tool"
 
@@ -616,7 +617,7 @@ function upgrade_1111_to_1112() {
     #do-anduinos-autorepair
     print_ok "Updating do-anduinos-autorepair tool to /usr/local/bin/..."
     BRANCH=$(grep -oP "VERSION_ID=\"\\K\\d+\\.\\d+" /etc/os-release)
-    sudo wget -O /usr/local/bin/do-anduinos-autorepair "https://gitlab.aiursoft.com/anduin/anduinos/-/raw/${BRANCH}/src/mods/40-do-anduinos-autorepair-mod/do-anduinos-autorepair.sh"
+    sudo wget -O /usr/local/bin/do-anduinos-autorepair "${GITHUB_RAW_BASE}/${BRANCH}/src/mods/40-do-anduinos-autorepair-mod/do-anduinos-autorepair.sh"
     sudo chmod +x /usr/local/bin/do-anduinos-autorepair
     judge "Update do-anduinos-autorepair tool"
 
