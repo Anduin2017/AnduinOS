@@ -964,6 +964,11 @@ EOF
   # The remove-list (trailing -) includes the three "hostage-takers"
   # that caused the 3 AM shovel session:
   #   plymouth-theme-ubuntu-text-  packagekit-tools-  libavcodec-extra-
+  # AnduinOS 2.0 uses Dracut. Requesting initramfs-tools here makes APT's
+  # transaction unsatisfiable: plymouth-anduinos depends on
+  # anduinos-core-system, which conflicts with initramfs-tools. Keep the
+  # replacement and removal in this same transaction so the core package's
+  # preinst can preserve the old boot image before switching generators.
   # ═══════════════════════════════════════════════════════════════════
   print_ok "Executing Grand Unification: installing AnduinOS, GNOME 50, and wiping Ubuntu conflicts..."
   DEBIAN_FRONTEND=noninteractive sudo apt-get install -y \
@@ -983,7 +988,8 @@ EOF
       gnome-shell-extension-appindicator-anduinos \
       gnome-shell-extension-dash-to-panel-anduinos \
       gnome-shell-extension-desktop-icons-ng-anduinos \
-      plymouth-anduinos alsa-ucm-conf-anduinos firmware-sof-anduinos initramfs-tools \
+      plymouth-anduinos alsa-ucm-conf-anduinos firmware-sof-anduinos dracut \
+      initramfs-tools- \
       snapd- firefox- ubuntu-session- ubuntu-desktop- ubiquity-slideshow-ubuntu- \
       yaru-theme-gnome-shell- gnome-shell-ubuntu-extensions- update-notifier- \
       update-notifier-common- update-manager- update-manager-core- \
