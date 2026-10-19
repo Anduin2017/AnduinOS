@@ -5,3 +5,43 @@ build:
   stage: build
   script:
     - echo "Mock script. This is because AnduinOS can't be built in Docker."
+
+.alertcenter_report:
+    stage: .post
+    inherit:
+        default: false
+    rules:
+        - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+    dependencies: []
+    resource_group: "alertcenter-$CI_COMMIT_REF_SLUG"
+    timeout: 10m
+    allow_failure: true
+    retry:
+        max: 2
+        when: script_failure
+    before_script:
+        - |
+            set +x
+            test -n "${ALERTCENTER_SERVER:-}" && test -n "${ALERTCENTER_API_KEY:-}" || {
+                echo "AlertCenter server or API key is not configured."
+                exit 1
+            }
+            mkdir -p "$CI_PROJECT_DIR/.alertcenter-tools"
+            cat > "$CI_PROJECT_DIR/.alertcenter-tools/nuget.config" <<'NUGETEOF'
+            <configuration><packageSources><clear/><add key="aiursoft" value="https://nuget.aiursoft.com/v3/index.json"/></packageSources></configuration>
+            NUGETEOF
+            dotnet tool install Aiursoft.AlertCenter.Client --version 10.8.0 --tool-path "$CI_PROJECT_DIR/.alertcenter-tools" --configfile "$CI_PROJECT_DIR/.alertcenter-tools/nuget.config"
+    script:
+        - .alertcenter-tools/alertcenter ci report --result "$ALERTCENTER_RESULT" --server "$ALERTCENTER_SERVER" --api-key "$ALERTCENTER_API_KEY"
+
+alertcenter_failure:
+    extends: .alertcenter_report
+    when: on_failure
+    variables:
+        ALERTCENTER_RESULT: failed
+
+alertcenter_success:
+    extends: .alertcenter_report
+    when: on_success
+    variables:
+        ALERTCENTER_RESULT: success
