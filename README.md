@@ -16,10 +16,6 @@ If you are looking for the source code of AnduinOS 2, please check the [AnduinOS
 
 ![Screenshot](./screenshot.png)
 
-AnduinOS is funded by user donations. We are grateful for your support.
-
-<span class="paypal"><a href="https://www.paypal.com/paypalme/anduinxue2017" title="Donate to this project using Paypal"><img src="https://www.paypalobjects.com/webstatic/mktg/Logo/pp-logo-100px.png" alt="PayPal donate button" /></a></span>
-
 ## How to build
 
 It is suggested to use AnduinOS to build AnduinOS.
