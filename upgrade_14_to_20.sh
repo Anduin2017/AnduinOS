@@ -909,6 +909,53 @@ function restore_and_upgrade_ppa_sources() {
 }
 
 
+function cleanup_legacy_session_entries() {
+  local entry name ownership session_dir backup_dir
+  local legacy_exec='Exec=env GNOME_SHELL_SESSION_MODE=ubuntu /usr/bin/gnome-session --session=ubuntu'
+
+  if [[ ! -f /usr/share/wayland-sessions/gnome.desktop ||
+        ! -f /usr/share/gnome-session/sessions/gnome.session ||
+        -e /usr/share/gnome-session/sessions/ubuntu.session ||
+        -e /usr/local/share/gnome-session/sessions/ubuntu.session ||
+        -e /etc/xdg/gnome-session/sessions/ubuntu.session ]]; then
+    print_warn "Skipping legacy login entry cleanup: the GNOME session transition is not confirmed."
+    return 0
+  fi
+
+  # These paths were created by renaming Ubuntu login entries in 1.3 and 1.4.
+  for entry in /usr/share/wayland-sessions/anduinos.desktop \
+               /usr/share/wayland-sessions/anduinos-wayland.desktop \
+               /usr/share/xsessions/anduinos.desktop \
+               /usr/share/xsessions/anduinos-xorg.desktop; do
+    [[ -f "$entry" && ! -L "$entry" ]] || continue
+    case "${entry##*/}" in
+      anduinos.desktop) name=AnduinOS ;;
+      anduinos-wayland.desktop) name='AnduinOS on Wayland' ;;
+      anduinos-xorg.desktop) name='AnduinOS on Xorg' ;;
+    esac
+    grep -Fxq -- "Name=$name" "$entry" && grep -Fxq -- "$legacy_exec" "$entry" || continue
+
+    if ownership=$(LC_ALL=C dpkg-query -S -- "$entry" 2>&1); then
+      continue
+    fi
+    # A failed query can also indicate a broken or unreadable package database.
+    if [[ "$ownership" != "dpkg-query: no path found matching pattern $entry" ]]; then
+      print_warn "Could not check package ownership of $entry: $ownership"
+      continue
+    fi
+
+    session_dir=${entry%/*}
+    backup_dir="$BACKUP_DIR/legacy-sessions/${session_dir##*/}"
+    if mkdir -p -- "$backup_dir" &&
+       mv -nT -- "$entry" "$backup_dir/${entry##*/}" &&
+       [[ ! -e "$entry" ]]; then
+      print_ok "Moved obsolete login entry $entry to $backup_dir"
+    else
+      print_warn "Could not move obsolete login entry $entry to $backup_dir"
+    fi
+  done
+}
+
 function install_anduinos2_packages() {
   # Variables for APT repository and GPG key
   APKG_SERVER="https://packages.anduinos.com"
@@ -1003,6 +1050,7 @@ EOF
       mesa-va-drivers- \
       --install-recommends
   judge "Grand Unification installation"
+  cleanup_legacy_session_entries
 
   print_ok "Reinstalling base-files to ensure correct release information..."
   DEBIAN_FRONTEND=noninteractive sudo apt-get install -y --reinstall \
@@ -1060,15 +1108,6 @@ function cleanup_system() {
       sudo apt-get purge -y tracker-extract
       print_ok "Purged orphaned tracker-extract transitional package"
   fi
-
-  # ── Purge orphaned AnduinOS 1.4 ghost session files ──
-  # In 1.4, ubuntu.desktop was renamed to anduinos.desktop via bash script.
-  # Since dpkg never owned them, they are left behind after ubuntu-session is purged.
-  # GDM will display them, but they point to a missing ubuntu session, causing login loops.
-  print_ok "Removing orphaned ghost session files from AnduinOS 1.4..."
-  rm -f /usr/share/xsessions/anduinos*.desktop 2>/dev/null || true
-  rm -f /usr/share/wayland-sessions/anduinos*.desktop 2>/dev/null || true
-  print_ok "Removed orphaned ghost session files"
 
   print_ok "Cleaning apt cache..."
   if apt clean; then
